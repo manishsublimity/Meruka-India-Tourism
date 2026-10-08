@@ -1,0 +1,86 @@
+<%
+  // Inner-page hero: the title on a soft sky and a line-art skyline of Indian landmarks.
+  // The landmark in the middle (in brass) follows the page: Hawa Mahal for Rajasthan, a houseboat
+  // for Kerala, a gopuram for the south, mountains for the Himalaya… the rest stand around it in blue.
+  // Params: title, theme (text to match, e.g. heading + url), feature? (force a landmark), tint? ('warm' | 'cool' | 'fresh'), id? (anchor)
+  const T = String(typeof theme !== 'undefined' ? theme : title);
+  const pick = [
+    [/kerala|backwater|houseboat|alleppey|island|beach|goa|andaman|lakshadweep/i, 'boat'],
+    [/konark|orissa|odisha|bhubaneswar|puri|khajuraho/i, 'temple'],
+    [/buddh|bodhgaya|sarnath|sanchi/i, 'stupa'],
+    [/ladakh|\bleh\b|himalaya|himachal|sikkim|darjeeling|uttarakhand|uttarkhand|nepal|seven.?sisters|north.?east|kashmir|shimla|manali/i, 'mountains'],
+    [/wildlife|widllife|tiger|safari|corbett|ranthambore|kaziranga/i, 'trees'],
+    [/rajasthan|jaipur|jodhpur|udaipur|jaisalmer|bikaner|pushkar|fair|festival/i, 'hawa'],
+    [/south|tamil|karnataka|madurai|mysore|temple|pilgrim|religious|yoga|ayurveda|maharashtra|gujarat/i, 'gopuram'],
+    [/testimonial|review|guest/i, 'gate']
+  ];
+  const featured = typeof feature !== 'undefined' && feature ? feature : (pick.find(p => p[0].test(T)) || [0, 'taj'])[1];
+  const tintCls = typeof tint !== 'undefined' && tint ? ' sky-' + tint : '';
+  const words = String(title).trim().split(' '), last = words.length > 1 ? words.pop() : '';
+
+  // Landmarks, each drawn around x = 0 with the ground at y = 190; "f" = filled outline
+  const L = {
+    qutub: '<path class="f" d="M-10 190 L-4 68 H4 L10 190 Z"/><path d="M-8 158 H8 M-7 130 H7 M-5 102 H5 M-4 80 H4"/><path d="M-4 68 L0 56 L4 68"/>',
+    gate: '<path class="f" d="M-50 190 V104 H50 V190 H20 V138 Q0 116 -20 138 V190 Z"/><path d="M-56 104 H56 M-42 96 H42 V104 M-30 88 H30 V96"/>',
+    palm: '<path d="M0 190 Q4 150 0 122"/><path d="M0 122 Q-16 114 -28 122 M0 122 Q16 112 30 120 M0 122 Q-8 106 -20 102 M0 122 Q10 106 22 104"/>',
+    taj: '<path class="f" d="M-110 190 V154 H-64 V118 H-44 Q-46 76 0 64 Q46 76 44 118 H64 V154 H110 V190 Z"/><path d="M-16 154 V132 Q0 118 16 132 V154"/><path d="M0 64 V48 M-4 52 H4"/><path class="f" d="M-100 154 V90 H-90 V154 Z M90 154 V90 H100 V154 Z"/><path d="M-103 90 H-87 L-95 80 Z M87 90 H103 L95 80 Z"/><path d="M-54 118 Q-54 104 -44 100 M54 118 Q54 104 44 100"/>',
+    hawa: '<path class="f" d="M-68 190 V140 H-52 V124 H-36 V108 H-20 V92 H20 V108 H36 V124 H52 V140 H68 V190 Z"/><path d="M-54 156 H54 M-38 140 V190 M0 92 V190 M38 140 V190"/><path d="M-8 92 Q0 82 8 92"/>',
+    gopuram: '<path class="f" d="M-35 190 L-19 92 H19 L35 190 Z"/><path d="M-29 158 H29 M-25 132 H25 M-21 110 H21"/><path d="M-17 92 Q0 76 17 92"/><path d="M-9 82 V74 M0 78 V68 M9 82 V74"/><path d="M-9 190 V168 Q0 158 9 168 V190"/>',
+    stupa: '<path class="f" d="M-70 190 V170 H-50 Q-48 128 0 122 Q48 128 50 170 H70 V190 Z"/><path d="M0 122 V108 M-10 108 H10 M-6 102 H6"/><path d="M-76 190 V176 M76 190 V176 M-80 176 H80"/>',
+    temple: '<path class="f" d="M-45 190 V150 H-30 V120 Q-24 72 0 50 Q24 72 30 120 V150 H45 V190 Z"/><path d="M0 50 V38 M-4 42 H4"/><path d="M-26 110 H26 M-20 88 H20 M-12 190 V166 Q0 156 12 166 V190"/>',
+    mountains: '<path class="f" d="M-160 190 L-96 112 L-66 140 L-4 66 L48 128 L82 104 L160 190 Z"/><path d="M-16 82 L-4 66 L10 84 M74 112 L82 104 L90 114 M-104 122 L-96 112 L-88 122"/><path d="M-66 140 Q-40 126 -20 132 Q0 138 20 128"/>',
+    boat: '<path class="f" d="M-88 178 Q0 194 88 178 L78 166 H-78 Z"/><path class="f" d="M-62 166 V144 Q0 126 62 144 V166 Z"/><path d="M-32 166 V138 M0 166 V134 M32 166 V138"/><path d="M-96 186 Q-80 182 -64 186 M60 188 Q76 184 92 188"/>',
+    trees: '<path class="f" d="M-70 190 L-44 116 L-18 190 Z M-26 190 L6 92 L38 190 Z M28 190 L56 128 L84 190 Z"/><path d="M-44 190 V176 M6 190 V172 M56 190 V178"/>'
+  };
+  // Slots on a 1920-wide sky; wide screens show all, narrow ones keep the middle
+  const SLOTS = [[150, 'big'], [380, 'tiny'], [560, 'mid'], [730, 'tiny'], [1200, 'mid'], [1400, 'big'], [1590, 'tiny'], [1780, 'tiny']];
+  const POOLS = { big: ['stupa', 'hawa', 'temple'], mid: ['gate', 'gopuram', 'temple', 'gate'], tiny: ['qutub', 'palm', 'palm', 'qutub'] };
+  const used = { big: 0, mid: 0, tiny: 0 };
+  const take = kind => { const pool = POOLS[kind]; for (let i = 0; i < pool.length; i++) { const k = pool[(used[kind] + i) % pool.length]; if (k !== featured) { used[kind] += i + 1; return k; } } return pool[0]; };
+  const side = SLOTS.map(([x, kind]) => ({ x, k: take(kind) }));
+%>
+<section id="<%= typeof id !== 'undefined' && id ? id : 'top' %>" class="ihx4<%= tintCls %>">
+  <div class="ihx4-in">
+    <h1 class="ihx-title"><% words.forEach((w, i) => { %><span class="ihx-w" style="--i:<%= i %>"><%= w %></span> <% }) %><% if (last) { %><em class="ihx-w" style="--i:<%= words.length %>"><%= last %></em><% } %></h1>
+    <span class="ihx-orn" aria-hidden="true"><i></i><b></b><i></i></span>
+  </div>
+  <svg class="ihx4-sky" viewBox="0 -40 1920 240" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="ihxSun" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFD36B"/><stop offset=".55" stop-color="#FFC23D" stop-opacity=".7"/><stop offset="1" stop-color="#FFB81C" stop-opacity="0"/></radialGradient>
+      <linearGradient id="ihxFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#336699" stop-opacity=".16"/><stop offset="1" stop-color="#336699" stop-opacity=".04"/></linearGradient>
+      <linearGradient id="ihxGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB81C" stop-opacity=".30"/><stop offset="1" stop-color="#FFB81C" stop-opacity=".06"/></linearGradient>
+      <linearGradient id="ihxWater" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#336699" stop-opacity="0"/><stop offset=".5" stop-color="#336699" stop-opacity=".35"/><stop offset="1" stop-color="#336699" stop-opacity="0"/></linearGradient>
+    </defs>
+    <circle class="s-sun" cx="1500" cy="58" r="58" fill="url(#ihxSun)"/>
+    <circle class="s-sun-core" cx="1500" cy="58" r="26" fill="#FFC94A" opacity=".6"/>
+    <g class="s-stars" fill="#FFB81C"><path class="st st1" d="M300 40 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2z"/><path class="st st2" d="M1030 30 l1.5 4.5 4.5 1.5 -4.5 1.5 -1.5 4.5 -1.5 -4.5 -4.5 -1.5 4.5 -1.5z"/><path class="st st3" d="M1660 100 l1.5 4.5 4.5 1.5 -4.5 1.5 -1.5 4.5 -1.5 -4.5 -4.5 -1.5 4.5 -1.5z"/></g>
+    <path class="s-far" d="M0 176 V160 H40 V146 H52 V160 H120 Q130 138 150 136 Q170 138 180 160 H260 V150 L270 132 L280 150 V160 H380 V140 H392 V128 H404 V140 H416 V160 H520 Q540 128 572 124 Q604 128 624 160 H700 V152 H716 V138 H724 V152 H740 V160 H880 Q890 144 906 142 Q922 144 932 160 H1060 V146 L1072 124 L1084 146 V160 H1180 V136 H1196 V160 H1290 Q1310 132 1340 130 Q1370 132 1390 160 H1480 V150 H1492 V134 H1500 V150 H1512 V160 H1620 Q1632 140 1650 138 Q1668 140 1680 160 H1780 V144 L1792 128 L1804 144 V160 H1920 V176 Z" fill="#336699" fill-opacity=".07"/>
+    <path class="s-hill" d="M0 172 C180 150 300 168 460 156 C620 142 720 164 860 158 C1000 152 1080 140 1220 152 C1380 166 1480 146 1640 156 C1760 164 1840 150 1920 156 V200 H0 Z" fill="url(#ihxFill)"/>
+    <g class="s-cloud c1" fill="#fff" stroke="#336699" stroke-opacity=".25" stroke-width="1.2"><path d="M450 60 q10 -18 30 -10 q12 -20 34 -6 q22 -4 22 16 q14 4 10 16 h-108 q-8 -12 12 -16z"/></g>
+    <g class="s-cloud c2" fill="#fff" stroke="#336699" stroke-opacity=".25" stroke-width="1.2"><path d="M1470 74 q8 -14 24 -8 q10 -16 28 -4 q18 -2 18 13 q11 3 8 13 h-88 q-6 -10 10 -14z"/></g>
+    <g class="s-cloud c1" fill="#fff" stroke="#336699" stroke-opacity=".2" stroke-width="1.1"><path d="M1760 40 q7 -12 20 -7 q9 -13 23 -3 q15 -2 15 11 q9 3 7 11 h-74 q-5 -9 9 -12z"/></g>
+    <g class="s-flock" fill="none" stroke="#123F6D" stroke-opacity=".55" stroke-width="1.6" stroke-linecap="round">
+      <g class="bird" style="--d:0s" transform="translate(0 70)"><path d="M0 0 q6 -6 12 0 q6 -6 12 0"/></g>
+      <g class="bird" style="--d:.2s" transform="translate(34 54)"><path d="M0 0 q5 -5 10 0 q5 -5 10 0"/></g>
+      <g class="bird" style="--d:.45s" transform="translate(22 88)"><path d="M0 0 q4 -4 8 0 q4 -4 8 0"/></g>
+      <g class="bird" style="--d:.1s" transform="translate(62 72)"><path d="M0 0 q4 -4 8 0 q4 -4 8 0"/></g>
+    </g>
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round" class="s-art s-set">
+      <% side.forEach((s, i) => { %><g class="s-b sd<%= i %>" transform="translate(<%= s.x %> 0)"><g class="rise" style="--d:<%= (Math.abs(s.x - 960) / 1200).toFixed(2) %>s"><%- L[s.k] %></g></g><% }) %>
+      <g class="s-g s-feat" transform="translate(960 0)"><g class="rise" style="--d:0s"><%- L[featured] %></g></g>
+    </g>
+    <path class="s-line" d="M0 190 H1920"/>
+    <g class="s-water" fill="none" stroke-linecap="round">
+      <path class="w1" d="M860 195.5 H1060" stroke="url(#ihxWater)" stroke-width="1.6"/>
+      <path class="w2" d="M910 198.5 H1020" stroke="url(#ihxWater)" stroke-width="1.3"/>
+      <path class="w3" d="M1080 196.5 H1220" stroke="url(#ihxWater)" stroke-width="1.3"/>
+    </g>
+  </svg>
+</section>
+<script>
+  (function () {
+    var h = document.currentScript.previousElementSibling; if (!h || matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
+    h.addEventListener('pointermove', function (e) { var r = h.getBoundingClientRect(); h.style.setProperty('--px', ((e.clientX - r.left) / r.width * 2 - 1).toFixed(3)); h.style.setProperty('--py', ((e.clientY - r.top) / r.height * 2 - 1).toFixed(3)); });
+    h.addEventListener('pointerleave', function () { h.style.setProperty('--px', 0); h.style.setProperty('--py', 0); });
+  })();
+</script>

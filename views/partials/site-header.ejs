@@ -1,0 +1,93 @@
+<%
+  // One header for every page. `active` is the highlighted link.
+  const current = typeof active !== 'undefined' ? active : '';
+  const ext = h => /^https?:/.test(h) ? ' target="_blank" rel="noopener"' : '';
+  const links = [
+    { label: 'Home', href: '/' },
+    { label: 'About Us', href: '/aboutus' },
+    { label: 'Destinations', href: '/#destinations', menu: 'dest' },
+    { label: 'Tour Packages', href: '/#packages', menu: 'pkg' },
+    { label: 'Contact', href: '/contactus' }
+  ];
+  // home-2 (Anshuman's brief): the old site's Testimonials link and the traced logo
+  const v2 = typeof variant !== 'undefined' && variant === 'over';
+  if (v2) links.splice(4, 0, { label: 'Testimonials', href: '/testimonials' });
+  const phone = footer.hq.phones[0], tel = 'tel:' + phone.replace(/[^0-9+]/g, '');
+  const popular = footer.cols[0].items.slice(0, 5);
+  const icon = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+  const I = {
+    search: icon('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>'),
+    phone: icon('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>'),
+    mail: icon('<rect x="3" y="5" width="18" height="14"/><path d="m3 7 9 6 9-6"/>'),
+    close: icon('<path d="M6 6l12 12M18 6 6 18"/>')
+  };
+  const waIcon = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>';
+%>
+<header class="mh<%= typeof variant !== 'undefined' && variant === 'over' ? ' mh-over' : '' %>" id="site-header">
+  <div class="mh-bar">
+    <a href="/" class="mh-logo" aria-label="Meruka India Tourism — home">
+      <span class="mh-bird mlogo" aria-hidden="true"></span>
+      <span class="mh-name">MERUKA INDIA TOURISM</span>
+    </a>
+
+    <nav class="mh-nav" aria-label="Main">
+      <% links.forEach(l => { const on = l.label === current; %>
+      <div class="mh-item<%= l.menu ? ' has-menu' : '' %>"<%- l.menu ? ' data-mh-dd' : '' %>>
+        <a href="<%= l.href %>" class="mh-link<%= on ? ' on' : '' %>"<%- on ? ' aria-current="page"' : '' %><%- l.menu ? ' aria-haspopup="true" aria-expanded="false"' : '' %>><%= l.label %><% if (l.menu) { %><svg class="mh-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg><% } %></a>
+
+        <% if (l.menu === 'dest') { %>
+        <div class="mh-dd mh-dd-dest" role="menu">
+          <% menu.destCols.forEach(c => { %>
+          <div class="mh-col">
+            <div class="mh-col-title"><span class="mh-dot"></span><%= c.title %></div>
+            <% c.items.forEach(i => { const to = menu.to(i); %><a href="<%= to %>"<%- ext(to) %>><%= i %></a><% }) %>
+          </div>
+          <% }) %>
+        </div>
+        <% } %>
+
+        <% if (l.menu === 'pkg') { %>
+        <div class="mh-dd mh-dd-pkg" role="menu">
+          <a href="<%= menu.mostBookedHref %>" class="mh-feature">
+            <img src="/assets/taj-aerial.jpg" alt="" loading="lazy">
+            <span class="mh-feature-text">
+              <small>MOST BOOKED</small>
+              <strong>Golden Triangle Classic</strong>
+              <em>6 nights · from $545</em>
+            </span>
+          </a>
+          <% menu.pkgCols.forEach(c => { %>
+          <div class="mh-col">
+            <div class="mh-col-label"><%= c.title %></div>
+            <% c.items.forEach(i => { const to = menu.to(i); %><a href="<%= to %>"<%- ext(to) %>><%= i %></a><% }) %>
+          </div>
+          <% }) %>
+        </div>
+        <% } %>
+      </div>
+      <% }) %>
+    </nav>
+
+    <div class="mh-actions">
+      <div class="mh-lang">
+          <button type="button" class="mh-lang-btn" data-mh-lang aria-haspopup="true" aria-expanded="false" aria-label="Language">
+            <span class="mh-flag"></span><span class="mh-lang-cur" data-mh-lang-cur><%= menu.langs[0] %></span>
+            <svg class="mh-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="mh-lang-menu is-hidden" data-mh-lang-menu>
+            <% menu.langs.forEach(l => { %><button type="button" data-mh-lang-pick="<%= l %>"><%= l %></button><% }) %>
+          </div>
+      </div>
+      <a href="/#plan" class="mh-plan">Plan My Trip</a>
+      <button type="button" class="mh-burger" data-mh-burger aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+
+
+  <div class="mh-drawer is-hidden" data-mh-drawer>
+    <% links.forEach(l => { %>
+    <a href="<%= l.href %>" class="mh-drawer-link<%= l.label === current ? ' on' : '' %>"><%= l.label %><span>→</span></a>
+    <% }) %>
+    <a href="/#plan" class="mh-plan mh-drawer-plan">Plan My Trip</a>
+  </div>
+</header>

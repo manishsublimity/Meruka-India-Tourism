@@ -1,0 +1,93 @@
+<%- include('partials/head') %>
+<%
+  const enquire = '/contactus#enquiry';
+  const all = T.all;
+  // Filter groups by the tour each guest took (keywords in the tour name)
+  const GROUPS = [
+    ['golden-triangle', 'Golden Triangle', /golden triangle/i],
+    ['rajasthan', 'Rajasthan', /rajasthan|jaisalmer|udaipur|jaipur/i],
+    ['south', 'South India & Kerala', /south|kerala|karnataka|tamil|goa/i],
+    ['north', 'North India & Himalaya', /north|himachal|ladakh|leh|kashmir|uttar|sikkim|darjeeling|east|arunachal/i],
+    ['spiritual', 'Religious & Buddhist', /religious|pilgrim|buddh|temple|spiritual|yoga/i]
+  ];
+  const groupsOf = t => GROUPS.filter(g => g[2].test(t.tour)).map(g => g[0]);
+  const counts = Object.fromEntries(GROUPS.map(g => [g[0], all.filter(t => g[2].test(t.tour)).length]));
+  const extra = '<div class="ph-facts"><span><b>' + all.length + '</b> guest testimonials</span></div>'
+    + '<div class="ph-actions"><a href="#reviews" class="ph-btn ph-btn-gold">Read the reviews <span>↓</span></a><a href="' + enquire + '" class="ph-btn ph-btn-line">Plan your trip <span>→</span></a></div>';
+%>
+<div style="width:100%;overflow-x:clip;background:#F4F7FB">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#F4F7FB">
+
+<%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
+
+<%- include('partials/sky-hero', { title: d.heading, theme: 'testimonials', feature: 'stupa', tint: 'fresh' }) %>
+
+<section class="az az-a">
+  <div class="az-wrap az-row">
+    <div class="az-side"><span class="az-no">01</span><h2 class="h4-h2 az-h">In our guests&rsquo; <em>words</em></h2></div>
+    <div class="az-main">
+      <p class="az-lead"><%= T.intro %></p>
+      <div class="rv3-proof tm-proof">
+        <div class="rv3-avs" aria-hidden="true"><% all.slice(0, 4).forEach(t => { %><span><%= t.initials %></span><% }) %><span class="rv3-more">+<%= all.length - 4 %></span></div>
+        <div class="rv3-nums"><p><b><%= all.length %></b> guest testimonials</p><p><b>60%</b> of new guests come through friends and returning families.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="tm az az-b">
+  <div class="az-wrap">
+    <div class="az-head"><span class="az-no">02</span><h2 class="h4-h2 az-h">What our guests <em>say</em></h2></div>
+    <div class="tm-bar">
+      <div class="tm-chips" role="group" aria-label="Filter by tour">
+        <button type="button" class="tm-chip on" data-g="" aria-pressed="true">All <span><%= all.length %></span></button>
+        <% GROUPS.forEach(g => { if (!counts[g[0]]) return; %>
+        <button type="button" class="tm-chip" data-g="<%= g[0] %>" aria-pressed="false"><%= g[1] %> <span><%= counts[g[0]] %></span></button>
+        <% }) %>
+      </div>
+      <label class="tm-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span class="sr-only">Search testimonials</span>
+        <input type="search" id="tm-q" placeholder="Search by name, country or tour" autocomplete="off">
+      </label>
+    </div>
+    <p class="tm-status" id="tm-status" aria-live="polite">Showing <b id="tm-shown"><%= Math.min(18, all.length) %></b> of <b id="tm-total"><%= all.length %></b></p>
+
+    <div class="tm-grid" id="tm-grid">
+      <% all.forEach((t, i) => { %>
+      <figure class="tm-card<%= i >= 18 ? ' is-hidden' : '' %>" data-g="<%= groupsOf(t).join(' ') %>" data-search="<%= (t.name + ' ' + t.details.join(' ') + ' ' + t.tour + ' ' + t.route).toLowerCase() %>">
+        <div class="tm-tour"><b><%= t.tour %></b></div>
+        <blockquote class="tm-quote" id="tm-q-<%= i %>"><%= t.quote %></blockquote>
+        <button type="button" class="tm-more" aria-expanded="false" aria-controls="tm-q-<%= i %>" hidden>Read more</button>
+        <figcaption class="tm-who">
+          <span class="tm-av"><%= t.initials %></span>
+          <span class="tm-meta"><b><%= t.name %></b><% t.details.forEach(x => { %><small><%= x %></small><% }) %></span>
+        </figcaption>
+      </figure>
+      <% }) %>
+    </div>
+
+    <div class="tm-empty is-hidden" id="tm-empty">No testimonials match your search. <button type="button" id="tm-reset">Show all</button></div>
+    <div class="tm-foot"><button type="button" class="tm-load" id="tm-load">Show more testimonials <span>↓</span></button></div>
+  </div>
+</section>
+
+<% if (T.closing) { %>
+<section class="az az-a az-end">
+  <div class="az-wrap az-cta">
+    <blockquote class="az-cta-quote">&ldquo;<%= T.closing %>&rdquo;</blockquote>
+    <div class="az-acts">
+      <a href="/#plan" class="ph-btn ph-btn-gold">Plan My Trip <span>→</span></a>
+      <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="az-btn-line">WhatsApp us <span>→</span></a>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
+
+</div>
+</div>
+<script src="/js/testimonials.js" defer></script>
+</body>
+</html>

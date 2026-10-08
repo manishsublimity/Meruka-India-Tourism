@@ -1,0 +1,133 @@
+<%- include('partials/head') %>
+<%
+  const pad = n => (n < 10 ? '0' : '') + n;
+  const enquire = '/contactus#enquiry';
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const paraHtml = segs => segs.map(s => s.bold ? '<strong>' + esc(s.text) + '</strong>' : esc(s.text)).join('');
+  const slug = s => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const titled = d.groups.filter(g => g.title);
+  const showChips = titled.length > 3;
+  const tourCount = d.groups.reduce((n, g) => n + g.tours.length, 0);
+  const heroImg = photoFor([d.heading, d.url]);
+  // Hero stats, all counted from this page's tours: how many, the nights range, how many places, how many categories
+  const allTours = d.groups.flatMap(g => g.tours);
+  const nights = allTours.map(t => +((String(t.duration || '').match(/(\d+)\s*Nights?/i) || [])[1] || 0)).filter(Boolean);
+  const placeSet = new Set(); allTours.forEach(t => String(t.route || '').split(/\s+[-–]\s+/).map(x => x.trim()).filter(x => x && !/home\s*town/i.test(x)).forEach(x => placeSet.add(x.toLowerCase())));
+  const ico = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+  const stat = (icon, num, label) => '<div class="ph-stat"><span class="ph-stat-i">' + ico(icon) + '</span><span><b>' + num + '</b><small>' + label + '</small></span></div>';
+  const stats = [stat('<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>', tourCount, tourCount === 1 ? 'Tour' : 'Tours')];
+  if (nights.length) stats.push(stat('<path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/>', Math.min(...nights) === Math.max(...nights) ? Math.min(...nights) : Math.min(...nights) + '–' + Math.max(...nights), 'Nights'));
+  if (placeSet.size) stats.push(stat('<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>', placeSet.size, 'Places'));
+  if (titled.length > 1) stats.push(stat('<path d="M4 6h16M4 12h16M4 18h10"/>', titled.length, 'Categories'));
+  const facts = '<div class="ph-stats">' + stats.join('') + '</div>'
+    + '<div class="ph-actions"><a href="#tour-options" class="ph-btn ph-btn-gold">Browse tours <span>↓</span></a><a href="' + enquire + '" class="ph-btn ph-btn-line">Enquire now <span>→</span></a></div>';
+  let n = 0;
+%>
+<div style="width:100%;overflow-x:clip;background:#F4F7FB">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#F4F7FB">
+
+<%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
+
+<%- include('partials/sky-hero', { title: d.heading, theme: d.heading + ' ' + d.url, tint: 'warm' }) %>
+
+<% if (d.intro.length) {
+  // "Places you'll see": the stops that come up most across this page's tour routes (start/end-only "Hometown" left out)
+  const stopCount = {};
+  d.groups.forEach(g => g.tours.forEach(t => [...new Set(String(t.route || '').split(/\s+[-–]\s+/).map(x => x.trim()).filter(Boolean))].forEach(x => { if (!/home\s*town/i.test(x)) stopCount[x] = (stopCount[x] || 0) + 1; })));
+  const places = Object.keys(stopCount).sort((a, b) => stopCount[b] - stopCount[a]);
+  const introLen = d.intro.reduce((n, p) => n + p.map(x => x.text).join('').length, 0);
+%>
+<section id="intro" class="tl2-intro tl3 az az-a">
+  <div class="az-wrap">
+  <div class="az-head"><h2 class="h4-h2 az-h">About these <em>tours</em></h2></div>
+  <div class="tl3-grid">
+    <aside class="tl3-side">
+      <% if (places.length) { %>
+      <div class="tl3-places">
+        <span class="tl3-places-l">Places you'll see</span>
+        <ul><% places.slice(0, 8).forEach(pl => { %><li><%= pl %></li><% }) %></ul>
+      </div>
+      <% } %>
+      <div class="tl3-acts">
+        <a href="#tour-options" class="ph-btn ph-btn-gold">Browse <%= tourCount %> tours <span>↓</span></a>
+        <a href="<%= enquire %>" class="tl3-ask">Ask an expert <span>→</span></a>
+      </div>
+    </aside>
+    <div class="tl3-body<%= introLen > 700 ? ' tl3-clip' : '' %>" data-tl3>
+      <div class="tl3-text">
+        <% d.intro.forEach((p, i) => { %><p class="<%= i === 0 && p.map(s => s.text).join('').length < 360 ? 'tl2-lead' : '' %>"><%- paraHtml(p) %></p><% }) %>
+      </div>
+      <% if (introLen > 700) { %><button type="button" class="tl3-more" data-tl3-more aria-expanded="false">Read more <span>↓</span></button><% } %>
+    </div>
+  </div>
+</div>
+</section>
+<% } %>
+
+<% if (showChips) { %>
+<nav class="tl-chips" aria-label="Tour categories" data-tl-chips>
+  <div class="tl-chips-bar">
+    <button type="button" class="tl-all-btn" data-tl-all aria-expanded="false" aria-controls="tl-all-panel">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+      All categories <span><%= titled.length %></span>
+    </button>
+    <button type="button" class="tl-arrow" data-tl-prev aria-label="Scroll categories left" disabled>‹</button>
+    <div class="tl-chips-inner" data-tl-track>
+      <% titled.forEach(g => { %><a href="#<%= slug(g.title) %>" class="tl-chip" data-tl-chip="<%= slug(g.title) %>"><%= g.title %><span><%= g.tours.length %></span></a><% }) %>
+    </div>
+    <button type="button" class="tl-arrow" data-tl-next aria-label="Scroll categories right">›</button>
+  </div>
+  <div class="tl-all is-hidden" id="tl-all-panel" data-tl-panel>
+    <% titled.forEach(g => { %><a href="#<%= slug(g.title) %>"><%= g.title %><span><%= g.tours.length %></span></a><% }) %>
+  </div>
+</nav>
+<% } %>
+
+<section id="tour-options" class="tl2 az az-b">
+  <div class="tl-filter is-hidden" data-tl-filter><div class="tl-filter-in"><span data-tl-filter-t></span><a href="<%= d.url %>">Show all tours ×</a></div></div>
+  <div class="az-wrap tl2-groups">
+    <div class="az-head"><span class="az-no"><%= d.intro.length ? '02' : '01' %></span><h2 class="h4-h2 az-h">Choose your <em>tour</em></h2></div>
+    <% d.groups.forEach(g => { %>
+    <div class="tl-group" <% if (g.title) { %>id="<%= slug(g.title) %>"<% } %>>
+      <% if (g.title && (titled.length > 1 || !d.heading.includes(g.title))) { %>
+      <div class="tl-group-head">
+        <h2 class="tl-group-title"><% if (g.href) { %><a href="<%= g.href %>"><%= g.title %></a><% } else { %><%= g.title %><% } %></h2>
+        <span class="tl-group-line"></span>
+        <% if (g.href && g.href !== d.url) { %><a class="tl-group-link" href="<%= g.href %>">View <span>→</span></a><% } %>
+      </div>
+      <% } %>
+      <div class="tc-grid">
+        <% g.tours.forEach(t => { n++; const rp = t.route ? t.route.split(/\s+([-–])\s+/) : []; const stops = rp.filter((x, i) => i % 2 === 0), seps = rp.filter((x, i) => i % 2 === 1); const tag = t.href ? 'a' : 'div'; %>
+        <<%= tag %> class="tc"<% if (t.href) { %> href="<%= t.href %>"<% } %> data-nights="<%= (String(t.duration || '').match(/(\d+)\s*Nights?/i) || [0, ''])[1] %>" data-search="<%= (t.name + ' ' + (t.route || '') + ' ' + (g.title || '')).toLowerCase() %>">
+          <span class="tc-img"><img src="<%= t.img || photoForCard(t.name, t.route, d.heading) %>" alt="" loading="lazy"><span class="tc-n"><%= pad(n) %></span></span>
+          <span class="tc-body">
+            <% if (t.duration) { %><span class="tc-dur"><%= t.duration %></span><% } %>
+            <h3 class="tc-name"><%= t.name %></h3>
+            <% if (stops.length) { %>
+            <span class="tc-route"><% stops.forEach((s, j) => { %><span><%= s %></span><% if (j < stops.length - 1) { %><i><%= seps[j] %></i><% } %><% }) %></span>
+            <% } %>
+            <% if (t.href) { %><span class="tc-go">View itinerary <b>→</b></span><% } %>
+          </span>
+        </<%= tag %>>
+        <% }) %>
+      </div>
+    </div>
+    <% }) %>
+
+    <% if (d.outro.length) { %>
+    <div class="tl2-outro">
+      <% d.outro.forEach(p => { %><p><%- paraHtml(p) %></p><% }) %>
+    </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/listing-sections', { L: d.listings }) %>
+
+<%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
+
+</div>
+</div>
+<script src="/js/tour-listing.js" defer></script>
+</body>
+</html>

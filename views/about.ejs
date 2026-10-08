@@ -1,0 +1,92 @@
+<%- include('partials/head') %>
+<%
+  const enquire = '/contactus#enquiry';
+  const P = d.paragraphs;   // the nine paragraphs of the original page, word for word, in order
+  const icon = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>';
+%>
+<div style="width:100%;overflow-x:clip;background:#F4F7FB">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#F4F7FB">
+
+<%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
+
+<!-- Hero: title on a soft sky with a line-art skyline (shared by the inner pages) -->
+<%- include('partials/sky-hero', { title: 'About us', theme: 'about taj', tint: '' }) %>
+<!-- About body: one calm pattern throughout — a small numbered label and heading on the left,
+     the original words on the right; two photos, the stats strip and a simple closing call -->
+<section class="az az-a" id="ih-next">
+  <div class="az-wrap az-row">
+    <div class="az-side"><span class="az-no">01</span><h2 class="h4-h2 az-h">About <em>Meruka</em></h2></div>
+    <div class="az-main"><p class="az-lead"><strong><%= d.leadName %></strong> <%= P[0] %></p></div>
+  </div>
+</section>
+
+<section class="az az-b">
+  <div class="az-wrap az-split">
+    <figure class="az-photo"><img src="/photos/handshake-deal.jpg" alt="" loading="lazy"></figure>
+    <div class="az-main">
+      <span class="az-no">02</span>
+      <h2 class="h4-h2 az-h">Our <em>story</em></h2>
+      <p class="az-text"><%= P[1] %></p>
+      <p class="az-sign"><span>&ldquo;<%= d.mission %>&rdquo;</span><small><%= d.founder %>, Founder</small></p>
+    </div>
+  </div>
+</section>
+
+<section class="h8-stats az-stats" aria-label="Meruka India Tourism at a glance">
+  <div class="b-wrap h8-stats-in">
+    <div><b>20+</b><span>Years of rich experience</span></div>
+    <div><b>1000+</b><span>Happy guests</span></div>
+    <div><b><%= totalTours %></b><span>Tour packages</span></div>
+    <div><b class="h8-ic"><%- icon('<path d="M12 3 4 6v6c0 4.4 3.4 8.2 8 9 4.6-.8 8-4.6 8-9V6l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>') %></b><span>Private Tours — No Sharing</span></div>
+  </div>
+</section>
+
+<section class="az az-a">
+  <div class="az-wrap az-row">
+    <div class="az-side"><span class="az-no">03</span><h2 class="h4-h2 az-h">Our <em>promise</em></h2></div>
+    <ol class="az-main az-list">
+      <% [2, 3, 6].forEach(k => { %><li><p class="az-text"><%= P[k] %></p></li><% }) %>
+    </ol>
+  </div>
+</section>
+
+<section class="az az-b">
+  <div class="az-wrap az-row">
+    <div class="az-side"><span class="az-no">04</span><h2 class="h4-h2 az-h">Our <em>team</em></h2></div>
+    <div class="az-main">
+      <p class="az-text"><%= P[4] %></p>
+      <blockquote class="az-quote"><%= d.mission %></blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="az az-a">
+  <div class="az-wrap az-split az-split-r">
+    <div class="az-main">
+      <span class="az-no">05</span>
+      <h2 class="h4-h2 az-h"><%= d.atithi.phrase %> <em>(<%= d.atithi.meaning %>)</em></h2>
+      <p class="az-text"><%= P[5] %></p>
+    </div>
+    <figure class="az-photo"><img src="/assets/taj-reflection.webp" alt="The Taj Mahal reflected in water" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="az az-b az-end">
+  <div class="az-wrap az-cta">
+    <p class="az-cta-lead"><%= P[7] %></p>
+    <p class="az-text"><%= P[8] %></p>
+    <div class="az-acts">
+      <a href="/#plan" class="ph-btn ph-btn-gold">Plan My Trip <span>→</span></a>
+      <a href="<%= enquire %>" class="az-btn-line">Enquire Now <span>→</span></a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/listing-sections', { L: d.listings }) %>
+
+<%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
+
+</div>
+</div>
+</body>
+</html>

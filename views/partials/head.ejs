@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+<% if (typeof meta !== 'undefined' && meta) { %>
+<% if (meta.description) { %><meta name="description" content="<%= meta.description %>"><% } %>
+<% if (meta.keywords) { %><meta name="keywords" content="<%= meta.keywords %>"><% } %>
+<% if (meta.robots) { %><meta name="robots" content="<%= meta.robots %>"><% } %>
+<% if (meta.canonical) { %><link rel="canonical" href="<%= base + meta.canonical %>"><% } %>
+<% } %>
+<%
+  // Open Graph / Twitter cards and schema.org JSON-LD (SEO, AI answers and generative search)
+  const mt = (typeof meta !== 'undefined' && meta) || {};
+  const pd = typeof d !== 'undefined' && d ? d : {};
+  const ogImg = base + (pd.heroSrc && /^\//.test(pd.heroSrc) ? pd.heroSrc : '/photos/taj-mahal-feature.webp');
+  const pg = {};
+  if (Array.isArray(pd.faqs) && pd.faqs[0] && pd.faqs[0].q) pg.faqs = pd.faqs;
+  if (pd.route && pd.days) pg.trip = pd;
+  if (Array.isArray(pd.breadcrumb)) pg.breadcrumb = pd.breadcrumb;
+%>
+<meta name="theme-color" content="#336699">
+<meta property="og:type" content="<%= pg.trip ? 'article' : 'website' %>">
+<meta property="og:site_name" content="<%= seo.NAME %>">
+<meta property="og:title" content="<%= title %>">
+<% if (mt.description) { %><meta property="og:description" content="<%= mt.description %>"><% } %>
+<% if (mt.canonical) { %><meta property="og:url" content="<%= base + mt.canonical %>"><% } %>
+<meta property="og:image" content="<%= ogImg %>">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<%= title %>">
+<% if (mt.description) { %><meta name="twitter:description" content="<%= mt.description %>"><% } %>
+<meta name="twitter:image" content="<%= ogImg %>">
+<script type="application/ld+json"><%- JSON.stringify(seo.graph(base, pg)).replace(/</g, '\\u003c') %></script>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&amp;family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%= typeof cssHref !== 'undefined' ? cssHref : '/css/site.css' %>">
+<% if (typeof extraCss !== 'undefined') { [].concat(extraCss).forEach(h => { %><link rel="stylesheet" href="<%= h %>"><% }) } %>
+<script src="<%= typeof siteJs !== 'undefined' ? siteJs : '/js/site.js' %>" defer></script>
+<% if (typeof frameClass !== 'undefined' && frameClass.split(' ').includes('in4')) { %><script src="/js/inner-4.js" defer></script><% } %>
+</head>
+<body>

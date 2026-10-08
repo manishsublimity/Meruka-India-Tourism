@@ -1,0 +1,194 @@
+<%- include('partials/head') %>
+<%
+  const pad = n => (n < 10 ? '0' : '') + n;
+  const chipOff = 'font-size:13.5px;font-weight:600;padding:11px 16px;border-radius:99px;cursor:pointer;border:1px solid #E2E8F0;background:#F7F9FC;color:#33445E;white-space:nowrap';
+  const chipOn = 'font-size:13.5px;font-weight:600;padding:11px 16px;border-radius:99px;cursor:pointer;border:1px solid #336699;background:#336699;color:#fff;white-space:nowrap';
+  const field = 'width:100%;padding:14px 15px;border:1px solid #E2E8F0;background:#F7F9FC;outline:none;font-size:14.5px;border-radius:12px';
+  const focus = 'border-color:#336699;background:#fff';
+  const label = 'font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5B6B82';
+  const rowB = 'width:100%;display:flex;align-items:center;gap:16px;padding:16px 18px;min-height:76px;border:1px solid #E3E9F2;border-left:3px solid transparent;background:#fff;color:#2E3440;cursor:pointer;font-family:inherit;transition:all .25s ease';
+  const rowA = rowB + ';background:#336699;border-color:#336699;border-left-color:#FFB81C;color:#fff';
+  const numS = on => "font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:24px;line-height:1;width:34px;flex-shrink:0;color:" + (on ? '#FFB81C' : '#9AAFCB');
+  const arrS = on => 'width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:800;background:' + (on ? '#FFB81C' : '#EEF3FA') + ';color:' + (on ? '#336699' : '#336699') + ';transition:all .25s ease';
+  const year = new Date().getFullYear();
+  const gTotal = d.guide.reduce((n, g) => n + g.items.length, 0);
+  const g0 = d.guide[0];
+%>
+<div style="width:100%;overflow-x:clip;background:#F4F7FB">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#F4F7FB">
+
+<%- include('partials/page-header', { nav: d.nav, enquireHref: '#enquiry' }) %>
+
+<% const hq = d.offices[0]; const tel = p => 'tel:' + p.replace(/[^0-9+]/g, ''); %>
+<!-- Hero: title on a soft sky with a line-art skyline; the lead line and quick contacts follow -->
+<%- include('partials/sky-hero', { title: 'Contact us', theme: 'contact', feature: 'gate', tint: 'cool' }) %>
+<section class="az az-a ct-top">
+  <div class="az-wrap az-row">
+  <div class="az-side"><span class="az-no">01</span><h2 class="h4-h2 az-h">Get in <em>touch</em></h2></div>
+  <div class="az-main">
+  <p class="az-lead">Thanks for visiting our web site. Please send us the following information, enabling us to design the best tour for you.</p>
+  <div class="ct-quick az-contacts">
+      <% hq.phones.forEach(p => { %>
+      <a class="ct-q" href="<%= tel(p) %>">
+        <span class="ct-q-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
+        <span><small>Call</small><%= p %></span>
+      </a>
+      <% }) %>
+      <a class="ct-q" href="mailto:<%= hq.email %>">
+        <span class="ct-q-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14"/><path d="m3 7 9 6 9-6"/></svg></span>
+        <span><small>Email</small><%= hq.email %></span>
+      </a>
+      <a class="ct-q" href="#offices">
+        <span class="ct-q-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+        <span><small><%= hq.kind %></small><%= hq.city %> · <%= hq.area %></span>
+      </a>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section id="enquiry" class="ct-enq az az-b">
+  <div class="az-wrap ct-enq-grid">
+
+    <aside class="ct-aside">
+      <span class="az-no">02</span>
+      <h2 class="h4-h2 az-h">Please send us <em>the following information</em></h2>
+      <ol class="ct-steps">
+        <% d.infoList.forEach((t, i) => { %>
+        <li><span class="ct-step-n"><%= pad(i + 1) %></span><span><%= t %></span></li>
+        <% }) %>
+      </ol>
+      <div class="ct-note">
+        You can choose the tour programme from our <a href="/itineraries">India tour itineraries</a> and submit the form with your suggestions and feedback — the tour programme will be customized as per your interest and need.
+      </div>
+    </aside>
+
+    <div class="ct-card">
+      <div id="sent" class="is-hidden ct-sent">
+        <div class="ct-sent-tick">✓</div>
+        <div class="ct-sent-t">Thank you, <span id="first-name"></span>.</div>
+        <div class="ct-sent-p">Your tour programme will be customized as per your interest and need.</div>
+        <button id="reset" class="ct-btn-soft">Send another enquiry</button>
+      </div>
+      <form id="enquiry-form" novalidate class="ct-form">
+        <div class="ct-form-head">
+          <span>Tour enquiry</span>
+          <small>Fields marked * are required</small>
+        </div>
+
+        <fieldset class="ct-fs">
+          <legend><span class="ct-fs-n">A</span>Your trip</legend>
+          <div class="ct-row3">
+            <label class="ct-f">
+              <span class="ct-lbl">1 · Travel period</span>
+              <span style="display:flex;gap:8px">
+                <select name="month" class="ct-in" style="flex:1.4 1 0">
+                  <option value="">Month</option>
+                  <% d.months.forEach(m => { %><option value="<%= m %>"><%= m %></option><% }) %>
+                </select>
+                <select name="year" class="ct-in" style="flex:1 1 0">
+                  <% [0, 1, 2].forEach(i => { %><option value="<%= year + i %>"><%= year + i %></option><% }) %>
+                </select>
+              </span>
+            </label>
+            <label class="ct-f">
+              <span class="ct-lbl">2 · No. of days</span>
+              <input name="days" class="num ct-in" inputmode="numeric" placeholder="e.g. 14">
+            </label>
+            <label class="ct-f">
+              <span class="ct-lbl">3 · People travelling</span>
+              <input name="people" class="num ct-in" inputmode="numeric" placeholder="e.g. 2">
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="ct-fs">
+          <legend><span class="ct-fs-n">B</span>Your preferences</legend>
+          <div class="ct-f">
+            <span class="ct-lbl">4 · Area of interest in India</span>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <% d.interests.forEach(l => { %>
+              <button type="button" class="chip" data-val="<%= l %>" data-on="<%= chipOn %>" data-off="<%= chipOff %>" style="<%= chipOff %>"><%= l %></button>
+              <% }) %>
+            </div>
+          </div>
+          <label class="ct-f">
+            <span class="ct-lbl">5 · Hotel preference, or per day per person budget</span>
+            <input name="hotel" class="ct-in" placeholder="e.g. 4-star hotels, or USD 100 per person per day">
+          </label>
+          <label class="ct-f">
+            <span class="ct-lbl">6 · Destinations you wish to cover</span>
+            <select name="tour" class="ct-in">
+              <option value="">Choose a tour programme (optional)</option>
+              <% d.tourNames.forEach(t => { %><option value="<%= t %>"><%= t %></option><% }) %>
+            </select>
+            <textarea name="dest" rows="3" class="ct-in" style="resize:vertical" placeholder="Destinations, suggestions and feedback"></textarea>
+          </label>
+        </fieldset>
+
+        <fieldset class="ct-fs">
+          <legend><span class="ct-fs-n">C</span>Your details</legend>
+          <div class="ct-row2">
+            <label class="ct-f"><span class="ct-lbl">Name *</span><input name="name" class="ct-in" placeholder="Your name *" autocomplete="name"></label>
+            <label class="ct-f"><span class="ct-lbl">Email *</span><input name="email" type="email" class="ct-in" placeholder="Your email *" autocomplete="email"></label>
+          </div>
+        </fieldset>
+
+        <div id="err" class="is-hidden ct-err"></div>
+        <button type="submit" class="ct-submit">Submit <span>→</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="offices" class="ct-offices az az-a">
+  <div class="az-wrap">
+    <div class="ct-off-head">
+      <div>
+        <span class="az-no">03</span>
+        <h2 class="h4-h2 az-h">Head office <em>&amp; branch offices</em></h2>
+      </div>
+      <div class="ct-off-stats">
+        <div><b>1</b><span>Head office</span></div>
+        <div><b><%= d.offices.length - 1 %></b><span>Branch offices</span></div>
+      </div>
+    </div>
+
+    <div class="off-grid">
+      <div style="display:flex;flex-direction:column;gap:6px;min-width:0" role="tablist" aria-label="Offices">
+        <% d.offices.forEach((o, i) => { const on = i === 0; %>
+        <div>
+          <button class="off-row" data-office="<%= i %>" role="tab" aria-selected="<%= on %>" data-on="<%= rowA %>" data-off="<%= rowB %>" style="<%= on ? rowA : rowB %>">
+            <span class="off-num" data-on="<%= numS(true) %>" data-off="<%= numS(false) %>" style="<%= numS(on) %>"><%= pad(i + 1) %></span>
+            <span style="flex:1;min-width:0;text-align:left">
+              <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(19px,1.8cqw,24px);font-weight:600;letter-spacing:-.02em"><%= o.city %></span>
+                <% if (i === 0) { %><span style="font-size:10.5px;font-weight:800;letter-spacing:.08em;color:#336699;background:#FFB81C;padding:3px 8px;border-radius:99px">HQ</span><% } %>
+              </span>
+              <span style="display:block;font-size:13px;opacity:.7;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><%= o.area %></span>
+            </span>
+            <span class="off-arrow" data-on="<%= arrS(true) %>" data-off="<%= arrS(false) %>" style="<%= arrS(on) %>">→</span>
+          </button>
+          <div class="c-narrow">
+            <%- include('partials/office-detail', { o, oi: i, total: d.offices.length, inline: true }) %>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+      <div class="c-wide" style="min-width:0">
+        <% d.offices.forEach((o, i) => { %>
+        <%- include('partials/office-detail', { o, oi: i, total: d.offices.length, inline: false }) %>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/page-footer', { footCols: d.footCols, enquireHref: '#enquiry' }) %>
+
+</div>
+</div>
+
+<script src="/js/contact.js" defer></script>
+</body>
+</html>

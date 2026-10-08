@@ -1,0 +1,91 @@
+<%- include('partials/head') %>
+<%
+  const enquire = '/contactus#enquiry';
+  const heroImg = photoFor([d.heading, d.url]);
+  // Region pages open with fact lines — "<p><strong>Location:</strong> Above the Tropic of Cancer</p>".
+  // They are shown as fact cards above the text (same wording); the rest of the article follows.
+  const FACT = /^\s*<p>\s*<strong>([^<]{2,40}?)\s*<\/strong>\s*([\s\S]*?)<\/p>/;
+  let body = d.html, m;
+  const facts = [];
+  while (facts.length < 8 && (m = body.match(FACT)) && /:\s*$/.test(m[1])) {
+    facts.push({ label: m[1].replace(/:\s*$/, ''), value: m[2].trim() });
+    body = body.slice(m[0].length);
+  }
+  if (facts.length < 2) { facts.length = 0; body = d.html; }
+  const chips = v => !/</.test(v) ? v.split(/\s*,\s*/).filter(Boolean) : null;
+  const factIcons = {
+    location: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+    cities: '<path d="M3 21h18M5 21V8l6-3v16M11 21V3l8 4v14"/><path d="M8 11h.01M8 14h.01M14 10h.01M14 13h.01M14 16h.01"/>',
+    holy: '<path d="M12 3c-3 4-3 6 0 9 3-3 3-5 0-9z"/><path d="M5 21h14M7 21v-5h10v5M4 16h16"/>',
+    other: '<path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6-4.5-4.2 6.1-.7z"/>'
+  };
+  const iconFor = l => /locat/i.test(l) ? factIcons.location : /cit/i.test(l) ? factIcons.cities : /holy/i.test(l) ? factIcons.holy : factIcons.other;
+%>
+<div style="width:100%;overflow-x:clip;background:#F4F7FB">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#F4F7FB">
+
+<%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
+
+<%- include('partials/sky-hero', { title: d.heading, theme: d.heading + ' ' + d.url, tint: 'cool' }) %>
+
+<% if (facts.length) { %>
+<section class="af az az-a" aria-label="At a glance">
+  <div class="az-wrap az-row">
+  <div class="az-side"><span class="az-no">01</span><h2 class="h4-h2 az-h">At a <em>glance</em></h2></div>
+  <div class="af-wrap az-facts">
+    <% facts.forEach((f, i) => { const list = chips(f.value); %>
+    <div class="af-card">
+      <span class="af-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><%- iconFor(f.label) %></svg></span>
+      <span class="af-label"><%= f.label %></span>
+      <% if (list && list.length > 1) { %>
+      <span class="af-chips"><% list.forEach(c => { %><span><%- c %></span><% }) %></span>
+      <% } else { %>
+      <span class="af-value"><%- f.value %></span>
+      <% } %>
+    </div>
+    <% }) %>
+  </div>
+  </div>
+</section>
+<% } %>
+
+<section id="content" class="ar az <%= facts.length ? 'az-b ar-region' : 'az-a' %>">
+  <div class="az-wrap">
+  <div class="az-head"><h2 class="h4-h2 az-h">Travel <em>guide</em></h2></div>
+  <div class="ar-wrap" id="ar-wrap">
+    <aside class="ar-side is-hidden" id="ar-side">
+      <div class="ar-toc-box">
+        <span class="ar-toc-label">On this page</span>
+        <nav id="ar-toc" aria-label="On this page"></nav>
+        <a href="<%= enquire %>" class="ar-cta">Plan a trip <span>→</span></a>
+      </div>
+    </aside>
+    <article class="ar-body">
+      <div class="prose"><%- rewriteHtml(body) %></div>
+    </article>
+  </div>
+  </div>
+</section>
+
+<% if (facts.length) { %>
+<section class="az az-a az-end">
+  <div class="az-wrap az-cta">
+    <span class="az-no az-no-c"><%= d.heading %></span>
+    <p class="az-cta-lead">Tell us which places you'd like to see — <em>we'll draw the route.</em></p>
+    <div class="az-acts">
+      <a href="/#plan" class="ph-btn ph-btn-gold">Plan My Trip <span>→</span></a>
+      <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="az-btn-line">WhatsApp us <span>→</span></a>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('partials/listing-sections', { L: d.listings }) %>
+
+<%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
+
+</div>
+</div>
+<script src="/js/article.js" defer></script>
+</body>
+</html>
