@@ -31,12 +31,12 @@
   // Hero slides: photo, place name, region line, and the tour list it opens
   // Main pictures in the client's order (6 Oct 2026): monuments, wildlife, festivals, mountains, desert, houseboat
   const hxSlides = [
-    { src: '/photos/hero-taj-mahal.jpg', alt: 'The Taj Mahal at sunset across the Yamuna, Agra', place: 'Taj Mahal, Agra', region: 'Golden Triangle', href: '/india-golden-triangle-tour', pos: '50% 45%' },
-    { src: '/photos/hero-hawa-mahal.jpg', alt: 'Hawa Mahal, the Palace of Winds, Jaipur', place: 'Hawa Mahal, Jaipur', region: 'Rajasthan', href: '/rajasthan-tours', pos: '50% 40%' },
-    { src: '/photos/hero-tigers.jpg', alt: 'Two Bengal tigers in the forest', place: 'Tiger safari', region: 'Wildlife', href: '/wildlife_tour', pos: '70% 40%' },
-    { src: '/photos/hero-holi.jpg', alt: 'Holi, the festival of colours', place: 'Holi festival', region: 'Fairs & Festivals', href: '/india_fair_festival_travelplan', pos: '50% 40%' },
-    { src: '/photos/hero-ladakh.jpg', alt: 'Mountains reflected in a high lake, Ladakh', place: 'Ladakh', region: 'Mountains', href: '/leh_ladakh_tours', pos: '50% 50%' },
-    { src: '/photos/hero-desert-camel.jpg', alt: 'Camel safari on the sand dunes, Jaisalmer', place: 'Sand dunes, Jaisalmer', region: 'Desert', href: '/rajasthan-tours', pos: '50% 55%' },
+    { src: '/photos/hero-taj-mahal.webp', alt: 'The Taj Mahal at sunset across the Yamuna, Agra', place: 'Taj Mahal, Agra', region: 'Golden Triangle', href: '/india-golden-triangle-tour', pos: '50% 45%' },
+    { src: '/photos/hero-desert-camel.webp', alt: 'Camel safari on the sand dunes, Jaisalmer', place: 'Sand dunes, Jaisalmer', region: 'Desert', href: '/rajasthan-tours', pos: '50% 55%' },
+    { src: '/photos/hero-tigers.webp', alt: 'Two Bengal tigers in the forest', place: 'Tiger safari', region: 'Wildlife', href: '/wildlife_tour', pos: '70% 40%' },
+    { src: '/photos/hero-holi.webp', alt: 'Holi, the festival of colours', place: 'Holi festival', region: 'Fairs & Festivals', href: '/india_fair_festival_travelplan', pos: '50% 40%' },
+    { src: '/photos/hero-ladakh.webp', alt: 'Mountains reflected in a high lake, Ladakh', place: 'Ladakh', region: 'Mountains', href: '/leh_ladakh_tours', pos: '50% 50%' },
+    { src: '/photos/hero-hawa-mahal.webp', alt: 'Hawa Mahal, the Palace of Winds, Jaipur', place: 'Hawa Mahal, Jaipur', region: 'Rajasthan', href: '/rajasthan-tours', pos: '50% 40%' },
     { src: '/photos/hero-houseboat.jpg', alt: 'A houseboat on the Kerala backwaters', place: 'Kerala Backwaters', region: 'Kerala', href: '/southindia_kerala_tours', pos: '50% 50%' }
   ];
   // "06 Nights - 07 Days" -> "6N / 7D"
@@ -68,7 +68,6 @@
   <div class="h8-in">
     <div class="h8-copy">
       <h1 class="h8-title" data-h4-head>One Country<br><span class="h4-l2">Many Worlds...</span></h1>
-      <p class="h4-sub">Explore Our Private Tours</p>
     </div>
 
   </div>
@@ -107,7 +106,7 @@
     <div class="h4-head">
       <div>
         <h2 class="h4-h2">Best Tour Packages <em>in The Industry</em></h2>
-        <p class="h4-base">Choose a kind of journey — each opens its full list of tour packages, from where you pick the one you like and send it to us.</p>
+        <p class="h4-base">Offering Various Tour Packages in Each Sector.</p>
       </div>
       <a href="/itineraries" class="h4-all">View all packages <span>→</span></a>
     </div>
@@ -142,10 +141,10 @@
     <div class="dz-main">
       <span class="dz-eyebrow">Seasonal offer</span>
       <p class="dz-t"><b class="dz-pct-sr">10%</b> discount on the tour packages booked from April to August!</p>
+      <a href="#popular" class="dz-go">View tours <span aria-hidden="true">→</span></a>
     </div>
     <div class="dz-stub">
       <b class="dz-pct" aria-hidden="true">10%</b>
-      <a href="#popular" class="dz-go">View tours <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
@@ -156,7 +155,7 @@
     <div class="h4-head">
       <div>
         <h2 class="h4-h2">Most Popular Tours <em>of India</em></h2>
-        <p class="h4-base">Hand-picked journeys our guests book most — search by sector, tour package or destination.</p>
+        <p class="h4-base">From Thar Desert of Rajasthan to Backwaters of Kerala.</p>
       </div>
       <a href="/itineraries" class="h4-all">View all packages <span aria-hidden="true">→</span></a>
     </div>
@@ -205,7 +204,7 @@
         </div>
         <div class="pq-cost">
           <div class="pq-price">
-            <% if (t.from && n) { %><small>Start from</small><b>$<%= (t.from * n).toLocaleString('en-US') %></b><% } else { %><small>Start from</small><b class="pq-req">On request</b><% } %>
+            <% if (t.from && n) { %><small>Starts From</small><b>$<%= (t.from * n).toLocaleString('en-US') %></b><% } else { %><small>Starts From</small><b class="pq-req">On request</b><% } %>
           </div>
           <div class="pq-btns">
             <a href="<%= t.href %>" class="pq-view">View Itinerary</a>
@@ -231,13 +230,13 @@
     </div>
     <div class="c6-parts">
       <div class="c6-part c6-price">
-        <div class="c6-amt"><span>$</span><b>170</b></div>
+        <div class="c6-amt"><span>USD</span><b>170</b></div>
         <p>Per Couple Per Day onwards</p>
       </div>
       <span class="c6-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 6 6 6-6 6"/><path d="m13 6 6 6-6 6"/></svg></span>
-      <div class="c6-part"><span class="c5-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><p>Inclusive of 3-star hotel accommodation with breakfast, private A/C car throughout the tour, sightseeing, intercity travel, and other services as specified.</p></div>
+      <div class="c6-part"><p>Inclusive of 3-star hotel accommodation with breakfast, private A/C car with English speaking driver throughout the tour for all pickups, sightseeing, intercity travel, excursions and other services as specified.</p></div>
       <span class="c6-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 6 6 6-6 6"/><path d="m13 6 6 6-6 6"/></svg></span>
-      <div class="c6-part"><span class="c5-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><p>The tour packages can be upgraded to higher-category hotels on request. You can also customize the tour packages in terms of nos of days, more or less destinations, hotel category. You may send us your tour feedback and suggestions on WhatsApp or by email.</p></div>
+      <div class="c6-part"><p>The tour packages can be upgraded to 4, 5 star &amp; 5-star deluxe hotels and also can be customized in terms of number of days, destinations and sightseeing according to your budget and requirement.</p></div>
       <span class="c6-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 6 6 6-6 6"/><path d="m13 6 6 6-6 6"/></svg></span>
       <div class="c6-part c6-acts">
         <div class="c3-actions">
@@ -257,7 +256,7 @@
     <div class="h4-head">
       <div>
         <h2 class="h4-h2">Four Regions. <em>Four Different Countries.</em></h2>
-        <p class="h4-base">Most first journeys combine two — Rajasthan's forts with Kerala's backwaters, or the Himalaya with the Ganges plain.</p>
+        <p class="h4-base">The Grace of Geography.</p>
       </div>
     </div>
 
@@ -302,11 +301,11 @@
 
     <div class="g2-grid">
       <div class="g2-season">
-        <img src="/photos/yoga-sunset-hd.avif" alt="Yoga at sunset on the beach" loading="lazy">
+        <img src="/photos/guide-main.webp" alt="A young woman in a hat by a mountain lake" loading="lazy">
         <div class="g2-season-copy">
           <span class="g2-tag">WHEN TO COME</span>
-          <div class="g2-season-t">September to March is the season</div>
-          <div class="g2-season-p">Diwali, Christmas and the Pushkar Fair sell out 6–8 months ahead.</div>
+          <div class="g2-season-t">The Country for All Seasons</div>
+          <div class="g2-season-p">September to March is the best time.</div>
         </div>
       </div>
       <% d.guideCols.forEach((g, gi) => { %>
@@ -314,7 +313,6 @@
         <div class="g2-card-img"><img src="<%= H2.guideImgs[gi] %>" alt="" loading="lazy"></div>
         <div class="g2-card-head">
           <span class="g2-card-t"><%= g.title %></span>
-          <span class="g2-count"><%= g.count %></span>
         </div>
         <ul>
           <% g.items.forEach(it => { const h = d.to(it, 'guide'); %>
@@ -339,6 +337,7 @@
       <div class="rv3-nums">
         <p><b><%= r1All.length %></b> guest testimonials</p>
         <p><b>60%</b> of new guests come through friends and returning families.</p>
+        <p><b>97.60%</b> Tour Success Rate</p>
       </div>
     </div>
   </div>
@@ -370,9 +369,9 @@
 <section id="why" class="wn">
   <div class="b-wrap wn-grid">
     <div class="wn-media">
-      <div class="wn-photo"><img src="/photos/handshake-deal.jpg" alt="Two people shaking hands across a desk" loading="lazy"></div>
+      <div class="wn-photo"><img src="/photos/handshake-deal.webp" alt="Two people shaking hands across a desk" loading="lazy"></div>
       <figure class="wn-quote">
-        <blockquote>“We are transparent and consistently deliver more than we commit to, because we don't believe in cutting corners to increase profit.”</blockquote>
+        <blockquote>“The guest is the only Boss of our company; this is our prime duty and commitment to always provide the best services.”</blockquote>
         <figcaption><span class="mlogo mlogo-blue wn-logo" aria-hidden="true"></span><span><b>Ashok Pareek</b>Founder, Meruka India Tourism Service</span></figcaption>
       </figure>
     </div>
@@ -405,7 +404,7 @@
       <h2 class="h4-h2">FAQs</h2>
       <p class="h4-base">Assistance on every step you take.</p>
       <div class="fq5">
-        <div class="fq5-img"><img src="/photos/travel-guide.webp" alt="A globe and a notebook on a desk" loading="lazy"></div>
+        <div class="fq5-img"><img src="/photos/faqs.webp" alt="A question mark on a bed of sand" loading="lazy"></div>
         <div class="fq5-body">
           <b class="fq5-t">Still have a question?</b>
           <p>A planner answers, not a bot.</p>
@@ -450,8 +449,8 @@
   <div class="b-wrap">
     <div class="pz-head">
       <div>
-        <h2 class="h4-h2 pz-h">Plan Your <em>Trip</em></h2>
-        <p class="pz-q">“The journey of a thousand miles begins with one step.”</p>
+        <div class="pz-title"><h2 class="h4-h2 pz-h">Plan Your <em>Trip</em></h2>
+        <p class="pz-q">“The journey of a thousand miles begins with one step.”</p></div>
       </div>
       <ul class="pz-trust">
         <li>Reply &lt; 24h</li><li>No obligation</li><li>No deposit</li><li>Details never shared</li>

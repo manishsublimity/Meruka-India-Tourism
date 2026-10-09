@@ -19,6 +19,22 @@
     holy: '<path d="M12 3c-3 4-3 6 0 9 3-3 3-5 0-9z"/><path d="M5 21h14M7 21v-5h10v5M4 16h16"/>',
     other: '<path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6-4.5-4.2 6.1-.7z"/>'
   };
+  // Destination guides (Delhi, Jaipur, Kerala …): pages with "Places of Interest" that are not region overviews.
+  // The words stay the same; article.js lays them out as facts, place cards and travel cards.
+  const isDest = !facts.length && /Places of Interest/i.test(d.html);
+  const place = String(d.heading).replace(/\s*Tourism$/i, '').trim();
+  const tours = isDest ? toursFor(place) : [];
+  // a different photo for every tour card (and none that the page already shows): the tour's own
+  // photo, else one for a stop on its route other than this place, else the card photo
+  const usedImg = new Set((d.listings && d.listings.regions || []).map(r => r.img));
+  const tourImg = t => {
+    const stops = String(t.route || '').split(/\s+[-–]\s+/).filter(x => !new RegExp(place, 'i').test(x));
+    const pool = [t.img].concat(photoChoices(t.name), ...stops.map(x => photoChoices(x)), [photoForCard(t.name, t.route, place)]).filter(Boolean);
+    const spare = ['jaipur', 'udaipur', 'jodhpur', 'kerala', 'goa', 'ladakh', 'varanasi', 'madurai', 'mysore', 'gujarat', 'darjeeling', 'delhi', 'tiger', 'buddh', 'north india'].flatMap(k => photoChoices(k));
+    const pick = pool.concat(spare).find(x => !usedImg.has(x)) || pool[pool.length - 1];
+    usedImg.add(pick); return pick;
+  };
+  const pad = n => (n < 10 ? '0' : '') + n;
   const iconFor = l => /locat/i.test(l) ? factIcons.location : /cit/i.test(l) ? factIcons.cities : /holy/i.test(l) ? factIcons.holy : factIcons.other;
 %>
 <div style="width:100%;overflow-x:clip;background:#F4F7FB">
@@ -49,9 +65,9 @@
 </section>
 <% } %>
 
-<section id="content" class="ar az <%= facts.length ? 'az-b ar-region' : 'az-a' %>">
+<section id="content" class="ar az <%= facts.length ? 'az-b ar-region' : isDest ? 'az-a ar-dest' : 'az-a' %>">
   <div class="az-wrap">
-  <div class="az-head"><h2 class="h4-h2 az-h">Travel <em>guide</em></h2></div>
+  <div class="az-head"><% if (isDest) { %><h2 class="h4-h2 az-h">Discover <em><%= place %></em></h2><% } else { %><h2 class="h4-h2 az-h">Travel <em>guide</em></h2><% } %></div>
   <div class="ar-wrap" id="ar-wrap">
     <aside class="ar-side is-hidden" id="ar-side">
       <div class="ar-toc-box">
@@ -67,7 +83,31 @@
   </div>
 </section>
 
-<% if (facts.length) { %>
+<% if (tours.length) { %>
+<section class="az az-b dx-tours" aria-label="Tours">
+  <div class="az-wrap">
+    <div class="az-head h4-head">
+      <div><h2 class="h4-h2">Tours that include <em><%= place %></em></h2></div>
+      <a href="/itineraries" class="h4-all">View all tours <span>→</span></a>
+    </div>
+    <div class="tc-grid dx-tc-grid">
+      <% tours.forEach((t, i) => { const rp = t.route ? t.route.split(/\s+([-–])\s+/) : []; const stops = rp.filter((x, j) => j % 2 === 0); %>
+      <a class="tc" href="<%= t.href %>">
+        <span class="tc-img"><img src="<%= tourImg(t) %>" alt="" loading="lazy"></span>
+        <span class="tc-body">
+          <% if (t.duration) { %><span class="tc-dur"><%= t.duration %></span><% } %>
+          <h3 class="tc-name"><%= t.name %></h3>
+          <% if (stops.length) { %><span class="tc-route"><% stops.slice(0, 6).forEach((st, j) => { %><span><%= st %></span><% if (j < Math.min(stops.length, 6) - 1) { %><i>-</i><% } %><% }) %><% if (stops.length > 6) { %><i>…</i><% } %></span><% } %>
+          <span class="tc-go">View itinerary <b>→</b></span>
+        </span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<% if (facts.length || isDest) { %>
 <section class="az az-a az-end">
   <div class="az-wrap az-cta">
     <span class="az-no az-no-c"><%= d.heading %></span>
