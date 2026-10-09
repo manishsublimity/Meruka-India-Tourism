@@ -39,7 +39,7 @@
         <div class="mh-dd mh-dd-dest" role="menu">
           <% menu.destCols.forEach(c => { %>
           <div class="mh-col">
-            <div class="mh-col-title"><span class="mh-dot"></span><%= c.title %></div>
+            <% const top = menu.to(c.title); %><a href="<%= top %>" class="mh-col-title"<%- ext(top) %>><span class="mh-dot"></span><%= c.title %></a>
             <% c.items.forEach(i => { const to = menu.to(i); %><a href="<%= to %>"<%- ext(to) %>><%= i %></a><% }) %>
           </div>
           <% }) %>
@@ -49,7 +49,7 @@
         <% if (l.menu === 'pkg') { %>
         <div class="mh-dd mh-dd-pkg" role="menu">
           <a href="<%= menu.mostBookedHref %>" class="mh-feature">
-            <img src="/assets/taj-aerial.jpg" alt="" loading="lazy">
+            <img src="/assets/taj-aerial.webp" alt="" loading="lazy">
             <span class="mh-feature-text">
               <small>MOST BOOKED</small>
               <strong>Golden Triangle Classic</strong>

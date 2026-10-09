@@ -118,7 +118,7 @@
     var PIN = '<svg class="pq-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
     var stopsHtml = PIN + all.map(function (x, i) { return '<span' + (i >= 3 ? ' class="pq-more-x" hidden' : '') + '>' + esc(x) + '</span>'; }).join('') +
       '<button type="button" class="pq-more" data-pq-more aria-expanded="false"' + (all.length > 3 ? '' : ' hidden') + ' data-label="+' + Math.max(all.length - 3, 0) + ' more">+' + Math.max(all.length - 3, 0) + ' more</button>';
-    var price = t.from && n ? '<small>Start from</small><b>$' + (t.from * n).toLocaleString('en-US') + '</b>' : '<small>Start from</small><b class="pq-req">On request</b>';
+    var price = t.from && n ? '<small>Starts From</small><b>$' + (t.from * n).toLocaleString('en-US') + '</b>' : '<small>Starts From</small><b class="pq-req">On request</b>';
     return '<article class="pq-card"><a href="' + href + '" class="pq-img" tabindex="-1" aria-hidden="true"><img src="' + esc(t.img) + '" alt="" loading="lazy"' + (/taj-mahal/.test(t.img) ? ' class="pq-zoom"' : '') + '>' +
       '</a>' +
       '<div class="pq-mid"><h3 class="pq-name"><a href="' + href + '">' + esc(t.name) + '</a></h3>' + (t.duration ? '<p class="pq-nd">' + esc(longDur(t.duration)) + '</p>' : '') + '<p class="pq-stops">' + stopsHtml + '</p><p class="pq-desc">' + esc(g.title) + '</p></div>' +

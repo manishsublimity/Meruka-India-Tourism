@@ -1252,3 +1252,147 @@
 #mk-frame.in4 .az.az-end:has(.az-no-c) .az-cta{position:relative}
 #mk-frame.ux.v3.h4.in4 .az.az-end:has(.az-no-c) .az-cta-lead{font-family:'Bricolage Grotesque',system-ui,sans-serif !important;font-size:clamp(30px,3.2cqw,46px) !important;font-weight:600;line-height:1.08;letter-spacing:-.03em;color:#fff;text-wrap:balance}
 #mk-frame.ux.v3.h4.in4 .az.az-end:has(.az-no-c) .az-cta-lead em{font-family:'Instrument Serif',Georgia,serif !important;font-style:italic;font-weight:400;font-size:1.06em;color:#FFB81C}
+
+/* =====================================================================================
+   Destination guides (Delhi, Jaipur, Kerala, Leh …) — easy to read: a lead and a folded story,
+   a sticky Quick facts + Plan card, place cards with chips, distance chips, By Air / Rail / Road
+   cards, a plan box, and "Tours that include …" so the visitor always has a next step
+   ===================================================================================== */
+#mk-frame.in4 .ar-dest .ar-body .prose{font-size:16px;line-height:1.85;color:#4E5B6E}
+#mk-frame.v3.in4 .ar-dest .prose p.dx-lead{margin:0 0 18px;padding:0;background:none;border:0;font-family:'Manrope',system-ui,sans-serif !important;font-size:clamp(17px,1.4cqw,19px);font-style:normal;font-weight:500;line-height:1.75;color:#2E3440}
+#mk-frame.in4 .ar-dest .dx-more{position:relative;max-height:0;overflow:hidden;transition:max-height .6s ease}
+#mk-frame.in4 .ar-dest .dx-more.open{max-height:6000px}
+#mk-frame.in4 .ar-dest .dx-more-btn{display:inline-flex;align-items:center;gap:8px;height:42px;margin:4px 0 8px;padding:0 18px;border:1.5px solid #336699;background:#fff;color:#336699;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;transition:background-color .25s,color .25s}
+#mk-frame.in4 .ar-dest .dx-more-btn:hover{background:#336699;color:#fff}
+#mk-frame.in4 .ar-dest .dx-more-btn svg{width:16px;height:16px;transition:transform .3s}
+#mk-frame.in4 .ar-dest .dx-more-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+#mk-frame.v3.in4 .ar-dest .dx-more-btn{border-radius:5px !important}
+
+/* section titles inside the guide */
+#mk-frame.v3.in4 .ar-dest .prose h3{margin:44px 0 14px;padding:0;border:0;font-family:'Bricolage Grotesque',sans-serif !important;font-size:clamp(26px,2.4cqw,32px);font-weight:600;letter-spacing:-.03em;color:#2E3440}
+#mk-frame.v3.in4 .ar-dest .prose h4.dx-h{display:flex;align-items:center;gap:12px;margin:40px 0 16px;padding:0;background:none;border:0;font-family:'Bricolage Grotesque',sans-serif !important;font-size:clamp(21px,1.8cqw,25px);font-weight:600;letter-spacing:-.02em;color:#2E3440}
+#mk-frame.in4 .ar-dest .dx-h-ic{display:grid;place-items:center;flex-shrink:0;width:40px;height:40px;background:#EEF3FA;color:#336699}
+#mk-frame.in4 .ar-dest .dx-h-ic svg{width:20px;height:20px}
+#mk-frame.v3.in4 .ar-dest .dx-h-ic{border-radius:5px !important}
+
+/* facts (sidebar card, or inline on multi-city guides) */
+#mk-frame.in4 .dx-facts{display:grid;gap:12px}
+#mk-frame.in4 .ar-dest .prose .dx-facts{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin:18px 0 8px;padding:18px;background:#F7F9FC;border:1px solid #E3E9F2}
+#mk-frame.in4 .dx-fact{display:flex;align-items:flex-start;gap:12px}
+#mk-frame.in4 .dx-fact-ic{display:grid;place-items:center;flex-shrink:0;width:36px;height:36px;background:#FFF5DC;color:#B8862B}
+#mk-frame.in4 .dx-fact-ic svg{width:18px;height:18px}
+#mk-frame.in4 .dx-fact-t small{display:block;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#7A879B}
+#mk-frame.in4 .dx-fact-t b{display:block;margin-top:2px;font-size:14.5px;font-weight:700;line-height:1.45;color:#2E3440}
+#mk-frame.in4 .dx-qf{background:#fff}
+#mk-frame.v3.in4 :is(.dx-fact-ic,.ar-dest .prose .dx-facts){border-radius:5px !important}
+
+/* places of interest */
+#mk-frame.in4 .ar-dest .dx-places{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:0 0 8px}
+#mk-frame.in4 .ar-dest .dx-place{padding:18px 20px;background:#fff;border:1px solid #E3E9F2;border-top:3px solid #FFB81C;box-shadow:0 1px 2px rgba(18,63,109,.04),0 8px 20px rgba(18,63,109,.05);transition:box-shadow .3s,border-color .3s}
+#mk-frame.in4 .ar-dest .dx-place:hover{border-color:#C9D9F5;border-top-color:#FFB81C;box-shadow:0 14px 30px rgba(51,102,153,.12)}
+#mk-frame.in4 .ar-dest .dx-place-list.dx-untitled{grid-column:1 / -1}
+#mk-frame.in4 .ar-dest .dx-place-desc{grid-column:span 1}
+#mk-frame.v3.in4 .ar-dest .prose .dx-place-t{margin:0 0 10px;font-family:'Bricolage Grotesque',sans-serif !important;font-size:17px;font-weight:600;line-height:1.25;color:#2E3440}
+#mk-frame.in4 .ar-dest .prose .dx-place-d{margin:0;font-size:14.5px;line-height:1.7;color:#4E5B6E}
+#mk-frame.in4 .ar-dest .dx-place-p{grid-column:1 / -1;margin:0;border-top-color:#E3E9F2}
+#mk-frame.in4 .dx-chips{display:flex;flex-wrap:wrap;gap:7px}
+#mk-frame.in4 .dx-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 11px;background:#EEF3FA;color:#336699;font-size:13px;font-weight:700;line-height:1.3}
+#mk-frame.in4 .dx-chip-d{background:#fff;border:1px solid #E3E9F2;color:#33445E}
+#mk-frame.in4 .dx-chip-d em{font-style:normal;padding:2px 7px;background:#FFF5DC;color:#8A5A12;font-size:11.5px;font-weight:800}
+#mk-frame.v3.in4 :is(.dx-chip,.dx-chip-d em,.ar-dest .dx-place){border-radius:5px !important}
+#mk-frame.v3.in4 .ar-dest .dx-place{border-top-left-radius:0 !important;border-top-right-radius:0 !important}
+#mk-frame.in4 .ar-dest .dx-excursions{margin:0 0 8px;padding:18px;background:#F7F9FC;border:1px solid #E3E9F2}
+#mk-frame.v3.in4 .ar-dest .dx-excursions{border-radius:5px !important}
+
+/* how to reach */
+#mk-frame.in4 .ar-dest .dx-reach{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:0 0 8px}
+#mk-frame.in4 .ar-dest .dx-way{padding:20px;background:#fff;border:1px solid #E3E9F2;box-shadow:0 1px 2px rgba(18,63,109,.04),0 8px 20px rgba(18,63,109,.05)}
+#mk-frame.in4 .ar-dest .dx-way-road{grid-column:1 / -1}
+#mk-frame.in4 .ar-dest .dx-way-ic{display:grid;place-items:center;width:44px;height:44px;margin-bottom:12px;background:#336699;color:#fff}
+#mk-frame.in4 .ar-dest .dx-way-ic svg{width:22px;height:22px}
+#mk-frame.v3.in4 .ar-dest .prose .dx-way-t{margin:0 0 6px;font-family:'Bricolage Grotesque',sans-serif !important;font-size:17px;font-weight:600;color:#2E3440}
+#mk-frame.in4 .ar-dest .prose .dx-way-d{margin:0;font-size:14.5px;line-height:1.65;color:#4E5B6E}
+#mk-frame.in4 .ar-dest .dx-reach-p{grid-column:1 / -1;margin:0}
+#mk-frame.v3.in4 :is(.ar-dest .dx-way,.ar-dest .dx-way-ic){border-radius:5px !important}
+
+/* how to plan your tours */
+#mk-frame.in4 .ar-dest .dx-plan{margin:40px 0 8px;padding:clamp(22px,2.6cqw,32px);background:#F7F9FC;border:1px solid #E3E9F2;border-left:4px solid #FFB81C}
+#mk-frame.in4 .ar-dest .dx-plan h4.dx-h{margin-top:0}
+#mk-frame.in4 .ar-dest .dx-plan p{font-size:15px;line-height:1.8}
+#mk-frame.in4 .ar-dest .dx-plan a:not([class]){color:#336699;font-weight:700;overflow-wrap:anywhere}
+#mk-frame.in4 .ar-dest .dx-plan-acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+#mk-frame.in4 .ar-dest .dx-plan-acts > a{height:48px;justify-content:center;text-decoration:none}
+#mk-frame.v3.in4 .ar-dest .dx-plan{border-radius:0 5px 5px 0 !important}
+
+/* sidebar on guides: contents, Quick facts, Plan */
+#mk-frame.in4 .dx-aside .ar-side{position:static;display:block}
+#mk-frame.in4 .dx-aside .ar-toc-box{padding:20px 22px;background:#fff;border:1px solid #E3E9F2}
+#mk-frame.v3.in4 .dx-aside .ar-toc-box{border-radius:5px !important}
+
+/* tours that include the place */
+#mk-frame.in4 .dx-tours .dx-tc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+@media (max-width:1199.98px){ #mk-frame.in4 .dx-tours .dx-tc-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:599.98px){ #mk-frame.in4 .dx-tours .dx-tc-grid{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:767.98px){ #mk-frame.in4 .ar-dest .prose .dx-facts{grid-template-columns:minmax(0,1fr)} }
+#mk-frame.v3.in4 .ar-dest .dx-plan h4.dx-h{margin-top:0}
+#mk-frame.in4 .dx-aside .ar-cta{display:none}
+#mk-frame.in4 .ar-dest .prose .dx-qf-in{margin:18px 0 8px}
+#mk-frame.in4 .ar-dest .prose .dx-qf-in .ar-a2-h{margin:0 0 14px}
+
+/* =====================================================================================
+   Destination guides v2 — simpler: no chip boxes or heavy cards. Places as a clean list in
+   columns (guidebook style), distances on a dotted leader (menu style), Reach as three plain
+   rows, the plan text kept simple with small buttons, and a sidebar that does not follow.
+   ===================================================================================== */
+/* section headings: a short gold rule above, no icon tile */
+#mk-frame.v3.in4 .ar-dest .prose h4.dx-h{display:block;margin:46px 0 18px;padding-top:18px;border-top:1px solid #E3E9F2;font-size:clamp(21px,1.8cqw,25px)}
+#mk-frame.v3.in4 .ar-dest .prose h4.dx-h::before{content:"";display:block;width:36px;height:3px;margin:-19.5px 0 16px;background:#FFB81C}
+#mk-frame.in4 .ar-dest .dx-h-ic{display:none}
+
+/* category: title + list of names in columns */
+#mk-frame.in4 .ar-dest .dx-sec{margin:0 0 8px}
+#mk-frame.in4 .ar-dest .dx-cat + .dx-cat,#mk-frame.in4 .ar-dest .dx-sec > * + .dx-cat,#mk-frame.in4 .ar-dest .dx-sec > * + .dx-spot{margin-top:22px}
+#mk-frame.v3.in4 .ar-dest .prose .dx-cat-t,#mk-frame.v3.in4 .ar-dest .prose .dx-spot-t{margin:0 0 10px;font-family:'Bricolage Grotesque',sans-serif !important;font-size:16.5px;font-weight:600;line-height:1.3;color:#336699}
+#mk-frame.in4 .ar-dest .prose ul.dx-list{display:block;columns:3 180px;column-gap:32px;margin:0;padding:0;list-style:none}
+#mk-frame.in4 .ar-dest .prose ul.dx-list > li{position:relative;margin:0;padding:5px 0 5px 16px;break-inside:avoid;font-size:15px;line-height:1.5;color:#2E3440}
+#mk-frame.in4 .ar-dest .prose ul.dx-list > li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%;background:#FFB81C}
+#mk-frame.in4 .ar-dest .prose ul.dx-list > li::marker{content:none}
+/* distances: name … dotted leader … distance */
+#mk-frame.in4 .ar-dest .prose ul.dx-list.dx-dist{columns:3 210px}
+#mk-frame.in4 .ar-dest .prose ul.dx-list > li.dx-d{display:flex;align-items:baseline;gap:6px}
+#mk-frame.in4 .ar-dest .prose ul.dx-list > li.dx-d .dx-n{flex:0 1 auto}
+#mk-frame.in4 .ar-dest .prose ul.dx-list > li.dx-d::after{content:"";order:1;flex:1 1 12px;min-width:12px;border-bottom:1px dotted #B9C6D8;transform:translateY(-4px)}
+#mk-frame.in4 .ar-dest .prose ul.dx-list > li.dx-d .dx-km{order:2;flex:none;font-size:13.5px;font-weight:700;color:#7A879B;white-space:nowrap}
+/* a place with its own description */
+#mk-frame.in4 .ar-dest .prose .dx-spot-d{margin:0;font-size:15.5px;line-height:1.75;color:#4E5B6E}
+#mk-frame.in4 .ar-dest .dx-spot{padding-left:16px;border-left:2px solid #E3E9F2}
+
+/* how to reach: three plain rows */
+#mk-frame.in4 .ar-dest .dx-reach{display:block}
+#mk-frame.in4 .ar-dest .dx-way,#mk-frame.in4 .ar-dest .dx-way-road{display:grid;grid-template-columns:40px minmax(0,1fr);gap:16px;padding:16px 0;background:none;border:0;border-top:1px solid #EEF2F7;box-shadow:none;grid-column:auto}
+#mk-frame.in4 .ar-dest .dx-way:first-child{border-top:0;padding-top:0}
+#mk-frame.in4 .ar-dest .dx-way-ic{width:40px;height:40px;margin:0;background:#EEF3FA;color:#336699}
+#mk-frame.in4 .ar-dest .dx-way-ic svg{width:20px;height:20px}
+#mk-frame.v3.in4 .ar-dest .prose .dx-way-t{margin:2px 0 4px;font-size:16px}
+#mk-frame.in4 .ar-dest .prose .dx-way-d{margin:0;font-size:15.5px;line-height:1.7}
+#mk-frame.in4 .ar-dest .dx-way .dx-list{margin-top:6px}
+
+/* how to plan your tours: plain text, small buttons */
+#mk-frame.in4 .ar-dest .dx-plan{margin:0;padding:0;background:none;border:0}
+#mk-frame.v3.in4 .ar-dest .dx-plan{border-radius:0 !important}
+#mk-frame.in4 .ar-dest .dx-plan p{font-size:15.5px;line-height:1.8}
+
+/* small buttons (guide + sidebar) */
+#mk-frame.in4 .dx-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+/* sidebar: does not follow the page; a light plan card with the two small buttons side by side */
+#mk-frame.in4 .ar-aside2.dx-aside{position:static}
+#mk-frame.in4 .dx-plancard{padding:22px 24px;background:#fff;border:1px solid #E3E9F2;border-top:3px solid #FFB81C}
+#mk-frame.v3.in4 .dx-plancard{border-radius:0 0 5px 5px !important}
+#mk-frame.in4 .dx-plancard .dx-acts{margin-top:4px}
+#mk-frame.in4 .dx-plancard .dx-btn{flex:1 1 120px}
+@media (max-width:599.98px){ #mk-frame.in4 .ar-dest .prose ul.dx-list,#mk-frame.in4 .ar-dest .prose ul.dx-list.dx-dist{columns:1} }
+#mk-frame.in4 .ar-dest .dx-sec,#mk-frame.in4 .ar-dest .dx-sec.dx-places,#mk-frame.in4 .ar-dest .dx-sec.dx-excursions{display:block;padding:0;background:none;border:0}
+#mk-frame.v3.in4 .ar-dest .dx-sec{border-radius:0 !important}
+#mk-frame.v3.in4 .ar-dest .prose ul.dx-list > li::before{border-radius:50% !important}
+#mk-frame.in4 .ar.az .dx-aside .ar-side,#mk-frame.in4 .ar.az .dx-aside .ar-toc-box{position:static !important;top:auto}

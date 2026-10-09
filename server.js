@@ -21,6 +21,30 @@ const seo = require('./data/seo');
 app.locals.seo = seo;
 app.use((req, res, next) => { res.locals.base = req.protocol + '://' + req.get('host'); next(); });
 Object.assign(app.locals, require('./data/photos'));
+
+// Every tour on the tour-list pages (one entry per itinerary), and the tours that take in a place —
+// used by the destination guides ("Tours that include Delhi"). A tour named after the place comes
+// first, then tours that stop there on the way (not only start or end there), shortest first.
+const ALL_TOURS = (() => {
+  const seen = new Map();
+  for (const f of fs.readdirSync(path.join(__dirname, 'data', 'tour-lists')).filter(f => f.endsWith('.js'))) {
+    require('./data/tour-lists/' + f).groups.forEach(g => g.tours.forEach(t => { if (t.href && !seen.has(t.href)) seen.set(t.href, t); }));
+  }
+  return [...seen.values()];
+})();
+const nightsOf = t => +((String(t.duration || '').match(/(\d+)\s*Nights?/i) || [])[1] || 99);
+app.locals.toursFor = (place, n = 4) => {
+  const word = String(place || '').replace(/\s*(Tourism|Tours?|Travel)$/i, '').trim();
+  if (word.length < 3) return [];
+  const re = new RegExp('\\b' + word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
+  const score = t => {
+    const stops = String(t.route || '').split(/\s+[-–]\s+/);
+    if (re.test(t.name)) return 0;
+    return stops.slice(1, -1).some(s => re.test(s)) ? 1 : (re.test(t.route || '') ? 2 : 9);
+  };
+  return ALL_TOURS.map(t => ({ t, s: score(t) })).filter(x => x.s < 9)
+    .sort((a, b) => a.s - b.s || nightsOf(a.t) - nightsOf(b.t)).slice(0, n).map(x => x.t);
+};
 // The header's Destinations / Tour Packages dropdowns appear on every page
 app.locals.menu = { pkgCols: home.pkgMenuCols, destCols: home.destMenuCols, to: home.to, mostBookedHref: home.mostBookedHref, langs: home.langs };
 // ...and so does the one footer (partials/site-footer), with the head office details from the contact page
@@ -60,9 +84,9 @@ const importedPage = (view, d) => (req, res) => res.render(view, Object.assign({
 const renderHome4 = live => (req, res) => {
   const H2 = require('./data/home2');
   // Client pictures (6 Oct 2026): every picture on the page is used once only
-  const REGION_IMG = { 'North India': '/photos/golden-temple-amritsar.jpg', 'South India': '/photos/madurai.webp', 'West India': '/photos/goa-beach-palms.avif', 'East India': '/photos/arunachal-losar.webp' };
-  const CAT_IMG = { '/india-golden-triangle-tour': '/photos/red-fort-hd.webp', '/rajasthan-tours': '/photos/gadisar-lake-hd.webp', '/southindia_kerala_tours': '/photos/kerala-houseboat-dusk.webp', '/south_india_tour': '/photos/mysore-palace-lit.jpg', '/south_north_india_tours': '/photos/delhi-lotus-temple.jpg' };
-  const POP_IMG = { '/golden_triangle_packages': '/photos/jal-mahal-jaipur.jpg', '/rajasthan_holiday_tour_packages': '/photos/bikaner-junagarh-client.jpg', '/itin_southindia_nature': '/photos/brihadeshwara-temple.webp', '/travel-rajasthan-India-hertiage-widllife-tours': '/photos/bengal-tiger-wide.jpg' };
+  const REGION_IMG = { 'North India': '/photos/golden-temple-amritsar.webp', 'South India': '/photos/region-south-india.webp', 'West India': '/photos/goa-beach-palms.avif', 'East India': '/photos/arunachal-losar.webp' };
+  const CAT_IMG = { '/india-golden-triangle-tour': '/photos/red-fort-hd.webp', '/rajasthan-tours': '/photos/gadisar-lake-hd.webp', '/southindia_kerala_tours': '/photos/kerala-houseboat-dusk.webp', '/south_india_tour': '/photos/mysore-palace-lit.webp', '/south_north_india_tours': '/photos/delhi-lotus-temple.jpg' };
+  const POP_IMG = { '/golden_triangle_packages': '/photos/jal-mahal-jaipur.jpg', '/rajasthan_holiday_tour_packages': '/photos/bikaner-junagarh-client.webp', '/itin_southindia_nature': '/photos/brihadeshwara-temple.webp', '/travel-rajasthan-India-hertiage-widllife-tours': '/photos/bengal-tiger-wide.jpg' };
   const H4 = Object.assign({}, H2, {
     // South in the tall tile (the temple tower fits it), North in the wide one (the Golden Temple is a wide picture)
     regions: ['South India', 'North India', 'West India', 'East India'].map(n => H2.regions.find(r => r.name === n)).filter(Boolean)
@@ -70,7 +94,7 @@ const renderHome4 = live => (req, res) => {
       .map(r => Object.assign({}, r, { img: REGION_IMG[r.name] || r.img })),
     categories: H2.categories.map(c => CAT_IMG[c.url] ? Object.assign({}, c, { img: CAT_IMG[c.url] }) : c),
     popular: H2.popular.map(t => POP_IMG[t.href] ? Object.assign({}, t, { img: POP_IMG[t.href] }) : t),
-    guideImgs: ['/photos/globe.avif', '/photos/forts-palaces.jpeg', '/photos/travel-tools-hd.webp']
+    guideImgs: ['/photos/guide-travelers.webp', '/photos/guide-attractions.webp', '/photos/guide-travel-tools.webp']
   });
   res.render('home-4', { title: 'Meruka India Tourism — One Country, Many Worlds' + (live ? '' : ' (copy 3)'), d: home, H2: H4, extraCss: '/css/home-4.css?v=' + Math.round(fs.statSync(path.join(__dirname, 'public/css/home-4.css')).mtimeMs), meta: live ? { description: HOME_DESC, canonical: '/' } : { description: HOME_DESC, canonical: '/', robots: 'noindex' } });
 };

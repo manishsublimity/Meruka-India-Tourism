@@ -15,16 +15,17 @@ const TARGETS = {
   'Religious & pilgrimage': 'golden_triangle_temple_packages.html', 'Yoga & Ayurveda': 'yoga_ayurveda_tours.html',
   'Wildlife tours': 'wildlife_tour.html', 'Buddhist circuit': 'buddhist_pilgirmage_tour.html',
   'Fairs & festivals': 'india_fair_festival_travelplan.html', 'Village tours': 'rajasthan-villages-travel-tours.html',
-  // Destinations menu, region cards and footer
-  'North India': 'north_india_tour.html', 'Delhi': 'north_india_tour.html', 'Agra': 'india-golden-triangle-tour.html',
-  'Rajasthan': 'rajasthan-tours.html', 'Jaisalmer': 'rajasthan-tours.html', 'Varanasi': 'north_india_tour.html', 'Kashmir': 'north_india_tour.html',
-  'Himachal': 'rajasthan_himachal_tours_packages.html',
-  'South India': 'south_india_tours_tourism.html', 'Kerala': 'southindia_kerala_tours.html', 'Tamil Nadu': 'tamilnadu-tours.html',
-  'Karnataka': 'karnataka_tours.html', 'Hampi': 'karnataka_tours.html', 'Goa': 'island_beaches_tour.html',
-  'West India': 'west_india_tour_tourism.html', 'Mumbai': 'maharashtra_tours.html', 'Gujarat': 'gujarat_tours.html',
-  'Ajanta & Ellora': 'maharashtra_tours.html', 'Rann of Kutch': 'gujarat_tours.html',
-  'East India': 'east_india_tour_tourism.html', 'Kolkata': 'east_india_tour_tourism.html', 'Odisha': 'konark-suntemple_tours.html',
-  'Sikkim & Darjeeling': 'sikkimtours.html', 'Seven Sisters': 'seven-sisters-india-tours.html', 'Sundarbans': 'golden_triangle_sunderbans_tour.html',
+  // Destinations menu, region cards and footer: each place goes to its own guide page (the state guide
+  // when the place has no page of its own — Agra and Varanasi are in the Uttar Pradesh guide, and so on)
+  'North India': 'north_india_tour.html', 'Delhi': 'delhi.htm', 'Agra': 'Uttar-Pradesh.htm',
+  'Rajasthan': 'rajasthan.htm', 'Jaisalmer': 'rajasthan_jaisalmer.htm', 'Varanasi': 'Uttar-Pradesh.htm', 'Kashmir': 'Jammu-Kashmir.htm',
+  'Himachal': 'Himachal-Pradesh.htm',
+  'South India': 'south_india_tours_tourism.html', 'Kerala': 'Kerala.htm', 'Tamil Nadu': 'Tamil-Nadu.htm',
+  'Karnataka': 'Karnataka.htm', 'Hampi': 'Karnataka.htm', 'Goa': 'Goa.htm',
+  'West India': 'west_india_tour_tourism.html', 'Mumbai': 'Maharashtra.htm', 'Gujarat': 'Gujarat.htm',
+  'Ajanta & Ellora': 'Maharashtra.htm', 'Rann of Kutch': 'gujarat-rannofkutchtours.html',
+  'East India': 'east_india_tour_tourism.html', 'Kolkata': 'West-Bengal.htm', 'Odisha': 'Orissa.htm',
+  'Sikkim & Darjeeling': 'Sikkim.htm', 'Seven Sisters': 'seven-sisters-india-tours.html', 'Sundarbans': 'West-Bengal.htm',
   // Travel guide cards
   'Weather & best season': 'weather.htm', 'Fairs and festivals': 'Fairs-Festivals.htm', 'Cuisine': 'cuisine.htm',
   'Shopping': 'shopping.htm', 'Traditions and customs': 'traditions_and_customs.htm', 'History & geography': 'history.htm',
@@ -33,6 +34,14 @@ const TARGETS = {
   'Visa information': 'visa_information.htm', 'Indian embassies': 'indian_embassies.htm',
   'Health & safety': 'travelers-guidlines-information.htm', 'Money and tipping': 'travelers_guide.htm',
   'Maps & phone codes': 'maps.htm', 'Booking & cancellation': '#faq',
+  // the Travel Guide links as the client named them (7 Oct 2026)
+  'Weather & Best Season': 'weather.htm', 'Cuisine & Food': 'cuisine.htm', 'Fair & Festivals': 'Fairs-Festivals.htm',
+  'Traditions and Customs': 'traditions_and_customs.htm', 'History & Geography': 'history.htm',
+  'Yoga Tourism': 'yoga.htm', 'Ayurveda Tourism': 'ayurveda.htm', 'Pilgrimage Tourism': 'pilgrimage.htm', 'Wildlife Tourism': 'wildlife.htm',
+  'Buddhist Circuits Tourism': 'buddha.htm', 'Beaches Tourism': 'beaches.htm', 'Tribal & Rural Tourism': 'rajasthan-villages-travel-tours.html',
+  'Visa Information': 'visa_information.htm', 'Indian Embassies': 'indian_embassies.htm', 'Health & Safety': 'travelers-guidlines-information.htm',
+  'Money and Tipping': 'travelers_guide.htm', 'Maps & Phone codes': 'maps.htm', 'Booking & Cancellation': '#faq',
+  'India Tour Itineraries': 'itineraries.htm',
   // Footer
   'Golden Triangle': 'india-golden-triangle-tour.html', 'Exotic Rajasthan': 'rajasthan-tours.html',
   'Rajasthan North India': 'rajasthan_north_india_tours.html', 'Group tours (7+)': '#plan',
@@ -81,7 +90,7 @@ module.exports = {
   heroSlides: [
     { src: A('taj-reflection.webp'), alt: 'The Taj Mahal mirrored in the garden canal at Agra', label: 'Agra' },
     { src: A('gadisar-lake.webp'), alt: 'Gadisar Lake pavilions at dusk, Jaisalmer', label: 'Jaisalmer' },
-    { src: A('kovalam.jpg'), alt: 'Kovalam lighthouse at sunset, Kerala', label: 'Kerala' }
+    { src: A('kovalam.webp'), alt: 'Kovalam lighthouse at sunset, Kerala', label: 'Kerala' }
   ],
 
   filters: {
@@ -102,15 +111,15 @@ module.exports = {
   tours: [
     { code: 'IGT-551', href: link('golden_triangle_packages.html'), name: 'Golden Triangle Classic', stops: ['Delhi', 'Agra', 'Jaipur'], nights: '6N / 7D', price: 'USD 545', img: '/photos/taj-mahal-feature.webp', alt: 'The Taj Mahal at sunrise, Agra', cats: ['Golden Triangle'], badge: 'Most booked', blurb: 'Mughal Delhi, the Taj at sunrise, and the forts and bazaars of the pink city.' },
     { code: 'IRJ-218', href: link('rajasthan-tours.html'), name: 'Rajasthan Forts & Palaces', stops: ['Jaipur', 'Jodhpur', 'Udaipur', 'Jaisalmer'], nights: '11N / 12D', price: 'USD 1,190', img: A('gadisar-lake.webp'), alt: 'Sandstone pavilions on Gadisar Lake at dusk, Jaisalmer', cats: ['Rajasthan'], badge: '', blurb: 'Four walled cities, heritage hotels inside the ramparts, and Pushkar Fair in November.' },
-    { code: 'ISK-402', href: link('southindia_kerala_tours.html'), name: 'Kerala Backwaters & Beaches', stops: ['Kochi', 'Munnar', 'Alleppey', 'Kovalam'], nights: '9N / 10D', price: 'USD 985', img: A('kovalam.jpg'), alt: 'Kovalam lighthouse above the Arabian Sea at sunset', cats: ['South India'], badge: '', blurb: 'Tea estates, a private houseboat night, and the slowest coastline in India to finish on.' },
+    { code: 'ISK-402', href: link('southindia_kerala_tours.html'), name: 'Kerala Backwaters & Beaches', stops: ['Kochi', 'Munnar', 'Alleppey', 'Kovalam'], nights: '9N / 10D', price: 'USD 985', img: A('kovalam.webp'), alt: 'Kovalam lighthouse above the Arabian Sea at sunset', cats: ['South India'], badge: '', blurb: 'Tea estates, a private houseboat night, and the slowest coastline in India to finish on.' },
     { code: 'IGR-309', href: link('golden_triangle_temple_packages.html'), name: 'Golden Triangle & Sacred India', stops: ['Delhi', 'Haridwar', 'Mathura', 'Agra', 'Jaipur'], nights: '11N / 12D', price: 'USD 1,265', img: '/photos/madurai.webp', alt: 'Temple gopurams, South India', placeholder: 'ganga aarti, haridwar', cats: ['Religious', 'Golden Triangle'], badge: 'Custom favourite', blurb: "Ganga Aarti at Har-ki-Pauri, Krishna's Mathura and Vrindavan, then the Golden Triangle." },
-    { code: 'ITD-127', href: link('rajasthan-tours.html'), name: 'Thar Desert & the Blue City', stops: ['Jodhpur', 'Osian', 'Jaisalmer', 'Bikaner'], nights: '7N / 8D', price: 'USD 720', img: A('thar-camel.jpg'), alt: 'A camel rider on a dune at sunset in the Thar desert', cats: ['Rajasthan'], badge: '', blurb: 'Dunes at sunset, a night under canvas, and the craft villages most tours drive past.' },
+    { code: 'ITD-127', href: link('rajasthan-tours.html'), name: 'Thar Desert & the Blue City', stops: ['Jodhpur', 'Osian', 'Jaisalmer', 'Bikaner'], nights: '7N / 8D', price: 'USD 720', img: A('thar-camel.webp'), alt: 'A camel rider on a dune at sunset in the Thar desert', cats: ['Rajasthan'], badge: '', blurb: 'Dunes at sunset, a night under canvas, and the craft villages most tours drive past.' },
     { code: 'IYA-733', href: link('yoga_ayurveda_tours.html'), name: 'Yoga, Ayurveda & the Coast', stops: ['Rishikesh', 'Kochi', 'Kovalam'], nights: '10N / 11D', price: 'USD 1,040', img: A('yoga-beach.avif'), alt: 'Sunrise yoga on a quiet stretch of coast', cats: ['Wellness', 'South India'], badge: '', blurb: 'Morning practice on the Ganges, then a certified Ayurveda centre on the Malabar coast.' }
   ],
 
   regions: [
     { name: 'North India', kicker: 'Mughals, forts & the Ganges', places: 'Delhi · Agra · Jaipur · Udaipur · Varanasi · Amritsar · Kashmir', count: '24 tours · from USD 545', img: '/photos/red-fort-hd.webp', alt: 'The Red Fort, Delhi, at dusk' },
-    { name: 'South India', kicker: 'Backwaters, temples & tea', places: 'Kochi · Munnar · Alleppey · Kovalam · Madurai · Mysore · Hampi', count: '16 tours · from USD 620', img: A('kovalam.jpg'), alt: 'Kovalam lighthouse and palms at sunset' },
+    { name: 'South India', kicker: 'Backwaters, temples & tea', places: 'Kochi · Munnar · Alleppey · Kovalam · Madurai · Mysore · Hampi', count: '16 tours · from USD 620', img: A('kovalam.webp'), alt: 'Kovalam lighthouse and palms at sunset' },
     { name: 'West India', kicker: 'Desert, caves & salt flats', places: 'Jaisalmer · Kutch · Ajanta & Ellora · Mumbai · Goa', count: '11 tours · from USD 580', img: A('gadisar-lake.webp'), alt: 'Gadisar Lake pavilions, Jaisalmer' },
     { name: 'East India', kicker: 'Tribes, tigers & the hills', places: 'Kolkata · Puri · Sikkim · Darjeeling · Assam', count: '9 tours · from USD 640', img: '/photos/east-india-losar.webp', alt: 'Losar festival, Arunachal Pradesh', placeholder: 'darjeeling / kaziranga' }
   ],
@@ -132,9 +141,10 @@ module.exports = {
   ],
 
   guideCols: [
-    { title: 'Tourism guide', count: '9 topics', items: ['Weather & best season', 'Fairs and festivals', 'Cuisine', 'Shopping', 'Traditions and customs', 'History & geography'] },
-    { title: 'Attractions', count: '9 themes', items: ['Yoga & Ayurveda', 'Pilgrimage tourism', 'Wildlife tourism', 'Buddhist circuit', 'Beaches & hill stations', 'Tribal & village India'] },
-    { title: 'Travel tools', count: '9 tools', items: ['Visa information', 'Indian embassies', 'Health & safety', 'Money and tipping', 'Maps & phone codes', 'Booking & cancellation'] }
+    // client, 7 Oct 2026: section names and links in upper- and lower-case, as listed
+    { title: 'Travelers Guide', count: '6 topics', items: ['Weather & Best Season', 'Cuisine & Food', 'Fair & Festivals', 'Shopping', 'Traditions and Customs', 'History & Geography'] },
+    { title: 'Attractions of India', count: '7 themes', items: ['Yoga Tourism', 'Ayurveda Tourism', 'Pilgrimage Tourism', 'Wildlife Tourism', 'Buddhist Circuits Tourism', 'Beaches Tourism', 'Tribal & Rural Tourism'] },
+    { title: 'Travel Tools', count: '6 tools', items: ['Visa Information', 'Indian Embassies', 'Health & Safety', 'Money and Tipping', 'Maps & Phone codes', 'Booking & Cancellation'] }
   ],
 
   reviews: [
@@ -164,7 +174,7 @@ module.exports = {
     { title: 'Travel guide', items: ['Best time to visit', 'Fairs & festivals', 'Cuisine', 'Visa information', 'Wildlife & parks', "Traveller's guide"] },
     { title: 'Company', items: ['Why Meruka India', 'How we work', 'Guest reviews', 'FAQs', 'Cancellation policy', 'Contact us'] }
   ],
-  seoLinks: ['India tour packages', 'India travel agency', 'Indian tour operators', 'India holiday packages', 'Golden Triangle tour', 'Rajasthan tour packages', 'Kerala backwaters tours', 'Kerala tour operators', 'Private tours India', 'India tour plan'],
+  seoLinks: ['India tour packages', 'India travel agency', 'Indian tour operators', 'India holiday packages', 'Golden Triangle tour', 'Rajasthan tour packages', 'Kerala backwaters tours', 'Kerala tour operators', 'Private tours India', 'India tour plan', 'India Tour Itineraries'],
   socials: ['f', 'in', 'ig', 'yt']
 };
 
@@ -173,8 +183,8 @@ module.exports = {
 const I = f => '/images/' + f;
 module.exports.stateAllImg = '/assets/taj-reflection.webp';
 module.exports.stateGroups = [
-  { region: 'North India', img: '/assets/taj-aerial.jpg', states: [['Rajasthan', '/rajasthan', I('rajasthan-state.jpg')], ['Himachal Pradesh', '/Himachal-Pradesh', I('himchal.jpg')], ['Uttarakhand', '/uttaranchal', I('uttaranchal-state.jpg')], ['Jammu & Kashmir', '/Jammu-Kashmir', I('jammu-kash.jpg')], ['Uttar Pradesh', '/Uttar-Pradesh', I('uttar-pradesh-state.jpg')], ['Punjab', '/Punjab', I('punjab-state.jpg')], ['Ladakh', '/lehladakh_himalaya_travel', I('lehladakh-inner.jpg')]] },
-  { region: 'South India', img: '/assets/kovalam.jpg', states: [['Kerala', '/Kerala', I('kerala-state.jpg')], ['Tamil Nadu', '/Tamil-Nadu', I('tamilnadu.jpg')], ['Karnataka', '/Karnataka', I('karnatak-state.jpg')], ['Andhra Pradesh', '/Andhra-Pradesh', I('andhra-pradesh.jpg')], ['Telangana', '/south_indiatours_telangna', I('telangana.jpg')]] },
+  { region: 'North India', img: '/assets/taj-aerial.webp', states: [['Rajasthan', '/rajasthan', I('rajasthan-state.jpg')], ['Himachal Pradesh', '/Himachal-Pradesh', I('himchal.jpg')], ['Uttarakhand', '/uttaranchal', I('uttaranchal-state.jpg')], ['Jammu & Kashmir', '/Jammu-Kashmir', I('jammu-kash.jpg')], ['Uttar Pradesh', '/Uttar-Pradesh', I('uttar-pradesh-state.jpg')], ['Punjab', '/Punjab', I('punjab-state.jpg')], ['Ladakh', '/lehladakh_himalaya_travel', I('lehladakh-inner.jpg')]] },
+  { region: 'South India', img: '/assets/kovalam.webp', states: [['Kerala', '/Kerala', I('kerala-state.jpg')], ['Tamil Nadu', '/Tamil-Nadu', I('tamilnadu.jpg')], ['Karnataka', '/Karnataka', I('karnatak-state.jpg')], ['Andhra Pradesh', '/Andhra-Pradesh', I('andhra-pradesh.jpg')], ['Telangana', '/south_indiatours_telangna', I('telangana.jpg')]] },
   { region: 'West India', img: '/assets/gadisar-lake.webp', states: [['Goa', '/Goa', I('goa-state.jpg')], ['Gujarat', '/Gujarat', I('gujrat-state.jpg')], ['Maharashtra', '/Maharashtra', I('maharashtra-state.jpg')], ['Madhya Pradesh', '/Madhya-Pradesh', I('madhya-pradesh-state.jpg')]] },
   { region: 'East India', img: I('eastindia-state.jpg'), states: [['Sikkim', '/Sikkim', I('sikkim-state.jpg')], ['Odisha', '/Orissa', I('orissa-state.jpg')], ['Assam', '/Assam', I('assam-state.jpg')], ['West Bengal', '/West-Bengal', I('west-bengal-state.jpg')], ['Bihar', '/Bihar', I('bihar-state.jpg')]] }
 ];

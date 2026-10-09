@@ -26,8 +26,8 @@ const nights = s => { const m = String(s || '').match(/(\d+)\s*Nights?/i); retur
 const listTours = l => l.groups.flatMap(g => g.tours);
 
 // photos chosen by hand where the keyword match isn't the best fit
-const CAT_IMG = { '/wildlife_tour': '/photos/tiger-pair.webp', '/india_fair_festival_travelplan': '/photos/holi-festival.jpg', '/island_beaches_tour': '/photos/goa-beach-loungers.jpg', '/buddhist_pilgirmage_tour': '/photos/varanasi-ghats.jpg', '/leh_ladakh_tours': '/photos/ladakh-nubra.avif', '/konark-suntemple_tours': '/photos/madurai.webp', '/rajasthan-tours': '/photos/jaipur-hawa-mahal.webp' };
-const TOUR_IMG = { 'Heart of Himalayas Tour': '/photos/ladakh.jpg', 'North India Rajasthan Wildlife Tour': '/photos/bengal-tiger.jpg', 'Exotic Rajasthan Fair and Festival Tour': '/photos/pushkar-fair.jpg', 'Kerala Ayurveda & Backwaters Tour': '/photos/yoga-ayurveda.jpg', 'Golden Traingle & Scenic Kerala Tours': '/photos/kerala-houseboat.webp', 'Golden Triangle Tour': '/photos/taj-mahal-feature.webp' };
+const CAT_IMG = { '/wildlife_tour': '/photos/tiger-pair.webp', '/india_fair_festival_travelplan': '/photos/holi-festival.webp', '/island_beaches_tour': '/photos/goa-beach-loungers.webp', '/buddhist_pilgirmage_tour': '/photos/varanasi-ghats.jpg', '/leh_ladakh_tours': '/photos/ladakh-nubra.avif', '/konark-suntemple_tours': '/photos/madurai.webp', '/rajasthan-tours': '/photos/jaipur-hawa-mahal.webp' };
+const TOUR_IMG = { 'Heart of Himalayas Tour': '/photos/ladakh.webp', 'North India Rajasthan Wildlife Tour': '/photos/bengal-tiger.jpg', 'Exotic Rajasthan Fair and Festival Tour': '/photos/pushkar-fair.webp', 'Kerala Ayurveda & Backwaters Tour': '/photos/yoga-ayurveda.jpg', 'Golden Traingle & Scenic Kerala Tours': '/photos/kerala-houseboat.webp', 'Golden Triangle Tour': '/photos/taj-mahal-feature.webp' };
 
 // 1) Tour categories (the tour-list pages), most useful first
 const CATS = [
@@ -100,16 +100,16 @@ const social = [
 // Four regions: each city name on the picture links to its own page (or its state page where the
 // original site has no separate city page)
 const regions = [
-  { name: 'North India', href: '/north_india_tour', img: '/assets/taj-aerial.jpg', kicker: 'Mughals, forts & the Ganges',
+  { name: 'North India', href: '/north_india_tour', img: '/assets/taj-aerial.webp', kicker: 'Mughals, forts & the Ganges',
     cities: [['Jaipur', '/rajasthan_jaipur'], ['Agra', '/Uttar-Pradesh'], ['Delhi', '/delhi'], ['Jaisalmer', '/rajasthan_jaisalmer'], ['Udaipur', '/rajasthan_udaipur'], ['Varanasi', '/Uttar-Pradesh']] },
-  { name: 'South India', href: '/south_india_tours_tourism', img: '/assets/kovalam.jpg', kicker: 'Backwaters, temples & tea',
+  { name: 'South India', href: '/south_india_tours_tourism', img: '/assets/kovalam.webp', kicker: 'Backwaters, temples & tea',
     cities: [['Kochi', '/Kerala'], ['Munnar', '/Kerala'], ['Alleppey', '/Kerala'], ['Kovalam', '/Kerala'], ['Madurai', '/Tamil-Nadu'], ['Mysore', '/Karnataka'], ['Hampi', '/Karnataka']] },
   { name: 'West India', href: '/west_india_tour_tourism', img: '/assets/gadisar-lake.webp', kicker: 'Desert, caves & salt flats',
     cities: [['Kutch', '/Gujarat'], ['Ajanta & Ellora', '/Maharashtra'], ['Mumbai', '/Maharashtra'], ['Goa', '/Goa'], ['Khajuraho', '/khajuraho_city_tour_travel']] },
   { name: 'East India', href: '/east_india_tour_tourism', img: '/images/east-india.jpg', kicker: 'Tribes, tigers & the hills',
     cities: [['Kolkata', '/West-Bengal'], ['Puri', '/Orissa'], ['Sikkim', '/Sikkim'], ['Darjeeling', '/West-Bengal'], ['Assam', '/Assam']] }
 ];
-const guideImgs = ['/photos/hawa-mahal-dusk.jpg', '/photos/varanasi-ghats.jpg', '/photos/jaisalmer-fort-night.jpg'];
+const guideImgs = ['/photos/hawa-mahal-dusk.webp', '/photos/varanasi-ghats.jpg', '/photos/jaisalmer-fort-night.webp'];
 
 module.exports = { regions, guideImgs, categories, popular, byDays, bySector, byInterest, social, totalTours: listTours(lists['/itineraries']).length };
 
