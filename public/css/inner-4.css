@@ -2137,3 +2137,22 @@
 #mk-frame.td2 .td2-pinc li{position:relative;margin:0 0 7px;padding-left:24px;font-size:13.5px;line-height:1.5;color:var(--mk-text)}
 #mk-frame.td2 .td2-pinc li::before{content:"";position:absolute;left:0;top:3px;width:15px;height:15px;border-radius:50% !important;background:var(--mk-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12 4 4 8-8'/%3E%3C/svg%3E") center/11px no-repeat}
 #mk-frame.td2 .td2-pvary{margin:10px 0 0;font-size:12.5px;line-height:1.5;color:var(--mk-muted);text-align:center}
+
+/* GLOBAL TEXT (13 Oct 2026): the first "lead" paragraph of a page is set like every other paragraph —
+   16px Manrope, regular weight, body colour — no bigger or darker intro text anywhere */
+#mk-frame.ux.v3.h4 :is(p.dx-lead,p.az-lead,p.tl2-lead,p.abx-lead){margin-left:0;padding:0;border:0;background:none;font-family:var(--mk-font-body) !important;font-size:16px !important;font-weight:400 !important;line-height:1.85 !important;letter-spacing:0 !important;color:var(--mk-text) !important}
+/* ...and every paragraph written straight in an article (the first one included) */
+#mk-frame.ux.v3.h4 :is(.ar-body,.ar-region,.ar-dest,.ar-single) .prose > p{margin-left:0;padding:0;border:0;background:none;font-family:var(--mk-font-body) !important;font-size:16px !important;font-weight:400 !important;line-height:1.85 !important;letter-spacing:0 !important;color:var(--mk-text) !important}
+
+/* "Read More" at the end of a paragraph (state pages: Jammu, Srinagar…): the blue outline button, compact size,
+   on its own line under the text — hover fills it blue */
+#mk-frame.ux.v3.h4 .prose a.ar-more{display:flex;align-items:center;gap:8px;width:max-content;height:var(--mk-btn-h-sm);margin:14px 0 0;padding:0 18px;border:1.5px solid var(--mk-blue);background:#fff;color:var(--mk-blue) !important;font-family:var(--mk-font-body) !important;font-size:14px;font-weight:800;text-decoration:none;border-radius:var(--mk-radius) !important;box-sizing:border-box;transition:background-color var(--mk-ease),color var(--mk-ease)}
+#mk-frame.ux.v3.h4 .prose a.ar-more:hover{background:var(--mk-blue);color:#fff !important}
+#mk-frame.ux.v3.h4 .prose a.ar-more span{transition:transform var(--mk-ease)}
+#mk-frame.ux.v3.h4 .prose a.ar-more:hover span{transform:translateX(3px)}
+
+/* About page text (13 Oct 2026): one column across the full width of the section, paragraphs in reading order,
+   same 16px body text as the rest of the site */
+#mk-frame.in4 .abx-about .abx-cols{column-count:1 !important;max-width:none;width:100%}
+#mk-frame.in4 .abx-about .abx-cols .abx-text{max-width:none !important;margin:0 0 16px !important}
+#mk-frame.in4 .abx-about .abx-cols .abx-text:last-child{margin-bottom:0 !important}

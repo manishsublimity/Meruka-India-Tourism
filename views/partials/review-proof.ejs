@@ -1,0 +1,11 @@
+<%
+  // Guest-review numbers (13 Oct 2026, option D "gold badge line"): three short badges in one line — the review
+  // count in gold, then 60% and 97.80% as blue outline badges. Params: all (the testimonials list).
+  // Used on the home, About and Testimonials pages.
+  const rpAll = all || [];
+%>
+<div class="gbadges" role="group" aria-label="What our guests say, in numbers">
+  <span class="gbadge gbadge-gold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg><%= rpAll.length %> guest reviews</span>
+  <span class="gbadge"><b>60%</b> via friends and returning families</span>
+  <span class="gbadge"><b>97.80%</b> Tour Success Rate</span>
+</div>

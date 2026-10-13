@@ -290,7 +290,7 @@
 <% } %>
 
 <% const catCrumb = d.breadcrumb[d.breadcrumb.length - 2] || {}; %>
-<%- include('partials/popular-tours', { current: d.url, tours: similarTours(d.url, catCrumb.href, 3), heading: 'Related <em>Tours</em>', base: 'More journeys like this one, from our ' + (catCrumb.label || 'India tours') + '.', allHref: '/itineraries', allLabel: 'View all Tours', avoid: dayPhotos.filter(Boolean).concat([d.heroSrc], topPics), note: false }) %>
+<%- include('partials/popular-tours', { current: d.url, tours: similarTours(d.url, catCrumb.href, 3), heading: 'Related <em>Tours</em>', sub: 'More journeys like this one, from our ' + (catCrumb.label || 'India tours') + '.', allHref: '/itineraries', allLabel: 'View all Tours', avoid: dayPhotos.filter(Boolean).concat([d.heroSrc], topPics), note: false }) %>
 
 
 <%- include('partials/page-footer', { footCols: d.footCols, enquireHref: d.enquire.href }) %>

@@ -12,6 +12,10 @@
     body = body.slice(m[0].length);
   }
   if (facts.length < 2) { facts.length = 0; body = d.html; }
+  // a "Read More" link at the end of a paragraph becomes the site's blue outline button
+  body = body.replace(/<a ([^>]*)>\s*Read More\s*<\/a>(\s*<\/p>)/gi, '<a class="ar-more" $1>Read More <span aria-hidden="true">→</span></a>$2');
+  // loose text between paragraphs on some originals (Goa) becomes a paragraph of its own
+  body = body.replace(/<\/p>\s*([^<\s][^<]*?)\s*(?=<p[\s>]|<h[1-6][\s>])/g, '</p><p>$1</p>');
   const chips = v => !/</.test(v) ? v.split(/\s*,\s*/).filter(Boolean) : null;
   const factIcons = {
     location: '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
@@ -21,7 +25,10 @@
   };
   // Destination guides (Delhi, Jaipur, Kerala …): pages with "Places of Interest" that are not region overviews.
   // The words stay the same; article.js lays them out as facts, place cards and travel cards.
-  const isDest = !facts.length && /Places of Interest/i.test(d.html);
+  // Goa and the wildlife parks have Excursions / Reach but no "Places of Interest"; four state pages are only
+  // an introduction and a section per city, like Karnataka — all of them use the same destination layout.
+  const DEST_STATES = ['/Jammu-Kashmir', '/Madhya-Pradesh', '/rajasthan', '/Lakshadweep'];
+  const isDest = !facts.length && (/Places of Interest/i.test(d.html) || /<h[34][^>]*>\s*(Excursions|Reach)/i.test(d.html) || DEST_STATES.includes(d.url));
   const place = String(d.heading).replace(/\s*Tourism$/i, '').trim();
   const tours = isDest ? toursFor(place) : [];
   // a different photo for every tour card (and none that the page already shows): the tour's own
@@ -40,7 +47,7 @@
 <div style="width:100%;overflow-x:clip;background:#F4F7FB">
 <div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#F4F7FB">
 
-<%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
+<%- include('partials/page-header', { nav: d.nav, enquireHref: enquire, active: isDest || facts.length ? 'Destinations' : '' }) %>
 
 <%- include('partials/photo-hero', { title: d.heading, img: d.heroSrc, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
 

@@ -18,7 +18,7 @@
 <div style="width:100%;overflow-x:clip;background:#F4F7FB">
 <div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#F4F7FB">
 
-<%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
+<%- include('partials/page-header', { nav: d.nav, enquireHref: enquire, active: 'Testimonials' }) %>
 
 <%- include('partials/photo-hero', { title: d.heading, img: d.heroSrc, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
 
@@ -27,10 +27,7 @@
     <div class="az-side"><span class="az-no">01</span><h2 class="h4-h2 az-h">In our guests&rsquo; <em>words</em></h2></div>
     <div class="az-main">
       <p class="az-lead"><%= T.intro %></p>
-      <div class="rv3-proof tm-proof">
-        <div class="rv3-avs" aria-hidden="true"><% all.slice(0, 4).forEach(t => { %><span><%= t.initials %></span><% }) %><span class="rv3-more">+<%= all.length - 4 %></span></div>
-        <div class="rv3-nums"><p><b><%= all.length %></b> guest testimonials</p><p><b>60%</b> of new guests come through friends and returning families.</p></div>
-      </div>
+      <%- include('partials/review-proof', { all: all }) %>
     </div>
   </div>
 </section>
