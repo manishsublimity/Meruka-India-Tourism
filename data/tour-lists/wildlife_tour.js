@@ -9,7 +9,7 @@ module.exports = {
   title: "Wildlife Tour Holiday Packages,Wildlife Trip to India, Adventure Travel Packages in India",
   description: "Indian tour operators offer India wildlife tours, short and long wildlife trip with all kind of travel services, wildlife travel guide and wildlife information, Adventure travel packages in India, wildlife tour holiday packages",
   keywords: "india wildlife,india wildlife tours,adventure travel packages,wildlife packages,travel agency,wildlife trip,wildlife holiday tour packages,wildlife travel guide,wildlife information,wildlife sanctuary,wildlife tourist sector,national park",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "India Wildlife Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Hill Hill Stations Tourism,North India Hill Stations",
   description: "India Tourism Offer - Indian Hill Stations Mussoorie, Hill Stations Tourism, North India Hill Stations,Hill Stations Tourism In India, Uttaranchal Tourism, North India Hill Stations Nature Tours, North India Cool Retreat Holidays, Trip, Mountains, Hill Stations, Tour Packages",
   keywords: " indian hill stations mussoorie, hill stations tourism, north india hill stations, trip tour package, hill stations tourism in india, uttaranchal tourism, north india hill stations and nature tours,travel tourism,indian tourism,tour packages hill stations, hotel bookings, approved by, tourism department of india, indian government ministry of tourism, original website, india travel agents and tour operators, mussoorie hill station, hill stations tourism, discover, india uttaranchal tourism, indian hill station mussoorie, tour plan, indian tourist destinations, mountain tours, india tour packages, india nature tours, uttaranchal holidays",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Mussoorie",
   nav: site.nav('', false),
   footCols: site.footCols(),

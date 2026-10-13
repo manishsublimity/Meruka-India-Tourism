@@ -10,7 +10,7 @@ module.exports = {
   title: "India Tourism - Other Guidelines",
   description: "India Tourism - Other Guidelines",
   keywords: "India Tourism - Other Guidelines",
-  heroSrc: site.IMG("other-guidlines.jpg"),
+  heroSrc: site.IMG("other-guidlines.webp"),
   heroAlt: "Other Guidelines",
   nav: site.nav('', false),
   footCols: site.footCols(),

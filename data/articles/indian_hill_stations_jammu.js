@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Hill Station,Leh Ladakh Tourism",
   description: "India Tourism  Offer - Indian Hill Station Tour, North India Jammu Kashmir, Leh Ladakh Tourism, India Hill Stations Holiday Packages, Hill Stations Tour Guide India, Jammu Tour Packages, Himalaya Travel Guide, India Hill Stations Tourism ",
   keywords: " Indian Hill Station Tour, North India Jammu Kashmir, Leh Ladakh Tourism, hill stations trip, tours, travel, tourism, jammu kashmir, jammu kashmir tours, indian hill stations, holidays guide, holidays packages, leh tours, ladakh tourism, jammu kashmir tourism, indian hill stations tourism information, himalaya travel guide, indian hill stations vacation tours, indian hill stations trip, summer holidays india, hill stations winter tours, north india hill stations, south india hill stations, east india hill stations tours, west india hill stations tourism",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Jammu",
   nav: site.nav('', false),
   footCols: site.footCols(),

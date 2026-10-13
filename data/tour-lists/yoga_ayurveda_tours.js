@@ -9,7 +9,7 @@ module.exports = {
   title: "India Yoga and Ayurveda Tour Packages, Meditations Trip Plan",
   description: "Yoga and Ayurveda tour in India, Yoga classes and meditations trip in North India, India meditation tour, South India Kerala Ayurveda tours, Meditation trip plan, Ayurveda treatment with backwaters",
   keywords: "north india yoga tour,kerala backwaters tours,yoga tour,north india yoga trip,south india yoga ayurveda tour,meditation trip plan,travel guide,yoga tourism,ayurveda tourism,tour packages",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Yoga and Ayurveda Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -37,7 +37,7 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Kerala Ayurveda & Backwaters Tour", href: site.link("/Kerala-Ayurveda-Backwaters-Tour.html"), route: "Cochin - Palakkad - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "09 Nights - 10 Days" },
+        { name: "Kerala Ayurveda Tour", href: site.link("/Kerala-Ayurveda-Backwaters-Tour.html"), route: "Cochin - Palakkad - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "09 Nights - 10 Days" },
         { name: "India Yoga & Meditation Tour", href: site.link("/tours/India-Yoga-and-Meditation-Tour/"), route: "Delhi - Rishikesh - Haridwar - Shiv Puri - Delhi", duration: "10 Nights - 11 Days" },
         { name: "Healing Chakra, Meditation & Kathmandu Yoga Tour", href: site.link("nepal_yoga_meditation.html"), route: "Delhi - Katmandu - Delhi", duration: "12 Nights - 13 Days" }
       ]

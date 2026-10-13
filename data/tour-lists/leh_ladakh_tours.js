@@ -9,7 +9,7 @@ module.exports = {
   title: "Leh Ladakh Tours,Leh Ladakh Tours Packages",
   description: "Offering well-designed Leh Ladakh tours, we provide all kind of Leh Ladakh tours packages, travel plan for Buddhist destination, mountains trekking, combining Leh tours with North India, Leh Ladakh with Agra Taj Mahal, Delhi and Shimla",
   keywords: "north india,leh ladakh,himalaya leh ladakh tours,leh ladakh tour packages,buddhist destination,leh travel mountains,trekking leh india,ladhakh tourism,north india tourism, leh tour holiday packages, agra taj mahal, delhi tour, shimla packages",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Leh and Ladakh Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -39,8 +39,8 @@ module.exports = {
       tours: [
         { name: "Heart of Himalayas Tour", href: site.link("/Heart-of-Himalayas-Tour.html"), route: "Delhi - Leh - Alchi - Lamayuru - Leh - Nubra Valley - Leh - Pangong - Leh - Delhi", duration: "10 Nights - 11 Days" },
         { name: "Himalayan Bliss Tour", href: site.link("himalayas_tours_packages.html"), route: "Delhi - Leh - Saspol - Leh - Alchi - Lamayuru - Leh - Nubra Valley - Leh - Pangong - Leh - Zingchen - Rumbak - Stok - Leh - Delhi", duration: "14 Nights - 15 Days" },
-        { name: "Rediscover Splendid Himalayas Tour", href: site.link("himalayas_tours.html"), route: "Delhi - Srinagar - Leh - Kargil - Rangdum - Padum - Rangdum - Kargil - Dha - Lamayuru - Alchi - Leh - Delhi", duration: "16 Nights - 17 Days" },
-        { name: "Himalayan Wonders Tour", href: site.link("Himalayan-Wonders-Tour.html"), route: "Delhi - Chandigarh - Shimla - Kullu - Manali - Rohtang Pass - Jispa - Sarchu - Leh - Alchi - Lamayuru - Nubra Valley - Pangong - Leh - Delhi", duration: "19 Nights - 20 Days" }
+        { name: "Rediscover Splendid Himalayas Tour", href: site.link("himalayas_tours.html"), route: "Delhi - Srinagar - Kargil - Rangdum - Padum - Rangdum - Kargil - Dha-Hanu - Lamayuru - Alchi - Leh - Delhi", duration: "16 Nights - 17 Days" },
+        { name: "Exotic Himalayas Tour", href: site.link("Himalayan-Wonders-Tour.html"), route: "Delhi - Chandigarh - Shimla - Kullu - Manali - Rohtang Pass - Jispa - Sarchu - Leh - Alchi - Lamayuru - Leh - Nubra Valley - Pangong - Leh - Delhi", duration: "19 Nights - 20 Days" }
       ]
     }
   ],

@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Fair Festival Tourism,Diwali Festivals in India,Fair Festival Tours in India",
   description: "India Tourism Offer - Indian Fair Festival Tourism, Diwali Festivals In India, Fair Festival Tours In India, Diwali Festival, Indian Fair Festival Tourism, Diwali Festivals In India, Travel During Fair And Festivals Of India, Fairs And Festivals Tour Agents, Fair Festival Tour Packages, Fair Festival Guide ",
   keywords: "Diwali festival, Indian Fair Festival Tourism, Diwali Festivals in India, Travel During Fair and Festivals of India, Diwali Festivals in India,Fair Festival Tours in India, Fairs and Festivals Tour Agents, fair festival tour packages, fair festival guide, india, indian, fair, festivals, north india fair, festivals, indian tour package, travel during festivals, south india festivals, south india fair, guide, holidays, India trip, Diwali festival, about Diwali, travel guide, tourism information, indian festivals celebration, events, fairs in rajasthan, karnataka, west bengal, kerala, sikkim, tamilnadu, himachal, Andhra pradesh, uttar pradesh, car rental, hotel bookings, approved by ministry of tourism under indian government, official website, meruka india tourism service ,india-tourism, net ",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Diwali",
   nav: site.nav('', false),
   footCols: site.footCols(),

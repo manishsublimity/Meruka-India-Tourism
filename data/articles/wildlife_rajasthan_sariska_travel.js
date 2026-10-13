@@ -10,7 +10,7 @@ module.exports = {
   title: "Rajasthan Travel, Rajasthan Widlife, Sariska Widlife, Rajasthan National Park",
   description: "India Rajasthan travel agents, tour operators for Rajasthan widlife tourism, all about widlife tours of India forest sanctuaries and Sariska National Park of Rajasthan, Indian adventure tour packages, Indian tourist places visit and trip to  adventure tourist destinations with Agra Taj Mahal tours, golden triangle tour  ",
   keywords: "north india, sariska, sariska widlife, alwar sariska, reach, places interest, tourist attractions, tour packages widlife, rajasthan widlife tours, rajasthan widlife travel, India Rajasthan, official website, government approved hotels, by tourism department of indian government authorities,  rajasthan widlife tourism, indian widlife travel itineraries,  rajasthan tourist places, north india wildlife, rajasthan adventure widlife ,tours, tourism",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Sariska",
   nav: site.nav('', false),
   footCols: site.footCols(),

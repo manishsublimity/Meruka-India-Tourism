@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Pilgrimage Tours Packages",
   description: "India Tourism Offer - Indian Pilgrimage Tour Amarnath, Amarnath Pilgrimage Yatra, India Pilgrimage Tours Packages, Vacations Tours, Spiritual Tours To North And South India, India Pilgrimage Tours, Pilgrimage Holidays Packages For Family ",
   keywords: " indian pilgrimage tour amarnath, amarnath pilgrimage yatra, india pilgrimage tours packages, vacations tours, spiritual tours to north and south india, india pilgrimage tours, pilgrimage holidays packages for family, india, indian, indian pilgrim, indian pilgrimage centers,  tourist places of north and south india, indian pilgrimage holidays packages, india pilgrimage vacations tours, haridwar tours, rishikesh, mathura, kanyakumari, tirupati,   golden temple, rajasthan, north india temples, india pilgrim tourist cities, tourist towns of indian pilgrimage, amaranth tours, indian pilgrimage temple tours, jain temples, hindu temples",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Amarnath Yatra",
   nav: site.nav('', false),
   footCols: site.footCols(),

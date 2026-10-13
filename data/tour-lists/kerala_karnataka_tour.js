@@ -9,7 +9,7 @@ module.exports = {
   title: "Kerala Karnataka Holidays,Karnataka Kerala Tour,Kerala Karnataka Tour Packages",
   description: "Enjoy your holidays in Karnataka and Kerala, offering best holidays of Karnataka and Kerala, Karnataka Kerala tour packages, tour itineraries, travel plan for the wildlife, temples, historical monuments, religious, backwaters, hill stations tour packages of Kerala and Karnataka",
   keywords: "india,kerala,karnataka,south india,kerala tour,karnataka tour,holidays,packages,official website,approved by ministry of government of india,kerala tour packages,travel plan,tour itineraries,karnataka tour packages,tour itinerary,kerala holidays,south india wildlife,monuments,religious tours",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Karnataka & Kerala Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -43,9 +43,9 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Golden Triangle of Karnataka and Kerala Tours", href: site.link("itin_southindia_tour.htm"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Munnar - Alleppy - Cochin", duration: "10 Nights - 11 Days" },
-        { name: "Best of Karnataka and Kerala Tour", href: site.link("itin_southindia_tour1.htm"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Conoor - Ooty - Guruvayur - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "15 Nights - 16 Days" },
-        { name: "Spiritual South India Tour", href: site.link("southindia_tour_travel_packages.html"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Guruvayur - Cochin - Munnar - Periyar - Alleppy - Kovalam - Kanyakumari - Rameshwaram - Madurai", duration: "18 Nights - 19 Days" }
+        { name: "Golden Triangle of Karnataka and Kerala Tours", href: site.link("itin_southindia_tour.htm"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Munnar - Alleppey - Cochin", duration: "10 Nights - 11 Days" },
+        { name: "Best of Karnataka and Kerala Tour", href: site.link("itin_southindia_tour1.htm"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Guruvayur - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "15 Nights - 16 Days" },
+        { name: "Spiritual South India Tour", href: site.link("southindia_tour_travel_packages.html"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Rameshwaram - Madurai", duration: "18 Nights - 19 Days" }
       ]
     }
   ],

@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Fair and Festival Travel",
   description: "India Tourism Offer - Indian Fair, Indian Fair and Festival travel guide, Dussera Festival Inddia, indian fairs tours, What is Dussehra, Dussera celebration guide, other religious, Vijiya Dasami festival, Dussehra festival tour plan, Holi Dussehra, Diwali, Pushkar Fair, Kumbh, Ganpati, Teej, Christmas",
   keywords: "Indian Fair, Indian Fair And Festival, Dussera Festival Inddia, Indian Fairs Tours, What Is Dussehra, Dussera Celebration Guide, Other Religious, Vijiya Dasami Festival, Dussehra Festival Tour Plan, India Fair, India Festival, Dussehra Festival, India Religious Tour, India Culture, India Historical Festival, Holi, Dusshera, Diwali, Pushkar Fair, Ganpati, Kumbh, Christmas, New Year, Makar Sakranti",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Dussehra",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "Kerala Tour,Kerala Travel Plan,Tour Itineraries Kerala-South India,Kerala Tour Packages,South India",
   description: "South India Kerala tour operator offers Kerala South India travel plan and tour packages, Kerala backwaters tour, Kerala wildlife and beaches tour plan, Kerala hill station and Ayurveda tour itineraries with Karnataka and Tamilnadu",
   keywords: "south india,kerala,kerala tour,kerala travel agency,backwaters,kerala tour plan,kerla hill stations,tour itineraries,south india tour packages, ayurveda tour kerala,kerala travel plan, kerala tourism,kerala holiday packages,kerala tamilnadu tour,kerala karnataka tour packages,south india kerala tour,kerala wildlife tour",
-  heroSrc: site.IMG("south-india.jpg"),
+  heroSrc: site.IMG("south-india.webp"),
   heroAlt: "Kerala Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

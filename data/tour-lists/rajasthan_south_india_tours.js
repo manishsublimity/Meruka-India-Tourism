@@ -9,7 +9,7 @@ module.exports = {
   title: "Rajasthan South India Tours,Karnataka Travel Guide,Kerala Backwaters Trip",
   description: "Enjoy Rajasthan and South India combined tour packages with budget and best deal, we offer customized and tailor-made tours of South India and Rajasthan, Rajasthan South India tourism places, Kerala backwaters trip, tourists attractions, Karnataka travel tour plan with complete travel related services",
   keywords: "india,south india,kerala backwaters trip,rajasthan travel packages,kerala houseboat,south india tours packages,karnataka tourism,packages,south india tour plan,rajasthan,kerala tourism,rajasthan south india tourism places,karnataka sightseeing,tourists attractions,kerala tour packages,karnataka travel guide,south india tourism",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Rajasthan South India Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -51,10 +51,10 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Duo of Rajasthan and Tamil Nadu Tour", href: site.link("South_india_tamilnadu_tours.htm"), route: "Delhi - Sikandra - Agra - Ranthambhore - Fatehpur Sikri - Jaipur - Neemrana - Delhi - Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Rameshwaram - Kanyakumari - Trivandrum", duration: "19 Nights - 20 Days" },
-        { name: "The best of Rajasthan & South India Tour", href: site.link("rajasthan_kerala_tamilnadu_tours.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Udaipur - Chittourgarh - Delhi - Cochin - Munnar - Alleppey - Periyar - Madurai - Rameshwaram - Kovalam - Kanyakumari - Trivandrum", duration: "21 Nights - 22 Days" },
-        { name: "Fascinating Rajasthan and South India Tour", href: site.link("Tour_Rajasthan_South_India.htm"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Delhi - Sikandra - Agra - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Coonoor - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "21 Nights - 22 Days" },
-        { name: "Rajasthan with South India Tour", href: site.link("rajasthan_south_india_packages.html"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Deogarh - Pushkar - Ajmer - Jaipur - Agra - Sikandra - Delhi - Banglore - Mysore - Ooty - Coonoor - Ooty - Munnar - Periyar - Alleppey - Cochin", duration: "26 Nights - 27 Days" }
+        { name: "Duo of Rajasthan and Tamil Nadu Tour", href: site.link("South_india_tamilnadu_tours.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Neemrana - Delhi - Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Thanjavur - Trichy - Madurai - Rameshwaram - Kovalam - Kanyakumari - Trivandrum", duration: "19 Nights - 20 Days" },
+        { name: "The Best of Rajasthan & South India Tour", href: site.link("rajasthan_kerala_tamilnadu_tours.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Delhi - Cochin - Munnar - Alleppey - Periyar - Madurai - Rameshwaram - Kovalam - Kanyakumari - Trivandrum", duration: "21 Nights - 22 Days" },
+        { name: "Fascinating Rajasthan and South India Tour", href: site.link("Tour_Rajasthan_South_India.htm"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Coonoor - Ooty - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "21 Nights - 22 Days" },
+        { name: "Rajasthan with South India Tour", href: site.link("rajasthan_south_india_packages.html"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Deogarh - Pushkar - Ajmer - Jaipur - Agra - Sikandra - Delhi - Bangalore - Mysore - Ooty - Coonoor - Ooty - Munnar - Periyar - Alleppey - Cochin", duration: "26 Nights - 27 Days" }
       ]
     }
   ],

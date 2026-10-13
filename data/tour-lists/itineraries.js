@@ -9,7 +9,7 @@ module.exports = {
   title: "India Tours,India Tour Itineraries,India Travel Plan",
   description: "Incredible India tours, incomparable Indian travel itineraries for North and South India with cost, itinerary,travel plan for North India,South East and West India with best tour packages covering Rajasthan,Kerala, Tamilnadu, Karnatak and all other tourism sector of India",
   keywords: "india,tours,travl,india,tour package,tour itinerary,indian travel itineraries,east india,west india,holiday plan price,india tour plan cost,packages,india tour itineraries,north india tour plans,tour cost,south india travel itinerary,karnataka,tamilnadu,guide tour itinerary,rajasthan,north india holiday packages,travel itineraries,east india travel itinerary",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "India Tours",
   nav: site.nav('India Tours', true),
   footCols: site.footCols(),
@@ -37,25 +37,25 @@ module.exports = {
       href: site.link("india-golden-triangle-tour.htm"),
       tours: [
         { name: "Golden Triangle Tour", href: site.link("golden_triangle_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi", duration: "06 Nights - 07 Days" },
-        { name: "The Amazing Golden Triangle & Wildlife Tour", href: site.link("golden_triangle_wildlife_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambhor - Jaipur - Neemrana - Delhi", duration: "08 Nights - 09 Days" },
-        { name: "Golden Triangle and Temple Tour", href: site.link("golden_triangle_temple_packages.html"), route: "Delhi - Haridwar / Rishikesh - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi", duration: "09 Nights - 10 Days" },
+        { name: "The Amazing Golden Triangle and Wildlife Tour", href: site.link("golden_triangle_wildlife_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Neemrana - Delhi - Hometown", duration: "08 Nights - 09 Days" },
+        { name: "Golden Triangle and Temple Tour", href: site.link("golden_triangle_temple_packages.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi", duration: "09 Nights - 10 Days" },
         { name: "Golden Triangle and Sunderbans Tour", href: site.link("golden_triangle_sunderbans_tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Kolkata - Sunderbans - Kolkata", duration: "10 Nights - 11 Days" },
-        { name: "Golden Triangle & Maharashtra Heritage Tour", href: site.link("/Golden-Triangle-Maharashtra-Tour.html"), route: "Delhi - Sikandra - Agra - Jaipur - Neemrana - Delhi - Aurangabad - Ajanta - Ellora - Mumbai", duration: "11 Nights - 12 Days" },
-        { name: "Golden Triangle & Goa Beaches Tour", href: site.link("/Golden-Triangle-Goa-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Goa", duration: "11 Nights - 12 Days" },
-        { name: "Golden Triangle & North East India Tour", href: site.link("/Golden-Triangle-North-East-India-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Kolkatta - Bagdogra - Kalimpong - Pelling - Gangtok - Darjeeling - Bagdogra - Kolkata", duration: "16 Nights - 17 Days" },
-        { name: "Golden Triangle and Wildlife Tour with Hill Stations of Himachal", href: site.link("golden_triangle_himachal_tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Neemrana - Delhi - Chandigarh - Shimla - Kullu - Manali - Parwanoo - Delhi", duration: "16 Nights - 17 Days" }
+        { name: "Golden Triangle with Maharashtra Tour", href: site.link("/Golden-Triangle-Maharashtra-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi - Aurangabad - Ajanta - Ellora - Mumbai", duration: "11 Nights - 12 Days" },
+        { name: "Golden Triangle with Beaches of Goa Tour", href: site.link("/Golden-Triangle-Goa-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Goa", duration: "11 Nights - 12 Days" },
+        { name: "Golden Triangle with North East Tour", href: site.link("/Golden-Triangle-North-East-India-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Kolkata - Bagdogra - Kalimpong - Pelling - Gangtok - Darjeeling - Bagdogra - Kolkata", duration: "16 Nights - 17 Days" },
+        { name: "Golden Triangle with Wildlife and Hill Stations Tour", href: site.link("golden_triangle_himachal_tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Neemrana - Delhi - Chandigarh - Shimla - Kullu - Manali - Parwanoo - Delhi", duration: "16 Nights - 17 Days" }
       ]
     },
     {
       title: "Exotic Rajasthan Tours",
       href: site.link("rajasthan-tours.html"),
       tours: [
-        { name: "Enthralling Rajasthan Tour", href: site.link("rajasthan_holiday_tour_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Delhi", duration: "10 Nights - 11 Days" },
-        { name: "Splendid Rajasthan Tour", href: site.link("rajasthan_tourtravel_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mandawa - Bikaner - Jaisalmer - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Delhi", duration: "14 Nights - 15 Days" },
+        { name: "Enthralling Rajasthan Tour", href: site.link("rajasthan_holiday_tour_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Delhi", duration: "10 Nights - 11 Days" },
+        { name: "Splendid Rajasthan Tour", href: site.link("rajasthan_tourtravel_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mandawa - Bikaner - Jaisalmer - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Delhi", duration: "14 Nights - 15 Days" },
         { name: "Royal Rajasthan Tour", href: site.link("rajasthan_culture_heritage_packages.html"), route: "Udaipur - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "14 Nights - 15 Days" },
-        { name: "Rajasthan Forts, Palaces & Desert Tour", href: site.link("/Rajasthan-Forts-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittourgarh - Udaipur - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi", duration: "15 Nights - 16 Days" },
+        { name: "Rajasthan Forts and Palaces Tour", href: site.link("/Rajasthan-Forts-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittorgarh - Udaipur - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi", duration: "15 Nights - 16 Days" },
         { name: "Best of Rajasthan Tour", href: site.link("rajasthan_tour_travel.htm"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Mount Abu - Udaipur - Chittourgarh - Deogarh - Pushkar - Ajmer - Jaipur - Samode - Agra - Sikandra - Delhi", duration: "17 Nights - 18 Days" },
-        { name: "Majestic Rajasthan Tour", href: site.link("majestic_rajasthan.htm"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittaurgarh - Bijaipur - Bundi - Ajmer - Pushkar - Jaipur - Ranthambore - Fatehpur Sikri - Agra - Delhi", duration: "18 Nights - 19 Days" }
+        { name: "Majestic Rajasthan Tour", href: site.link("majestic_rajasthan.htm"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Bundi - Ajmer - Pushkar - Jaipur - Ranthambore - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "18 Nights - 19 Days" }
       ]
     },
     {
@@ -64,38 +64,38 @@ module.exports = {
       tours: [
         { name: "Ultimate Village Tour", href: site.link("rajasthan_villages_rural_tours.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Nimaj - Rohet - Jodhpur - Deogarh - Udaipur - Devigarh - Delhi", duration: "12 Nights - 13 Days" },
         { name: "North India Rajasthan Heritage, Culture and Wildlife Tour", href: site.link("north_india_rajasthan_tour.html"), route: "Delhi - Corbett - Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "20 Nights - 21 Days" },
-        { name: "Archaeological Tour of Rajasthan", href: site.link("rajasthan_villages_rural_tourism.htm"), route: "Delhi – Jaipur – Samode – Nawalgarh – Bikaner – Gajner – Pokhran – Jaisalmer – Manvar – Khimsar – Jodhpur – Rohet – Ranakpur – Mount Abu – Udaipur – Dungarpur – Deogarh – Ajmer – Pushkar – Pachewar – Ranthambore – Agra – Sikandra – Delhi", duration: "22 Nights - 23 Days" }
+        { name: "Archaeological Tour of Rajasthan", href: site.link("rajasthan_villages_rural_tourism.htm"), route: "Delhi - Jaipur - Samode - Nawalgarh - Bikaner - Gajner - Pokhran - Jaisalmer - Manvar - Khimsar - Jodhpur - Rohet - Ranakpur - Mount Abu - Udaipur - Dungarpur - Deogarh - Ajmer - Pushkar - Pachewar - Ranthambore - Agra - Sikandra - Delhi", duration: "22 Nights - 23 Days" }
       ]
     },
     {
       title: "Rajasthan - North India Tours",
       href: site.link("rajasthan_north_india_tours.html"),
       tours: [
-        { name: "Splendid North India Tour", href: site.link("itin_rajasthan_northindia_tour.htm"), route: "Delhi - Varanasi - Khajuraho - Orachha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi", duration: "11 Nights - 12 Days" },
+        { name: "Splendid North India Tour", href: site.link("itin_rajasthan_northindia_tour.htm"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi", duration: "11 Nights - 12 Days" },
         { name: "Wonderful Rajasthan and North India Tour", href: site.link("northindia_rajasthan_packages.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Delhi", duration: "15 Nights - 16 Days" },
-        { name: "Alluring North India and Rajasthan Tour", href: site.link("tour_North_India_Rajasthan.htm"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittourgarh - Udaipur - Ranakpur - Jodhpur - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi", duration: "20 Nights - 21 Days" },
-        { name: "Grand North India Heritage Tour", href: site.link("/north-india-heritage-tour.html"), route: "Delhi - Varanasi - Khajuraho - Bandhavgarh National Park - Jabalpur - Bhopal - Sanchi - Orachha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Jodhpur - Bishnoi Village - Bikaner - Deshnok - Mandawa - Delhi", duration: "21 Nights - 22 Days" },
-        { name: "Discover North India Tour", href: site.link("/Discover-north-india-tour.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Corbett - Delhi - Nawalgarh - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Gwalior - Orchha - Khajuraho - Varanasi - Delhi", duration: "28 Nights - 29 Days" }
+        { name: "Alluring North India and Rajasthan Tour", href: site.link("tour_North_India_Rajasthan.htm"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittorgarh - Udaipur - Ranakpur - Jodhpur - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi", duration: "20 Nights - 21 Days" },
+        { name: "Enchanting India Tour", href: site.link("/north-india-heritage-tour.html"), route: "Delhi - Varanasi - Khajuraho - Bandhavgarh - Jabalpur - Bhopal - Sanchi - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Jodhpur - Bishnoi Village - Bikaner - Deshnok - Mandawa - Delhi", duration: "21 Nights - 22 Days" },
+        { name: "Glimpses of Rajasthan and North India Tour", href: site.link("/Discover-north-india-tour.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Corbett - Delhi - Nawalgarh - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Gwalior - Orchha - Khajuraho - Varanasi - Delhi", duration: "28 Nights - 29 Days" }
       ]
     },
     {
       title: "Rajasthan - Kerala Tours",
       href: site.link("rajasthan_kerala_tours.html"),
       tours: [
-        { name: "Golden Traingle & Scenic Kerala Tours", href: site.link("golden_triangle_kerala_tours.html"), route: "Delhi - Sikandra - Agra - Fathepur Sikri - Jaipur - Mumbai - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "16 Nights - 17 Days" },
+        { name: "Golden Triangle & Scenic Kerala Tour", href: site.link("golden_triangle_kerala_tours.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "16 Nights - 17 Days" },
         { name: "Golden Triangle, Goa & Kerala Tour", href: site.link("/Golden-Triangle-Goa-Kerala-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Goa - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "19 Nights - 20 Days" },
         { name: "Rajasthan Legacy & Scenic Kerala Tour", href: site.link("rajasthan_kerala_backwater_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Mumbai - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "20 Nights - 21 Days" },
-        { name: "Rajasthan Culture and Scenic Kerala Tour", href: site.link("rajasthan_Kerala_Tour.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittourgarh - Udaipur - Ranakpur - Jodhpur - Manwar - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "24 Nights - 25 Day" }
+        { name: "Rajasthan Culture and Scenic Kerala Tour", href: site.link("rajasthan_Kerala_Tour.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittorgarh - Udaipur - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "24 Nights - 25 Days" }
       ]
     },
     {
       title: "Rajasthan South India Tours",
       href: site.link("rajasthan_south_india_tours.html"),
       tours: [
-        { name: "Duo of Rajasthan and Tamil Nadu Tour", href: site.link("South_india_tamilnadu_tours.htm"), route: "Delhi - Sikandra - Agra - Ranthambore - Fatehpur Sikri - Jaipur - Neemrana - Delhi - Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Rameshwaram - Kanyakumari - Trivandrum", duration: "19 Nights - 20 Days" },
-        { name: "The best of Rajasthan & South India Tour", href: site.link("rajasthan_kerala_tamilnadu_tours.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Udaipur - Chittourgarh - Delhi - Cochin - Munnar - Alleppey - Periyar - Madurai - Rameshwaram - Kovalam - Kanyakumari - Trivandrum", duration: "21 Nights - 22 Days" },
-        { name: "Fascinating Rajasthan and South India Tour", href: site.link("Tour_Rajasthan_South_India.htm"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Delhi - Sikandra - Agra - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Coonoor - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "21 Nights - 22 Days" },
-        { name: "Rajasthan with South India Tour", href: site.link("rajasthan_south_india_packages.html"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Deogarh - Pushkar - Ajmer - Jaipur - Agra - Sikandra - Delhi - Banglore - Mysore - Ooty - Coonoor - Ooty - Munnar - Periyar - Alleppey - Cochin", duration: "26 Nights - 27 Days" }
+        { name: "Duo of Rajasthan and Tamil Nadu Tour", href: site.link("South_india_tamilnadu_tours.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Neemrana - Delhi - Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Thanjavur - Trichy - Madurai - Rameshwaram - Kovalam - Kanyakumari - Trivandrum", duration: "19 Nights - 20 Days" },
+        { name: "The Best of Rajasthan & South India Tour", href: site.link("rajasthan_kerala_tamilnadu_tours.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Delhi - Cochin - Munnar - Alleppey - Periyar - Madurai - Rameshwaram - Kovalam - Kanyakumari - Trivandrum", duration: "21 Nights - 22 Days" },
+        { name: "Fascinating Rajasthan and South India Tour", href: site.link("Tour_Rajasthan_South_India.htm"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Coonoor - Ooty - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "21 Nights - 22 Days" },
+        { name: "Rajasthan with South India Tour", href: site.link("rajasthan_south_india_packages.html"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Deogarh - Pushkar - Ajmer - Jaipur - Agra - Sikandra - Delhi - Bangalore - Mysore - Ooty - Coonoor - Ooty - Munnar - Periyar - Alleppey - Cochin", duration: "26 Nights - 27 Days" }
       ]
     },
     {
@@ -114,25 +114,25 @@ module.exports = {
       tours: [
         { name: "Heart of Himalayas Tour", href: site.link("/Heart-of-Himalayas-Tour.html"), route: "Delhi - Leh - Alchi - Lamayuru - Leh - Nubra Valley - Leh - Pangong - Leh - Delhi", duration: "10 Nights - 11 Days" },
         { name: "Himalayan Bliss Tour", href: site.link("himalayas_tours_packages.html"), route: "Delhi - Leh - Saspol - Leh - Alchi - Lamayuru - Leh - Nubra Valley - Leh - Pangong - Leh - Zingchen - Rumbak - Stok - Leh - Delhi", duration: "14 Nights - 15 Days" },
-        { name: "Rediscover Splendid Himalayas Tour", href: site.link("himalayas_tours.html"), route: "Delhi - Srinagar - Leh - Kargil - Rangdum - Padum - Rangdum - Kargil - Dha - Lamayuru - Alchi - Leh - Delhi", duration: "16 Nights - 17 Days" },
-        { name: "Himalayan Wonders Tour", href: site.link("Himalayan-Wonders-Tour.html"), route: "Delhi - Chandigarh - Shimla - Kullu - Manali - Rohtang Pass - Jispa - Sarchu - Leh - Alchi - Lamayuru - Nubra Valley - Pangong - Leh - Delhi", duration: "19 Nights - 20 Days" }
+        { name: "Rediscover Splendid Himalayas Tour", href: site.link("himalayas_tours.html"), route: "Delhi - Srinagar - Kargil - Rangdum - Padum - Rangdum - Kargil - Dha-Hanu - Lamayuru - Alchi - Leh - Delhi", duration: "16 Nights - 17 Days" },
+        { name: "Exotic Himalayas Tour", href: site.link("Himalayan-Wonders-Tour.html"), route: "Delhi - Chandigarh - Shimla - Kullu - Manali - Rohtang Pass - Jispa - Sarchu - Leh - Alchi - Lamayuru - Leh - Nubra Valley - Pangong - Leh - Delhi", duration: "19 Nights - 20 Days" }
       ]
     },
     {
       title: "Uttarakhand Tours",
       href: site.link("uttarkhand_widllife_pilgrimage_tours.html"),
       tours: [
-        { name: "Pilgrimage and Scenic Tour of Uttaranchal", href: site.link("uttaranchal_tourism.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Dehradun - Mussoorie - Delhi", duration: "07 Nights - 08 Days" },
+        { name: "Pilgrimage and Scenic Uttaranchal Tour", href: site.link("uttaranchal_tourism.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Dehradun - Mussoorie - Delhi", duration: "07 Nights - 08 Days" },
         { name: "Picturesque Uttaranchal Tour", href: site.link("uttaranchal_tours.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Delhi - Nainital - Ranikhet - Corbett - Dehradun - Mussoorie - Delhi", duration: "12 Nights - 13 Days" },
-        { name: "Uttaranchal Wildlife and Taj Tour", href: site.link("uttaranchal_agra_taj_tours.html"), route: "Delhi - Neemrana - Jaipur - Ranthambore - Fatehpur Sikri - Agra - Sikandra - Delhi - Nainital - Ranikhet - Kasauni - Corbett - Dehradun - Mussoorie - Delhi", duration: "17 Nights - 18 Days" }
+        { name: "Uttaranchal Wildlife and Taj Tour", href: site.link("uttaranchal_agra_taj_tours.html"), route: "Delhi - Neemrana - Jaipur - Ranthambore - Fatehpur Sikri - Agra - Sikandra - Delhi - Nainital - Ranikhet - Kausani - Corbett - Dehradun - Mussoorie - Delhi", duration: "17 Nights - 18 Days" }
       ]
     },
     {
       title: "North India-Kerala Tours",
       href: site.link("northindia_rajasthan_kerala_tours.html"),
       tours: [
-        { name: "Rhythm of North India and Kerala Tour", href: site.link("north_south_india.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Ranthambhor - Jaipur - Neemrana - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "22 Nights - 23 Days" },
-        { name: "Duet of North India and Kerala Tour", href: site.link("india_northculture_tours.html"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "26 Nights - 27 Days" },
+        { name: "Rhythm of North India and Kerala Tour", href: site.link("north_south_india.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Neemrana - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "22 Nights - 23 Days" },
+        { name: "Duet of North India and Kerala Tour", href: site.link("india_northculture_tours.html"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "26 Nights - 27 Days" },
         { name: "North India Heritage with Kerala Tour", href: site.link("/North-India-Kerala-Tour.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Mandawa - Bikaner - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "28 Nights - 29 Days" }
       ]
     },
@@ -140,45 +140,45 @@ module.exports = {
       title: "North India - Nepal Tours",
       href: site.link("north_india_nepal_tours.html"),
       tours: [
-        { name: "Scenic of Nepal Tour", href: site.link("nepal_tours.html"), route: "Delhi - Kathmandu - Pokhra - Kathmandu - Delhi", duration: "06 Nights - 07 Days" },
-        { name: "Explore Nepal wildlife Tour", href: site.link("wildlife_nepal_tours.html"), route: "Delhi - Kathmandu - Chitwan - Pokhara - Kathmandu - Delhi", duration: "08 Nights - 09 Days" },
-        { name: "Rajasthan with Nepal Tour", href: site.link("rajasthan_nepal_tours.htm"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi - Kathmandu - Chitwan - Pokhara - Kathmandu - Delhi", duration: "25 Nights - 26 Days" }
+        { name: "Scenic of Nepal Tour", href: site.link("nepal_tours.html"), route: "Delhi - Kathmandu - Pokhara - Kathmandu - Delhi", duration: "06 Nights - 07 Days" },
+        { name: "Explore Nepal Wildlife Tour", href: site.link("wildlife_nepal_tours.html"), route: "Delhi - Kathmandu - Chitwan - Pokhara - Kathmandu - Delhi", duration: "08 Nights - 09 Days" },
+        { name: "Rajasthan with Nepal Tour", href: site.link("rajasthan_nepal_tours.htm"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi - Kathmandu - Chitwan - Pokhara - Kathmandu - Delhi", duration: "25 Nights - 26 Days" }
       ]
     },
     {
       title: "Sikkim India Tours",
       href: site.link("sikkimtours.html"),
       tours: [
-        { name: "Sikkim Mountains and Valley Tour", href: site.link("sikkim_tours_travel.html"), route: "Bagdogra - Gangtok - Darjeeling - Mirik - Bagdogra - Kolkata", duration: "06 Nights - 07 Days" },
-        { name: "Sikkim, Darjeeling & Himalayan Valleys Tour", href: site.link("Sikkim-India-Tour.html"), route: "Kolkata - Bagdogra - Kalimpong - Pelling - Gangtok - Tsongo - Darjeeling - Mirik - Bagdogra - Kolkata", duration: "11 Nights - 12 days" },
-        { name: "Charismatic Sikkim and Rajasthan Tour", href: site.link("sikkim_rajasthan_tour.htm"), route: "Kolkata - Bagdogra - Kalimpong - Pelling - Gangtok - Tsongo - Darjeeling - Mirik - Bagdogra - - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Delhi", duration: "20 Nights - 21 Days" }
+        { name: "Sikkim Mountains and Valley Tour", href: site.link("sikkim_tours_travel.html"), route: "Bagdogra - Gangtok - Tsomgo - Darjeeling - Mirik - Bagdogra - Kolkata", duration: "06 Nights - 07 Days" },
+        { name: "Sikkim - Valley of Wonders Tour", href: site.link("Sikkim-India-Tour.html"), route: "Kolkata - Bagdogra - Kalimpong - Pelling - Gangtok - Tsomgo - Darjeeling - Mirik - Bagdogra - Kolkata", duration: "11 Nights - 12 Days" },
+        { name: "Charismatic Sikkim and Rajasthan Tour", href: site.link("sikkim_rajasthan_tour.htm"), route: "Kolkata - Bagdogra - Kalimpong - Pelling - Gangtok - Tsomgo - Darjeeling - Mirik - Bagdogra - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Delhi", duration: "20 Nights - 21 Days" }
       ]
     },
     {
       title: "Exotic Sun Temple Tours",
       href: site.link("konark-suntemple_tours.html"),
       tours: [
-        { name: "Spiritual Sun Temple Tour", href: site.link("spiritual_suntemple_tour.html"), route: "Kolkata - Bhubaneswar - Dhauli - Konark - Puri - Chilika Lake - Puri - Bhubaneswar - Kolkata", duration: "06 Nights - 07 Days" },
+        { name: "Spiritual Sun Temple Tour", href: site.link("spiritual_suntemple_tour.html"), route: "Kolkata - Bhubaneswar - Dhauli - Konark - Puri - Chilika Lake - Puri - Bhubaneswar - Kolkata", duration: "07 Nights - 08 Days" },
         { name: "Sun Temple - Golden Triangle Tour", href: site.link("goldentriangle_konark.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi - Bhubaneswar - Dhauli - Konark - Puri - Chilika - Bhubaneswar - Kolkata", duration: "11 Nights - 12 Days" },
-        { name: "Elating Orissa Tribal Tour", href: site.link("orissa_tribal_heritage_culture_tour.htm"), route: "Kolkata - Bhubaneshwar - Dhauli - Pipli - Raghurajpur - Puri - Chandrabhaga beach - Konark - Chilika - Gopalpur - Taptapani - Barhampur - Rayagada - Bisamkatak - Dukum - Jeypore - Koraput - Kunduli - Jagdalpur - Nagarner - Kangervalley National park - Tiradgarh Waterfall - Bastar - Kondagaon/Narayanpur - Kanker - Rajim - Siripur - Raipur - Delhi", duration: "17 Nights - 18 Days" }
+        { name: "Elating Orissa Tribal Tour", href: site.link("orissa_tribal_heritage_culture_tour.htm"), route: "Kolkata - Bhubaneswar - Dhauli - Pipli - Raghurajpur - Puri - Chandrabhaga Beach - Konark - Chilika - Gopalpur - Taptapani - Berhampur - Rayagada - Bisamkatak - Dukum - Jeypore - Koraput - Kunduli - Jagdalpur - Kanger Valley National Park - Tirathgarh Waterfall - Bastar - Kondagaon/Narayanpur - Kanker - Rajim - Sirpur - Raipur - Delhi", duration: "17 Nights - 18 Days" }
       ]
     },
     {
       title: "Seven Sisters India Tours",
       href: site.link("seven-sisters-india-tours.html"),
       tours: [
-        { name: "Nagaland and Kaziranga National Park Tour", href: site.link("north_east_tour.html"), route: "Kolkata - Dimapur - Khonoma - Kohima - Touphema - Wokha - Longkhum - Mockokchung - Jorhat - Majauli - Jorhat - Kaziranga - Shillong - Cherrapunjee - Guwahati", duration: "13 Nights - 14 Days" },
+        { name: "Nagaland and Kaziranga National Park Tour", href: site.link("north_east_tour.html"), route: "Kolkata - Dimapur - Khonoma - Kohima - Touphema - Wokha - Longkhum - Mokokchung - Jorhat - Majuli - Jorhat - Kaziranga - Shillong - Cherrapunjee - Guwahati - Kolkata", duration: "13 Nights - 14 Days" },
         { name: "Unexplored Arunachal Tour", href: site.link("north_east_widllife_tribal_tour.html"), route: "Guwahati - Shillong - Cherrapunjee - Kaziranga - Bhalukpong - Bomdila - Dirang - Tawang - Guwahati", duration: "13 Nights - 14 Days" },
-        { name: "Tribal and Culture Tour", href: site.link("north_east_tribal_tours_travel.htm"), route: "Guwahati - Aizawl - Silchar - Unakoti - Kailashahar - Agartala - Imphal - Ukhrul - Kohima - Khonoma - Kohima - Touphema - Mokokchung - Jorhat -Kaziranga - Shillong - Cherrapunjee - Guwahati", duration: "21 Nights - 22 Days" },
-        { name: "North East Tribal & Culture Tour", href: site.link("northeast_tribal_tours_packages.html"), route: "Guwahati - Eco camp/Bhalukpong - Dirang - Sela Pass - Tawang - Bomdila - Itanagar - Ziro -Daporijo - Along - Dibrugarh - Mon - Longwa - Tuensang - Noklak - Pangsha - Mokokchung - Touphema Bawe - Kohima - Khonoma - Kohima - Dimapur", duration: "22 Nights - 23 Days" },
-        { name: "Amazing North East Tour", href: site.link("north_east_india_widlife_tours.html"), route: "Guwahati - Eco camp/Bhalukpong - Dirang - Sela Pass - Tawang - Bomdila - Itanagar Ziro - Daporijo - Along - Dibrugarh - Mon - Longwa - Tuensang - Noklak - Pangsha Mokokchung - Touphema Bawe - Kohima - Khonoma - Kohima - Kaziranga National Park - Shillong - Cherrapunjee - Guwahati", duration: "28 Nights - 29 Days" }
+        { name: "Tribal and Culture Tour", href: site.link("north_east_tribal_tours_travel.htm"), route: "Guwahati - Aizawl - Silchar - Unakoti - Kailashahar - Agartala - Imphal - Ukhrul - Kohima - Khonoma - Kohima - Touphema - Mokokchung - Jorhat - Kaziranga - Shillong - Cherrapunjee - Guwahati", duration: "21 Nights - 22 Days" },
+        { name: "North East Tribal & Culture Tour", href: site.link("northeast_tribal_tours_packages.html"), route: "Guwahati - Eco Camp/Bhalukpong - Dirang - Sela Pass - Tawang - Bomdila - Itanagar - Ziro - Daporijo - Along - Dibrugarh - Mon - Longwa - Tuensang - Noklak - Pangsha - Mokokchung - Touphema Bawe - Kohima - Khonoma - Kohima - Dimapur", duration: "22 Nights - 23 Days" },
+        { name: "Amazing North East Tour", href: site.link("north_east_india_widlife_tours.html"), route: "Guwahati - Eco Camp/Bhalukpong - Dirang - Sela Pass - Tawang - Bomdila - Itanagar - Ziro - Daporijo - Along - Dibrugarh - Mon - Longwa - Tuensang - Noklak - Pangsha - Mokokchung - Touphema Bawe - Kohima - Khonoma - Kohima - Kaziranga National Park - Shillong - Cherrapunjee - Guwahati", duration: "28 Nights - 29 Days" }
       ]
     },
     {
       title: "Konark, West Bengal and Sikkim Tours",
       href: site.link("orissa_westbengal_sikkim_tours.html"),
       tours: [
-        { name: "Glorious Sun Temple with Sunderban Tour", href: site.link("west_bengal_orrissa_tours.html"), route: "Kolkata - GangaSagar - Sunderban - Kolkata - Bhubaneswar - Dhauli - Konark - Puri - Raghurajpur village - Bhitarkanika - Ratnagiri - Bhubaneswar", duration: "12 Nights - 13 Days" },
+        { name: "Glorious Sun Temple with Sunderban Tour", href: site.link("west_bengal_orrissa_tours.html"), route: "Kolkata - GangaSagar - Sunderban - Kolkata - Bhubaneswar - Dhauli - Konark - Puri - Raghurajpur Village - Bhitarkanika - Ratnagiri - Bhubaneswar", duration: "12 Nights - 13 Days" },
         { name: "Sun Temple with Sikkim Tour", href: site.link("west_india_sikkim_tours.html"), route: "Bhubaneswar - Dhauli - Konark - Puri - Chilika Lake - Bhubaneswar - Kolkata - Kalimpong - Pelling - Gangtok - Tsongo - Darjeeling - Bagdogra - Kolkata", duration: "14 Nights - 15 Days" }
       ]
     },
@@ -186,35 +186,34 @@ module.exports = {
       title: "Incredible India Tours",
       href: site.link("incredible_india_tours.html"),
       tours: [
-        { name: "India Wildlife and Medieval Tour", href: site.link("wildlife-medieval-tour.html"), route: "Mumbai - Nagpur - Kanha - Bandhavgarh - Jabalpur - Bhopal - Sanchi - Orcha - Khajuraho - Chitrakut - Varanasi - Delhi", duration: "19 Nights - 20 Days" },
-        { name: "Gujarat and Rajasthan Tour Plan", href: site.link("gujarat-rajasthan-tour.html"), route: "Ahmedabad - Bhavnagar - Palitana - Sasan Gir - Diu - Somnath - Dwarka - Virpur - Rajkot - Ahmedabad - Mount Abu - Udaipur - Ranakpur - Jodhpur - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "21 Nights - 22 Days" },
+        { name: "India Wildlife and Medieval Tour", href: site.link("wildlife-medieval-tour.html"), route: "Mumbai - Nagpur - Kanha - Bandhavgarh - Jabalpur - Bhopal - Sanchi - Orchha - Khajuraho - Chitrakoot - Varanasi - Delhi", duration: "19 Nights - 20 Days" },
+        { name: "Gujarat and Rajasthan Tour", href: site.link("gujarat-rajasthan-tour.html"), route: "Ahmedabad - Bhavnagar - Palitana - Sasan Gir - Diu - Somnath - Dwarka - Virpur - Rajkot - Ahmedabad - Mount Abu - Udaipur - Ranakpur - Jodhpur - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "21 Nights - 22 Days" },
         { name: "Vision of India Tour", href: site.link("itin_vision_tour.htm"), route: "Delhi - Patna - Nalanda - Rajgir - Bodhgaya - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Jaipur - Delhi - Aurangabad - Ajanta - Ellora - Mumbai - Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Bangalore - Srirangapatna - Mysore - Bangalore", duration: "28 Nights - 29 Days" },
-        { name: "Southern India Panorama Tour", href: site.link("itin_south_panorama.htm"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Kodaikanal - Madurai - Rameshwaram - Tiruchendur - Kanyakumari - Trivandrum - Kovalam - Periyar - Munnar - Alleppey - Cochin - Bangalore - Srirangapatnam - Mysore - Sravanabelgola - Halebid - Belur - Hassan - Hospet - Hampi - Pattadakal - Aihole - Badami - Goa", duration: "30 Nights - 31 Days" },
-        { name: "Southern India Panorama Tour", href: site.link("itin_south_panorama.htm"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Kodaikanal - Madurai - Rameshwaram - Tiruchendur - Kanyakumari - Trivandrum - Kovalam - Periyar - Munnar - Alleppey - Cochin - Bangalore - Srirangapatnam - Mysore - Sravanabelgola - Halebid - Belur - Hassan - Hospet - Hampi - Pattadakal - Aihole - Badami - Goa", duration: "30 Nights - 31 Days" },
-        { name: "Discover India Culture Tour", href: site.link("/Discover-India-Culture-Tour.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi - Bhubaneswar - Dhauli - Konark - Puri - Chilika - Bhubaneswar - Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Nalladai - Tanjore - Trichy - Madurai - Bangalore - Srirangapatnam - Mysore - Sravanabelgola - Halebid - Belur - Hassan - Hospet - Hampi - Pattadakal - Aihole - Badami - Gokarna - Goa", duration: "37 Nights - 38 Days" },
-        { name: "Maharashtra, Karnataka, Gujarat & Rajasthan Tour", href: site.link("maharashtra_rajasthan_karnataka.html"), route: "Mumbai - Nashik - Trimbakeshwar - Pune - Mumbai - Goa - Badami - Hospet - Hampi - Bangalore - Ahmedabad - Palitana - Bhavnagar - Sasan Gir - Jamnagar - Bhuj - Dasada - Ahmedabad - Udaipur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Deshnok - Mandawa - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "40 Nights - 41 Days" }
+        { name: "Southern India Panorama Tour", href: site.link("itin_south_panorama.htm"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Kodaikanal - Madurai - Rameshwaram - Tiruchendur - Kanyakumari - Trivandrum - Kovalam - Periyar - Munnar - Alleppey - Cochin - Bangalore - Srirangapatna - Mysore - Sravanabelgola - Halebid - Belur - Hassan - Hospet - Hampi - Pattadakal - Aihole - Badami - Goa", duration: "30 Nights - 31 Days" },
+        { name: "Discover Culture and Pilgrimage of India Tour", href: site.link("/Discover-India-Culture-Tour.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi - Bhubaneswar - Dhauli - Konark - Puri - Chilika - Bhubaneswar - Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Nalladai - Thanjavur - Trichy - Madurai - Bangalore - Srirangapatnam - Mysore - Shravanabelagola - Halebidu - Belur - Hassan - Hospet - Hampi - Pattadakal - Aihole - Badami - Gokarna - Goa", duration: "37 Nights - 38 Days" },
+        { name: "Maharashtra - Karnataka with Gujarat & Rajasthan Tour", href: site.link("maharashtra_rajasthan_karnataka.html"), route: "Mumbai - Nashik - Trimbakeshwar - Aurangabad - Pune - Mumbai - Goa - Badami - Hospet - Hampi - Bangalore - Ahmedabad - Bhavnagar - Palitana - Sasan Gir - Jamnagar - Bhuj - Dasada - Ahmedabad - Udaipur - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Deshnok - Mandawa - Nawalgarh - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "40 Nights - 41 Days" }
       ]
     },
     {
       title: "South - North India Tours",
       href: site.link("south_north_india_tours.html"),
       tours: [
-        { name: "Golden Triangle with Kerala Tour", href: site.link("/Golden-Triangle-kerala-tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Banglore - Srirangapatnam - Mysore - Ooty - Coonoor - Ooty - Munnar - Alleppy - Cochin", duration: "16 Nights - 17 Days" },
-        { name: "Exciting Karnataka & Kerala with Golden Triangle Tour", href: site.link("karnataka-kerala-golden-triangle-tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Banglore - Srirangapatnam - Mysore - Ooty - Guruvayur - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "20 Nights - 21 Days" },
-        { name: "Amazing North and South India Tour", href: site.link("north_south_indiatours.html"), route: "Delhi - Haridwar - Rishikesh - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Bangalore - Mysore - Shravanabelagola - Hassan - Chitradurga - Hampi - Hospet - Aihole - Pattadakal - Badami - Goa", duration: "21 Nights - 22 Days" },
-        { name: "Glimpses of India Tour", href: site.link("/Glimpses-of-India-Tour.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Coonoor - Ooty - Munnar - Alleppy - Cochin", duration: "23 Nights - 24 Days" }
+        { name: "Glimpses of North and South India Tour", href: site.link("/Golden-Triangle-kerala-tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Coonoor - Ooty - Munnar - Alleppey - Cochin", duration: "16 Nights - 17 Days" },
+        { name: "Exciting Karnataka & Kerala with Golden Triangle Tour", href: site.link("karnataka-kerala-golden-triangle-tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Guruvayur - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "20 Nights - 21 Days" },
+        { name: "Amazing North and South India Tour", href: site.link("north_south_indiatours.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Bangalore - Mysore - Shravanabelagola - Hassan - Chitradurga - Hampi - Hospet - Aihole - Pattadakal - Badami - Goa", duration: "21 Nights - 22 Days" },
+        { name: "North and South India Panorama Tour", href: site.link("/Glimpses-of-India-Tour.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Coonoor - Munnar - Alleppey - Cochin", duration: "23 Nights - 24 Days" }
       ]
     },
     {
       title: "North and West India Tours",
       href: site.link("north_west_india_tours.html"),
       tours: [
-        { name: "Maharashtra & Rajasthan Heritage Tour", href: site.link("/Maharashtra-Rajasthan-Tour.html"), route: "Mumbai - Aurangabad - Mumbai - Delhi - Udaipur - Chittourgarh - Ranakpur - Jodhpur - Bishnoi Village - Manvar - Jaisalmer - Pokhran - Bikaner - Deshnok - Mandawa - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "19 Nights - 20 Days" },
-        { name: "Grand Rajasthan, Ajanta, Ellora & Goa Tour", href: site.link("/Rajasthan-Maharashtra-Goa-Tour.html"), route: "Delhi - Sikandra - Agra - Fathepur Sikri - Ranthambore - Jaipur - Pushkar - Jodhpur - Bishnoi Village - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Udaipur - Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Goa - Mumbai", duration: "19 Nights - 20 Days" },
-        { name: "Central India Heritage Tour", href: site.link("/Central-India-Heritage-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Maheshwar - Mandu - Indore - Ujjain - Bhopal - Sanchi - Bhopal - Gwalior - Datia - Orchha - Khajuraho - Varanasi - Delhi - Haridwar - Rishikesh - Haridwar - Delhi", duration: "20 Nights - 21 Days" },
+        { name: "Maharashtra & Rajasthan Tour", href: site.link("/Maharashtra-Rajasthan-Tour.html"), route: "Mumbai - Aurangabad - Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Udaipur - Chittorgarh - Deogarh - Pushkar - Ajmer - Jaipur - Agra - Sikandra - Delhi", duration: "21 Nights - 22 Days" },
+        { name: "Explore Rajasthan with Ajanta Ellora and Goa Tour", href: site.link("/Rajasthan-Maharashtra-Goa-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Pushkar - Jodhpur - Bishnoi Village - Ranakpur - Udaipur - Chittorgarh - Udaipur - Mumbai - Aurangabad - Ajanta - Ellora - Goa - Mumbai", duration: "19 Nights - 20 Days" },
+        { name: "Central and North India Temple Tour", href: site.link("/Central-India-Heritage-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Maheshwar - Mandu - Indore - Ujjain - Bhopal - Sanchi - Bhopal - Gwalior - Datia - Orchha - Khajuraho - Varanasi - Delhi - Haridwar - Rishikesh - Haridwar - Delhi", duration: "20 Nights - 21 Days" },
         { name: "India Culture, Heritage and Beaches Tour", href: site.link("itin_culture_beachestour.htm"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Goa - Delhi - Udaipur - Chittourgarh - Udaipur - Ranakpur - Jodhpur - Pushkar - Jaipur - Fatehpur Sikri - Agra - Varanasi - Khajuraho - Delhi", duration: "20 Nights - 21 Days" },
-        { name: "North - West India Heritage and Buddhist Tours", href: site.link("tour_north_india_rajasthan_hertiage.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Udaipur - Ranakpur - Jodhpur - Bishnoi Village - Manvar - Jaisalmer - Pokhran - Bikaner - Deshnok - Mandawa - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi - Lucknow - Ayodhya - Allahabad - Chitrakoot - Varanasi - Bodhgaya - Rajgir - Nalanda - Patna - Delhi", duration: "28 Nights - 29 Days." },
-        { name: "Discover India Heritage Tour", href: site.link("/Discover-India-Heritage-Tour.html"), route: "Delhi - Udaipur - Chittourgarh - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Jaipur - Fatehpur Sikri - Agra - Varanasi - Khajuraho - Bhopal - Sanchi - Indore - Omkareshwar - Mandu - Dhar - Aurangabad - Mumbai", duration: "29 Nights - 30 Days" }
+        { name: "North - West India Heritage and Buddhist Tours", href: site.link("tour_north_india_rajasthan_hertiage.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Udaipur - Ranakpur - Jodhpur - Bishnoi Village - Manvar - Jaisalmer - Pokhran - Bikaner - Deshnok - Mandawa - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi - Lucknow - Ayodhya - Allahabad - Chitrakoot - Varanasi - Bodhgaya - Rajgir - Nalanda - Patna - Delhi", duration: "28 Nights - 29 Days" },
+        { name: "Discover India Tour", href: site.link("/Discover-India-Heritage-Tour.html"), route: "Delhi - Udaipur - Chittorgarh - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Jaipur - Fatehpur Sikri - Agra - Varanasi - Khajuraho - Bhopal - Sanchi - Indore - Omkareshwar - Mandu - Dhar - Aurangabad - Mumbai", duration: "29 Nights - 30 Days" }
       ]
     },
     {
@@ -222,31 +221,31 @@ module.exports = {
       href: site.link("maharashtra_tours.html"),
       tours: [
         { name: "Glimpses of Maharashtra Tour", href: site.link("itin_maharashtra_tour.htm"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Mumbai", duration: "06 Nights - 07 Days" },
-        { name: "Maharashtra Caves, Hills & Spiritual Tour", href: site.link("/Maharashtra-Hills-Spiritual-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Shirdi - Bhandardara - Mumbai", duration: "09 Nights - 10 Days" },
-        { name: "Maharashtra Heritage & Spiritual Tour", href: site.link("/Maharashtra-Heritage-Spiritual-Tour.html"), route: "Mumbai - Nasik - Trimbakeshwar - Shirdi - Shanisinghnapur - Aurangabad - Ajanta - Ellora - Pune - Murud Janjira - Mumbai", duration: "11 Nights - 12 Days" },
-        { name: "Best of Maharashtra Tour", href: site.link("/Best-of-Maharashtra-Tour.html"), route: "Mumbai - Lonavala - Matheran - Nasik - Trimbakeshwar - Shirdi - Shanisinghnapur - Aurangabad - Ajanta - Ellora - Pune - Mumbai", duration: "12 Nights - 13 Days" },
-        { name: "Maharashtra Heritage & Goa Beaches Tour", href: site.link("/Maharashtra-Goa-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Pune - Mahabaleshwar - Goa", duration: "12 Nights - 13 Days" },
-        { name: "Maharashtra Jyotirlinga Pilgrimage Tour", href: site.link("/Maharashtra-Pilgrimage-Tour.html"), route: "Mumbai - Pune - Bhimashankar - Aurangabad - Ajanta - Ellora - Grishneshwara - Aurangabad - Shirdi - Shanishinganapur - Nasik - Trimbakeshwar - Mumbai", duration: "13 Nights - 14 Days" },
-        { name: "Stony Maharashtra Tour", href: site.link("west-india-maharashtra-tour.htm"), route: "Mumbai - Lonavala - Matheran - Nasik - Trimbakeshwar - Shirdi - Shanisinghnapur - Aurangabad - Ajanta - Ellora - Pune - Mahabaleshwar - Murud Janjira - Mumbai", duration: "16 Nights - 17 Days" }
+        { name: "Maharashtra Sacred Caves and Adventure Tour", href: site.link("/Maharashtra-Hills-Spiritual-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Shirdi - Bhandardara - Mumbai", duration: "09 Nights - 10 Days" },
+        { name: "Maharashtra Culture and Spiritual Tour", href: site.link("/Maharashtra-Heritage-Spiritual-Tour.html"), route: "Mumbai - Nashik - Trimbakeshwar - Shirdi - Shani Shingnapur - Aurangabad - Ajanta - Ellora - Pune - Murud Janjira - Mumbai", duration: "11 Nights - 12 Days" },
+        { name: "Best of Maharashtra Tour", href: site.link("/Best-of-Maharashtra-Tour.html"), route: "Mumbai - Lonavala - Matheran - Nashik - Trimbakeshwar - Shirdi - Shanisinghnapur - Aurangabad - Ajanta - Ellora - Pune - Mumbai", duration: "12 Nights - 13 Days" },
+        { name: "Maharashtra with Beaches of Goa Tour", href: site.link("/Maharashtra-Goa-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Pune - Mahabaleshwar - Goa", duration: "12 Nights - 13 Days" },
+        { name: "Culture and Pilgrimage Maharashtra Tour", href: site.link("/Maharashtra-Pilgrimage-Tour.html"), route: "Mumbai - Pune - Bhimashankar - Aurangabad - Ajanta - Ellora - Grishneshwara - Aurangabad - Shirdi - Shani Shingnapur - Nashik - Trimbakeshwar - Mumbai", duration: "13 Nights - 14 Days" },
+        { name: "Stony Maharashtra Tour", href: site.link("west-india-maharashtra-tour.htm"), route: "Mumbai - Lonavala - Matheran - Nashik - Trimbakeshwar - Shirdi - Shani Shingnapur - Aurangabad - Ajanta - Ellora - Pune - Mahabaleshwar - Murud Janjira - Mumbai", duration: "16 Nights - 17 Days" }
       ]
     },
     {
       title: "Gujarat India Tours",
       href: site.link("gujarat_tours.html"),
       tours: [
-        { name: "Explore Gujarat Tour", href: site.link("/Explore-Gujarat-Tour.html"), route: "Ahmedabad - Bhavnagar - Palitana - Ahmedpur Mandvi - Sasan Gir - Junagarh - Dwarka - Virpur - Rajkot - Ahmedabad", duration: "12 Nights - 13 Days" },
-        { name: "Gujarat Heritage, Wildlife, Great Rann of Kutch Tour", href: site.link("gujarat-rannofkutchtours.html"), route: "Ahmedabad - Bhavnagar - Palitana - Sasan Gir - Junagarh - Porbandar - Dwarka - Jamnagar - Bhuj (Rann of Kutch) - Dasada - Ahmedabad", duration: "13 Nights - 14 Days" },
-        { name: "Gujarat Incredible Culture Tour", href: site.link("gujarat-culture-tour.htm"), route: "Ahmedabad - Gondal - Jetpur - Junagadh - Gondal - Rajkot - Bhuj (Rann of Kutch) - Mandvi - Wadhwan - Dasada - Patan - Modhera - Pethapur - Ahmedabad", duration: "14 Nights - 15 Days" },
-        { name: "Gujarat Heritage & Wildlife Tour", href: site.link("/Gujarat-Heritage-Wildlife-Tour.html"), route: "Ahmedabad - Bhavnagar - Velavadar National Park - Diu - Somnath - Sasan Gir - Dwarka - Virpur - Rajkot - Porbander - Junagarh - Palitana - Ahmedabad", duration: "16 Nights - 17 Days" },
-        { name: "Gujarat & Rajasthan Heritage, Wildlife Tour", href: site.link("/Gujarat-Rajasthan-tour1.html"), route: "Ahmedabad - Bhavnagar - Palitana - Sasan Gir - Junagarh - Jamnagar - Bhuj (Rann of Kutch) - Dasada - Ahmedabad - Udaipur - Jodhpur - Jaisalmer - Bikaner - Mandawa - Jaipur - Agra - Delhi", duration: "24 Nights - 25 Days" }
+        { name: "Explore Gujarat Tour", href: site.link("/Explore-Gujarat-Tour.html"), route: "Ahmedabad - Bhavnagar - Palitana - Ahmedpur Mandvi - Sasan Gir - Junagadh - Dwarka - Virpur - Rajkot - Ahmedabad", duration: "12 Nights - 13 Days" },
+        { name: "Gujarat Heritage, Wildlife & Great Rann of Kutch Tour", href: site.link("gujarat-rannofkutchtours.html"), route: "Ahmedabad - Bhavnagar - Palitana - Sasan Gir - Junagarh - Porbandar - Dwarka - Jamnagar - Bhuj - Great Rann of Kutch - Dasada - Ahmedabad", duration: "13 Nights - 14 Days" },
+        { name: "Gujarat Incredible Culture Tour", href: site.link("gujarat-culture-tour.htm"), route: "Ahmedabad - Gondal - Jetpur - Junagadh - Gondal - Rajkot - Bhuj - Mandvi - Wadhwan - Dasada - Patan - Modhera - Pethapur - Ahmedabad", duration: "14 Nights - 15 Days" },
+        { name: "Gujarat Culture and Nature Tour", href: site.link("/Gujarat-Heritage-Wildlife-Tour.html"), route: "Ahmedabad - Bhavnagar - Velavadar National Park - Diu - Somnath - Sasan Gir - Dwarka - Virpur - Rajkot - Porbandar - Junagadh - Palitana - Ahmedabad", duration: "14 Nights - 15 Days" },
+        { name: "Colorful Gujarat and Rajasthan Tour", href: site.link("/Gujarat-Rajasthan-tour1.html"), route: "Ahmedabad - Bhavnagar - Palitana - Sasan Gir - Junagarh - Jamnagar - Bhuj - Dasada - Ahmedabad - Udaipur - Jodhpur - Jaisalmer - Bikaner - Mandawa - Jaipur - Agra - Delhi", duration: "24 Nights - 25 Days" }
       ]
     },
     {
       title: "Best of West India Tours",
       href: site.link("maharashtra_gujarat_tours.html"),
       tours: [
-        { name: "Maharashtra, Goa & Gujarat Heritage Tour", href: site.link("/Maharashtra-Goa-Gujarat-Tour.html"), route: "Mumbai - Goa - Ahmedabad - Rajkot - Porbandar - Junagadh - Sasan Gir - Somnath - Diu - Palitana - Bhavnagar - Mumbai", duration: "16 Nights - 17 Days" },
-        { name: "Duet of Maharashtra with Gujarat Tour", href: site.link("maharashtra_gujarat_tour.html"), route: "Mumbai - Nashik - Ellora - Aurangabad - Ajanta - Mumbai - Diu - Somnath - Gir - Gondal - Rajkot - Banni Region (Kutch) - Dasada - Mumbai", duration: "17 Nights - 18 Days" },
+        { name: "Maharashtra, Goa & Gujarat Tour", href: site.link("/Maharashtra-Goa-Gujarat-Tour.html"), route: "Mumbai - Goa - Ahmedabad - Rajkot - Porbandar - Junagadh - Sasan Gir - Somnath - Diu - Palitana - Bhavnagar - Mumbai", duration: "16 Nights - 17 Days" },
+        { name: "Duet of Maharashtra with Gujarat Tour", href: site.link("maharashtra_gujarat_tour.html"), route: "Mumbai - Nashik - Ellora - Aurangabad - Ajanta - Mumbai - Diu - Somnath - Sasan Gir - Gondal - Rajkot - Bhuj - Dasada - Ahmedabad", duration: "17 Nights - 18 Days" },
         { name: "Discover Best of West India", href: site.link("west_india_tour_packages.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Mandu - Indore - Ujjain - Bhopal - Sanchi - Gwalior - Datia - Orcha - Khajuraho - Bandhavgarh - Kanha - Pench - Nagpur - Mumbai", duration: "21 Nights - 22 Days" }
       ]
     },
@@ -254,21 +253,21 @@ module.exports = {
       title: "Kerala Backwaters Tours",
       href: site.link("southindia_kerala_tours.html"),
       tours: [
-        { name: "Kerala Hills, Wildlife & Backwaters Tour", href: site.link("/Kerala-Hills-Wildlife-Tour.html"), route: "Cochin - Munnar - Periyar - Alleppey - Cochin", duration: "06 Nights - 07 Days" },
-        { name: "Kerala Beaches, Backwaters and Hill Station Tour", href: site.link("kerala_beaches_backwaters_tours.html"), route: "Trivandrum - Kovalam - Kanyakumari - Alleppey - Periyar - Munnar - Cochin", duration: "08 Nights - 09 Days." },
-        { name: "Kerala Hills, Backwaters & Beaches Tour", href: site.link("/Kerala-Hills-Backwaters-Tour.html"), route: "Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "09 Nights - 10 Days" },
-        { name: "Kerala & Lakshadweep Island Tour", href: site.link("/Kerala-Lakshadweep-Tour.html"), route: "Cochin - Athirapally - Munnar - Periyar - Alleppey - Cochin - Agatti, Lakshadweep - Cochin", duration: "11 Nights - 12 Days" },
-        { name: "Kerala Nature, Backwaters & Pilgrimage Tour", href: site.link("/Kerala-Nature-Tour.html"), route: "Trivandrum - Kovalam - Kanyakumari - Rameshwaram - Madurai - Munnar - Periyar - Kumarakom - Alleppey - Cochin", duration: "11 Nights - 12 Days" },
-        { name: "Offbeat Kerala Hills, Backwaters & Beaches Tour", href: site.link("/Offbeat-Kerala-tour1.html"), route: "Cochin - Cherai Beach - Munnar - Vagamon - Periyar - Kuttikkanam - Kumarakom - Alleppey - Varkala - Cochin", duration: "14 Nights - 15 Days" }
+        { name: "Charismatic Kerala Tour", href: site.link("/Kerala-Hills-Wildlife-Tour.html"), route: "Cochin - Munnar - Periyar - Alleppey - Cochin", duration: "06 Nights - 07 Days" },
+        { name: "Kerala Beaches, Backwaters and Hill Station Tour", href: site.link("kerala_beaches_backwaters_tours.html"), route: "Trivandrum - Kovalam - Kanyakumari - Alleppey - Periyar - Munnar - Cochin", duration: "08 Nights - 09 Days" },
+        { name: "Kerala Beaches and Backwaters Tour", href: site.link("/Kerala-Hills-Backwaters-Tour.html"), route: "Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "09 Nights - 10 Days" },
+        { name: "Kerala and Lakshadweep Tour", href: site.link("/Kerala-Lakshadweep-Tour.html"), route: "Cochin - Athirapally - Munnar - Periyar - Alleppey - Cochin - Agatti, Lakshadweep - Cochin", duration: "11 Nights - 12 Days" },
+        { name: "Kerala Nature & Pilgrimage Tour", href: site.link("/Kerala-Nature-Tour.html"), route: "Trivandrum - Kovalam - Kanyakumari - Rameshwaram - Madurai - Munnar - Periyar - Kumarakom - Alleppey - Cochin", duration: "11 Nights - 12 Days" },
+        { name: "Unexplored Kerala Tour", href: site.link("/Offbeat-Kerala-tour1.html"), route: "Cochin - Cherai Beach - Munnar - Vagamon - Periyar - Kuttikkanam - Kumarakom - Alleppey - Varkala - Cochin", duration: "14 Nights - 15 Days" }
       ]
     },
     {
       title: "Karnataka & Kerala Tours",
       href: site.link("kerala_karnataka_tour.html"),
       tours: [
-        { name: "Golden Triangle of Karnataka and Kerala Tours", href: site.link("itin_southindia_tour.htm"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Munnar - Alleppy - Cochin", duration: "10 Nights - 11 Days" },
-        { name: "Best of Karnataka and Kerala Tour", href: site.link("itin_southindia_tour1.htm"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Conoor - Ooty - Guruvayur - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "15 Nights - 16 Days" },
-        { name: "Spiritual South India Tour", href: site.link("southindia_tour_travel_packages.html"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Guruvayur - Cochin - Munnar - Periyar - Alleppy - Kovalam - Kanyakumari - Rameshwaram - Madurai", duration: "18 Nights - 19 Days" }
+        { name: "Golden Triangle of Karnataka and Kerala Tours", href: site.link("itin_southindia_tour.htm"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Munnar - Alleppey - Cochin", duration: "10 Nights - 11 Days" },
+        { name: "Best of Karnataka and Kerala Tour", href: site.link("itin_southindia_tour1.htm"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Guruvayur - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "15 Nights - 16 Days" },
+        { name: "Spiritual South India Tour", href: site.link("southindia_tour_travel_packages.html"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Rameshwaram - Madurai", duration: "18 Nights - 19 Days" }
       ]
     },
     {
@@ -286,7 +285,7 @@ module.exports = {
       title: "Tamil Nadu Tours",
       href: site.link("tamilnadu-tours.html"),
       tours: [
-        { name: "Glimpses of Tamil Nadu Tour", href: site.link("south_india_tamilnadu_tour.html"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Chennai", duration: "09 Nights - 10 Days" },
+        { name: "Glimpses of Tamil Nadu Tour", href: site.link("south_india_tamilnadu_tour.html"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Chennai", duration: "08 Nights - 09 Days" },
         { name: "Marvelous Tamil Nadu Temple Tour", href: site.link("tamilnadu_tours_packages.html"), route: "Chennai - Tirupati - Mahabalipuram - Kanchipuram - Pondicherry - Chidambaram - Nalladai - Nagapattinam - Tanjore - Trichy - Madurai - Chennai", duration: "10 Nights - 11 Days" },
         { name: "Spiritual Tamil Nadu Tour", href: site.link("south_india_temples_spritual_tours.html"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Rameshwaram - Kanyakumari - Trivandrum", duration: "11 Nights - 12 Days" },
         { name: "South India Temples and Spiritual Tour", href: site.link("southindia_temples_tourism.html"), route: "Trichy - Vellore - Tirupati - Kalahasti - Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Kumbakonam - Puthukottai - Trichy", duration: "12 Nights - 13 Days" }
@@ -297,19 +296,18 @@ module.exports = {
       href: site.link("south_india_tour.html"),
       tours: [
         { name: "South India Nature & Devotional Tour", href: site.link("itin_southindia_nature.html"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Kodaikanal - Madurai - Rameshwaram - Kanyakumari - Trivandrum", duration: "14 Nights - 15 Days" },
-        { name: "The Unsurpassed Karnataka and Kerala Tour", href: site.link("karnataka_kerala_tours.html"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Cochin - Athirapally - Munnar - Periyar - Alleppey - Kovalam - Kanya Kumari - Trivandrum", duration: "16 Nights - 17 Days" },
-        { name: "Sun Temple and South India Tour", href: site.link("itin_suntemple_southindia1.htm"), route: "Kolkata - Bhubaneshwar - Dhauli - Konark - Puri - Bhubaneshwar - Hyderabad - Bidar - Gulbarga - Bijapur - Pattadakal - Aihole - Badami - Hospet - Hampi - Goa", duration: "19 Nights - 20 Days" },
-        { name: "South India Wildlife, Backwaters and Beaches Tour", href: site.link("southindia_wildlife_backwaters_tours.html"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Ooty - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "20 Nights - 21 Days" },
-        { name: "Incredible South India Tour", href: site.link("south-india-tour-package.html"), route: "Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Kanyakumari - Kovalam - Alleppy - Cochin - Munnar - Coimbatore - Ooty - Coonoor - Ooty - Mysore - Srirangapatna - Shravanabelagola - Hassan - Chitradurga - Belur - Halebid - Hospet - Hampi - Bellary - Bangalore", duration: "23 Nights - 24 Days" },
-        { name: "Implausible South India Tour", href: site.link("south-india-culture-tour.htm"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Cholapuram - Trichy - Madurai - Rameshwaram - Kanyakumari - Trivandrum - Kovalam - Periyar - Munnar - Alleppey - Cochin - Ooty - Conoor - Mysore - Srirangapatnam - Bangalore", duration: "23 Nights - 24 Days" },
-        { name: "Extensive South India Tour", href: site.link("south-india-culture-tour.htm"), route: "Bangalore - Srirangapatnam - Mysore - Ooty - Conoor - Ooty - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Rameshwaram - Madurai - Trichy - Tanjore - Chidambaram - Pondicherry - Mahabalipuram - Kanchipuram - Tirupati - Chennai", duration: "24 Nights - 25 Days" }
+        { name: "The Unsurpassed Karnataka and Kerala Tour", href: site.link("karnataka_kerala_tours.html"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Cochin - Athirapally - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "16 Nights - 17 Days" },
+        { name: "Sun Temple and South India Tour", href: site.link("itin_suntemple_southindia1.htm"), route: "Kolkata - Bhubaneswar - Dhauli - Konark - Puri - Bhubaneswar - Hyderabad - Bidar - Gulbarga - Bijapur - Pattadakal - Aihole - Badami - Hospet - Hampi - Goa", duration: "19 Nights - 20 Days" },
+        { name: "South India - Wildlife, Backwaters and Beaches Tour", href: site.link("southindia_wildlife_backwaters_tours.html"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Ooty - Coonoor - Cochin - Athirapally - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "20 Nights - 21 Days" },
+        { name: "Incredible South India Tour", href: site.link("south-india-tour-package.html"), route: "Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Kanyakumari - Kovalam - Alleppey - Cochin - Munnar - Coimbatore - Ooty - Coonoor - Ooty - Mysore - Srirangapatna - Shravanabelagola - Hassan - Chitradurga - Belur - Halebid - Hospet - Hampi - Bellary - Bangalore", duration: "23 Nights - 24 Days" },
+        { name: "Implausible South India Tour", href: site.link("south-india-culture-tour.htm"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Cholapuram - Trichy - Madurai - Rameshwaram - Kanyakumari - Trivandrum - Kovalam - Periyar - Munnar - Alleppey - Cochin - Ooty - Coonoor - Ooty - Mysore - Srirangapatnam - Bangalore", duration: "23 Nights - 24 Days" }
       ]
     },
     {
       title: "Yoga and Ayurveda Tours",
       href: site.link("yoga_ayurveda_tours.html"),
       tours: [
-        { name: "Kerala Ayurveda & Backwaters Tour", href: site.link("/Kerala-Ayurveda-Backwaters-Tour.html"), route: "Cochin - Palakkad - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "09 Nights - 10 Days" },
+        { name: "Kerala Ayurveda Tour", href: site.link("/Kerala-Ayurveda-Backwaters-Tour.html"), route: "Cochin - Palakkad - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "09 Nights - 10 Days" },
         { name: "India Yoga & Meditation Tour", href: site.link("itin_yoga_meditation.htm"), route: "Delhi - Rishikesh - Haridwar - Shiv Puri - Delhi", duration: "10 Nights - 11 Days" },
         { name: "Healing Chakra, Meditation & Kathmandu Yoga Tour", href: site.link("nepal_yoga_meditation.html"), route: "Delhi - Katmandu - Delhi", duration: "12 Nights - 13 Day" }
       ]
@@ -327,28 +325,28 @@ module.exports = {
       title: "Buddhist Circuit Tours",
       href: site.link("buddhist_pilgirmage_tour.html"),
       tours: [
-        { name: "West India Buddhist and Culture Tour", href: site.link("buddhist_circuits_tour_travel.html"), route: "Mumbai - Aurangabad - Ajanta/Ellora - Delhi - Varanasi - Bodhgaya - Rajgir - Nalanda - Patna - Vaishali - Kushinagar - Lumbini - Sravasti - Lucknow - Delhi", duration: "16 Nights - 17 Days" },
-        { name: "Vision of Buddha Tour", href: site.link("buddhist_tourism_tours.html"), route: "Delhi - Patna - Nalanda - Rajgir - Bodhgaya - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Delhi - Aurangabad - Ajanta/Ellora - Mumbai", duration: "19 Nights - 20 Days" }
+        { name: "West India Buddhist and Culture Tour", href: site.link("buddhist_circuits_tour_travel.html"), route: "Mumbai - Aurangabad - Ajanta/Ellora - Delhi - Varanasi - Bodhgaya - Rajgir - Nalanda - Patna - Vaishali - Kushinagar - Lumbini - Shravasti - Lucknow - Delhi", duration: "16 Nights - 17 Days" },
+        { name: "Vision of Buddha Tour", href: site.link("buddhist_tourism_tours.html"), route: "Delhi - Patna - Nalanda - Rajgir - Bodhgaya - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Jaipur - Delhi - Aurangabad - Ajanta - Ellora - Mumbai", duration: "19 Nights - 20 Days" }
       ]
     },
     {
       title: "India Island and Beaches Tours",
       href: site.link("island_beaches_tour.html"),
       tours: [
-        { name: "Lakshadweep Island & Kerala Backwaters Tour", href: site.link("/Kerala-Lakshadweep-Tour1.html"), route: "Cochin - Agatti, Lakshadweep - Cochin - Munnar - Alleppey - Cochin", duration: "08 Nights - 09 Days" },
-        { name: "Amazing Andaman & Nicobar Islands Tour", href: site.link("andaman_nicobar_islands_tour.html"), route: "Chennai - Port Blair - Coral Island - Havelock Islands - Ross Island - Chidiya Tapu - Port Blair - Chennai", duration: "08 Nights - 09 Days" }
+        { name: "Lakshadweep Island and Kerala Backwater Tour", href: site.link("/Kerala-Lakshadweep-Tour1.html"), route: "Cochin - Agatti, Lakshadweep - Cochin - Munnar - Alleppey - Cochin", duration: "09 Nights - 10 Days" },
+        { name: "Amazing Andaman & Nicobar Islands Tour", href: site.link("andaman_nicobar_islands_tour.html"), route: "Chennai - Port Blair - Ross Island - Coral Island - Havelock Islands - Chidiya Tapu - Port Blair - Chennai", duration: "08 Nights - 09 Days" }
       ]
     },
     {
       title: "India Fair and Festival Tours",
       href: site.link("india_fair_festival_travelplan.html"),
       tours: [
-        { name: "Exotic Rajasthan Fair and Festival Tour", href: site.link("pushkar_fair_tour.html"), route: "Delhi - Mathura - Agra - Fathepur Sikri - Ranthambore - Jaipur - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Pushkar - Delhi", duration: "18 Nights - 19 Days" },
-        { name: "Gujarat Culture, and Festival Tour", href: site.link("gujarat_fair_festival_tour.html"), route: "Ahmedabad - Bhavnagar - Palitana - Sasan Gir - Somnath - Dwaraka - Rajkot - Bhuj - Rann of Kutch - Ahmedabad - Mumbai", duration: "14 Nights - 15 Days" },
-        { name: "Rajasthan Panorama Tour with Pushkar Fair", href: site.link("rajasthan_pushkar_fair_diwali_festival_tour.html"), route: "Delhi - Nawalgarh - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Ranthambore - Pushkar - Jaipur - Fathepur Sikri - Agra - Sikandra/Mathura - Delhi", duration: "20 Nights - 21 Days" },
-        { name: "Rajasthan - North India Festive Panorama Tour", href: site.link("india_pushkar_fair_diwali_festival_tours.html"), route: "Delhi - Mathura - Agra - Fathepur Sikri - Ranthambhor - Jaipur - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Rohet - Ranakpur - Mount Abu - Udaipur - Bijaipur - Pushkar - Delhi - Varanasi - Khajuraho - Delhi", duration: "24 Nights - 25 Days" },
-        { name: "South India Festival and Backwater Tour", href: site.link("south_india_fair_festvial_tours.html"), route: "Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Kumbakonam - Tanjore - Trichy - Chettinad - Madurai - Periyar - Munnar - Alleppy - Cochin", duration: "13 Nights - 14 Days" },
-        { name: "Nagaland Culture and Festival Tour", href: site.link("north_east_india_fair_festvial_tours.html"), route: "Aizawl - Silchar - Unakoti - Kailashahar - Agartala - Imphal - Ukhrul - Kohima - Khonoma - Kohima - Touphema - Mokokchung - Jorhat -Kaziranga - Shillong - Cherrapunjee - Guwahati", duration: "19 Nights - 20 Days" }
+        { name: "Exotic Rajasthan Fair and Festival Tour", href: site.link("pushkar_fair_tour.html"), route: "Delhi - Mathura - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Pushkar - Delhi", duration: "18 Nights - 19 Days" },
+        { name: "Gujarat Culture and Festival Tour", href: site.link("gujarat_fair_festival_tour.html"), route: "Ahmedabad - Bhavnagar - Palitana - Sasan Gir - Somnath - Dwarka - Rajkot - Bhuj - Rann of Kutch - Dasada - Ahmedabad", duration: "14 Nights - 15 Days" },
+        { name: "Rajasthan Panorama Tour with Pushkar Fair", href: site.link("rajasthan_pushkar_fair_diwali_festival_tour.html"), route: "Delhi - Nawalgarh - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Ranthambore - Pushkar - Jaipur - Fatehpur Sikri - Agra - Sikandra/Mathura - Delhi", duration: "20 Nights - 21 Days" },
+        { name: "Rajasthan - North India Festive Panorama Tour", href: site.link("india_pushkar_fair_diwali_festival_tours.html"), route: "Delhi - Mathura - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Bijaipur - Pushkar - Delhi - Varanasi - Khajuraho - Delhi", duration: "24 Nights - 25 Days" },
+        { name: "South India Festival and Backwater Tour", href: site.link("south_india_fair_festvial_tours.html"), route: "Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Kumbakonam - Tanjore - Trichy - Chettinad - Madurai - Periyar - Munnar - Alleppey - Cochin", duration: "13 Nights - 14 Days" },
+        { name: "Nagaland Culture and Festival Tour", href: site.link("north_east_india_fair_festvial_tours.html"), route: "Aizawl - Silchar - Unakoti - Kailashahar - Agartala - Imphal - Ukhrul - Kohima - Khonoma - Kohima - Touphema - Mokokchung - Jorhat - Kaziranga - Shillong - Cherrapunjee - Guwahati", duration: "19 Nights - 20 Days" }
       ]
     }
   ],

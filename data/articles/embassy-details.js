@@ -10,7 +10,7 @@ module.exports = {
   title: "Embassy of the India",
   description: "List of Foreign Embassies, Embassy in India, List of Indian Embassies Abroad ",
   keywords: "india tourism,visa,list,information,about,embassies,foreign embassies,embassy in india,indian embassies abroad",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Embassy",
   nav: site.nav('', false),
   footCols: site.footCols(),

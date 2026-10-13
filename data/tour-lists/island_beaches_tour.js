@@ -9,7 +9,7 @@ module.exports = {
   title: "India Island and Beaches Tours,Indian Island Holiday Packages",
   description: "Explore the beaches and Island tours of India, we provide the detailed tour plan for most popular India Island and beaches trip and holidays, specially Lakshadweep, Andaman Nicobar, Indian Island Holiday Packages ",
   keywords: "indian beaches,island holiday package,island,india island tours,indian beaches tours,lakshadweep tours,indian ocean,nature tours,india beach holidays,island trip,beaches trip vacations,holidays india,travel beaches destinations",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "India Island and Beaches Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -43,7 +43,7 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Lakshadweep Island & Kerala Backwaters Tour", href: site.link("/Kerala-Lakshadweep-Tour1.html"), route: "Cochin - Agatti, Lakshadweep - Cochin - Munnar - Alleppey - Cochin", duration: "08 Nights - 09 Days" },
+        { name: "Lakshadweep Island and Kerala Backwater Tour", href: site.link("/Kerala-Lakshadweep-Tour1.html"), route: "Cochin - Agatti, Lakshadweep - Cochin - Munnar - Alleppey - Cochin", duration: "09 Nights - 10 Days" },
         { name: "Amazing Andaman & Nicobar Islands Tour", href: site.link("andaman_nicobar_islands_tour.html"), route: "Chennai - Port Blair - Ross Island - Coral Island - Havelock Islands - Chidiya Tapu - Port Blair - Chennai", duration: "08 Nights - 09 Days" }
       ]
     }

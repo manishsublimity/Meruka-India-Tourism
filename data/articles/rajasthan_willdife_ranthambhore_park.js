@@ -10,7 +10,7 @@ module.exports = {
   title: "India Rajasthan Wildlife Tours,Rajasthan Ranthambhore Wildlife Trip",
   description: "India Rajasthan, India Rajasthan wildlife tours,  Ranthambhore wildlife sanctuaries and parks of North India and Rajasthan, Rajasthan wildlife trip to Ranthambhore National Park",
   keywords: "india rajasthan,Ranthambhore wildlife sanctuary,wildlife india,indian wildlife tours,india wildlife tourism, travel wildlife rajasthan,rajasthan india private tours,north india rajasthan wildlife trip,Ranthambhore rajasthan,Ranthambhore wildlife trip, wildlife holidays,india,indian,north india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Ranthambhore",
   nav: site.nav('', false),
   footCols: site.footCols(),

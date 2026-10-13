@@ -1,77 +1,73 @@
+// Tour-list pages: category cards open and close to show their tours; the filters on the right
+// (search, price, region, interest, length) narrow the tours. ?nights=8-10 and ?q=kerala (links from
+// the home page) preset the filters.
 (function () {
-  // Category bar on tour-list pages: arrows, "All categories" panel, and the current category highlighted.
-  var nav = $('[data-tl-chips]'); if (!nav) return;
-  var track = $('[data-tl-track]', nav), prev = $('[data-tl-prev]', nav), next = $('[data-tl-next]', nav);
-  var allBtn = $('[data-tl-all]', nav), panel = $('[data-tl-panel]', nav), chips = $$('[data-tl-chip]', nav);
+  var root = document.querySelector('.tp2'); if (!root) return;
+  var $$ = function (s, el) { return Array.prototype.slice.call((el || root).querySelectorAll(s)); };
+  var groups = $$('[data-tp2-group]'), form = root.querySelector('[data-tp2-form]');
+  var none = root.querySelector('[data-tp2-none]'), count = root.querySelector('[data-tp2-count]'), fcount = root.querySelector('[data-tp2-fcount]');
+  var total = $$('[data-tp2-row]').length;
 
-  function edges() {
-    var max = track.scrollWidth - track.clientWidth;
-    prev.disabled = track.scrollLeft <= 2;
-    next.disabled = track.scrollLeft >= max - 2;
-    nav.classList.toggle('fade-l', track.scrollLeft > 2);
-    nav.classList.toggle('fade-r', track.scrollLeft < max - 2);
+  function setOpen(g, open) {
+    g.classList.toggle('open', open);
+    var b = g.querySelector('.tp2-chev'); if (b) b.setAttribute('aria-expanded', open);
   }
-  prev.addEventListener('click', function () { track.scrollBy({ left: -track.clientWidth * 0.7, behavior: 'smooth' }); });
-  next.addEventListener('click', function () { track.scrollBy({ left: track.clientWidth * 0.7, behavior: 'smooth' }); });
-  track.addEventListener('scroll', edges, { passive: true });
-  window.addEventListener('resize', edges);
-  edges();
-
-  function setPanel(open) { panel.classList.toggle('is-hidden', !open); allBtn.setAttribute('aria-expanded', open); }
-  allBtn.addEventListener('click', function (e) { e.stopPropagation(); setPanel(panel.classList.contains('is-hidden')); });
-  $$('a', panel).forEach(function (a) { a.addEventListener('click', function () { setPanel(false); }); });
-  document.addEventListener('click', function (e) { if (!nav.contains(e.target)) setPanel(false); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setPanel(false); });
-
-  // highlight the category being read, and keep its chip in view
-  if (!('IntersectionObserver' in window)) return;
-  var groups = chips.map(function (c) { return document.getElementById(c.dataset.tlChip); }).filter(Boolean);
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) {
-      if (!en.isIntersecting) return;
-      chips.forEach(function (c) {
-        var on = c.dataset.tlChip === en.target.id;
-        c.classList.toggle('on', on);
-        if (on) track.scrollTo({ left: c.offsetLeft - track.clientWidth / 2 + c.offsetWidth / 2, behavior: 'smooth' });
-      });
+  groups.forEach(function (g) {
+    g.querySelector('[data-tp2-toggle]').addEventListener('click', function (e) {
+      if (e.target.closest('a')) return;
+      setOpen(g, !g.classList.contains('open'));
     });
-  }, { rootMargin: '-180px 0px -60% 0px' });
-  groups.forEach(function (g) { io.observe(g); });
-})();
-
-(function () {
-  // ?nights=8-10 and ?q=kerala (from the home page) filter the tours on this list
-  var p = new URLSearchParams(location.search), range = p.get('nights'), q = (p.get('q') || '').trim().toLowerCase();
-  if (!range && !q) return;
-  var lo = 0, hi = 999;
-  if (range) { var m = range.match(/^(\d+)-(\d+)$/); if (m) { lo = +m[1]; hi = +m[2]; } }
-  var cards = $$('.tc'), shown = 0;
-  cards.forEach(function (c) {
-    var n = +c.dataset.nights, ok = true;
-    if (range) ok = n >= lo && n <= hi;
-    if (ok && q) ok = q.split(/\s+/).every(function (w) { return c.dataset.search.indexOf(w) > -1; });
-    c.style.display = ok ? '' : 'none';
-    if (ok) shown++;
   });
-  // hide categories with no matching tour, and the category bar (its counts no longer apply)
-  $$('.tl-group').forEach(function (g) { g.style.display = $$('.tc', g).some(function (c) { return c.style.display !== 'none'; }) ? '' : 'none'; });
-  var bar = $('[data-tl-chips]'); if (bar) bar.style.display = 'none';
-  var box = $('[data-tl-filter]');
-  var what = [];
-  if (range) what.push(hi >= 99 ? lo + '+ nights' : (lo === 0 ? 'up to ' + hi : lo + '–' + hi) + ' nights');
-  if (q) what.push('“' + p.get('q') + '”');
-  box.querySelector('[data-tl-filter-t]').textContent = shown + ' tour' + (shown === 1 ? '' : 's') + ' · ' + what.join(' · ') + (shown ? '' : ' — try a different search');
-  box.classList.remove('is-hidden');
-  document.getElementById('tour-options').scrollIntoView();
-})();
 
-// Tour-list intro: long text opens with "Read more"
-(function () {
-  var box = $('[data-tl3]'), btn = $('[data-tl3-more]'); if (!box || !btn) return;
-  btn.addEventListener('click', function () {
-    var open = box.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open);
-    btn.firstChild.nodeValue = open ? 'Show less ' : 'Read more ';
-    if (!open) box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  var inRange = function (v, r) { if (!r) return true; var p = r.split('-'); v = +v; return v > 0 && v >= +p[0] && v <= +p[1]; };
+  function values(name) { return $$('input[name="' + name + '"]:checked', form).map(function (i) { return i.value; }); }
+
+  function apply(fromUser) {
+    var q = (form.elements.q.value || '').trim().toLowerCase();
+    var price = (values('price')[0] || ''), nights = (values('nights')[0] || '');
+    var regions = values('region'), interests = values('interest');
+    var active = !!(q || price || nights || regions.length || interests.length), shown = 0;
+    groups.forEach(function (g, gi) {
+      var n = 0;
+      $$('[data-tp2-row]', g).forEach(function (r) {
+        var d = r.dataset, ok = inRange(d.price, price) && inRange(d.nights, nights);
+        if (ok && regions.length) ok = regions.some(function (x) { return (' ' + d.region + ' ').indexOf(' ' + x + ' ') > -1; });
+        if (ok && interests.length) ok = interests.some(function (x) { return (' ' + d.interest + ' ').indexOf(' ' + x + ' ') > -1; });
+        if (ok && q) ok = q.split(/\s+/).every(function (w) { return d.search.indexOf(w) > -1; });
+        r.hidden = !ok; if (ok) n++;
+      });
+      g.hidden = !n; shown += n;
+      var nEl = g.querySelector('[data-tp2-n]'); if (nEl) nEl.textContent = n;
+      if (active && n && fromUser !== 'toggle') setOpen(g, true);
+      if (!active && fromUser) setOpen(g, gi === 0);
+    });
+    none.classList.toggle('is-hidden', shown > 0);
+    if (count) { count.textContent = 'Showing ' + shown + ' of ' + total + ' tours'; count.classList.toggle('is-hidden', !active || !shown); }
+    var k = (q ? 1 : 0) + (price ? 1 : 0) + (nights ? 1 : 0) + regions.length + interests.length;
+    if (fcount) fcount.textContent = k ? '(' + k + ')' : '';
+  }
+
+  form.addEventListener('change', function () { apply(true); });
+  form.elements.q.addEventListener('input', function () { apply(true); });
+  $$('[data-tp2-clear]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      form.reset();
+      $$('input[type="radio"]', form).forEach(function (i) { i.checked = i.value === ''; });
+      apply(true);
+    });
   });
+
+  // presets from the address (home page links)
+  var p = new URLSearchParams(location.search), qp = (p.get('q') || '').trim(), np = p.get('nights');
+  if (qp) form.elements.q.value = qp;
+  if (np) {
+    var lo = +np.split('-')[0], hi = +np.split('-')[1];
+    var pick = $$('input[name="nights"]', form).filter(function (i) { if (!i.value) return false; var r = i.value.split('-'); return +r[0] <= hi && +r[1] >= lo; })[0];
+    if (pick) pick.checked = true;
+  }
+  if (qp || np) apply(true);
+
+  // phones: the filters start folded under a "Filters" bar
+  var det = root.querySelector('[data-tp2-details]');
+  if (det && window.matchMedia('(max-width: 1199.98px)').matches && !(qp || np)) det.removeAttribute('open');
 })();

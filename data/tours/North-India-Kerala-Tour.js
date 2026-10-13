@@ -9,7 +9,7 @@ module.exports = {
   title: "North India Heritage with Kerala Tour,North India Tour Package,Kerala Tour Package,India Holiday Packages",
   description: "North India Heritage with Kerala Tour covering heritage monuments, sacred temples, backwaters, beaches, Jaipur, Udaipur and Munnar with customized India holiday packages.",
   keywords: "north india heritage with kerala tour,north india tour package,kerala tour package,north india holiday package,india holiday package,india tour package,india travel package,india travel plan,india tour itinerary,private india tour,customized india tour,budget india tour,luxury india tour,heritage tour india,rajasthan tour package,varanasi tour,khajuraho tour,jaipur tour package,udaipur tour package,kerala backwaters tour,munnar tour package,kovalam beach tour,houseboat tour kerala,cultural india tour,unesco heritage tour india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -609,15 +609,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: The ",
-          "bold": false
-        },
-        {
-          "text": "Taj Mahal",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " remains closed to visitors every Friday.",
+          "text": " The Taj Mahal remains closed to visitors every Friday.",
           "bold": false
         }
       ]
@@ -954,23 +950,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: You may also choose to stay in Swiss tents at ",
-          "bold": false
-        },
-        {
-          "text": "Sam Sand Dunes",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " or ",
-          "bold": false
-        },
-        {
-          "text": "Khuri Village",
-          "bold": true
-        },
-        {
-          "text": ", where traditional folk music, cultural performances, camel safaris and campfire dinners can be arranged.",
+          "text": " You may also choose to stay in Swiss tents at Sam Sand Dunes or Khuri Village, where traditional folk music, cultural performances, camel safaris and campfire dinners can be arranged.",
           "bold": false
         }
       ]

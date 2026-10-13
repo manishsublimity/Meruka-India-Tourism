@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Shopping Tips Guide,North India Shopping Guide,Handicrafts,Jewellery Exporters,Show Rooms,Genuine Shopping Arcade,Shopping and Tourism in India",
   description: "",
   keywords: "",
-  heroSrc: site.IMG("shopping.jpg"),
+  heroSrc: site.IMG("shopping.webp"),
   heroAlt: "India: Shopping",
   nav: site.nav('', false),
   footCols: site.footCols(),

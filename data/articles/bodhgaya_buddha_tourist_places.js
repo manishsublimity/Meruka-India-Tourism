@@ -10,7 +10,7 @@ module.exports = {
   title: "Buddha Tourist Places Tour,Bodhgaya Pilgrimage Travel Plan",
   description: "Explore India pilgrimage tourism, we offer Buddha tours covering Bodhgaya pilgrimage tour, travel plan and itineraries to explore Buddha tourist places all over India and Nepal",
   keywords: "Buddha,Budhgaya,tourism,travel plan,india tour itineraries,Bodhgaya tours,India Buddha tours,Buddha tourist places in Bihar,North India and Nepal",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Bodhgaya",
   nav: site.nav('', false),
   footCols: site.footCols(),

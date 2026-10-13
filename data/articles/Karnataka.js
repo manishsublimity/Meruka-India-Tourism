@@ -10,7 +10,7 @@ module.exports = {
   title: "South India Karnataka Tour,Karnataka Tour Packages,Karnataka India",
   description: "South India Karnataka tour operator offer Karnataka tour packages, travel itineraries of Karnataka, South India Karnataka tour plan and packages to explore Karnataka with Kerala,Tamilnadu and other place of South India",
   keywords: "south india,south india karnataka,karnataka travel agency,tour packages,karnataka travel plan,south india tour itinerary,south india karnataka travel itineraries,south india travel agency,hotels approved ministry of tourism, government of india,karnataka,kerala,tamilnadu south india,karnataka kerala tour,tamilnadu karnataka travel plan,kerala tamilnadu karnataka tour,south india tour packages",
-  heroSrc: site.IMG("south-india.jpg"),
+  heroSrc: site.IMG("south-india.webp"),
   heroAlt: "Karnataka Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

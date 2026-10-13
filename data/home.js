@@ -47,7 +47,7 @@ const TARGETS = {
   'Rajasthan North India': 'rajasthan_north_india_tours.html', 'Group tours (7+)': '#plan',
   'Best time to visit': 'weather.htm', 'Wildlife & parks': 'wildlife.htm', "Traveller's guide": 'travelers_guide.htm',
   'Why Meruka India': 'aboutus.htm', 'How we work': '#process', 'Guest reviews': '#reviews', 'FAQs': '#faq',
-  'Cancellation policy': '#faq', 'Contact us': 'contactus.htm',
+  'Booking policy': '#faq', 'Contact us': 'contactus.htm',
   // Popular searches
   'India tour packages': 'itineraries.htm', 'India travel agency': 'aboutus.htm', 'Indian tour operators': 'aboutus.htm',
   'India holiday packages': 'itineraries.htm', 'Golden Triangle tour': 'india-golden-triangle-tour.html',
@@ -69,9 +69,9 @@ module.exports = {
   langs: ['English', 'Français', 'Deutsch', 'Español', 'Italiano', '한국어'],
 
   pkgMenuCols: [
-    { title: 'Most requested', items: ['Golden Triangle tours', 'Exotic Rajasthan tours', 'Rajasthan & North India', 'Kerala backwaters', 'South & North India', 'Incredible India'] },
-    { title: 'By region', items: ['North India tours', 'South India tours', 'East India tours', 'West India tours', 'Grand India tours', 'Leh & Ladakh'] },
-    { title: 'Special interest', items: ['Religious & pilgrimage', 'Yoga & Ayurveda', 'Wildlife tours', 'Buddhist circuit', 'Fairs & festivals', 'Village tours'] }
+    { title: 'Most Requested', items: ['Golden Triangle tours', 'Exotic Rajasthan tours', 'Rajasthan & North India', 'Kerala backwaters', 'South & North India', 'Incredible India'] },
+    { title: 'By Region', items: ['North India tours', 'South India tours', 'East India tours', 'West India tours', 'Grand India tours', 'Leh & Ladakh'] },
+    { title: 'Special Interest', items: ['Religious & pilgrimage', 'Yoga & Ayurveda', 'Wildlife tours', 'Buddhist circuit', 'Fairs & festivals', 'Village tours'] }
   ],
   destMenuCols: [
     { title: 'North India', items: ['Delhi', 'Agra', 'Rajasthan', 'Varanasi', 'Kashmir', 'Himachal'] },
@@ -114,7 +114,7 @@ module.exports = {
     { code: 'ISK-402', href: link('southindia_kerala_tours.html'), name: 'Kerala Backwaters & Beaches', stops: ['Kochi', 'Munnar', 'Alleppey', 'Kovalam'], nights: '9N / 10D', price: 'USD 985', img: A('kovalam.webp'), alt: 'Kovalam lighthouse above the Arabian Sea at sunset', cats: ['South India'], badge: '', blurb: 'Tea estates, a private houseboat night, and the slowest coastline in India to finish on.' },
     { code: 'IGR-309', href: link('golden_triangle_temple_packages.html'), name: 'Golden Triangle & Sacred India', stops: ['Delhi', 'Haridwar', 'Mathura', 'Agra', 'Jaipur'], nights: '11N / 12D', price: 'USD 1,265', img: '/photos/madurai.webp', alt: 'Temple gopurams, South India', placeholder: 'ganga aarti, haridwar', cats: ['Religious', 'Golden Triangle'], badge: 'Custom favourite', blurb: "Ganga Aarti at Har-ki-Pauri, Krishna's Mathura and Vrindavan, then the Golden Triangle." },
     { code: 'ITD-127', href: link('rajasthan-tours.html'), name: 'Thar Desert & the Blue City', stops: ['Jodhpur', 'Osian', 'Jaisalmer', 'Bikaner'], nights: '7N / 8D', price: 'USD 720', img: A('thar-camel.webp'), alt: 'A camel rider on a dune at sunset in the Thar desert', cats: ['Rajasthan'], badge: '', blurb: 'Dunes at sunset, a night under canvas, and the craft villages most tours drive past.' },
-    { code: 'IYA-733', href: link('yoga_ayurveda_tours.html'), name: 'Yoga, Ayurveda & the Coast', stops: ['Rishikesh', 'Kochi', 'Kovalam'], nights: '10N / 11D', price: 'USD 1,040', img: A('yoga-beach.avif'), alt: 'Sunrise yoga on a quiet stretch of coast', cats: ['Wellness', 'South India'], badge: '', blurb: 'Morning practice on the Ganges, then a certified Ayurveda centre on the Malabar coast.' }
+    { code: 'IYA-733', href: link('yoga_ayurveda_tours.html'), name: 'Yoga, Ayurveda & the Coast', stops: ['Rishikesh', 'Kochi', 'Kovalam'], nights: '10N / 11D', price: 'USD 1,040', img: A('yoga-beach.webp'), alt: 'Sunrise yoga on a quiet stretch of coast', cats: ['Wellness', 'South India'], badge: '', blurb: 'Morning practice on the Ganges, then a certified Ayurveda centre on the Malabar coast.' }
   ],
 
   regions: [
@@ -172,7 +172,7 @@ module.exports = {
     { title: 'Tour packages', items: ['Golden Triangle', 'Exotic Rajasthan', 'Rajasthan North India', 'Kerala backwaters', 'South India', 'Group tours (7+)'] },
     { title: 'Destinations', items: ['North India', 'South India', 'East India', 'West India', 'Rajasthan', 'Leh & Ladakh'] },
     { title: 'Travel guide', items: ['Best time to visit', 'Fairs & festivals', 'Cuisine', 'Visa information', 'Wildlife & parks', "Traveller's guide"] },
-    { title: 'Company', items: ['Why Meruka India', 'How we work', 'Guest reviews', 'FAQs', 'Cancellation policy', 'Contact us'] }
+    { title: 'Company', items: ['Why Meruka India', 'How we work', 'Guest reviews', 'FAQs', 'Booking policy', 'Contact us'] }
   ],
   seoLinks: ['India tour packages', 'India travel agency', 'Indian tour operators', 'India holiday packages', 'Golden Triangle tour', 'Rajasthan tour packages', 'Kerala backwaters tours', 'Kerala tour operators', 'Private tours India', 'India tour plan', 'India Tour Itineraries'],
   socials: ['f', 'in', 'ig', 'yt']
@@ -183,10 +183,10 @@ module.exports = {
 const I = f => '/images/' + f;
 module.exports.stateAllImg = '/assets/taj-reflection.webp';
 module.exports.stateGroups = [
-  { region: 'North India', img: '/assets/taj-aerial.webp', states: [['Rajasthan', '/rajasthan', I('rajasthan-state.jpg')], ['Himachal Pradesh', '/Himachal-Pradesh', I('himchal.jpg')], ['Uttarakhand', '/uttaranchal', I('uttaranchal-state.jpg')], ['Jammu & Kashmir', '/Jammu-Kashmir', I('jammu-kash.jpg')], ['Uttar Pradesh', '/Uttar-Pradesh', I('uttar-pradesh-state.jpg')], ['Punjab', '/Punjab', I('punjab-state.jpg')], ['Ladakh', '/lehladakh_himalaya_travel', I('lehladakh-inner.jpg')]] },
-  { region: 'South India', img: '/assets/kovalam.webp', states: [['Kerala', '/Kerala', I('kerala-state.jpg')], ['Tamil Nadu', '/Tamil-Nadu', I('tamilnadu.jpg')], ['Karnataka', '/Karnataka', I('karnatak-state.jpg')], ['Andhra Pradesh', '/Andhra-Pradesh', I('andhra-pradesh.jpg')], ['Telangana', '/south_indiatours_telangna', I('telangana.jpg')]] },
-  { region: 'West India', img: '/assets/gadisar-lake.webp', states: [['Goa', '/Goa', I('goa-state.jpg')], ['Gujarat', '/Gujarat', I('gujrat-state.jpg')], ['Maharashtra', '/Maharashtra', I('maharashtra-state.jpg')], ['Madhya Pradesh', '/Madhya-Pradesh', I('madhya-pradesh-state.jpg')]] },
-  { region: 'East India', img: I('eastindia-state.jpg'), states: [['Sikkim', '/Sikkim', I('sikkim-state.jpg')], ['Odisha', '/Orissa', I('orissa-state.jpg')], ['Assam', '/Assam', I('assam-state.jpg')], ['West Bengal', '/West-Bengal', I('west-bengal-state.jpg')], ['Bihar', '/Bihar', I('bihar-state.jpg')]] }
+  { region: 'North India', img: '/assets/taj-aerial.webp', states: [['Rajasthan', '/rajasthan', I('rajasthan-state.webp')], ['Himachal Pradesh', '/Himachal-Pradesh', I('himchal.webp')], ['Uttarakhand', '/uttaranchal', I('uttaranchal-state.webp')], ['Jammu & Kashmir', '/Jammu-Kashmir', I('jammu-kash.webp')], ['Uttar Pradesh', '/Uttar-Pradesh', I('uttar-pradesh-state.webp')], ['Punjab', '/Punjab', I('punjab-state.webp')], ['Ladakh', '/lehladakh_himalaya_travel', I('lehladakh-inner.webp')]] },
+  { region: 'South India', img: '/assets/kovalam.webp', states: [['Kerala', '/Kerala', I('kerala-state.webp')], ['Tamil Nadu', '/Tamil-Nadu', I('tamilnadu.webp')], ['Karnataka', '/Karnataka', I('karnatak-state.webp')], ['Andhra Pradesh', '/Andhra-Pradesh', I('andhra-pradesh.webp')], ['Telangana', '/south_indiatours_telangna', I('telangana.webp')]] },
+  { region: 'West India', img: '/assets/gadisar-lake.webp', states: [['Goa', '/Goa', I('goa-state.webp')], ['Gujarat', '/Gujarat', I('gujrat-state.webp')], ['Maharashtra', '/Maharashtra', I('maharashtra-state.webp')], ['Madhya Pradesh', '/Madhya-Pradesh', I('madhya-pradesh-state.webp')]] },
+  { region: 'East India', img: I('eastindia-state.webp'), states: [['Sikkim', '/Sikkim', I('sikkim-state.webp')], ['Odisha', '/Orissa', I('orissa-state.webp')], ['Assam', '/Assam', I('assam-state.webp')], ['West Bengal', '/West-Bengal', I('west-bengal-state.webp')], ['Bihar', '/Bihar', I('bihar-state.webp')]] }
 ];
 
 // Guest testimonials (word for word from the Testimonials page) for the reviews slider.

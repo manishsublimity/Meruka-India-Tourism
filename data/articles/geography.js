@@ -10,7 +10,7 @@ module.exports = {
   title: "Geography of India",
   description: "The geography of India describes the geographic features of India, India geography maps and information, tourist information, Indian Geography, Geography of North, East, West and South India, tourism guide, tourist places of India",
   keywords: "geography of india, india geography, tourist places,indian geography,tourism guide,tourists sports india",
-  heroSrc: site.IMG("geography.jpg"),
+  heroSrc: site.IMG("geography.webp"),
   heroAlt: "Geography",
   nav: site.nav('', false),
   footCols: site.footCols(),

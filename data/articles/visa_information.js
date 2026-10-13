@@ -10,7 +10,7 @@ module.exports = {
   title: "India Tourist Visa,Rules,Formalities,Obtaining Information",
   description: "How get a tourist visa for your tour to India, rules, formalities, obtaining information about  Indian embassies, business and tourist visa guide for trip to India",
   keywords: "official website, indian, india, tourists, visa, tourists visa, rules and regulations, formalities, tips, tourist guide",
-  heroSrc: site.IMG("visa-info.jpg"),
+  heroSrc: site.IMG("visa-info.webp"),
   heroAlt: "Visa Information",
   nav: site.nav('', false),
   footCols: site.footCols(),

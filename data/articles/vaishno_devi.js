@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Temples and Pilgrimage Tours,Vaishno Devi Temple Trip,Religious and Pilgrim Holidays in India",
   description: "Explore pilgrimage tourism sectors of India,Indian temples holidays,India  religious and pilgrim places travel itineraries,Vaishno Devi trip and explore tourist destinations of Jammu and Kashmir with all kind of travel related services,hotel bookings,car rental,pilgrim private tours for families,individual,couples,singles,honeymooners,single female",
   keywords: "official website,india,indian,indian temples tours,india temple tourism,india pilgrimage centre, jammu kashmir tours,vaishnodevi temple,vaishno devi temple tours,holy trip of india,indian pilgrimage centers,jammu kashmir hotel bookings,vaishno devi private tours,families,singles honeymooners,religious places of india,indian religious tourist sectors, indian pilgrimage cities,indian pilgrimage tourism guide",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Vaishno Devi",
   nav: site.nav('', false),
   footCols: site.footCols(),

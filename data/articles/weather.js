@@ -10,7 +10,7 @@ module.exports = {
   title: "India Weather Chart, Indian Weather, Indian Climate Information, Tourist Seasons",
   description: "India tourism offer information about India cities, states, tour itineraries, weather, tips, travelers guide, India weather chart table, Indian weather and climate, ideal season to tour India, summer winter tour in India tourist guide",
   keywords: "",
-  heroSrc: site.IMG("weather.jpg"),
+  heroSrc: site.IMG("weather.webp"),
   heroAlt: "India: Weather",
   nav: site.nav('', false),
   footCols: site.footCols(),

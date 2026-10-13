@@ -10,7 +10,7 @@ module.exports = {
   title: "East India Mizoram Tours,Mizoram Travel,Mizoram Tour Packages,Mizoram Tour Plan",
   description: "Mizoram tour operators offer - Mizoram tours, Mizoram travel itineraries of wildlife and villages, Mizoram tour packages, Mizoram tourism, wildlife tours, Mizoram holiday packages, Mizoram culture tour, Mizoram music and dance, Mizoram budget holiday packages",
   keywords: "mizoram tours, mizoram travel, mizoram tour packages, mizoram tourism,east india travel agency,east india wildlife, mizoram wildlife tours,east india tribal wildlife holiday packages,villages tour, reservation,holiday packages,north east india vacations,mizoram east india tour plan,tourism information",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Mizoram Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

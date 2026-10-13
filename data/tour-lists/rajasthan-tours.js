@@ -9,7 +9,7 @@ module.exports = {
   title: "India Rajasthan Tours,Rajasthan Travel Plan,Rajasthan Holidays Itineraries",
   description: "Explore majestic Rajasthan well designed Rajasthan tours, travel and holidays packages, itineraries covering all tourist attractions, forts and palaces, historical cities tour of Rajasthan and North India",
   keywords: "india,india rajasthan tours, majestic rajasthan, travel, holidays packages, itineraries, tourist attractions, forts, palaces, historical cities tour, rajasthan holidays packages, north india, tourist attraction, tour packages rajasthan",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Exotic Rajasthan Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -37,12 +37,12 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Enthralling Rajasthan Tour", href: site.link("rajasthan_holiday_tour_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Delhi", duration: "10 Nights - 11 Days" },
-        { name: "Splendid Rajasthan Tour", href: site.link("rajasthan_tourtravel_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mandawa - Bikaner - Jaisalmer - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Delhi", duration: "14 Nights - 15 Days" },
+        { name: "Enthralling Rajasthan Tour", href: site.link("rajasthan_holiday_tour_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Delhi", duration: "10 Nights - 11 Days" },
+        { name: "Splendid Rajasthan Tour", href: site.link("rajasthan_tourtravel_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mandawa - Bikaner - Jaisalmer - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Delhi", duration: "14 Nights - 15 Days" },
         { name: "Royal Rajasthan Tour", href: site.link("rajasthan_culture_heritage_packages.html"), route: "Udaipur - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "14 Nights - 15 Days" },
-        { name: "Rajasthan Forts, Palaces & Desert Tour", href: site.link("/Rajasthan-Forts-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittourgarh - Udaipur - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi", duration: "15 Nights - 16 Days" },
+        { name: "Rajasthan Forts and Palaces Tour", href: site.link("/Rajasthan-Forts-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittorgarh - Udaipur - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi", duration: "15 Nights - 16 Days" },
         { name: "Best of Rajasthan Tour", href: site.link("rajasthan_tour_travel.html"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Mount Abu - Udaipur - Chittourgarh - Deogarh - Pushkar - Ajmer - Jaipur - Samode - Agra - Sikandra - Delhi", duration: "17 Nights - 18 Days" },
-        { name: "Majestic Rajasthan Tour", href: site.link("majestic_rajasthan.html"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittaurgarh - Bijaipur - Bundi - Ajmer - Pushkar - Jaipur - Ranthambhore - Fatehpur Sikri - Agra - Delhi", duration: "18 Nights - 19 Days" }
+        { name: "Majestic Rajasthan Tour", href: site.link("majestic_rajasthan.html"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Bundi - Ajmer - Pushkar - Jaipur - Ranthambore - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "18 Nights - 19 Days" }
       ]
     }
   ],

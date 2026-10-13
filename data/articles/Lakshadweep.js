@@ -10,7 +10,7 @@ module.exports = {
   title: "Lakshadweep Tour,Lakshadweep Kerala Beaches Travel Plan, South India,Lakshadweep Island Tour Packages,Lakshadweep Tour Itineraries",
   description: "Lakshadweep travel agency provide Lakshadweep tour, South India Lakshadweep Kerala beaches tour itinerary and packages, travel plan of Lakshadweep and Kerala beaches, beaches tourism and tour itineraries of Lakshadweep, Kerala and other states of India",
   keywords: "india,south india,lakshadweep,island tour, beaches tour lakshadweep india,lakshadweep tourism,beaches travel plan,lakshadweep tour packages,lakshadweep tour plan,hotels,lakshadweep travel agency,approved by ministry of tourism by government of india,lakshadweep kerala tours,travel itinerary,beach holidays,south india lakshadweep tour packages,india beaches tourism",
-  heroSrc: site.IMG("south-india.jpg"),
+  heroSrc: site.IMG("south-india.webp"),
   heroAlt: "Lakshadweep Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

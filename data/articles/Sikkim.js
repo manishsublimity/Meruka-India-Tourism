@@ -10,7 +10,7 @@ module.exports = {
   title: "North East India Tourism,Sikkim Travel,Tour Packages Sikkim,Sikkim Travel Plan,Sikkim Itineraries",
   description: "",
   keywords: "",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Sikkim Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Pilgrimage,Gangotri Temples Tour",
   description: " India Tourism Offer - Indian Pilgrimage Holidays, India Gangotri Pilgrim Tour, Gangotri Temples Tourism ",
   keywords: "Indian pilgrimage holidays, india Gangotri pilgrim tour, tour packages Gangotri travel guide, india pilgrim, Gangotri temples tour, “/>\r\n\r\n<meta name =",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Gangotri",
   nav: site.nav('', false),
   footCols: site.footCols(),

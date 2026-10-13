@@ -10,7 +10,7 @@ module.exports = {
   title: "South India,Tamil Nadu Travel Agents,Tamil Nadu Tour Packages,Tamil Nadu Tour Itineraries",
   description: "South India Tamil Nadu travel agents, offers Tamil Nadu tour plan, Tamil Nadu tour packages with estimated cost, explore Tamil Nadu beaches and temples, Tamil Nadu with our travel itineraries extended to Kerala, Karnataka, Telangana and Andhra",
   keywords: "tamil nadu, south india, tamil nadu tour operator, tamil nadu tourism, tamil nadu tour plan, tour packages tamil nadu, tamil nadu travel agents, tamilnadu south india, tamilnadu temple tours, wildlife tamil nadu, temple tourism, pilgrimage, kerala, andhra, telangana, karnataka, tour itineraries, south india tour operator, travel agency, ministry of tourism, official website, south india travel, tamilnadu tourism, south india tour packages, india",
-  heroSrc: site.IMG("south-india.jpg"),
+  heroSrc: site.IMG("south-india.webp"),
   heroAlt: "Tamil Nadu",
   nav: site.nav('', false),
   footCols: site.footCols(),

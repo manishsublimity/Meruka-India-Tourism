@@ -10,7 +10,7 @@ module.exports = {
   title: "Gujrat Tour India,Gujrat Tourism,Gujarat Travel,East India Gujarat Tourism",
   description: "India Tourism Offer - Gujrat Tour India, Gujrat Tourism, East India Gujarat Tourism, Gujarat Travel, Tour Plan, Gujarat Holidays, Explore East India, Tourism In Gujarat, Gujarat Travel Plans And Holidays Guide, Gujarat And Rajasthan Trip ",
   keywords: "gujrat tour india, gujrat tourism, east india gujarat tourism, gujarat travel, tour plan, gujarat holidays, trip east india, east india, gujarat, rajasthan, gujarat tour, gujarat travel, holidays gujarat, trip gujarat, tourism gujarat, gujarat, east india, east india travel guide, east india tourism, rajasthan east india, gujarat east india",
-  heroSrc: site.IMG("west-india.jpg"),
+  heroSrc: site.IMG("west-india.webp"),
   heroAlt: "Gujrat Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

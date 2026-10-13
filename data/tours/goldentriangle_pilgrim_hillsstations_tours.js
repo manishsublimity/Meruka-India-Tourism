@@ -9,7 +9,7 @@ module.exports = {
   title: "Golden Triangle Tours,India Hill Stations Tours Package",
   description: "Well planned tour itineraries and tour packages to explore Golden Triangle with Pilgrimage and Hill Stations in India, Mumbai travel agencies,Pilgrimage tourist destinations in India,travel India,Himachal Pradesh and Pilgrimage tours package,",
   keywords: "himachal honeymoon packages,golden triangle pilgrimage tour,golden triangle himachal tour,rajasthan uttarakhand himachal tour,india holiday package,india tour itinerary,india travel itinerary,india tour plan,private india tour,customized india tour,budget india tour,budget golden triangle tour,budget himachal tour,budget uttarakhand tour,haridwar rishikesh tour,unesco heritage tour india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -191,23 +191,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Red Fort",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " and ",
-          "bold": false
-        },
-        {
-          "text": "Lotus Temple",
-          "bold": true
-        },
-        {
-          "text": " remain closed on Mondays.",
+          "text": " Red Fort and Lotus Temple remain closed on Mondays.",
           "bold": false
         }
       ]
@@ -304,15 +292,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: The ",
-          "bold": false
-        },
-        {
-          "text": "Taj Mahal",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " remains closed every Friday.",
+          "text": " The Taj Mahal remains closed every Friday.",
           "bold": false
         }
       ]
@@ -1171,15 +1155,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Rohtang Pass",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " generally remains closed on Tuesdays and access is subject to weather conditions and government permits.",
+          "text": " Rohtang Pass generally remains closed on Tuesdays and access is subject to weather conditions and government permits.",
           "bold": false
         }
       ]
@@ -1219,7 +1199,7 @@ module.exports = {
   details: [
     {
       "title": "Tour Pricing Details",
-      "text": "The final cost of a customized tour varies depending on accommodation choices, travel period, number of travellers and individual preferences. While an exact quotation can be provided after finalizing your requirements, the following indicative price range will help you plan your holiday (based on a minimum of two persons sharing one double room).",
+      "text": "The final cost of a customized tour varies depending on accommodation choices, travel period, number of travellers and individual preferences. While an exact quotation can be provided upon finalization of details, the following indicative price range will help you plan your holiday (based on a minimum of two persons sharing a double room together).",
       "items": [
         [
           {
@@ -1427,43 +1407,19 @@ module.exports = {
         ],
         [
           {
-            "text": "Rohtang Pass",
-            "bold": true
-          },
-          {
-            "text": " generally remains closed on Tuesdays and access depends on weather conditions and government permits.",
+            "text": "Rohtang Pass generally remains closed on Tuesdays and access depends on weather conditions and government permits.",
             "bold": false
           }
         ],
         [
           {
-            "text": "The ",
-            "bold": false
-          },
-          {
-            "text": "Taj Mahal",
-            "bold": true
-          },
-          {
-            "text": " remains closed every Friday.",
+            "text": "The Taj Mahal remains closed every Friday.",
             "bold": false
           }
         ],
         [
           {
-            "text": "Red Fort",
-            "bold": true
-          },
-          {
-            "text": " and ",
-            "bold": false
-          },
-          {
-            "text": "Lotus Temple",
-            "bold": true
-          },
-          {
-            "text": " remain closed on Mondays.",
+            "text": "Red Fort and Lotus Temple remain closed on Mondays.",
             "bold": false
           }
         ],

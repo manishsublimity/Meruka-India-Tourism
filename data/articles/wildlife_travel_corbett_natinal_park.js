@@ -10,7 +10,7 @@ module.exports = {
   title: "India Widlife Tourism,Travel Destinations,Corbett National Park,Widlife Tourist Places South,North India",
   description: "India widlife tourism,tour packages for widlife travel destinations,Corbett National Park, widlife tourist Places,South and North India wildlife,trip and holidays guide,adventure and wildlife tourism in Corbett National Park and other wildlife sanctuaries,forest and jungles destinations,tourist places,summer and winter holidays",
   keywords: "north india,corbett,Jim corbett,national,park,widlife statuary,widlife sanctuaries,north india, adventure widlife tourism,corbett national parks,parks sanctuaries in north,east,south, west india,forest,jungles,destinations india,summer holidays widlife,winter holiday wildlife,india widlife tourism,india widlife tourist destinations,widlife sanctuaries india,guide,touring,travelling,tourists",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Corbett National Park",
   nav: site.nav('', false),
   footCols: site.footCols(),

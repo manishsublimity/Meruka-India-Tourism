@@ -1251,7 +1251,7 @@ a.sf-soc:hover{background:#FFB81C;border-color:#FFB81C;color:#336699}
 
 /* ================= Company logo (Meruka_logo_tranparent.png) — one mark everywhere =================
    The file is white on transparent, so it is drawn as a mask: white on blue grounds, blue on light ones. */
-.mlogo{display:inline-block;flex-shrink:0;width:58px;aspect-ratio:1692 / 897;background:#fff;-webkit-mask:url(/assets/meruka-logo.png) center / contain no-repeat;mask:url(/assets/meruka-logo.png) center / contain no-repeat}
+.mlogo{display:inline-block;flex-shrink:0;width:58px;aspect-ratio:1692 / 897;background:#fff;-webkit-mask:url(/assets/meruka-logo.webp) center / contain no-repeat;mask:url(/assets/meruka-logo.webp) center / contain no-repeat}
 .mlogo-blue{background:#336699}
 .mh-bird.mlogo{width:56px;height:auto}
 .mh.mh-over .mh-bird.mlogo{background:#336699;width:60px;padding:0;border:0}

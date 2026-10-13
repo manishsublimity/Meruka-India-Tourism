@@ -10,7 +10,7 @@ module.exports = {
   title: "Haryana Tourism,North India Tour,Haryana Tours",
   description: "",
   keywords: "haryana tourism india, travel north india tour, delhi haryana punjab tour, travel agents, north india, haryana tour operators, tours plan, haryana tour packages, krukshetra tour",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Haryana Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

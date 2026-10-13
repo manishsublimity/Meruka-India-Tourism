@@ -10,7 +10,7 @@ module.exports = {
   title: "Communication During Tour to India,LOCAL SIM CARD",
   description: "",
   keywords: "",
-  heroSrc: site.IMG("communication.jpg"),
+  heroSrc: site.IMG("communication.webp"),
   heroAlt: "India: Communication",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -9,7 +9,7 @@ module.exports = {
   title: "India Golden Triangle Tour",
   description: "Explore India golden triangle tour, covering the most popular tourist cities of India also extended Golden triangle tour packages with other Indian tourist places, Rajasthan desert, historical and wildlife, Goa beaches, Maharashtra, Himachal, North East India",
   keywords: "india, golden triangle, india golden triangle tour, delhi, agra, jaipur, golden triangle travel itineraries, taj mahal, indian golden triangle tour packages, rajasthan, golden triangle tour package, desert, historical, goa beaches, maharashtra, himachal, maharashtra, north east india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "India Golden Triangle Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -77,14 +77,14 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Golden Triangle Tour", href: site.link("golden_triangle_packages.html"), route: "Mumbai - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi", duration: "06 Nights - 07 Days" },
-        { name: "The Amazing Golden Triangle & Wildlife Tour", href: site.link("golden_triangle_wildlife_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambhor - Jaipur - Neemrana - Delhi", duration: "08 Nights - 09 Days" },
-        { name: "Golden Triangle and Temple Tour", href: site.link("golden_triangle_temple_packages.html"), route: "Delhi - Haridwar / Rishikesh - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi", duration: "09 Nights - 10 Days" },
+        { name: "Golden Triangle Tour", href: site.link("golden_triangle_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi", duration: "06 Nights - 07 Days" },
+        { name: "The Amazing Golden Triangle and Wildlife Tour", href: site.link("golden_triangle_wildlife_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Neemrana - Delhi - Hometown", duration: "08 Nights - 09 Days" },
+        { name: "Golden Triangle and Temple Tour", href: site.link("golden_triangle_temple_packages.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi", duration: "09 Nights - 10 Days" },
         { name: "Golden Triangle and Sunderbans Tour", href: site.link("golden_triangle_sunderbans_tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Kolkata - Sunderbans - Kolkata", duration: "10 Nights - 11 Days" },
-        { name: "Golden Triangle & Maharashtra Heritage Tour", href: site.link("/Golden-Triangle-Maharashtra-Tour.html"), route: "Delhi - Sikandra - Agra - Jaipur - Neemrana - Delhi - Aurangabad - Ajanta - Ellora - Mumbai", duration: "11 Nights - 12 Days" },
-        { name: "Golden Triangle & Goa Beaches Tour", href: site.link("/Golden-Triangle-Goa-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Goa", duration: "11 Nights - 12 Days" },
-        { name: "Golden Triangle & North East India Tour", href: site.link("/Golden-Triangle-North-East-India-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Kolkatta - Bagdogra - Kalimpong - Pelling - Gangtok - Darjeeling - Bagdogra - Kolkata", duration: "16 Nights - 17 Days" },
-        { name: "Golden Triangle and Wildlife Tour with Hill Stations of Himachal", href: site.link("golden_triangle_himachal_tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Neemrana - Delhi - Chandigarh - Shimla - Kullu - Manali - Parwanoo - Delhi", duration: "16 Nights - 17 Days" }
+        { name: "Golden Triangle with Maharashtra Tour", href: site.link("/Golden-Triangle-Maharashtra-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi - Aurangabad - Ajanta - Ellora - Mumbai", duration: "11 Nights - 12 Days" },
+        { name: "Golden Triangle with Beaches of Goa Tour", href: site.link("/Golden-Triangle-Goa-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Goa", duration: "11 Nights - 12 Days" },
+        { name: "Golden Triangle with North East Tour", href: site.link("/Golden-Triangle-North-East-India-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Kolkata - Bagdogra - Kalimpong - Pelling - Gangtok - Darjeeling - Bagdogra - Kolkata", duration: "16 Nights - 17 Days" },
+        { name: "Golden Triangle with Wildlife and Hill Stations Tour", href: site.link("golden_triangle_himachal_tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Neemrana - Delhi - Chandigarh - Shimla - Kullu - Manali - Parwanoo - Delhi", duration: "16 Nights - 17 Days" }
       ]
     }
   ],

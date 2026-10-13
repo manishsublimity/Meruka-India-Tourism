@@ -9,7 +9,7 @@ module.exports = {
   title: "North India Tour Packages Deal,North West India Travel Itineraries",
   description: "Explore best of North West India, North West India tours plan, North West India travel itineraries, North tour packages with cost, West India holiday packages, North and Central India culture and heritage tours",
   keywords: "holiday packages,travel plan,central india,north india tours packages,tourism,itineraries,north central india tours,holiday packages,west india tour itineraries,buddhist tours,maharashtra east india tours,india culture tours,heritage tour,maharashtra beaches tours,beaches holidays",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "North and West India Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -117,12 +117,12 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Maharashtra & Rajasthan Heritage Tour", href: site.link("/Maharashtra-Rajasthan-Tour.html"), route: "Mumbai - Aurangabad - Mumbai - Delhi - Udaipur - Chittourgarh - Ranakpur - Jodhpur - Bishnoi Village - Manvar - Jaisalmer - Pokhran - Bikaner - Deshnok - Mandawa - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "19 Nights - 20 Days" },
-        { name: "Grand Rajasthan, Ajanta, Ellora & Goa Tour", href: site.link("/Rajasthan-Maharashtra-Goa-Tour.html"), route: "Delhi - Sikandra - Agra - Fathepur Sikri - Ranthambhore - Jaipur - Pushkar - Jodhpur - Bishnoi Village - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Udaipur - Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Goa - Mumbai", duration: "19 Nights - 20 Days" },
-        { name: "Central India Heritage Tour", href: site.link("/Central-India-Heritage-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Maheshwar - Mandu - Indore - Ujjain - Bhopal - Sanchi - Bhopal - Gwalior - Datia - Orchha - Khajuraho - Varanasi - Delhi - Haridwar - Rishikesh - Haridwar - Delhi", duration: "20 Nights - 21 Days" },
+        { name: "Maharashtra & Rajasthan Tour", href: site.link("/Maharashtra-Rajasthan-Tour.html"), route: "Mumbai - Aurangabad - Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Udaipur - Chittorgarh - Deogarh - Pushkar - Ajmer - Jaipur - Agra - Sikandra - Delhi", duration: "21 Nights - 22 Days" },
+        { name: "Explore Rajasthan with Ajanta Ellora and Goa Tour", href: site.link("/Rajasthan-Maharashtra-Goa-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Pushkar - Jodhpur - Bishnoi Village - Ranakpur - Udaipur - Chittorgarh - Udaipur - Mumbai - Aurangabad - Ajanta - Ellora - Goa - Mumbai", duration: "19 Nights - 20 Days" },
+        { name: "Central and North India Temple Tour", href: site.link("/Central-India-Heritage-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Maheshwar - Mandu - Indore - Ujjain - Bhopal - Sanchi - Bhopal - Gwalior - Datia - Orchha - Khajuraho - Varanasi - Delhi - Haridwar - Rishikesh - Haridwar - Delhi", duration: "20 Nights - 21 Days" },
         { name: "India Culture, Heritage and Beaches Tour", href: site.link("itin_culture_beachestour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Goa - Delhi - Udaipur - Chittourgarh - Udaipur - Ranakpur - Jodhpur - Pushkar - Jaipur - Fatehpur Sikri - Agra - Varanasi - Khajuraho - Delhi", duration: "20 Nights - 21 Days" },
         { name: "North - West India Heritage and Buddhist Tours", href: site.link("tour_north_india_rajasthan_hertiage.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Udaipur - Ranakpur - Jodhpur - Bishnoi Village - Manvar - Jaisalmer - Pokhran - Bikaner - Deshnok - Mandawa - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi - Lucknow - Ayodhya - Allahabad - Chitrakoot - Varanasi - Bodhgaya - Rajgir - Nalanda - Patna - Delhi", duration: "28 Nights - 29 Days" },
-        { name: "Discover India Heritage Tour", href: site.link("/Discover-India-Heritage-Tour.html"), route: "Delhi - Udaipur - Chittourgarh - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Jaipur - Fatehpur Sikri - Agra - Varanasi - Khajuraho - Bhopal - Sanchi - Indore - Omkareshwar - Mandu - Dhar - Aurangabad - Mumbai", duration: "29 Nights - 30 Days" },
+        { name: "Discover India Tour", href: site.link("/Discover-India-Heritage-Tour.html"), route: "Delhi - Udaipur - Chittorgarh - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Jaipur - Fatehpur Sikri - Agra - Varanasi - Khajuraho - Bhopal - Sanchi - Indore - Omkareshwar - Mandu - Dhar - Aurangabad - Mumbai", duration: "29 Nights - 30 Days" },
         { name: "Grand Rajasthan, Ajanta, Ellora & Goa Tour", href: site.link("/North-India-Ajanta-Ellora-Goa-Tour.html"), route: "Delhi - Mandawa - Bikaner - Jaisalmer - Jodhpur - Mount Abu - Udaipur - Pushkar - Jaipur - Agra - Khajuraho - Varanasi - Mumbai - Aurangabad - Goa - Mumbai", duration: "29 Nights - 30 Days" }
       ]
     }

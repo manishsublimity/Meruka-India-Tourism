@@ -10,7 +10,7 @@ module.exports = {
   title: "Rajasthan, North India Tourism, Tourist Destinations of Rajasthan",
   description: "Explore tourism in Rajasthan, North India Rajasthan tourist destinations, Rajasthan city guide, places of interest, Jaipur, Bikaner,  Jaisalmer, Jodhpur, Pushkar,",
   keywords: "india, rajasthan, india rajasthan tourism, india rajasthan tourism, north india tourist attractions, rajasthan cities, rajasthan jaipur, Bikaner, jodhpur, Pushkar, jaisalmer, kota, bundi rajasthan tourist cities",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Rajasthan Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

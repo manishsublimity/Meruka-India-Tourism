@@ -10,7 +10,7 @@ module.exports = {
   title: "Communication in India,STD Codes Cities and Towns,Telephones Nos. Cell,Mobile Numbers of India",
   description: "All about communication in India, the STD codes of telephones nos. Numbers of India, landline, calls to each Indian area, city and towns of India",
   keywords: "std codes, india, states cities, std calls, indian std codes, india std codes, tourist cities, towns, area",
-  heroSrc: site.IMG("phones-codes.jpg"),
+  heroSrc: site.IMG("phones-codes.webp"),
   heroAlt: "Phone Codes",
   nav: site.nav('', false),
   footCols: site.footCols(),

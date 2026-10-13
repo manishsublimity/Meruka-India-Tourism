@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Travel Agencies, Tourists Holiday Experience in India, Services Testimonials, By Guest of India Tourism",
   description: "Choose and selected authentic, trustworthy professional Indian travel agencies, justify the agency by their guest holiday experience in India, agency services testimonials while touring to Indian tourist cities",
   keywords: "India tours, guests, guests remark, agency, comment, india tourism remark, remarked, comment, India tours, services, agency, agencies, ministry of tourism, government of India, trip, experience, testimonials. References, agency, agent, Indian travel agencies, india travel agency, remark, touring india, holiday experience",
-  heroSrc: site.IMG("testimonials.jpg"),
+  heroSrc: site.IMG("testimonials.webp"),
   heroAlt: "Testimonials",
   nav: site.nav('Testimonials', true),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Hill Stations Tours",
   description: "India Tourism Offer - Indian Hill Stations Tours, Jammu Kashmir Srinagar Trip, Srinagar Hill Stations Tourism, Explore Indian Hill Stations, Jammu Kashmir Tours, Holidays Packages, Srinagar Trip, Houseboat Stay At Srinagar, Gulmarg And Pahalgam, Dal Lake Sightseeing ",
   keywords: " indian hill stations tours, jammu kashmir srinagar trip, srinagar hill stations tourism, explore indian hill stations, jammu kashmir tours, holidays packages, srinagar trip, houseboat stay at srinagar, gulmarg and pahalgam, dal lake sightseeing,  hill stations, mountains tours, north india, india, indian, indian mountain tours,  tours, india temple tourism, india hill stations towns, jammu kashmir tours, srinagar holidays, srinagar vacations,  vaishno devi temple tours, holy trip of india, indian pilgrimage centers, jammu kashmir hotel bookings, vaishno devi private tours, families, singles honeymooners, religious places of india, indian religious tourist sectors, indian pilgrimage cities, srinagar holiday guide,  hill stations india, leisure holidays, summer regrets, summer holidays in north india hill stations",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Srinagar",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -9,7 +9,7 @@ module.exports = {
   title: "Maharashtra Tours, Maharashtra Mumbai Tours Package, Mumbai Travel Plan Maharashtra India",
   description: "Maharashtra Mumbai travel agents and tours operator offers Maharashtra Mumbai tours, West India Maharashtra tours packages with cost Maharashtra Mumbai Aurangabad holiday travel plan, travel itineraries to explore best of West India",
   keywords: "west india, mumbai, maharashtra, india, mumbai, maharashtra travel agents, maharashtra tour operator, aurangabad, cost, holiday, mumbai travel agents, maharashtra tours packages, mumbai tours, maharashtra tour operator travel plan, tour itineraries, packages with cost, holidays packages, maharashtra travel agency, maharashtra tourism",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Maharashtra Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -38,12 +38,12 @@ module.exports = {
       href: site.link("maharashtra_tours.html"),
       tours: [
         { name: "Glimpses of Maharashtra Tour", href: site.link("itin_maharashtra_tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Mumbai", duration: "06 Nights - 07 Days" },
-        { name: "Maharashtra Caves, Hills & Spiritual Tour", href: site.link("/Maharashtra-Hills-Spiritual-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Shirdi - Bhandardara - Mumbai", duration: "09 Nights - 10 Days" },
-        { name: "Maharashtra Heritage & Spiritual Tour", href: site.link("/Maharashtra-Heritage-Spiritual-Tour.html"), route: "Mumbai - Nasik - Trimbakeshwar - Shirdi - Shanisinghnapur - Aurangabad - Ajanta - Ellora - Pune - Murud Janjira - Mumbai", duration: "11 Nights - 12 Days" },
-        { name: "Best of Maharashtra Tour", href: site.link("/Best-of-Maharashtra-Tour.html"), route: "Mumbai - Lonavala - Matheran - Nasik - Trimbakeshwar - Shirdi - Shanisinghnapur - Aurangabad - Ajanta - Ellora - Pune - Mumbai", duration: "12 Nights - 13 Days" },
-        { name: "Maharashtra Heritage & Goa Beaches Tour", href: site.link("/Maharashtra-Goa-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Pune - Mahabaleshwar - Goa", duration: "12 Nights - 13 Days" },
-        { name: "Maharashtra Jyotirlinga Pilgrimage Tour", href: site.link("/Maharashtra-Pilgrimage-Tour.html"), route: "Mumbai - Pune - Bhimashankar - Aurangabad - Ajanta - Ellora - Grishneshwara - Aurangabad - Shirdi - Shanishinganapur - Nasik - Trimbakeshwar - Mumbai", duration: "13 Nights - 14 Days" },
-        { name: "Stony Maharashtra Tour", href: site.link("west-india-maharashtra-tour.html"), route: "Mumbai - Lonavala - Matheran - Nasik - Trimbakeshwar - Shirdi - Shanisinghnapur - Aurangabad - Ajanta - Ellora - Pune - Mahabaleshwar - Murud Janjira - Mumbai", duration: "16 Nights - 17 Days" }
+        { name: "Maharashtra Sacred Caves and Adventure Tour", href: site.link("/Maharashtra-Hills-Spiritual-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Shirdi - Bhandardara - Mumbai", duration: "09 Nights - 10 Days" },
+        { name: "Maharashtra Culture and Spiritual Tour", href: site.link("/Maharashtra-Heritage-Spiritual-Tour.html"), route: "Mumbai - Nashik - Trimbakeshwar - Shirdi - Shani Shingnapur - Aurangabad - Ajanta - Ellora - Pune - Murud Janjira - Mumbai", duration: "11 Nights - 12 Days" },
+        { name: "Best of Maharashtra Tour", href: site.link("/Best-of-Maharashtra-Tour.html"), route: "Mumbai - Lonavala - Matheran - Nashik - Trimbakeshwar - Shirdi - Shanisinghnapur - Aurangabad - Ajanta - Ellora - Pune - Mumbai", duration: "12 Nights - 13 Days" },
+        { name: "Maharashtra with Beaches of Goa Tour", href: site.link("/Maharashtra-Goa-Tour.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Pune - Mahabaleshwar - Goa", duration: "12 Nights - 13 Days" },
+        { name: "Culture and Pilgrimage Maharashtra Tour", href: site.link("/Maharashtra-Pilgrimage-Tour.html"), route: "Mumbai - Pune - Bhimashankar - Aurangabad - Ajanta - Ellora - Grishneshwara - Aurangabad - Shirdi - Shani Shingnapur - Nashik - Trimbakeshwar - Mumbai", duration: "13 Nights - 14 Days" },
+        { name: "Stony Maharashtra Tour", href: site.link("west-india-maharashtra-tour.html"), route: "Mumbai - Lonavala - Matheran - Nashik - Trimbakeshwar - Shirdi - Shani Shingnapur - Aurangabad - Ajanta - Ellora - Pune - Mahabaleshwar - Murud Janjira - Mumbai", duration: "16 Nights - 17 Days" }
       ]
     }
   ],

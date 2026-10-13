@@ -10,7 +10,7 @@ module.exports = {
   title: "Hill Stations Tourism in India,Jammu Kashmir Tours,Jammu Kashmir Tourism India",
   description: " Well Planned Tours To Explore Most Exotic Hill Stations Tourist Destinations Of India, Indian Hill Stations Tourism Guide, India Hill Stations Tour Packages, Hill Stations Stay, Accommodation, Sightseeing Tours Of Hill Stations, Tours To Jammu And Kashmir ",
   keywords: "official website of india tourism,hill stations,hillstation,hill stations tourism,indian hill stations tourist places,indian hill stations destinations,indian natures tours,jammu kashmir tours,jammu kashmir tourism information,india jammu tours,india kashmir tours,jammu kashmir tours,jammu hotel bookings,tour packages pahalgam,tours sonmarg, gulmarg travel guide,sightseeing places of jammu kashmir,hotel accommodation,indian hill stations tourism sectors,hotels approved by government of india,indian tourist destinations,hill stations of north and south india,nainital hill stations tours,mussoorie hill station,jammu kashmir nature tours,gangtok,darjeeling,shimla,manali,mount abu,srinagar,ooty,kodaikanal,munnar,jammu kashmir vacation tours,india,north india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Jammu & Kashmir Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -28,11 +28,11 @@
 (function () {
   // Place lists (thumbnail · name · text · Read More): add a row of "jump to" chips above them.
   var BIG_PHOTO = {
-    'delhi': '/photos/delhi-red-fort.jpg', 'himachal pradesh': '/photos/manali-balloon.jpg', 'jammu & kashmir': '/photos/ladakh-pangong.webp',
-    'punjab': '/photos/golden-temple-amritsar.webp', 'rajasthan': '/photos/hawa-mahal-dusk.webp', 'uttar pradesh': '/photos/taj-mahal-wide.jpg',
+    'delhi': '/photos/delhi-red-fort.webp', 'himachal pradesh': '/photos/manali-balloon.webp', 'jammu & kashmir': '/photos/ladakh-pangong.webp',
+    'punjab': '/photos/golden-temple-amritsar.webp', 'rajasthan': '/photos/hawa-mahal-dusk.webp', 'uttar pradesh': '/photos/taj-mahal-wide.webp',
     'lakshadweep': '/photos/lakshadweep-hd.webp', 'karnataka': '/photos/mysore-palace.webp', 'kerala': '/photos/kerala-backwaters.webp', 'tamil nadu': '/photos/brihadeshwara-temple.webp',
-    'arunachal pradesh': '/photos/arunachal-losar.webp', 'nagaland': '/photos/nagaland-festival.webp', 'west bengal': '/photos/darjeeling.jpg',
-    'gujarat': '/photos/gujarat.jpg', 'goa': '/photos/goa-beach-palms.avif', 'madhya pradesh': '/photos/bengal-tiger.jpg'
+    'arunachal pradesh': '/photos/arunachal-losar.webp', 'nagaland': '/photos/nagaland-festival.webp', 'west bengal': '/photos/darjeeling.webp',
+    'gujarat': '/photos/gujarat.webp', 'goa': '/photos/goa-beach-palms.webp', 'madhya pradesh': '/photos/bengal-tiger.webp'
   };
   var slugify = function (s) { return s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); };
   $$('.ar-body .prose ul').forEach(function (ul) {

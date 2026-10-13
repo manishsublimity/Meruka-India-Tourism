@@ -10,7 +10,7 @@ module.exports = {
   title: "India Kerala Ayurveda Tour,Kerala Ayurveda Holidays,South India Trip",
   description: "Kerala Ayurveda tour Offers Kerala Ayurveda travel and tourism, Ayurveda trip in South India,Kerala Ayurveda meditation tour Packages, Kerala Backwaters and Ayurveda Holidays in South India",
   keywords: "South India Kerala Ayurveda tour,meditation holiday,Kerala Ayurveda meditation tour Packages,South India Ayurveda tours plan,itinerary,South India Ayurveda holidays",
-  heroSrc: site.IMG("ayurveda.jpg"),
+  heroSrc: site.IMG("ayurveda.webp"),
   heroAlt: "Ayurveda Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "India Travel Guide,India Travel Agents,India Tourism,Mumbai Travel Agency",
   description: "Indian Travel Guides Offer - India Travel Guide, India Travel Agents, India Tourism, Mumbai Travel Agency, Mumbai Travel Agencies, India Tour Travel Packages, India Travel Tourism, India Tourist Giuides, Tourist Guides In India ",
   keywords: " india travel guide, india travel agents, india tourism, mumbai travel agency, mumbai travel agencies, india tour travel packages, india travel tourism, india tourist giuides, tourist guides in india,india travel guide,indian tourists guide, india travel information, health guide,safety,travel tips india, indian passport,visa,warnings,suggestions,preparations,travel arrangements, trip india,india tourism,guide,tourist places,sightseeing",
-  heroSrc: site.IMG("travel-guideline.jpg"),
+  heroSrc: site.IMG("travel-guideline.webp"),
   heroAlt: "Travelers Guide",
   nav: site.nav('', false),
   footCols: site.footCols(),

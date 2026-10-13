@@ -9,7 +9,7 @@ module.exports = {
   title: "Sikkim Tour Itinerary,Sikkim Tours Itineraries,Gangtok Darjeeling Packages itineraries",
   description: "Explore Sikkim North India, Sikkim tour day to day tour itinerary, many more detailed tour itineraries to explore Sikkim- Gangtok, Darjeeling, Kalimpong, Peeling and other tourist places, package to North India, Sikkim and West Bengal /",
   keywords: "india,north india,sikkim,darjeeling,sikkim tour packages,west bengal,travel itineraries,holidays packages,sikkim north india tours packages,hotel approved by ministry of tourism,government of india,sikkim tour itineraries,north east india travel itineraries,buddhist places,sikkim north east india tours,darjeeling gangtok,sikkim tour itinerary, north india tourism",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Sikkim India Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -37,9 +37,9 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Sikkim Mountains and Valley Tour", href: site.link("sikkim_tours_travel.html"), route: "Bagdogra - Gangtok - Darjeeling - Mirik - Bagdogra - Kolkata", duration: "06 Nights - 07 Days" },
-        { name: "Sikkim, Darjeeling & Himalayan Valleys Tour", href: site.link("Sikkim-India-Tour.html"), route: "Kolkata - Bagdogra - Kalimpong - Pelling - Gangtok - Tsongo - Darjeeling - Mirik - Bagdogra - Kolkata", duration: "11 Nights - 12 days" },
-        { name: "Charismatic Sikkim and Rajasthan Tour", href: site.link("sikkim_rajasthan_tour.html"), route: "Kolkata - Bagdogra - Kalimpong - Pelling - Gangtok - Tsongo - Darjeeling - Mirik - Bagdogra - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Delhi", duration: "20 Nights - 21 Days" }
+        { name: "Sikkim Mountains and Valley Tour", href: site.link("sikkim_tours_travel.html"), route: "Bagdogra - Gangtok - Tsomgo - Darjeeling - Mirik - Bagdogra - Kolkata", duration: "06 Nights - 07 Days" },
+        { name: "Sikkim - Valley of Wonders Tour", href: site.link("Sikkim-India-Tour.html"), route: "Kolkata - Bagdogra - Kalimpong - Pelling - Gangtok - Tsomgo - Darjeeling - Mirik - Bagdogra - Kolkata", duration: "11 Nights - 12 Days" },
+        { name: "Charismatic Sikkim and Rajasthan Tour", href: site.link("sikkim_rajasthan_tour.html"), route: "Kolkata - Bagdogra - Kalimpong - Pelling - Gangtok - Tsomgo - Darjeeling - Mirik - Bagdogra - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Delhi", duration: "20 Nights - 21 Days" }
       ]
     }
   ],

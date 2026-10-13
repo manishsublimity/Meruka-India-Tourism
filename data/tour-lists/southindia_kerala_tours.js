@@ -9,7 +9,7 @@ module.exports = {
   title: "South India Kerala Tourism,South India Kerala Tours,Lakshadweep Tours Packages",
   description: "South India travel agency offers South Kerala tours packages with Lakshadweep, well designed tour itineraries covering Kerala backwaters, beaches, hill stations, wildlife, Ayurveda tours, tour packages with price and cost for Kerala wildlife, backwaters, beaches, hill stations, offer short and long duration holidays in Kerala and South India",
   keywords: "india,south india,kerala,backwaters tours,kerala wildlife tours,short tours,long tours,sample tour itineraries,ayurveda tours,beaches kerala,holidays,kerala best deal,lakshadweep kerala tours,south india kerala holidays,holidays packages,tour itineraries,holiday packages cost,price, ravel plan kerala",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Kerala Backwaters Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -43,12 +43,12 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Kerala Hills, Wildlife & Backwaters Tour", href: site.link("/Kerala-Hills-Wildlife-Tour.html"), route: "Cochin - Munnar - Periyar - Alleppey - Cochin", duration: "06 Nights - 07 Days" },
-        { name: "Kerala Beaches, Backwaters and Hill Station Tour", href: site.link("kerala_beaches_backwaters_tours.html"), route: "Trivandrum - Kovalam - Kanyakumari - Alleppey - Periyar - Munnar - Cochin", duration: "08 Nights - 09 Days." },
-        { name: "Kerala Hills, Backwaters & Beaches Tour", href: site.link("/Kerala-Hills-Backwaters-Tour.html"), route: "Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "09 Nights - 10 Days" },
-        { name: "Kerala & Lakshadweep Island Tour", href: site.link("/Kerala-Lakshadweep-Tour.html"), route: "Cochin - Athirapally - Munnar - Periyar - Alleppey - Cochin - Agatti, Lakshadweep - Cochin", duration: "11 Nights - 12 Days" },
-        { name: "Kerala Nature, Backwaters & Pilgrimage Tour", href: site.link("/Kerala-Nature-Tour.html"), route: "Trivandrum - Kovalam - Kanyakumari - Rameshwaram - Madurai - Munnar - Periyar - Kumarakom - Alleppey - Cochin", duration: "11 Nights - 12 Days" },
-        { name: "Offbeat Kerala Hills, Backwaters & Beaches Tour", href: site.link("/Offbeat-Kerala-tour1.html"), route: "Cochin - Cherai Beach - Munnar - Vagamon - Periyar - Kuttikkanam - Kumarakom - Alleppey - Varkala - Cochin", duration: "14 Nights - 15 Days" }
+        { name: "Charismatic Kerala Tour", href: site.link("/Kerala-Hills-Wildlife-Tour.html"), route: "Cochin - Munnar - Periyar - Alleppey - Cochin", duration: "06 Nights - 07 Days" },
+        { name: "Kerala Beaches, Backwaters and Hill Station Tour", href: site.link("kerala_beaches_backwaters_tours.html"), route: "Trivandrum - Kovalam - Kanyakumari - Alleppey - Periyar - Munnar - Cochin", duration: "08 Nights - 09 Days" },
+        { name: "Kerala Beaches and Backwaters Tour", href: site.link("/Kerala-Hills-Backwaters-Tour.html"), route: "Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "09 Nights - 10 Days" },
+        { name: "Kerala and Lakshadweep Tour", href: site.link("/Kerala-Lakshadweep-Tour.html"), route: "Cochin - Athirapally - Munnar - Periyar - Alleppey - Cochin - Agatti, Lakshadweep - Cochin", duration: "11 Nights - 12 Days" },
+        { name: "Kerala Nature & Pilgrimage Tour", href: site.link("/Kerala-Nature-Tour.html"), route: "Trivandrum - Kovalam - Kanyakumari - Rameshwaram - Madurai - Munnar - Periyar - Kumarakom - Alleppey - Cochin", duration: "11 Nights - 12 Days" },
+        { name: "Unexplored Kerala Tour", href: site.link("/Offbeat-Kerala-tour1.html"), route: "Cochin - Cherai Beach - Munnar - Vagamon - Periyar - Kuttikkanam - Kumarakom - Alleppey - Varkala - Cochin", duration: "14 Nights - 15 Days" }
       ]
     }
   ],

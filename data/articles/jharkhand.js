@@ -10,7 +10,7 @@ module.exports = {
   title: "East India Tourism,Jharkhand Travel Plan,East India Jharkhand Tour Itineraries",
   description: "Explore East India with Jharkhand tour itineraries, Jharkhand tourism guide, East India travel plan, East India tourism, Jharkhand state trip destinations",
   keywords: "east india tours, jharkhand tour itineraries, jharkhand holiday plan, jharkhand tourism guide, east india travel plan, east india tourism, jharkhand state, trip destinations, sightseeing places jharkhand, tourist attractions jharkhand",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Jharkhand Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

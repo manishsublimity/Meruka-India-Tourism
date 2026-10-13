@@ -16,3 +16,14 @@
   }, { rootMargin: '0px 0px -8% 0px' });
   els.forEach(function (el) { el.classList.add('rv'); io.observe(el); });
 })();
+
+(function () {
+  // Testimonials row (About page, same as home): pauses on hover/focus (CSS) or with the Pause button
+  var root = document.querySelector('#reviews.r1'); if (!root) return;
+  var btn = root.querySelector('.rm-pause'), label = root.querySelector('.rm-pause-t'); if (!btn) return;
+  btn.addEventListener('click', function () {
+    var paused = root.classList.toggle('paused');
+    btn.setAttribute('aria-pressed', paused);
+    label.textContent = paused ? 'Play' : 'Pause';
+  });
+})();

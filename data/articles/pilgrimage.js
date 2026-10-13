@@ -10,7 +10,7 @@ module.exports = {
   title: "India Tour,Pilgrimage,Travel Tourism,Indian Pilgrimage Tourist Places",
   description: "Explore spiritual and pilgrimage tourist destinations of India, Indian pilgrimage places, trip and travel guide, pilgrimage tourism in India,  temples of Karnataka, Rajasthan religious Pushkar tours, Himachal, Haridwar, Rishikesh, Karnataka, Tamilnadu Uttaranchal spiritual and temples tours, ",
   keywords: "official website,pilgrimage,tourism,india pilgrimage tour,indian pilgrimage tourism,india pilgrimage vacations,holidays guide,itinerary,  tourists places guide,tour itineraries,rajasthan pilgrimage tourism,karnataka temple tours,india religious tours india,indian pilgrimage holidays,himalaya pilgrimage temples, himachal buddhist tourist sectors,hindu,hotels,resorts,approved, by,government tourism department, indian pilgrimage cities, towns, sports, tourists sites,haridwar pilgrimage tours,rishikesh tourism,rishikesh temples,haridwar temple tourism",
-  heroSrc: site.IMG("pillgrimage.jpg"),
+  heroSrc: site.IMG("pillgrimage.webp"),
   heroAlt: "Pilgrimage Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

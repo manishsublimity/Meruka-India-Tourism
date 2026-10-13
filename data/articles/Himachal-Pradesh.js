@@ -10,7 +10,7 @@ module.exports = {
   title: "Himachal Tourism,Himachal Travel Guide,Himachal Pradesh Tour Packages",
   description: "Himachal tour operators offer - Himachal hill station tourism with travel guide, Himachal Pradesh tour packages and travel itineraries, book Himachal holiday travel packages, Shimla and Manali trip",
   keywords: "india hill station tour, himachal tour operators, himachal hill station tourism, travel guide, himachal pradesh tour packages, north india travel itineraries, book himachal holiday travel packages, shimla tours, manali trip",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Himachal Pradesh Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

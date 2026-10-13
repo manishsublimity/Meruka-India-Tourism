@@ -118,7 +118,7 @@
     var PIN = '<svg class="pq-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
     var stopsHtml = PIN + all.map(function (x, i) { return '<span' + (i >= 3 ? ' class="pq-more-x" hidden' : '') + '>' + esc(x) + '</span>'; }).join('') +
       '<button type="button" class="pq-more" data-pq-more aria-expanded="false"' + (all.length > 3 ? '' : ' hidden') + ' data-label="+' + Math.max(all.length - 3, 0) + ' more">+' + Math.max(all.length - 3, 0) + ' more</button>';
-    var price = t.from && n ? '<small>Starts From</small><b>$' + (t.from * n).toLocaleString('en-US') + '</b>' : '<small>Starts From</small><b class="pq-req">On request</b>';
+    var price = t.from && n ? '<small>Starts From</small><b>USD ' + (t.from * n).toLocaleString('en-US') + '</b>' : '<small>Starts From</small><b class="pq-req">On request</b>';
     return '<article class="pq-card"><a href="' + href + '" class="pq-img" tabindex="-1" aria-hidden="true"><img src="' + esc(t.img) + '" alt="" loading="lazy"' + (/taj-mahal/.test(t.img) ? ' class="pq-zoom"' : '') + '>' +
       '</a>' +
       '<div class="pq-mid"><h3 class="pq-name"><a href="' + href + '">' + esc(t.name) + '</a></h3>' + (t.duration ? '<p class="pq-nd">' + esc(longDur(t.duration)) + '</p>' : '') + '<p class="pq-stops">' + stopsHtml + '</p><p class="pq-desc">' + esc(g.title) + '</p></div>' +
@@ -133,7 +133,7 @@
       '<span class="pt-tag">' + esc(g.title) + '</span>' + (t.duration ? '<span class="pt-dur">' + esc(shortDur(t.duration)) + '</span>' : '') + '</a>' +
       '<div class="pt-body"><h3 class="pt-name"><a href="' + href + '">' + esc(t.name) + '</a></h3>' +
       (st.length ? '<ol class="pt-route" title="' + esc(t.route) + '">' + st.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' : '') +
-      '<div class="pt-foot"><div class="pt-price">' + (t.from ? '<small>From</small><b>$' + t.from + '</b><span>per person / day</span>' : '<small>Price</small><b class="pt-req">On request</b>') + '</div>' +
+      '<div class="pt-foot"><div class="pt-price">' + (t.from ? '<small>From</small><b>USD ' + t.from + '</b><span>per person / day</span>' : '<small>Price</small><b class="pt-req">On request</b>') + '</div>' +
       '<div class="pt-btns"><a href="' + href + '" class="pt-view">View Itinerary</a><a href="' + esc(wa) + '?text=' + encodeURIComponent('Hello Meruka, I am interested in the ' + t.name + '.') + '" target="_blank" rel="noopener" class="pt-wa" aria-label="Ask on WhatsApp" title="Ask on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg></a></div></div></div></article>';
   }
   function render() {

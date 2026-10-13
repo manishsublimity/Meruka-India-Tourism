@@ -9,7 +9,7 @@ module.exports = {
   title: "North India Rajasthan Tourism, Rajasthan with Kerala Tours Packages",
   description: "Explore most popular destinations of North India, enjoy memorable North India Rajasthan Taj Mahal trip and Kerala backwater tours, incomparable tour plans packages to explore Rajasthan and Kerala with Delhi, Varanasi, Agra, wildlife, backwaters, heritage, hill stations, beaches tours of Kerala and Rajasthan North India",
   keywords: "explore india,travel destinations,north india tourism packages,enjoy memorable tours,north india rajasthan trip,taj mahal trip,kerala backwater tours,incomparable tour plans,budget packages,rajasthan package,kerala,delhi,varanasi,agra,wildlife travel guide,backwaters,heritage,hill stations,beaches tours, kerala rajasthan north india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "North India Kerala Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -37,8 +37,8 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Rhythm of North India and Kerala Tour", href: site.link("north_south_india.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Ranthambhor - Jaipur - Neemrana - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "22 Nights - 23 Days" },
-        { name: "Duet of North India and Kerala Tour", href: site.link("india_northculture_tours.html"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Bijaipur - Ranthambhore - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "26 Nights - 27 Days" },
+        { name: "Rhythm of North India and Kerala Tour", href: site.link("north_south_india.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Neemrana - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "22 Nights - 23 Days" },
+        { name: "Duet of North India and Kerala Tour", href: site.link("india_northculture_tours.html"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "26 Nights - 27 Days" },
         { name: "North India Heritage with Kerala Tour", href: site.link("/North-India-Kerala-Tour.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Mandawa - Bikaner - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "28 Nights - 29 Days" }
       ]
     }

@@ -10,7 +10,7 @@ module.exports = {
   title: "Gujarat Rajasthan Tour,Rajasthan Gujarat Tour Plan",
   description: "Gujarat Rajasthan tour plan, covering best destinations of Gujarat and Rajasthan states, tour itinerary covering heritage culture tour of Gujarat and Rajasthan, beaches, temples, desert, historical places of Rajasthan and Gujarat",
   keywords: "india,gujrat,tour,rajasthan,india,rajasthan gujarat tour plan,itineraries,travel plan,packages,sightseeing,tour itinerary rajasthan,tour rajasthan,gujarat tour,tour packages,approved by tourism ministry of government of india,official website,gujarat tourism,travel information,tour itinerary,heritage,rajasthan culture,gujarat beaches,temples,desert,historical places gujarat",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Gujarat and Rajasthan Tour Plan",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -9,7 +9,7 @@ module.exports = {
   title: "Golden Triangle,Himachal Highlands Tour",
   description: "Golden Triangle, Himachal Highlands tour covering heritage monuments, wildlife safari, Himalayan hill stations, Agra, Manali, Amritsar, customized India holiday packages.",
   keywords: "golden triangle himachal highlands tour,himachal highlands tour,himachal tour package,golden triangle tour,india holiday package,india tour package,india travel package,india travel plan,india tour itinerary,private india tour,customized india tour,budget india tour,luxury india tour,delhi agra jaipur tour,himachal holiday package,shimla manali tour,dharamshala tour package,dalhousie tour package,amritsar tour package,ranthambore wildlife safari,rohtang pass tour,himalayan hill station tour,cultural india tour,unesco heritage tour india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -251,15 +251,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: The ",
-          "bold": false
-        },
-        {
-          "text": "Taj Mahal",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " remains closed every Friday.",
+          "text": " The Taj Mahal remains closed every Friday.",
           "bold": false
         }
       ]
@@ -798,15 +794,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Rohtang Pass",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " remains closed on Tuesdays and may also be inaccessible due to weather conditions and government regulations.",
+          "text": " Rohtang Pass remains closed on Tuesdays and may also be inaccessible due to weather conditions and government regulations.",
           "bold": false
         }
       ]
@@ -1228,11 +1220,7 @@ module.exports = {
         ],
         [
           {
-            "text": "Rohtang Pass",
-            "bold": true
-          },
-          {
-            "text": " remains closed on Tuesdays and access is subject to weather and permit availability.",
+            "text": "Rohtang Pass remains closed on Tuesdays and access is subject to weather and permit availability.",
             "bold": false
           }
         ],

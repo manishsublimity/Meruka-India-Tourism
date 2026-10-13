@@ -9,7 +9,7 @@ module.exports = {
   title: "Goa Kerala Golden Triangle Tour",
   description: "Golden Triangle covering Goa, Kerala beaches, backwaters with Delhi, Agra and Jaipur",
   keywords: "golden triangle goa kerala tour,golden triangle tour,goa tour package,kerala tour package,india holiday package,india tour package,india travel package,india travel plan,india tour itinerary,private india tour,customized india tour,delhi agra jaipur tour,goa beach tour,kerala backwaters tour,munnar tour package,periyar wildlife tour,alleppey houseboat tour,kovalam beach tour,cultural india tour,heritage tour india,unesco heritage tour india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -251,15 +251,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: The ",
-          "bold": false
-        },
-        {
-          "text": "Taj Mahal",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " remains closed every Friday.",
+          "text": " The Taj Mahal remains closed every Friday.",
           "bold": false
         }
       ]
@@ -496,23 +492,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: The ",
-          "bold": false
-        },
-        {
-          "text": "Elephanta Caves",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " and ",
-          "bold": false
-        },
-        {
-          "text": "Chhatrapati Shivaji Maharaj Vastu Sangrahalaya",
-          "bold": true
-        },
-        {
-          "text": " remain closed on Mondays.",
+          "text": " The Elephanta Caves and Chhatrapati Shivaji Maharaj Vastu Sangrahalaya remain closed on Mondays.",
           "bold": false
         }
       ]
@@ -1204,15 +1188,7 @@ module.exports = {
         ],
         [
           {
-            "text": "Wildlife sightings in ",
-            "bold": false
-          },
-          {
-            "text": "Periyar Wildlife Sanctuary",
-            "bold": true
-          },
-          {
-            "text": " depend on natural conditions and cannot be guaranteed.",
+            "text": "Wildlife sightings in Periyar Wildlife Sanctuary depend on natural conditions and cannot be guaranteed.",
             "bold": false
           }
         ]

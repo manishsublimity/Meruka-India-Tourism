@@ -10,7 +10,7 @@ module.exports = {
   title: "Travel in India, Railway Helpline, Tourist Helpline Service India",
   description: "Useful to you during your travel in India like Currency exchange value, the railway helpline, telephone services, tourist helpline",
   keywords: "travel in india, currency exchange value, travel basic information, time zone, currency convertor, the railway helpline, telephone services, tourist helpline",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Other Links",
   nav: site.nav('', false),
   footCols: site.footCols(),

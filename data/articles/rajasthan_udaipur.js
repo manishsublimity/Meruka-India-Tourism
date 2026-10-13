@@ -10,7 +10,7 @@ module.exports = {
   title: "Rajasthan Udaipur Tours, Udaipur City Guide, Travel and Trip to Udaipur, Holidays Packages Udaipur Rajasthan",
   description: "Well planned Rajasthan  tour packages and itineraries to explore Rajasthan Udaipur vacations visit, Udaipur travel tourist places  guide, trip to Udaipur, Holidays in Udaipur Rajasthan, city travel guide, day to day sightseeing Udaipur",
   keywords: "official website, rajasthan tourism website, udaipur rajasthan, india, indian, rajasthan udaipur travel, udaipur city tours, udaipur travel guide, udaipur city tours, sightseeing udaipur, rajasthan udaipur monuments, udaipur day to day sightseeing, trip udaipur, holidays packages udaipur, vacations tours udaipur, udaipur visit, udaipur places of interest, what to see udaipur, rajasthan, tourist places in udaipur,  rajasthan forts, rajasthan palaces, hotels udaipur, travel itineraries udaipur india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Udaipur",
   nav: site.nav('', false),
   footCols: site.footCols(),

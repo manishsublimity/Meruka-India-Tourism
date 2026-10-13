@@ -9,7 +9,7 @@ module.exports = {
   title: "North India Wildlife, North India Pilgrimage Tours, North India Wildlife Pilgrimage, Tours Itinerary North India",
   description: "North India Uttarakhand pilgrimage tours, North India wildlife tour packages with cost, budget travel packages, North India wildlife, pilgrimage itineraries to explore North India with Haridwar and Rishikesh for Yoga, temple, wildlife, and pilgrimage places in North India",
   keywords: "north india uttarakhand,north india wildlife tours,north india pilgrimage tours,uttaranchal hill stations, hill stations tour packages,tour cost,tour packages,wildlife travel itinerary,uttarkhand,uttaranchal yoga tours,places,north india tours packages,rough tour itinerary,wildlife travel,north india travel itineraries, hill stations,north india tourism",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Uttarakhand Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -37,9 +37,9 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Pilgrimage and Scenic Tour of Uttaranchal", href: site.link("uttaranchal_tourism.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Dehradun - Mussoorie - Delhi", duration: "07 Nights - 08 Days" },
+        { name: "Pilgrimage and Scenic Uttaranchal Tour", href: site.link("uttaranchal_tourism.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Dehradun - Mussoorie - Delhi", duration: "07 Nights - 08 Days" },
         { name: "Picturesque Uttaranchal Tour", href: site.link("uttaranchal_tours.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Delhi - Nainital - Ranikhet - Corbett - Dehradun - Mussoorie - Delhi", duration: "12 Nights - 13 Days" },
-        { name: "Uttaranchal Wildlife and Taj Tour", href: site.link("uttaranchal_agra_taj_tours.html"), route: "Delhi - Neemrana - Jaipur - Ranthambhore - Fatehpur Sikri - Agra - Sikandra - Delhi - Nainital - Ranikhet - Kasauni - Corbett - Dehradun - Mussoorie - Delhi", duration: "17 Nights - 18 Days" }
+        { name: "Uttaranchal Wildlife and Taj Tour", href: site.link("uttaranchal_agra_taj_tours.html"), route: "Delhi - Neemrana - Jaipur - Ranthambore - Fatehpur Sikri - Agra - Sikandra - Delhi - Nainital - Ranikhet - Kausani - Corbett - Dehradun - Mussoorie - Delhi", duration: "17 Nights - 18 Days" }
       ]
     }
   ],

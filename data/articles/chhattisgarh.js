@@ -10,7 +10,7 @@ module.exports = {
   title: "Chhattisgarh Tribal Tours,India Tribal Tourism,Indian Wildlife",
   description: "",
   keywords: "india wildlife tourism, chhattisgarh holiday plan,chhattisgarh tribal tours, chhattisgarh wildlife trip,tribal tours plan, holiday packages, best deal, west india tribal tour plan,chhattisgarh tours packages, chhattisgarh tribal tour itineraries",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Chhattisgarh Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

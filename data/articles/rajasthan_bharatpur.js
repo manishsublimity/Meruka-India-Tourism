@@ -10,7 +10,7 @@ module.exports = {
   title: "Bharatpur Keoladeo Ghana Bird Sanctuary Tours, Rajasthan Wildlife Travel Guide Keoladeo National Park Rajasthan",
   description: "Rajasthan travel agents and tour operators offers Bharatpur Keoladeo Ghana Bird Sanctuary tours  and other Rajasthan wildlife travel and holiday packages,   Bharatpur Keoladeo national park , Rajasthan vacations and trip travel arrangements, Bharatpur city guide, wildlife places of Rajasthan and North India, South India destinations tours, tourism guide, vacation and trip assistance",
   keywords: "indian, india wildlife, bharatpur keoladeo ghana bird sanctuary, keoladeo ghana bird sanctuary,  keoladeo national park, birding tours, tourism wildlife in rajasthan, keoladeo bird sanctuary safari,  wildlife places, wildlife destinations,  bharatpur city guide, bharatpur wildlife tours, bharatpur bird sanctuary, keoladeo ghana bird sanctuary, wildlife and adventure tourism in bharatpur rajasthan, bharatpur city tours by car, bharatpur and other historical, wildlife, pilgrimage, desert cities of rajasthan",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Bharatpur",
   nav: site.nav('', false),
   footCols: site.footCols(),

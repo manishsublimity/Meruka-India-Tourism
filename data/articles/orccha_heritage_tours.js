@@ -10,7 +10,7 @@ module.exports = {
   title: "India Heritage Tours,Tourism West India,Orcha Heritage City,Orchha Tours Package",
   description: "India heritage tourism,West India Orcha heritage city tour,Orchha tours package,India Khajuraho Varanasi and Orcha heritage tours,West India heritage tourism guide trip,Orchha visit and trip  plan,tourism destinations",
   keywords: "",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Orchha",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -9,7 +9,7 @@ module.exports = {
   title: "Gujarat Tours,Gujarat Tourism,Gujarat Travel Plan,Gujarat Holiday Packages",
   description: "Explore best of Gujarat travel destinations, Gujarat travel agents offers Gujarat tours with detailed tour plan, itinerary and Gujarat tour packages with budget and luxury tour in all seasons, Gujarat holiday packages, Gujarat tourism",
   keywords: "explore gujarat,travel destinations,gujarat travel agents,offers,gujarat tours,tour plan,itinerary,gujarat tour packages,budget,luxury tour,gujarat  culture,seasons,gujarat holiday packages,gujarat tourism",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Gujarat India Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),

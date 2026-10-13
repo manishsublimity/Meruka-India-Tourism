@@ -10,7 +10,7 @@ module.exports = {
   title: "Madhya Pradesh Gwalior Tour,Madya Pradesh Tourism,Gwalior Madhya Pradesh Tour",
   description: "All West India Cities And Tourist Towns, Madhya Pradesh Gwalior Tour,Madya Pradesh Tourism,Gwalior Madhya Pradesh Tour, Gwalior Madhya Pradesh Tour Packages, Madhya Pradesh Travel Guide, Places To Visit In Gwalior City",
   keywords: " west india tourism, madhya pradesh gwalior tour,madya pradesh tourism,gwalior madhya pradesh tour, west india madhya pradesh, gwalior city tours, gwalior tourist places, madhya pradesh gwalior holidays, tour packages madhya pradesh west india, trip, west india travel guide, mp, tourist towns, cities",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Gwalior",
   nav: site.nav('', false),
   footCols: site.footCols(),

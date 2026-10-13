@@ -10,7 +10,7 @@ module.exports = {
   title: "Rajasthan Jodhpur City, Rajasthan Jodhpur Tours, Jodhpur City Guide, Jodhpur Sightseeing Places, Desert Tours Jodhpur and Jaisalmer",
   description: "Well planned  holidays package to explore desert city of Rajasthan, Rajasthan Jodhpur city, Rajasthan Jodhpur tours, Jodhpur stay, Jodhpur sightseeing places,  visit and vacation at Jodhpur, places of interest in Jodhpur, what to see in Jodhpur, climate, distance of Jodhpur and other cities of Rajasthan, desert tours Jodhpur and Jaisalmer",
   keywords: "rajasthan travel company, tour organization, jodhpur, travel agents, jodhpur tour operators, jodhpur   city guide, indian desert tours, jodhpur city guide, jodhpur city tours, what to see in jodhpur, jodhpur travel guide, hotel and accommodation in jodhpur, jodhpur camel safari, shopping and market in jodhpur, rajasthan jodhpur city sightseeing places, places of interest in jodhpur, we offer other rajasthan golden triangle tours, rajasthan exotic tours covering, travel itineraries to explore most historical, india pilgrimage city tour, indian culture trip, nature, beaches, rajasthan desert holidays in india, rajasthan rural tours, rajasthan wildlife tours, royal rajasthan tours, rajasthan villages and rural tours, rajasthan wildlife tour packages",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Jodhpur",
   nav: site.nav('', false),
   footCols: site.footCols(),

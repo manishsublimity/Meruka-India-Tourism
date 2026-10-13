@@ -10,7 +10,7 @@ module.exports = {
   title: "India Nepal Buddha Tourism,Pilgrimage Tours North India Nepal",
   description: "Explore Buddha religious, Buddha piligrimage tourism places in India and Nepal,North India Nepal tours packages to explore Buddha destinations with all kind of services",
   keywords: "India,Nepal,india tourism,Buddha tourism,pilgrimage tours India,Nepal buddha tours,Buddha Tourism,nepal india tourism,day wise tours,tour packages,tourism guide India",
-  heroSrc: site.IMG("buddism.jpg"),
+  heroSrc: site.IMG("buddism.webp"),
   heroAlt: "Buddha Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

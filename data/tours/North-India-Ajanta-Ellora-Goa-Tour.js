@@ -9,7 +9,7 @@ module.exports = {
   title: "North India Ajanta Ellora Goa Tour, Rajasthan Heritage Circuit",
   description: "Explore North India, Ajanta Ellora & Goa tour covering Delhi, Rajasthan, Agra Taj Mahal, Goa. Customizable India tour packages.",
   keywords: "north india ajanta ellora goa tour,ajanta ellora goa tour package,north india goa tour package,rajasthan khajuraho varanasi goa tour,india holiday package,india tour itinerary,india travel itinerary,india tour plan,private india tour,customized india tour,budget india tour,budget rajasthan tour,budget goa tour,budget ajanta ellora tour,golden triangle tour package,jaisalmer desert safari,udaipur lake tour,pushkar pilgrimage tour,khajuraho temple tour,varanasi ganges tour,ajanta caves tour,ellora caves tour,goa beach holiday,mumbai sightseeing tour,unesco heritage tour india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -1312,7 +1312,7 @@ module.exports = {
   details: [
     {
       "title": "Tour Pricing Details",
-      "text": "The final cost of a customized tour varies depending on accommodation category, travel period, group size and individual preferences. While an exact quotation can be provided after finalizing your requirements, the following indicative pricing will help you estimate your holiday budget (based on a minimum of two persons sharing one double room).",
+      "text": "The final cost of a customized tour varies depending on accommodation choices, travel period, number of travellers and individual preferences. While an exact quotation can be provided upon finalization of details, the following indicative price range will help you plan your holiday (based on a minimum of two persons sharing a double room together).",
       "items": [
         [
           {
@@ -1414,6 +1414,12 @@ module.exports = {
       "items": [
         [
           {
+            "text": "Government taxes applicable at the time of booking",
+            "bold": false
+          }
+        ],
+        [
+          {
             "text": "Any international or domestic air/train fare",
             "bold": false
           }
@@ -1421,12 +1427,6 @@ module.exports = {
         [
           {
             "text": "Monument and sightseeing entrance fees",
-            "bold": false
-          }
-        ],
-        [
-          {
-            "text": "Government taxes applicable at the time of booking",
             "bold": false
           }
         ],

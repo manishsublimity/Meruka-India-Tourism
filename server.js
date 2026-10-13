@@ -81,27 +81,37 @@ const importedPage = (view, d) => (req, res) => res.render(view, Object.assign({
 // The home page is the home-4 design (7 Oct 2026). The earlier copies (/home-1, /home-2, /home-3)
 // were retired on 8 Oct 2026.
 // home-4: the 4 Oct 2026 review — new region and guide photos (no picture repeated), a different Taj shot for the package grid
+// Most Popular Tours, with the client's pictures (home page and About page)
+const POP_IMG = { '/golden_triangle_packages': '/photos/jal-mahal-jaipur.webp', '/rajasthan_holiday_tour_packages': '/photos/bikaner-junagarh-client.webp', '/itin_southindia_nature': '/photos/brihadeshwara-temple.webp', '/travel-rajasthan-India-hertiage-widllife-tours': '/photos/bengal-tiger-wide.webp' };
+const popularTours = () => require('./data/home2').popular.map(t => POP_IMG[t.href] ? Object.assign({}, t, { img: POP_IMG[t.href] }) : t);
+app.locals.popularTours = popularTours;
+// Similar tours for a tour page: the other tours of its category list (cards with photo, route, price)
+const TOUR_LISTS = {};
+fs.readdirSync(path.join(__dirname, 'data', 'tour-lists')).filter(f => f.endsWith('.js')).forEach(f => { const l = require('./data/tour-lists/' + f); TOUR_LISTS[l.url] = l; });
+app.locals.similarTours = (tourUrl, listUrl, n = 3) => {
+  const l = TOUR_LISTS[listUrl]; if (!l) return [];
+  return require('./data/home2').listingFor(l).flatMap(g => g.rows).filter(r => r.href && r.href.toLowerCase() !== String(tourUrl).toLowerCase()).slice(0, n);
+};
 const renderHome4 = live => (req, res) => {
   const H2 = require('./data/home2');
   // Client pictures (6 Oct 2026): every picture on the page is used once only
-  const REGION_IMG = { 'North India': '/photos/golden-temple-amritsar.webp', 'South India': '/photos/region-south-india.webp', 'West India': '/photos/goa-beach-palms.avif', 'East India': '/photos/arunachal-losar.webp' };
-  const CAT_IMG = { '/india-golden-triangle-tour': '/photos/red-fort-hd.webp', '/rajasthan-tours': '/photos/gadisar-lake-hd.webp', '/southindia_kerala_tours': '/photos/kerala-houseboat-dusk.webp', '/south_india_tour': '/photos/mysore-palace-lit.webp', '/south_north_india_tours': '/photos/delhi-lotus-temple.jpg' };
-  const POP_IMG = { '/golden_triangle_packages': '/photos/jal-mahal-jaipur.jpg', '/rajasthan_holiday_tour_packages': '/photos/bikaner-junagarh-client.webp', '/itin_southindia_nature': '/photos/brihadeshwara-temple.webp', '/travel-rajasthan-India-hertiage-widllife-tours': '/photos/bengal-tiger-wide.jpg' };
+  const REGION_IMG = { 'North India': '/photos/golden-temple-amritsar.webp', 'South India': '/photos/region-south-india.webp', 'West India': '/photos/goa-beach-palms.webp', 'East India': '/photos/arunachal-losar.webp' };
+  const CAT_IMG = { '/india-golden-triangle-tour': '/photos/red-fort-hd.webp', '/rajasthan-tours': '/photos/gadisar-lake-hd.webp', '/southindia_kerala_tours': '/photos/kerala-houseboat-dusk.webp', '/south_india_tour': '/photos/mysore-palace-lit.webp', '/south_north_india_tours': '/photos/delhi-lotus-temple.webp' };
   const H4 = Object.assign({}, H2, {
     // South in the tall tile (the temple tower fits it), North in the wide one (the Golden Temple is a wide picture)
     regions: ['South India', 'North India', 'West India', 'East India'].map(n => H2.regions.find(r => r.name === n)).filter(Boolean)
       .concat(H2.regions.filter(r => !['South India', 'North India', 'West India', 'East India'].includes(r.name)))
       .map(r => Object.assign({}, r, { img: REGION_IMG[r.name] || r.img })),
     categories: H2.categories.map(c => CAT_IMG[c.url] ? Object.assign({}, c, { img: CAT_IMG[c.url] }) : c),
-    popular: H2.popular.map(t => POP_IMG[t.href] ? Object.assign({}, t, { img: POP_IMG[t.href] }) : t),
-    guideImgs: ['/photos/guide-travelers.webp', '/photos/guide-attractions.webp', '/photos/guide-travel-tools.webp']
+    popular: popularTours(),
+    guideImgs: ['/photos/guide-travelers.webp', '/photos/guide-attractions.webp', '/photos/travel-tools-hd.webp']
   });
   res.render('home-4', { title: 'Meruka India Tourism — One Country, Many Worlds' + (live ? '' : ' (copy 3)'), d: home, H2: H4, extraCss: '/css/home-4.css?v=' + Math.round(fs.statSync(path.join(__dirname, 'public/css/home-4.css')).mtimeMs), meta: live ? { description: HOME_DESC, canonical: '/' } : { description: HOME_DESC, canonical: '/', robots: 'noindex' } });
 };
 app.get('/', renderHome4(true));
 // the design copy keeps working for further changes; it is the same page, not indexed
 app.get('/home-4', renderHome4(false));
-app.get('/aboutus', (req, res) => res.render('about', { ...inner4(), totalTours: require('./data/home2').totalTours, title: 'About us — Meruka India Tourism', d: about, meta: { description: 'Meruka India Tourism has looked after overseas travellers inside India since 2001: private, hand-routed tours with our own ground teams across the country.', canonical: '/aboutus' } }));
+app.get('/aboutus', (req, res) => res.render('about', { ...inner4(), totalTours: require('./data/home2').totalTours, T: home.testimonials, title: 'About us — Meruka India Tourism', d: about, meta: { description: 'Meruka India Tourism has looked after overseas travellers inside India since 2001: private, hand-routed tours with our own ground teams across the country.', canonical: '/aboutus' } }));
 app.get('/contactus', (req, res) => res.render('contact', { ...inner4(), title: 'Contact us — Meruka India Tourism', d: contact, meta: { description: 'Contact Meruka India Tourism: head office in Jaipur, phone and WhatsApp +91 99203 63777, email ask@india-tourism.net. A planner replies within one working day.', canonical: '/contactus' } }));
 // The Testimonials page has its own layout; its content is still the imported page, word for word.
 app.get('/testimonials', (req, res) => {
@@ -114,7 +124,13 @@ app.get('/testimonials', (req, res) => {
 for (const [dir, view] of [['tours', 'tour-detail'], ['tour-lists', 'tour-listing'], ['articles', 'article']]) {
   for (const f of fs.readdirSync(path.join(__dirname, 'data', dir)).filter(f => f.endsWith('.js'))) {
     const page = require('./data/' + dir + '/' + f);
-    app.get(page.url, importedPage(view, page));
+    // tour lists also get their groups as cards (photo, line, price, filter tags)
+    // every tour page uses the new layout (13 Oct 2026, from the Enthralling Rajasthan Tour page)
+    if (view === 'tour-detail') { app.get(page.url, importedPage('tour-detail-v2', page)); continue; }
+    app.get(page.url, view === 'tour-listing'
+      ? (req, res) => res.render(view, Object.assign({ title: page.title, d: page, G: require('./data/home2').listingFor(page),
+          meta: { description: page.description, keywords: page.keywords, canonical: page.url } }, inner4()))
+      : importedPage(view, page));
   }
 }
 

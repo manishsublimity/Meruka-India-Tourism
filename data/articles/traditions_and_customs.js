@@ -10,7 +10,7 @@ module.exports = {
   title: "North India Culture, Historical Tours, Culture and Traditions of India",
   description: "",
   keywords: "",
-  heroSrc: site.IMG("tradition-custom.jpg"),
+  heroSrc: site.IMG("tradition-custom.webp"),
   heroAlt: "Indian Customs and Traditions",
   nav: site.nav('', false),
   footCols: site.footCols(),

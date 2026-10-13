@@ -28,101 +28,106 @@
 
 <%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
 
-<%- include('partials/sky-hero', { title: d.heading, theme: d.heading + ' ' + d.url, tint: 'warm' }) %>
+<%- include('partials/photo-hero', { title: d.heading, img: d.heroSrc, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
 
-<% if (d.intro.length) {
-  // "Places you'll see": the stops that come up most across this page's tour routes (start/end-only "Hometown" left out)
-  const stopCount = {};
-  d.groups.forEach(g => g.tours.forEach(t => [...new Set(String(t.route || '').split(/\s+[-–]\s+/).map(x => x.trim()).filter(Boolean))].forEach(x => { if (!/home\s*town/i.test(x)) stopCount[x] = (stopCount[x] || 0) + 1; })));
-  const places = Object.keys(stopCount).sort((a, b) => stopCount[b] - stopCount[a]);
-  const introLen = d.intro.reduce((n, p) => n + p.map(x => x.text).join('').length, 0);
+<% // Filters: only the options this page's tours actually have
+   const ROWS = G.flatMap(g => g.rows);
+   const inRange = (v, r) => { const [a, b] = r.split('-').map(Number); return v && v >= a && v <= b; };
+   const PRICES = [['', 'Any price'], ['0-999', 'Under USD 1,000'], ['1000-1999', 'USD 1,000 – 2,000'], ['2000-2999', 'USD 2,000 – 3,000'], ['3000-99999', 'USD 3,000 and above']]
+     .filter(([r], i) => !i || ROWS.some(t => inRange(t.price, r)));
+   const DAYS = [['', 'Any length'], ['0-7', 'Up to 7 nights'], ['8-10', '8 – 10 nights'], ['11-14', '11 – 14 nights'], ['15-20', '15 – 20 nights'], ['21-99', '21 nights +']]
+     .filter(([r], i) => !i || ROWS.some(t => inRange(t.nights, r)));
+   const REGIONS = [['north', 'North India'], ['south', 'South India'], ['east', 'East India'], ['west', 'West India']].filter(([k]) => ROWS.some(t => t.regions.includes(k)));
+   const INTERESTS = ['Heritage', 'Wildlife', 'Religious', 'Beaches', 'Wellness', 'Festivals', 'Adventure', 'Villages'].filter(k => ROWS.some(t => t.interests.includes(k)));
+   const usd = v => 'USD ' + Number(v).toLocaleString('en-US');
+   const nightsTxt = g => g.nights ? (g.nights[0] === g.nights[1] ? g.nights[0] : g.nights[0] + '–' + g.nights[1]) + ' nights' : '';
 %>
-<section id="intro" class="tl2-intro tl3 az az-a">
-  <div class="az-wrap">
-  <div class="az-head"><h2 class="h4-h2 az-h">About these <em>tours</em></h2></div>
-  <div class="tl3-grid">
-    <aside class="tl3-side">
-      <% if (places.length) { %>
-      <div class="tl3-places">
-        <span class="tl3-places-l">Places you'll see</span>
-        <ul><% places.slice(0, 8).forEach(pl => { %><li><%= pl %></li><% }) %></ul>
-      </div>
-      <% } %>
-      <div class="tl3-acts">
-        <a href="#tour-options" class="ph-btn ph-btn-gold">Browse <%= tourCount %> tours <span>↓</span></a>
-        <a href="<%= enquire %>" class="tl3-ask">Ask an expert <span>→</span></a>
-      </div>
-    </aside>
-    <div class="tl3-body<%= introLen > 700 ? ' tl3-clip' : '' %>" data-tl3>
-      <div class="tl3-text">
-        <% d.intro.forEach((p, i) => { %><p class="<%= i === 0 && p.map(s => s.text).join('').length < 360 ? 'tl2-lead' : '' %>"><%- paraHtml(p) %></p><% }) %>
-      </div>
-      <% if (introLen > 700) { %><button type="button" class="tl3-more" data-tl3-more aria-expanded="false">Read more <span>↓</span></button><% } %>
-    </div>
-  </div>
-</div>
-</section>
-<% } %>
-
-<% if (showChips) { %>
-<nav class="tl-chips" aria-label="Tour categories" data-tl-chips>
-  <div class="tl-chips-bar">
-    <button type="button" class="tl-all-btn" data-tl-all aria-expanded="false" aria-controls="tl-all-panel">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-      All categories <span><%= titled.length %></span>
-    </button>
-    <button type="button" class="tl-arrow" data-tl-prev aria-label="Scroll categories left" disabled>‹</button>
-    <div class="tl-chips-inner" data-tl-track>
-      <% titled.forEach(g => { %><a href="#<%= slug(g.title) %>" class="tl-chip" data-tl-chip="<%= slug(g.title) %>"><%= g.title %><span><%= g.tours.length %></span></a><% }) %>
-    </div>
-    <button type="button" class="tl-arrow" data-tl-next aria-label="Scroll categories right">›</button>
-  </div>
-  <div class="tl-all is-hidden" id="tl-all-panel" data-tl-panel>
-    <% titled.forEach(g => { %><a href="#<%= slug(g.title) %>"><%= g.title %><span><%= g.tours.length %></span></a><% }) %>
-  </div>
-</nav>
-<% } %>
-
-<section id="tour-options" class="tl2 az az-b">
-  <div class="tl-filter is-hidden" data-tl-filter><div class="tl-filter-in"><span data-tl-filter-t></span><a href="<%= d.url %>">Show all tours ×</a></div></div>
-  <div class="az-wrap tl2-groups">
-    <div class="az-head"><span class="az-no"><%= d.intro.length ? '02' : '01' %></span><h2 class="h4-h2 az-h">Choose your <em>tour</em></h2></div>
-    <% d.groups.forEach(g => { %>
-    <div class="tl-group" <% if (g.title) { %>id="<%= slug(g.title) %>"<% } %>>
-      <% if (g.title && (titled.length > 1 || !d.heading.includes(g.title))) { %>
-      <div class="tl-group-head">
-        <h2 class="tl-group-title"><% if (g.href) { %><a href="<%= g.href %>"><%= g.title %></a><% } else { %><%= g.title %><% } %></h2>
-        <span class="tl-group-line"></span>
-        <% if (g.href && g.href !== d.url) { %><a class="tl-group-link" href="<%= g.href %>">View <span>→</span></a><% } %>
-      </div>
-      <% } %>
-      <div class="tc-grid">
-        <% g.tours.forEach(t => { n++; const rp = t.route ? t.route.split(/\s+([-–])\s+/) : []; const stops = rp.filter((x, i) => i % 2 === 0), seps = rp.filter((x, i) => i % 2 === 1); const tag = t.href ? 'a' : 'div'; %>
-        <<%= tag %> class="tc"<% if (t.href) { %> href="<%= t.href %>"<% } %> data-nights="<%= (String(t.duration || '').match(/(\d+)\s*Nights?/i) || [0, ''])[1] %>" data-search="<%= (t.name + ' ' + (t.route || '') + ' ' + (g.title || '')).toLowerCase() %>">
-          <span class="tc-img"><img src="<%= t.img || photoForCard(t.name, t.route, d.heading) %>" alt="" loading="lazy"><span class="tc-n"><%= pad(n) %></span></span>
-          <span class="tc-body">
-            <% if (t.duration) { %><span class="tc-dur"><%= t.duration %></span><% } %>
-            <h3 class="tc-name"><%= t.name %></h3>
-            <% if (stops.length) { %>
-            <span class="tc-route"><% stops.forEach((s, j) => { %><span><%= s %></span><% if (j < stops.length - 1) { %><i><%= seps[j] %></i><% } %><% }) %></span>
-            <% } %>
-            <% if (t.href) { %><span class="tc-go">View itinerary <b>→</b></span><% } %>
-          </span>
-        </<%= tag %>>
+<!-- Tour packages: each category a card (photo, title, line, lowest price); open it for its tours.
+     Filters on the right: price, region, interest, length. -->
+<section id="tour-options" class="tp2">
+  <div class="tp2-wrap">
+    <div class="tp2-grid">
+      <div class="tp2-list">
+        <h2 class="h4-h2 tp2-heading">Best Tour Packages <em>in The Industry</em></h2>
+        <p class="tp2-status is-hidden" data-tp2-count data-total="<%= ROWS.length %>"></p>
+        <div class="tp2-none is-hidden" data-tp2-none>No tours match these filters. <button type="button" data-tp2-clear>Clear filters</button></div>
+        <% G.forEach((g, gi) => { const open = gi === 0; %>
+        <article class="tp2-card<%= open ? ' open' : '' %>" data-tp2-group id="<%= slug(g.title) %>">
+          <div class="tp2-top" data-tp2-toggle>
+            <span class="tp2-img"><img src="<%= g.img %>" alt="" loading="<%= gi < 3 ? 'eager' : 'lazy' %>"></span>
+            <span class="tp2-info">
+              <h3 class="tp2-title"><%= g.title %></h3>
+              <% if (g.desc || g.line) { %><span class="tp2-line"><%= g.desc || g.line %></span><% } %>
+            </span>
+            <span class="tp2-price">
+              <small>Starts From</small>
+              <b><%= g.from ? usd(g.from) : 'On request' %></b><% if (g.from) { %><em>per person</em><% } %>
+              <button type="button" class="tp2-chev" aria-expanded="<%= open %>" aria-controls="tp2-rows-<%= gi %>" aria-label="Show the tours in <%= g.title %>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+            </span>
+          </div>
+          <div class="tp2-rows" id="tp2-rows-<%= gi %>">
+            <% g.rows.forEach(t => { %>
+            <div class="tp2-row" data-tp2-row data-price="<%= t.price || '' %>" data-nights="<%= t.nights || '' %>" data-region="<%= t.regions.join(' ') %>" data-interest="<%= t.interests.join(' ') %>" data-search="<%= (t.name + ' ' + t.route + ' ' + g.title).toLowerCase() %>">
+              <div class="tp2-row-main">
+                <% if (t.href) { %><a class="tp2-row-name" href="<%= t.href %>"><%= t.name %></a><% } else { %><span class="tp2-row-name"><%= t.name %></span><% } %>
+                <% if (t.route) { %><span class="tp2-row-route"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span><%= t.route %></span></span><% } %>
+              </div>
+              <% if (t.duration) { %><span class="tp2-row-days"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/></svg><%= t.duration.replace(/\s*[-–]\s*/, ' / ') %></span><% } %>
+              <span class="tp2-row-price"><% if (t.price) { %><small>From</small><%= usd(t.price) %><em>per person</em><% } else { %><small>Price</small>On request<% } %></span>
+              <% if (t.href) { %><a class="tp2-row-go" href="<%= t.href %>">View Tour <span>→</span></a><% } %>
+            </div>
+            <% }) %>
+            <% if (g.href && g.href !== d.url) { %><a class="tp2-all" href="<%= g.href %>">All <%= g.title %> <span>→</span></a><% } %>
+          </div>
+        </article>
         <% }) %>
+        <p class="pq-foot-note"><b>Note:</b> Tour cost is for a minimum of 2 persons travelling together · 3-star hotels, 1 double room on twin sharing with breakfast.</p>
       </div>
+
+      <aside class="tp2-side">
+        <details class="tp2-filters" data-tp2-details open>
+          <summary class="tp2-f-sum">Filters <span data-tp2-fcount></span></summary>
+          <form class="tp2-form" data-tp2-form onsubmit="return false">
+            <div class="tp2-f-head"><span class="tp2-f-title">Filters</span><button type="button" class="tp2-reset" data-tp2-clear>Reset</button></div>
+            <label class="tm-search tp2-q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="sr-only">Search tours</span><input type="search" name="q" placeholder="Search a tour or place" autocomplete="off"></label>
+            <% if (PRICES.length > 2) { %>
+            <fieldset class="tp2-fs"><legend>Price</legend>
+              <div class="tp2-chips"><% PRICES.forEach(([v, l], i) => { %><label class="tp2-chip"><input type="radio" name="price" value="<%= v %>"<%= i ? '' : ' checked' %>><span><%= l %></span></label><% }) %></div>
+            </fieldset>
+            <% } %>
+            <% if (REGIONS.length > 1) { %>
+            <fieldset class="tp2-fs"><legend>Region</legend>
+              <div class="tp2-chips"><% REGIONS.forEach(([v, l]) => { %><label class="tp2-chip"><input type="checkbox" name="region" value="<%= v %>"><span><%= l %></span></label><% }) %></div>
+            </fieldset>
+            <% } %>
+            <% if (INTERESTS.length > 1) { %>
+            <fieldset class="tp2-fs"><legend>Interest</legend>
+              <div class="tp2-chips"><% INTERESTS.forEach(v => { %><label class="tp2-chip"><input type="checkbox" name="interest" value="<%= v %>"><span><%= v %></span></label><% }) %></div>
+            </fieldset>
+            <% } %>
+            <% if (DAYS.length > 2) { %>
+            <fieldset class="tp2-fs"><legend>Length</legend>
+              <div class="tp2-chips"><% DAYS.forEach(([v, l], i) => { %><label class="tp2-chip"><input type="radio" name="nights" value="<%= v %>"<%= i ? '' : ' checked' %>><span><%= l %></span></label><% }) %></div>
+            </fieldset>
+            <% } %>
+          </form>
+          <div class="tp2-enq">
+            <p>Can't find the right tour? We'll plan one around you.</p>
+            <a href="<%= enquire %>" class="ph-btn ph-btn-gold">Enquire Now <span>→</span></a>
+          </div>
+        </details>
+      </aside>
     </div>
-    <% }) %>
 
     <% if (d.outro.length) { %>
-    <div class="tl2-outro">
+    <div class="tl2-outro tp2-outro">
       <% d.outro.forEach(p => { %><p><%- paraHtml(p) %></p><% }) %>
     </div>
     <% } %>
   </div>
 </section>
 
-<%- include('partials/listing-sections', { L: d.listings }) %>
+<%- include('partials/popular-tours', { current: d.url }) %>
 
 <%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
 

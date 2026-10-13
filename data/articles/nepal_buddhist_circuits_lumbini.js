@@ -10,7 +10,7 @@ module.exports = {
   title: "Buddhist Tour Nepal,Buddhist Circuits In India And Nepal,Lumbini Tour Nepal",
   description: "All About Lumbini, One Of The Prime Buddhist Tourism Sector, Lumbini Travel Guide, Buddhist Tour Nepal, Lumbini Tour Nepal, Buddhist Circuits Tourism In Nepal, Indian Pilgrimage Tourist Sectors, Travelers Tourist City Guide",
   keywords: "nepal buddhist circuits, buddhist tour nepal, lumbini tour nepal, lumbini,lumbini travel guide, buddhist circuits india, buddhist tourism, lumbini city travel guide, indian pilgrimage tourist places, sectors, india buddha tours, buddhist tourism in north india, sikkim buddha tours, india buddhism, buddhism places in india, buddhism places in nepal, buddhist destinations in india, buddhist places in nepal, lumbini tours ,buddha temples, buddha pilgrimage tours, indian buddha, nepal india tour packages",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Lumbini",
   nav: site.nav('', false),
   footCols: site.footCols(),

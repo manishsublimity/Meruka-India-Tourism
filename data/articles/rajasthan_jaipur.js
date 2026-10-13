@@ -10,7 +10,7 @@ module.exports = {
   title: "Rajasthan Jaipur Travel, Rajasthan Jaipur Tours, Sightseeing of Jaipur, Hotels in Jaipur",
   description: "Rajasthan travel agents and tour operators offers Jaipur tours, sightseeing of Jaipur, Jaipur places of interest, tourism guide of other cities of Rajasthan, Rajasthan Jaipur tour planning, visit and trip to Jaipur, vacation tours of Jaipur city",
   keywords: "official website, india, indian, india rajasthan, jaipur monuments, forts and palaces of jaipur,  rajasthan travel agents, jaipur travel agency, jaipur tour operator,  tour operators of india, jaipur tours, sightseeing jaipur, jaipur places of interest, what to see in jaipur, jaipur tour planning, tourism guide, jaipur vacations, jaipur trip, visit to jaipur, jaipur agra, delhi tours,  offers jaipur tours, sightseeing of jaipur, jaipur places of interest, tourism guide of other cities of rajasthan, rajasthan jaipur tour planning, visit and trip to jaipur, vacation tours of jaipur city",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Jaipur",
   nav: site.nav('', false),
   footCols: site.footCols(),

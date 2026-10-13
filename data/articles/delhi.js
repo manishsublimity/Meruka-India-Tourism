@@ -10,7 +10,7 @@ module.exports = {
   title: "Delhi Tour Operators,Delhi Tour Packages,Delhi Tourism",
   description: "Delhi travel agency provide - Delhi tour operators, North India Delhi tour packages with best tourist places, Delhi tourism, travel agency in Delhi, Delhi tours and tourism guide, Delhi tour guide",
   keywords: "delhi tour,delhi tour packages,delhi tourist places,delhi tourism,delhi tourist places,tourism guide,delhi tour operators,delhi tour guide,delhi sightseeng,tourist places delhi,delhi tour packages,north india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Delhi Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

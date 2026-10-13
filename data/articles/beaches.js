@@ -10,7 +10,7 @@ module.exports = {
   title: "India Beaches Tourism,Kerala-Goa Beaches Tours",
   description: "Explore beaches of India, Kerala, Goa Beaches tours packages, beaches trip and holidays in India",
   keywords: "india beaches tours,south india,tour plan beaches,goa beaches tours,kerala beaches tours,goa,kerala beaches holidays,tour packages,Indian beaches",
-  heroSrc: site.IMG("beaches.jpg"),
+  heroSrc: site.IMG("beaches.webp"),
   heroAlt: "Beaches Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

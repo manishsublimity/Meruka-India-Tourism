@@ -10,7 +10,7 @@ module.exports = {
   title: "Maharashtra Travel Itinerary,Karnataka Trip Plan,Gujarat Tour Packages,Rajasthan tour Packages",
   description: "Offers budget packages for Maharashtra, Karnataka with Gujarat and Rajasthan travel destinations, Gujarat tourist places, Karnataka trip plan with Mumbai and Goa beaches tours, traveling in India, Maharashtra and Gujarat tours packages, Ajanta Ellora holiday plan, Karnataka hill station travel guide",
   keywords: "gujarat tours packages,rajasthan travel destinations,maharashtra travel itinerary rajasthan holiday,indian travel agents,karnataka tour operators,karnataka budget tours itinerary,karnataka trip plan,gujarat tourist places,ajanta ellora holiday plan,karnataka hill station travel guide,goa beaches tours,discount travel packages india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Maharashtra - Karnataka with Gujarat & Rajasthan Tour",
   nav: site.nav('', false),
   footCols: site.footCols(),

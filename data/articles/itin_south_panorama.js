@@ -10,7 +10,7 @@ module.exports = {
   title: "Tamilnadu Tours Plan,South India Travel Itineraries",
   description: "",
   keywords: "",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Southern India Panorama Tour",
   nav: site.nav('', false),
   footCols: site.footCols(),

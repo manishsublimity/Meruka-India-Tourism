@@ -10,7 +10,7 @@ module.exports = {
   title: "Rajasthan Pushkar City, Pushkar Camel Cattle Fair and Festival Tours, Pushkar Travel Guide",
   description: "Well planned  holidays package to explore pilgrimage  city of Rajasthan, Pushkar city trip, Pushkar camel cattle fair and festival tours,  Pushkar travel guide, detailed and ideal tour itineraries to explore Pushkar and other cities of Rajasthan, Indian culture, historical, nature, monuments holiday packages for inbound tourists",
   keywords: "official website, north india rajasthan, pushkar  travel agents, pushkar tour operators,  pushkar tourism information, pushkar hotel stay, pushkar budget and luxury hotels, city tour of pushkar, pushkar temples tours, pushkar fair information, pushkar pilgrimage tours,  pushkar tours, pushkar fair, private tours for family, individual, group, single female,  pushkar camel fair guide, pushkar cattle fair tours, rajasthan travel itineraries, rajasthan historical, rajasthan pilgrimage,  rajasthan pushkar culture, nature, beaches, desert holidays in india, rajasthan rural tours, rajasthan wildlife tours, royal rajasthan tours, inbound tourists, budget travelers",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Pushkar",
   nav: site.nav('', false),
   footCols: site.footCols(),

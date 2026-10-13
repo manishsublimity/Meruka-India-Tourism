@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Widlife Tourism,Kanha National Park Tour,India Wild Life Tour Travel",
   description: "Indian Widlife Tour Packages, India Wild Life Tour Travel, Holidays And Tourism Guide,Kanha Widlife Travel Packages, South, North, Trip To West And East India Widlife Sanctuaries, Kanha National Parks Information",
   keywords: "tourism, india, widlife, india widlife tourism, widlife travel guide, kanha, indian widlife sanctuaries, kanha national park, south india widlife, north india wildlife, indian widlife trip, tour packages, east india widlife, west india widlife, widlife holidays central india, sanctuaries, tour itinerary, stay at indian government recognized hotels resorts, widlife tailor-made and customized tour packages ",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Kanha National Park",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "Nagaland Tour,Nagaland Tribal Tour,Nagaland Wildlife Tour Packages,Nagaland Tribal Festival Tour",
   description: "East India tour operators offer incomparable Nagaland tour plan, Nagaland tribal tour, Nagaland tribal villages tour packages, Nagaland tribal fairs and festivals tour, Nagaland travel plan, Nagaland tribal itineraries, Nagaland wildlife holiday packages, Nagaland tribal festival tour, Nagaland West India holidays",
   keywords: "west india,india,nagaland tour,tours nagaland west india,nagaland wildlife, nagaland tribal tours,holiday packages,tribal villages tour,itinerary, nagaland travel itineraries,tribal villages trip,fairs festival tour planning,tribal tour packages,nagaland fairs, holiday plan,tour,travel nagaland fairs festivals,west india tribal tour,india tourism",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Nagaland Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "West India,Sanchi Buddha Pilgrimage Tours,Buddhist Circuits,Buddha Tourism",
   description: "Explore West India Buddha tours, Sanchi Buddhist circuits, Buddha tourism guide, Buddha pilgrimage travel itineraries, holidays and trip plan, Indian destinations and pilgrimage trip",
   keywords: "West India, India, Sanchi, Madhya Pradesh, Buddhist circuits tours, Buddha tourism, Buddha tours,  Buddha destinations by car",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Sanchi",
   nav: site.nav('', false),
   footCols: site.footCols(),

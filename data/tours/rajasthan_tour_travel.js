@@ -9,7 +9,7 @@ module.exports = {
   title: "Best of Rajasthan Tour | 18 Days Heritage, Desert & Taj Mahal Holiday Package",
   description: "North India travel agency offers Rajasthan tour plan covering most exotic tourist destination of Rajasthan with Delhi, Jaipur and Agra and popular tourist cities Pushkar, Jodhpur, Mandawa, Jaisalmer and Bikaner, travel planning, North India trip packages",
   keywords: "Best of Rajasthan Tour,Rajasthan Tour Package,Rajasthan Holiday Package,Rajasthan Itinerary,Rajasthan Private Tour,Luxury Rajasthan Tour,Rajasthan Heritage Tour,Jaisalmer Desert Tour,official tours,rajashtan government website,rajashtan government tours,official tours,Udaipur Tour,Jaipur Sightseeing,Chittorgarh Fort,Fatehpur Sikri UNESCO,Taj Mahal Tour,Agra Tour Package,North India Tour,Private India Tour,Customized Rajasthan Tour,Cultural Rajasthan Experience",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -391,15 +391,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: Optional overnight stays in luxury Swiss tents, camel safaris and jeep safaris at ",
-          "bold": false
-        },
-        {
-          "text": "Sam Sand Dunes",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " can be arranged upon request.",
+          "text": " Optional overnight stays in luxury Swiss tents, camel safaris and jeep safaris at Sam Sand Dunes can be arranged upon request.",
           "bold": false
         }
       ]
@@ -1102,15 +1098,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: The ",
-          "bold": false
-        },
-        {
-          "text": "Taj Mahal",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " remains closed every Friday.",
+          "text": " The Taj Mahal remains closed every Friday.",
           "bold": false
         }
       ]
@@ -1400,15 +1392,7 @@ module.exports = {
         ],
         [
           {
-            "text": "The ",
-            "bold": false
-          },
-          {
-            "text": "Taj Mahal",
-            "bold": true
-          },
-          {
-            "text": " remains closed on Fridays. Light & Sound Shows operate subject to weather conditions and official schedules.",
+            "text": "The Taj Mahal remains closed on Fridays. Light & Sound Shows operate subject to weather conditions and official schedules.",
             "bold": false
           }
         ]

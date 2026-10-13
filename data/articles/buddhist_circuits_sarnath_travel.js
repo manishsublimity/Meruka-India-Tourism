@@ -10,7 +10,7 @@ module.exports = {
   title: "India Nepal Buddhist Travel,Buddhist Tourist Places",
   description: "India Buddhist Circuits travel itinerary,tour packages, North Nepal India Buddhist Circuits travel plan for all Buddhist tourist places of North India and Nepal",
   keywords: "India travel agency,india buddhist circuits tour,nepal north india tours,north india buddhist circuits travel,india nepal,travel plan",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Sarnath",
   nav: site.nav('', false),
   footCols: site.footCols(),

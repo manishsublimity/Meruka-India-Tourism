@@ -10,7 +10,7 @@ module.exports = {
   title: "Rajasthan Bikaner City Guide, Bikaner Desert Tours, Camel Safari in Bikaner, Bikaner Travel Guide, Bikaner Tourism, Bikaner Sightseeing",
   description: "Rajasthan travel agent and tour operators offers well planned holidays packages to explore Rajasthan Bikaner, Bikaner  city Guide, Bikaner desert tours, camel safari in Bikaner, Bikaner travel guide, Bikaner tourism, Bikaner sightseeing, places of interest in Bikaner, Bikaner shopping, visit and trip to Bikaner",
   keywords: "official website, rajasthan, india, indian, bikaner, bikaner desert tours, bikaner visit, bikaner trip, bikaner rajasthan holiday package, bikaner  india tour operator,  rajasthan travel agent, north india tourism,  information of bikaner city, bikaner  sightseeing places, bikaner city guide, hotel bookings, car rental,  rajasthan tour programme,  bikaner tourist destinations of rajasthan, north india bikaner travel guide, bikaner jaisalmer and jodhpur desert tours, bikaner camel safari, shopping in bikaner, rural destinations nearby bikaner, forts and palaces in bikaner, market and bazaar of bikaner, food products in bikaner, bikaner climate, bikaner distance, tour itineraries of bikaner, tour itinerary bikaner, rajasthan",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Bikaner",
   nav: site.nav('', false),
   footCols: site.footCols(),

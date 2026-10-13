@@ -3,7 +3,7 @@ const site = require('./site');
 const { IMG, li } = site;
 
 module.exports = {
-  heroSrc: '/photos/handshake.jpg',   // the original contact-us.jpg is a wide banner that crops badly in the hero frame
+  heroSrc: '/photos/handshake.webp',   // the original contact-us.webp is a wide banner that crops badly in the hero frame
 
   nav: site.nav('Contact Us'),
 
@@ -23,9 +23,9 @@ module.exports = {
   ],
 
   guide: [
-    { title: 'India Tourism Guide', img: IMG('travelguide.jpg'), items: li([['Geography', 'geography.htm'], ['History', 'history.htm'], ['Weather', 'weather.htm'], ['Communication', 'communication.htm'], ['Fairs And Festivals', 'Fairs-Festivals.htm'], ['Shopping', 'shopping.htm'], ['Music And Dance', 'music-dance.htm'], ['Traditions And Customs', 'traditions_and_customs.htm'], ['Art', 'art.htm'], ['Cuisine', 'cuisine.htm']]) },
-    { title: 'India Attractions', img: IMG('india-attraction.jpg'), items: li([['Ayurveda Tourism', 'ayurveda.htm'], ['Yoga Tourism', 'yoga.htm'], ['Pilgrimage Tourism', 'pilgrimage.htm'], ['Wildlife Tourism', 'wildlife.htm'], ['Buddha Tourism', 'buddha.htm'], ['Beaches Tourism', 'beaches.htm'], ['Hill Stations Tourism', 'Hillstations.htm'], ['Adventure Tourism', 'Adventures.htm']]) },
-    { title: 'Travel Tools', img: IMG('travel-tool.jpg'), items: li([['Phone Codes', 'phone_codes.htm'], ['Maps', 'maps.htm'], ['Indian Embassies', 'indian_embassies.htm'], ['Visa Information', 'visa_information.htm'], ["Traveler's Guide", 'travelers_guide.htm'], ['Other Guidelines', 'travelers-guidlines-information.htm']]) }
+    { title: 'India Tourism Guide', img: IMG('travelguide.webp'), items: li([['Geography', 'geography.htm'], ['History', 'history.htm'], ['Weather', 'weather.htm'], ['Communication', 'communication.htm'], ['Fairs And Festivals', 'Fairs-Festivals.htm'], ['Shopping', 'shopping.htm'], ['Music And Dance', 'music-dance.htm'], ['Traditions And Customs', 'traditions_and_customs.htm'], ['Art', 'art.htm'], ['Cuisine', 'cuisine.htm']]) },
+    { title: 'India Attractions', img: IMG('india-attraction.webp'), items: li([['Ayurveda Tourism', 'ayurveda.htm'], ['Yoga Tourism', 'yoga.htm'], ['Pilgrimage Tourism', 'pilgrimage.htm'], ['Wildlife Tourism', 'wildlife.htm'], ['Buddha Tourism', 'buddha.htm'], ['Beaches Tourism', 'beaches.htm'], ['Hill Stations Tourism', 'Hillstations.htm'], ['Adventure Tourism', 'Adventures.htm']]) },
+    { title: 'Travel Tools', img: IMG('travel-tool.webp'), items: li([['Phone Codes', 'phone_codes.htm'], ['Maps', 'maps.htm'], ['Indian Embassies', 'indian_embassies.htm'], ['Visa Information', 'visa_information.htm'], ["Traveler's Guide", 'travelers_guide.htm'], ['Other Guidelines', 'travelers-guidlines-information.htm']]) }
   ],
 
   footCols: site.footCols('Contact Us')

@@ -10,7 +10,7 @@ module.exports = {
   title: "India Orissa Tour,Tour Packages Orissa,Orissa Sun Temple Tour",
   description: "East India Orissa tour packages, Orissa tour itineraries and travel plan, Orissa Sun temple tour itinerary, Orissa temple and beach holidays, Orissa Konark temple tour, Sun temple tour plan",
   keywords: "official website, india, east india,orissa,sun temple,tour,itineraries,orissa tour packages,tour itinerary,orissa sun temple tour,travel itineraries,west india travel,orissa beach holidays,sun temple tour packages,orissa konark temple tour,west india tourism",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Orissa Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),
