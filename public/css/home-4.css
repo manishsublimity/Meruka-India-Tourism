@@ -1524,3 +1524,138 @@
 #mk-frame.ux.v3.h4 .sb-go ~ input,#mk-frame.ux.v3.h4 :has(> .sb-go) > input{height:var(--mk-btn-h) !important;box-sizing:border-box}
 /* contact page: the call and map buttons written with inline styles take the compact size */
 #mk-frame.ux.v3.h4 a[style*="height:44px"][style*="background:#FFB81C"],#mk-frame.ux.v3.h4 a[style*="height:40px"][style*="background:#336699"]{height:var(--mk-btn-h-sm) !important;font-size:14px !important;font-weight:800 !important;transition:background-color var(--mk-ease),color var(--mk-ease)}
+
+/* header links (13 Oct 2026, option A "gold underline") — the page you are on: white bold text with a 3px gold
+   line under the word. Hover on the other links: white text and a thin gold line that slides in from the middle.
+   No boxes or fills. Open dropdown = hover look. Same on every page. */
+#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item > .mh-link{position:relative;height:40px;background:transparent !important;box-shadow:none !important;color:rgba(255,255,255,.85) !important;font-weight:600;transition:color .2s ease}
+#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item > .mh-link::after{content:"";display:block !important;position:absolute;left:12px;right:12px;bottom:3px;height:2px;border-radius:2px !important;background:rgba(255,184,28,.75);transform:scaleX(0) !important;transform-origin:center;transition:transform .25s ease}
+#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item > .mh-link:hover,#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item.open > .mh-link{color:#fff !important}
+#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item > .mh-link:hover::after,#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item.open > .mh-link::after{transform:scaleX(1) !important}
+#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item > .mh-link.on{color:#fff !important;font-weight:800}
+#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item > .mh-link.on::after{height:3px;background:var(--mk-gold);transform:scaleX(1) !important}
+#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item > .mh-link .mh-caret{transition:transform .2s ease}
+#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item.open > .mh-link .mh-caret,#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item > .mh-link:hover .mh-caret{transform:rotate(180deg)}
+
+/* header links: the same inner padding on every link and a small gap between them, so the hover/active
+   boxes never touch (Destinations and Tour Packages keep their arrow inside the same padding) */
+#mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item + .mh-item{margin-left:6px !important}
+#mk-frame.ux.v3.h4 .mh-nav > .mh-item > .mh-link{display:inline-flex;align-items:center;gap:5px;padding:0 12px !important;border-radius:var(--mk-radius) !important}
+#mk-frame.ux.v3.h4 .mh-nav > .mh-item > .mh-link .mh-caret{margin:0 !important}
+@media (min-width:1200px) and (max-width:1359.98px){
+  #mk-frame.ux.v3.h4 .mh .mh-nav > .mh-item + .mh-item{margin-left:3px !important}
+  #mk-frame.ux.v3.h4 .mh-nav > .mh-item > .mh-link{padding:0 9px !important;font-size:15px !important}
+  #mk-frame.ux.v3.h4 .mh .mh-name{font-size:18px !important}
+}
+
+/* Guest-review proof strip (13 Oct 2026) — home, About and Testimonials. Three cells split by thin lines:
+   guest faces + five gold stars + review count | 60% | 97.80%. White card, 5px corners, gold line on top. */
+#mk-frame.ux.v3.h4 .rp{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;background:#fff;border:1px solid var(--mk-line);border-top:3px solid var(--mk-gold);border-radius:var(--mk-radius) !important;box-shadow:0 12px 30px rgba(18,63,109,.08);max-width:640px}
+#mk-frame.ux.v3.h4 .rp-cell{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:16px 22px;min-width:0}
+#mk-frame.ux.v3.h4 .rp-cell + .rp-cell{border-left:1px solid var(--mk-line)}
+#mk-frame.ux.v3.h4 .rp-guests{flex-direction:row;align-items:center;gap:14px}
+#mk-frame.ux.v3.h4 .rp-avs{display:flex;flex:none}
+#mk-frame.ux.v3.h4 .rp-avs span{display:grid;place-items:center;width:38px;height:38px;margin-left:-10px;border:2px solid #fff;border-radius:50% !important;background:var(--mk-blue-d);color:#fff;font-size:12px;font-weight:800}
+#mk-frame.ux.v3.h4 .rp-avs span:first-child{margin-left:0}
+#mk-frame.ux.v3.h4 .rp-avs span:nth-child(2){background:var(--mk-blue)}
+#mk-frame.ux.v3.h4 .rp-avs span:nth-child(3){background:#4E7FB0}
+#mk-frame.ux.v3.h4 .rp-avs .rp-more{background:var(--mk-gold) !important;color:var(--mk-gold-ink)}
+#mk-frame.ux.v3.h4 .rp-stars{display:flex;gap:2px;margin:0 0 3px}
+#mk-frame.ux.v3.h4 .rp-stars svg{width:14px;height:14px;fill:var(--mk-gold)}
+#mk-frame.ux.v3.h4 .rp-num{font-family:var(--mk-font-head) !important;font-size:28px;font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--mk-blue)}
+#mk-frame.ux.v3.h4 .rp-label{margin:0;font-size:13px;line-height:1.45;color:var(--mk-text)}
+#mk-frame.ux.v3.h4 .rp-label b{font-size:15px;font-weight:800;color:var(--mk-ink)}
+@media (max-width:639.98px){
+  #mk-frame.ux.v3.h4 .rp{grid-template-columns:1fr 1fr;max-width:none}
+  #mk-frame.ux.v3.h4 .rp-guests{grid-column:1 / -1;border-bottom:1px solid var(--mk-line)}
+  #mk-frame.ux.v3.h4 .rp-guests + .rp-cell{border-left:0}
+  #mk-frame.ux.v3.h4 .rp-cell{padding:14px 16px}
+  #mk-frame.ux.v3.h4 .rp-num{font-size:24px}
+}
+#mk-frame.ux.v3.h4 .rp{grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+#mk-frame.ux.v3.h4 .rp-guests{flex-direction:column;align-items:flex-start;gap:8px}
+#mk-frame.ux.v3.h4 .rv3-head:has(> .rp){grid-template-columns:minmax(0,1fr) minmax(0,600px)}
+@media (max-width:899.98px){ #mk-frame.ux.v3.h4 .rv3-head:has(> .rp){grid-template-columns:minmax(0,1fr)} }
+@media (max-width:639.98px){
+  #mk-frame.ux.v3.h4 .rp{grid-template-columns:1fr 1fr}
+  #mk-frame.ux.v3.h4 .rp-guests{grid-column:1 / -1;flex-direction:row;align-items:center;gap:14px;border-bottom:1px solid var(--mk-line)}
+}
+
+/* Guest-review proof strip — option A "dark blue card" (13 Oct 2026): brand dark blue card, guests + gold stars,
+   gold numbers, thin light dividers. Overrides the white version above. */
+#mk-frame.ux.v3.h4 .rp{display:flex;align-items:stretch;gap:0;background:var(--mk-blue-d);border:0;border-radius:var(--mk-radius) !important;box-shadow:0 14px 32px rgba(18,63,109,.22);padding:4px 6px;max-width:none}
+#mk-frame.ux.v3.h4 .rp-cell{flex:1 1 0;padding:16px 18px}
+#mk-frame.ux.v3.h4 .rp-guests{flex:1.35 1 0;flex-direction:row;align-items:center;gap:12px}
+#mk-frame.ux.v3.h4 .rp-cell + .rp-cell{border-left:1px solid rgba(255,255,255,.18)}
+#mk-frame.ux.v3.h4 .rp-avs span{width:36px;height:36px;border-color:var(--mk-blue-d);background:var(--mk-blue) !important;color:#fff}
+#mk-frame.ux.v3.h4 .rp-avs span:nth-child(2){background:#4E7FB0 !important}
+#mk-frame.ux.v3.h4 .rp-avs span:nth-child(3){background:#2B5C8E !important}
+#mk-frame.ux.v3.h4 .rp-avs .rp-more{background:var(--mk-gold) !important;color:var(--mk-gold-ink) !important}
+#mk-frame.ux.v3.h4 .rp-num{color:var(--mk-gold);font-size:28px}
+#mk-frame.ux.v3.h4 .rp-label{color:rgba(255,255,255,.78);font-size:12.5px}
+#mk-frame.ux.v3.h4 .rp-label b{color:#fff}
+@media (max-width:639.98px){
+  #mk-frame.ux.v3.h4 .rp{flex-wrap:wrap;padding:2px 4px}
+  #mk-frame.ux.v3.h4 .rp-guests{flex:1 1 100%;border-bottom:1px solid rgba(255,255,255,.18)}
+  #mk-frame.ux.v3.h4 .rp-guests + .rp-cell{border-left:0}
+  #mk-frame.ux.v3.h4 .rp-cell{padding:14px 14px}
+  #mk-frame.ux.v3.h4 .rp-num{font-size:24px}
+}
+#mk-frame.ux.v3.h4 .rp-guests{flex:1.1 1 0;flex-direction:column;align-items:flex-start;gap:8px}
+#mk-frame.ux.v3.h4 .rp-guests .rp-label{white-space:nowrap}
+@media (max-width:639.98px){ #mk-frame.ux.v3.h4 .rp-guests{flex-direction:row;align-items:center;gap:14px} }
+/* phone: guests across the top, the two numbers side by side below (kept last so it wins) */
+@media (max-width:639.98px){
+  #mk-frame.ux.v3.h4 .rp{flex-wrap:wrap}
+  #mk-frame.ux.v3.h4 .rp .rp-guests{flex:1 1 100%;flex-direction:row;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,.18)}
+  #mk-frame.ux.v3.h4 .rp .rp-cell:not(.rp-guests){flex:1 1 40%}
+  #mk-frame.ux.v3.h4 .rp .rp-guests + .rp-cell{border-left:0}
+}
+
+/* Guest-review numbers — option B "icon stats, no box" (13 Oct 2026; replaces the .rp card): three items in a row,
+   each a 46px icon tile (gold tint for reviews, light blue for the others) beside a big number and a short line.
+   No card, border or shadow around them. */
+#mk-frame.ux.v3.h4 .gstat{display:flex;flex-wrap:wrap;align-items:flex-start;gap:18px 30px}
+#mk-frame.ux.v3.h4 .gstat-item{display:flex;align-items:center;gap:12px;flex:1 1 150px;min-width:0}
+#mk-frame.ux.v3.h4 .gstat-ic{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:var(--mk-radius) !important;background:#EAF1F8;color:var(--mk-blue)}
+#mk-frame.ux.v3.h4 .gstat-ic svg{width:22px;height:22px}
+#mk-frame.ux.v3.h4 .gstat-ic-gold{background:#FFF4DA;color:#B07A00}
+#mk-frame.ux.v3.h4 .gstat-txt{display:flex;flex-direction:column;gap:3px;min-width:0}
+#mk-frame.ux.v3.h4 .gstat-num{font-family:var(--mk-font-head) !important;font-size:24px;font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--mk-blue-d)}
+#mk-frame.ux.v3.h4 .gstat-label{font-size:13px;line-height:1.4;color:var(--mk-text)}
+#mk-frame.ux.v3.h4 .rv3-head:has(> .gstat){grid-template-columns:minmax(0,1fr) minmax(0,640px);align-items:center}
+@media (max-width:899.98px){ #mk-frame.ux.v3.h4 .rv3-head:has(> .gstat){grid-template-columns:minmax(0,1fr)} }
+@media (max-width:479.98px){ #mk-frame.ux.v3.h4 .gstat{flex-direction:column;gap:14px} #mk-frame.ux.v3.h4 .gstat-item{flex:none;width:100%} }
+
+/* Guest-review numbers — option C "guests first, numbers below" (13 Oct 2026; replaces .rp/.gstat): a white card
+   with 5px corners — initials, gold stars and "72 guests shared their stories" on top, a dashed line, then two
+   soft grey-blue tiles with 60% and 97.80%. */
+#mk-frame.ux.v3.h4 .gcard{width:100%;max-width:460px;justify-self:end;padding:18px 20px;background:#fff;border:1px solid var(--mk-line);border-radius:var(--mk-radius) !important;box-shadow:0 10px 26px rgba(18,63,109,.07);box-sizing:border-box}
+#mk-frame.ux.v3.h4 .gcard-top{display:flex;align-items:center;gap:14px;padding:0 0 14px;border-bottom:1px dashed #D5DEEA}
+#mk-frame.ux.v3.h4 .gcard-avs{display:flex;flex:none}
+#mk-frame.ux.v3.h4 .gcard-avs span{display:grid;place-items:center;width:38px;height:38px;margin-left:-10px;border:2px solid #fff;border-radius:50% !important;background:var(--mk-blue-d);color:#fff;font-size:12px;font-weight:800}
+#mk-frame.ux.v3.h4 .gcard-avs span:first-child{margin-left:0}
+#mk-frame.ux.v3.h4 .gcard-avs span:nth-child(2){background:var(--mk-blue)}
+#mk-frame.ux.v3.h4 .gcard-avs span:nth-child(3){background:#4E7FB0}
+#mk-frame.ux.v3.h4 .gcard-avs .gcard-more{background:var(--mk-gold);color:var(--mk-gold-ink)}
+#mk-frame.ux.v3.h4 .gcard-stars{display:flex;gap:2px;margin:0 0 4px}
+#mk-frame.ux.v3.h4 .gcard-stars svg{width:15px;height:15px;fill:var(--mk-gold)}
+#mk-frame.ux.v3.h4 .gcard-who{margin:0;font-size:14px;line-height:1.4;color:var(--mk-text)}
+#mk-frame.ux.v3.h4 .gcard-who b{font-weight:800;color:var(--mk-ink)}
+#mk-frame.ux.v3.h4 .gcard-tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 0}
+#mk-frame.ux.v3.h4 .gcard-tile{display:flex;flex-direction:column;gap:4px;padding:12px 14px;background:var(--mk-soft);border-radius:var(--mk-radius) !important}
+#mk-frame.ux.v3.h4 .gcard-tile b{font-family:var(--mk-font-head) !important;font-size:22px;font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--mk-blue)}
+#mk-frame.ux.v3.h4 .gcard-tile span{font-size:12.5px;line-height:1.4;color:var(--mk-text)}
+#mk-frame.ux.v3.h4 .rv3-head:has(> .gcard){grid-template-columns:minmax(0,1fr) minmax(0,460px);align-items:center}
+@media (max-width:899.98px){ #mk-frame.ux.v3.h4 .rv3-head:has(> .gcard){grid-template-columns:minmax(0,1fr)} #mk-frame.ux.v3.h4 .gcard{justify-self:stretch;max-width:none} }
+
+/* Guest-review numbers — option D "gold badge line" (13 Oct 2026; replaces .gcard): three badges in one line,
+   5px corners, 42px tall — the review count solid gold, the two numbers as blue outline badges. */
+#mk-frame.ux.v3.h4 .gbadges{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:10px}
+#mk-frame.ux.v3.h4 .gbadge{display:inline-flex;align-items:center;gap:8px;height:var(--mk-btn-h-sm);padding:0 16px;background:#fff;border:1.5px solid var(--mk-blue);border-radius:var(--mk-radius) !important;color:var(--mk-blue-d);font-size:14px;font-weight:500;line-height:1;white-space:nowrap;box-sizing:border-box}
+#mk-frame.ux.v3.h4 .gbadge b{font-weight:800;color:var(--mk-blue-d)}
+#mk-frame.ux.v3.h4 .gbadge-gold{background:var(--mk-gold);border-color:var(--mk-gold);color:var(--mk-gold-ink);font-weight:800}
+#mk-frame.ux.v3.h4 .gbadge-gold svg{width:16px;height:16px;fill:currentColor}
+#mk-frame.ux.v3.h4 .rv3-head:has(> .gbadges){grid-template-columns:minmax(0,1fr) auto;align-items:center}
+@media (max-width:899.98px){ #mk-frame.ux.v3.h4 .rv3-head:has(> .gbadges){grid-template-columns:minmax(0,1fr)} #mk-frame.ux.v3.h4 .gbadges{justify-content:flex-start} }
+@media (max-width:479.98px){ #mk-frame.ux.v3.h4 .gbadge{white-space:normal;height:auto;min-height:var(--mk-btn-h-sm);padding:9px 14px;line-height:1.3} }

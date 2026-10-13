@@ -5,7 +5,7 @@
   const ptOwn = typeof tours !== 'undefined' && tours && tours.length;
   const ptList = (ptOwn ? tours : popularTours()).filter(t => String(t.href).toLowerCase() !== ptHere).slice(0, 3);
   const ptHead = typeof heading !== 'undefined' && heading ? heading : 'Most Popular Tours <em>of India</em>';
-  const ptBase = typeof base !== 'undefined' && base ? base : 'From Thar Desert of Rajasthan to Backwaters of Kerala.';
+  const ptBase = typeof sub !== 'undefined' && sub ? sub : 'From Thar Desert of Rajasthan to Backwaters of Kerala.';   // (not `base`: that is the site address)
   const ptAll = typeof allHref !== 'undefined' && allHref ? allHref : '/itineraries', ptAllL = typeof allLabel !== 'undefined' && allLabel ? allLabel : 'View all packages';
   // a card never repeats a picture already on the page (avoid: those pictures)
   const ptUsed = new Set(typeof avoid !== 'undefined' && avoid ? avoid : []);
@@ -45,6 +45,6 @@
       </article>
       <% }) %>
     </div>
-    <% if (typeof note === 'undefined' || note) { %><p class="pq-foot-note"><b>Note:</b> Tour cost is for a minimum of 2 persons travelling together · 3-star hotels, 1 double room on twin sharing with breakfast.</p><% } %>
+    <%# (13 Oct 2026) the "Note: Tour cost is for a minimum of 2 persons…" line is not shown on inner pages any more %>
   </div>
 </section>

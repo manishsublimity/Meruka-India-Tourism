@@ -1,6 +1,8 @@
 <%
   // Inner pages use the one shared site header. Their nav data marks the current page; map it to the header's links.
-  const ACTIVE = { 'Home': 'Home', 'About Us': 'About Us', 'India Tours': 'India Tours', 'Contact Us': 'Contact' };
+  // (tour pages and tour lists → Tour Packages; a page can also name its link itself with `active`)
+  const ACTIVE = { 'Home': 'Home', 'About Us': 'About Us', 'India Tours': 'Tour Packages', 'Testimonials': 'Testimonials', 'Contact Us': 'Contact' };
   const on = (nav || []).find(n => n.active);
+  const hdActive = typeof active !== 'undefined' && active ? active : (on ? (ACTIVE[on.label] || '') : '');
 %>
-<%- include('site-header', { active: on ? (ACTIVE[on.label] || '') : '', enquireHref, variant: 'over' }) %>
+<%- include('site-header', { active: hdActive, enquireHref, variant: 'over' }) %>

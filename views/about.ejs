@@ -73,14 +73,7 @@
       <h2 class="h4-h2">Guest <em>Reviews</em></h2>
       <p class="h4-base">Stories You’ll Tell Forever.</p>
     </div>
-    <div class="rv3-proof">
-      <div class="rv3-avs" aria-hidden="true"><% r1All.slice(0, 4).forEach(t => { %><span><%= t.initials %></span><% }) %><span class="rv3-more">+<%= r1All.length - 4 %></span></div>
-      <div class="rv3-nums">
-        <p><b><%= r1All.length %></b> guest testimonials</p>
-        <p><b>60%</b> of new guests come through friends and returning families.</p>
-        <p><b>97.80%</b> Tour Success Rate</p>
-      </div>
-    </div>
+    <%- include('partials/review-proof', { all: r1All }) %>
   </div>
 
   <div class="rm-rows" aria-label="Guest testimonials">
