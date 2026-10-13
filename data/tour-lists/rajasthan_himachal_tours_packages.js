@@ -9,7 +9,7 @@ module.exports = {
   title: "India Rajasthan Himachal Tours Packages,North India Tours Packages",
   description: "The best tours packages for North India, Rajasthan, Himachal and North India. For all seasons summer, winter and autumn India Rajasthan and Himachal tours packages",
   keywords: "india,north India,rajasthan,himachal,north india,summer, winter,autumn,india rajasthan,north india tour,himachal tours packages,india tourism",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "North India – Rajasthan and Himachal Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),

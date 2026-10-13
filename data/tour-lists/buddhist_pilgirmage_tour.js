@@ -9,7 +9,7 @@ module.exports = {
   title: "India Buddhist pilgrimage Tour,Buddhist Tour Packages",
   description: "India Buddhist tourist places and destinations  with our buddhist pilgrimage tour itineraries, tour packages to explore Buddhist destinations of North India covering  Bihar, Uttar Pradesh, Nepal and many more",
   keywords: "india buddhist sectors,buddhist destinations,bihar,uttar pradesh,nepal,india buddhist pilgrimage tour itineraries,buddhist tour packages,north india nepal,pilgrimage tour packages,holiday plan,itinerary,buddhist tourist places,cost,price tour packages",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Buddhist Circuit Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -44,7 +44,7 @@ module.exports = {
       href: '',
       tours: [
         { name: "West India Buddhist and Culture Tour", href: site.link("buddhist_circuits_tour_travel.html"), route: "Mumbai - Aurangabad - Ajanta/Ellora - Delhi - Varanasi - Bodhgaya - Rajgir - Nalanda - Patna - Vaishali - Kushinagar - Lumbini - Shravasti - Lucknow - Delhi", duration: "16 Nights - 17 Days" },
-        { name: "Vision of Buddha Tour", href: site.link("buddhist_tourism_tours.html"), route: "Delhi - Patna - Nalanda - Rajgir - Bodhgaya - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Delhi - Aurangabad - Ajanta/Ellora - Mumbai", duration: "19 Nights - 20 Days" }
+        { name: "Vision of Buddha Tour", href: site.link("buddhist_tourism_tours.html"), route: "Delhi - Patna - Nalanda - Rajgir - Bodhgaya - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Jaipur - Delhi - Aurangabad - Ajanta - Ellora - Mumbai", duration: "19 Nights - 20 Days" }
       ]
     }
   ],

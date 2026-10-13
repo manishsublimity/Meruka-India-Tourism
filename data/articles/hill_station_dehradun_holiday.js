@@ -10,7 +10,7 @@ module.exports = {
   title: "India Hill Station Holiday Tour,Dehradun City Guide,North India Tourism",
   description: "India Tourism Offer - North India Tourism, India Hill Station Holiday Tour, Dehradun City Guide, North India Tourism,North India Hill Station Holiday, Dehradun City Trip, Sightseeing Tours Of Dehradun, Uttaranchal Hill Station Holiday Packages, Travel And Tour Guide, Tourist Places Of Uttaranchal, Tourism Destination Of India",
   keywords: "",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Dehradun",
   nav: site.nav('', false),
   footCols: site.footCols(),

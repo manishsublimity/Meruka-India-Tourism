@@ -10,7 +10,7 @@ module.exports = {
   title: "Important Links Related to Tourism of India",
   description: "We are providing important links for overseas tourists who come to explore India tourism; links are for Indian Embassies in other countries, International Airlines, Indian Airlines (domestic), Indian Railways, world time",
   keywords: "important links, india, indian embassies, international airlines, indian domestic airlines, india tourism, indian railways, world time, currency calculator",
-  heroSrc: site.IMG("guideline.jpg"),
+  heroSrc: site.IMG("guideline.webp"),
   heroAlt: "Important Links",
   nav: site.nav('', false),
   footCols: site.footCols(),

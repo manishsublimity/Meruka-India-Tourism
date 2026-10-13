@@ -1,0 +1,15 @@
+<%
+  // Inner-page hero (12 Oct 2026, from the About page): the page's own banner from the live site behind
+  // a blue wash, a breadcrumb and the title (last word in the accent face). Same height on every page.
+  // Params: title, img, alt?, crumbs? ([{ label, href? }], defaults to Home / title), sub? (one short line)
+  const hWords = String(title).trim().split(' '), hLast = hWords.length > 1 ? hWords.pop() : '';
+  const hCrumbs = (typeof crumbs !== 'undefined' && crumbs && crumbs.length) ? crumbs : [{ label: 'Home', href: '/' }, { label: title }];
+%>
+<section class="abx-hero">
+  <img src="<%= img %>" alt="<%= typeof alt !== 'undefined' && alt ? alt : '' %>" class="abx-hero-img">
+  <div class="abx-hero-in">
+    <nav class="abx-crumb" aria-label="Breadcrumb"><% hCrumbs.forEach((c, i) => { %><% if (i) { %><span aria-hidden="true">/</span><% } %><% if (c.href && i < hCrumbs.length - 1) { %><a href="<%= c.href %>"><%= c.label %></a><% } else { %><span><%= c.label %></span><% } %><% }) %></nav>
+    <h1 class="abx-h1"><%= hWords.join(' ') %><% if (hLast) { %> <em><%= hLast %></em><% } %></h1>
+    <% if (typeof sub !== 'undefined' && sub) { %><p class="abx-hero-sub"><%= sub %></p><% } %>
+  </div>
+</section>

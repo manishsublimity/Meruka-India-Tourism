@@ -10,7 +10,7 @@ module.exports = {
   title: "North India Spiritual Pilgrimage Tour,Tourism in Uttarkashi",
   description: "North India spiritual pilgrimage tour, tourism in Uttarkashi, Uttarkashi state guide, tourist places in North India, pilgrimage tour itineraries and plan with all travel related services, ideal travel itineraries to explore North India",
   keywords: "official website,meruka india tourism service,north india tour,north india spiritual tourism,pilgrimage tourist places,pilgrimage tour Uttarkashi,Uttarkashi state guide,tourism places,tour itineraries,travel information,holidays,trip information,trip planning,tour packages Uttarkashi ",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Uttarkashi",
   nav: site.nav('', false),
   footCols: site.footCols(),

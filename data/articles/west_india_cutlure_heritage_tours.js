@@ -10,7 +10,7 @@ module.exports = {
   title: "West India Culture and Heritage Tours,Indore City Guide",
   description: "Well planned travel itineraries to West India culture and heritage tours, Indore, temples, monuments,  tourist places of MP, city guide",
   keywords: "official website, india, west india, culture, heritage, west india culture tours, west india heritage tours, India travelers guide, tourist places, Indore city tours, Indore places, temples",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Indore",
   nav: site.nav('', false),
   footCols: site.footCols(),

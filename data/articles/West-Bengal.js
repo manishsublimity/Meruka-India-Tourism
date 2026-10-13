@@ -10,7 +10,7 @@ module.exports = {
   title: "West Bengal India,West Bengal Tours,West Bengal Tour Packages,West Bengal Travel Plan",
   description: "",
   keywords: "",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "West Bengal Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

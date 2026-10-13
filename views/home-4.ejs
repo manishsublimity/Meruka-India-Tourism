@@ -32,12 +32,12 @@
   // Main pictures in the client's order (6 Oct 2026): monuments, wildlife, festivals, mountains, desert, houseboat
   const hxSlides = [
     { src: '/photos/hero-taj-mahal.webp', alt: 'The Taj Mahal at sunset across the Yamuna, Agra', place: 'Taj Mahal, Agra', region: 'Golden Triangle', href: '/india-golden-triangle-tour', pos: '50% 45%' },
-    { src: '/photos/hero-desert-camel.webp', alt: 'Camel safari on the sand dunes, Jaisalmer', place: 'Sand dunes, Jaisalmer', region: 'Desert', href: '/rajasthan-tours', pos: '50% 55%' },
+    { src: '/photos/hero-desert-camel.webp', alt: 'Camel safari on the sand dunes, Jaisalmer', place: 'Sand dunes, Jaisalmer', region: 'Desert', href: '/rajasthan-tours', pos: '50% 55%', flip: true },
     { src: '/photos/hero-tigers.webp', alt: 'Two Bengal tigers in the forest', place: 'Tiger safari', region: 'Wildlife', href: '/wildlife_tour', pos: '70% 40%' },
     { src: '/photos/hero-holi.webp', alt: 'Holi, the festival of colours', place: 'Holi festival', region: 'Fairs & Festivals', href: '/india_fair_festival_travelplan', pos: '50% 40%' },
     { src: '/photos/hero-ladakh.webp', alt: 'Mountains reflected in a high lake, Ladakh', place: 'Ladakh', region: 'Mountains', href: '/leh_ladakh_tours', pos: '50% 50%' },
-    { src: '/photos/hero-hawa-mahal.webp', alt: 'Hawa Mahal, the Palace of Winds, Jaipur', place: 'Hawa Mahal, Jaipur', region: 'Rajasthan', href: '/rajasthan-tours', pos: '50% 40%' },
-    { src: '/photos/hero-houseboat.jpg', alt: 'A houseboat on the Kerala backwaters', place: 'Kerala Backwaters', region: 'Kerala', href: '/southindia_kerala_tours', pos: '50% 50%' }
+    { src: '/photos/hero-hawa-mahal.webp', alt: 'Hawa Mahal, the Palace of Winds, Jaipur', place: 'Hawa Mahal, Jaipur', region: 'Rajasthan', href: '/rajasthan-tours', pos: '50% 40%', flip: true },
+    { src: '/photos/hero-houseboat.webp', alt: 'A houseboat on the Kerala backwaters', place: 'Kerala Backwaters', region: 'Kerala', href: '/southindia_kerala_tours', pos: '50% 50%' }
   ];
   // "06 Nights - 07 Days" -> "6N / 7D"
   // "06 Nights - 07 Days" -> "6 Nights / 7 Days" (shown with the tour's name)
@@ -77,9 +77,10 @@
 
 <section class="h8-stats" aria-label="Meruka India Tourism at a glance">
   <div class="b-wrap h8-stats-in">
-    <div><b>20+</b><span>Years of rich experience</span></div>
-    <div><b>1000+</b><span>Happy guests</span></div>
-    <div><b><%= H2.totalTours %></b><span>Tour packages</span></div>
+    <div><b>22</b><span>Years of Experience</span></div>
+    <div><b>1150+</b><span>Happy guests</span></div>
+    <div><b>135+</b><span>Tour packages</span></div>
+    <div><b>97.80%</b><span>Success Rate</span></div>
     <div><b class="h8-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.4 3.4 8.3 8 9 4.6-.7 8-4.6 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></b><span>Private Tours — No Sharing</span></div>
   </div>
 </section>
@@ -126,7 +127,7 @@
           <p class="bn-line"><%= c.line %></p>
           <% } %>
           <div class="bn-foot">
-            <% if (c.from) { %><span class="bn-price">From <b>$<%= c.from %></b> / person / day</span><% } %>
+            <% if (c.from) { %><span class="bn-price">From <b>USD <%= c.from %></b> / person / day</span><% } %>
             <span class="bn-go" aria-hidden="true">→</span>
           </div>
         </div>
@@ -141,7 +142,6 @@
     <div class="dz-main">
       <span class="dz-eyebrow">Seasonal offer</span>
       <p class="dz-t"><b class="dz-pct-sr">10%</b> discount on the tour packages booked from April to August!</p>
-      <a href="#popular" class="dz-go">View tours <span aria-hidden="true">→</span></a>
     </div>
     <div class="dz-stub">
       <b class="dz-pct" aria-hidden="true">10%</b>
@@ -204,7 +204,7 @@
         </div>
         <div class="pq-cost">
           <div class="pq-price">
-            <% if (t.from && n) { %><small>Starts From</small><b>$<%= (t.from * n).toLocaleString('en-US') %></b><% } else { %><small>Starts From</small><b class="pq-req">On request</b><% } %>
+            <% if (t.from && n) { %><small>Starts From</small><b>USD <%= (t.from * n).toLocaleString('en-US') %></b><% } else { %><small>Starts From</small><b class="pq-req">On request</b><% } %>
           </div>
           <div class="pq-btns">
             <a href="<%= t.href %>" class="pq-view">View Itinerary</a>
@@ -234,9 +234,17 @@
         <p>Per Couple Per Day onwards</p>
       </div>
       <span class="c6-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 6 6 6-6 6"/><path d="m13 6 6 6-6 6"/></svg></span>
-      <div class="c6-part"><p>Inclusive of 3-star hotel accommodation with breakfast, private A/C car with English speaking driver throughout the tour for all pickups, sightseeing, intercity travel, excursions and other services as specified.</p></div>
+      <div class="c6-part"><ul class="c6-list">
+        <li>3-star hotel accommodation with breakfast</li>
+        <li>Private A/C car with an English-speaking driver throughout the tour</li>
+        <li>All pickups, sightseeing, intercity travel, excursions and other services as specified</li>
+      </ul></div>
       <span class="c6-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 6 6 6-6 6"/><path d="m13 6 6 6-6 6"/></svg></span>
-      <div class="c6-part"><p>The tour packages can be upgraded to 4, 5 star &amp; 5-star deluxe hotels and also can be customized in terms of number of days, destinations and sightseeing according to your budget and requirement.</p></div>
+      <div class="c6-part"><ul class="c6-list">
+        <li>Upgrade to 4-star, 5-star &amp; 5-star deluxe hotels</li>
+        <li>Customize the number of days, destinations and sightseeing</li>
+        <li>Planned to your budget and requirement</li>
+      </ul></div>
       <span class="c6-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 6 6 6-6 6"/><path d="m13 6 6 6-6 6"/></svg></span>
       <div class="c6-part c6-acts">
         <div class="c3-actions">
@@ -337,7 +345,7 @@
       <div class="rv3-nums">
         <p><b><%= r1All.length %></b> guest testimonials</p>
         <p><b>60%</b> of new guests come through friends and returning families.</p>
-        <p><b>97.60%</b> Tour Success Rate</p>
+        <p><b>97.80%</b> Tour Success Rate</p>
       </div>
     </div>
   </div>
@@ -372,7 +380,7 @@
       <div class="wn-photo"><img src="/photos/handshake-deal.webp" alt="Two people shaking hands across a desk" loading="lazy"></div>
       <figure class="wn-quote">
         <blockquote>“The guest is the only Boss of our company; this is our prime duty and commitment to always provide the best services.”</blockquote>
-        <figcaption><span class="mlogo mlogo-blue wn-logo" aria-hidden="true"></span><span><b>Ashok Pareek</b>Founder, Meruka India Tourism Service</span></figcaption>
+        <figcaption><span><b>Ashok Pareek</b>Founder, Meruka India Tourism Service</span></figcaption>
       </figure>
     </div>
 
@@ -385,7 +393,7 @@
         <li><span class="wv-ic"><%- wvTick %></span><div><b>Routed by hand</b><span>Distances, driving hours and city order worked out for your party — never a template.</span></div></li>
         <li><span class="wv-ic"><%- wvTick %></span><div><b>Hotels contracted direct</b><span>See the hotel name and room category before you pay.</span></div></li>
         <li><span class="wv-ic"><%- wvTick %></span><div><b>Transparent to the last line</b><span>What is quoted is exactly what arrives.</span></div></li>
-        <li><span class="wv-ic"><%- wvTick %></span><div><b>Full inbound specialists</b><span>20+ years of looking after overseas guests across India.</span></div></li>
+        <li><span class="wv-ic"><%- wvTick %></span><div><b>Full inbound specialists</b><span>22 years of looking after overseas guests across India.</span></div></li>
       </ul>
 
       <div class="wn-contact">

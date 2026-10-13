@@ -9,7 +9,7 @@ module.exports = {
   title: "Shimla Manali Himachal Pradesh Tour Package, Hill Station Holiday Package",
   description: "Explore Himachal Pradesh, North India Himachal Pradesh tours packages, Himachal trip and holiday planning with all kind of travel and tourism related services",
   keywords: "india,himachal Pradesh,himachal tour package,shimla manali tour package,shimla kullu manali tour,himachal holiday package,india holiday package,india tour itinerary,india travel itinerary,india tour plan,private india tour,customized india tour,budget himachal tour,budget shimla manali tour,shimla sightseeing,kufri tour,naldehra golf course,manali holiday,rohtang pass tour,kullu valley tour,parwanoo timber trail,himachal honeymoon package,himalayan hill station tour,adventure tour himachal",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -191,23 +191,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Red Fort",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " and ",
-          "bold": false
-        },
-        {
-          "text": "Lotus Temple",
-          "bold": true
-        },
-        {
-          "text": " remain closed on Mondays.",
+          "text": " Red Fort and Lotus Temple remain closed on Mondays.",
           "bold": false
         }
       ]
@@ -350,15 +338,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: The ",
-          "bold": false
-        },
-        {
-          "text": "Himachal State Museum",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " remains closed on Mondays and public holidays.",
+          "text": " The Himachal State Museum remains closed on Mondays and public holidays.",
           "bold": false
         }
       ]
@@ -549,15 +533,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Rohtang Pass",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " generally remains closed on Tuesdays and access is subject to weather conditions and government permits.",
+          "text": " Rohtang Pass generally remains closed on Tuesdays and access is subject to weather conditions and government permits.",
           "bold": false
         }
       ]
@@ -635,7 +615,7 @@ module.exports = {
   details: [
     {
       "title": "Tour Pricing Details",
-      "text": "The final cost of a customized tour varies depending on accommodation choices, travel period, number of travellers and individual preferences. While an exact quotation can be provided after finalizing your requirements, the following indicative price range will help you plan your holiday (based on a minimum of two persons sharing one double room).",
+      "text": "The final cost of a customized tour varies depending on accommodation choices, travel period, number of travellers and individual preferences. While an exact quotation can be provided upon finalization of details, the following indicative price range will help you plan your holiday (based on a minimum of two persons sharing a double room together).",
       "items": [
         [
           {
@@ -849,29 +829,13 @@ module.exports = {
         ],
         [
           {
-            "text": "The ",
-            "bold": false
-          },
-          {
-            "text": "Himachal State Museum",
-            "bold": true
-          },
-          {
-            "text": " remains closed on Mondays and public holidays.",
+            "text": "The Himachal State Museum remains closed on Mondays and public holidays.",
             "bold": false
           }
         ],
         [
           {
-            "text": "The ",
-            "bold": false
-          },
-          {
-            "text": "Red Fort",
-            "bold": true
-          },
-          {
-            "text": " remains closed on Mondays.",
+            "text": "The Red Fort remains closed on Mondays.",
             "bold": false
           }
         ]

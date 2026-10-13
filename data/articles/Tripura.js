@@ -10,7 +10,7 @@ module.exports = {
   title: "Tripura Travel,Tripura Tours,East India Tripura Tour Pacakges,Tour Itinerary Tripura",
   description: "",
   keywords: "",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Tripura Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

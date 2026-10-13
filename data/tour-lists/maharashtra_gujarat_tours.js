@@ -9,7 +9,7 @@ module.exports = {
   title: "Maharashtra Gujarat Tours,West India Travel Itineraries,Wildlife Tourist Destinations Package",
   description: "West India tour operator, Maharashtra travel agents offers Maharashtra and Gujarat tours packages, travel itineraries with covering heritage, wildlife, culture, beaches destinations of Gujarat and Maharashtra, holiday packages and tours with guidelines of price and cost for every season",
   keywords: "west india tour operator,maharashtra tours,gujarat tour packages,west india vacations trip,maharashtra travel agents,tour packages,travel itineraries,gujarat tour operators,holiday itineraries,cost,price,indian tourist destinations,ajanta ellora tour packages,wildlife,heritage,culture,beaches tours,gujarat india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Best of West India Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -37,8 +37,8 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Maharashtra, Goa & Gujarat Heritage Tour", href: site.link("/Maharashtra-Goa-Gujarat-Tour.html"), route: "Mumbai - Goa - Ahmedabad - Rajkot - Porbandar - Junagadh - Sasan Gir - Somnath - Diu - Palitana - Bhavnagar - Mumbai", duration: "16 Nights - 17 Days" },
-        { name: "Duet of Maharashtra with Gujarat Tour", href: site.link("maharashtra_gujarat_tour.html"), route: "Mumbai - Nashik - Ellora - Aurangabad - Ajanta - Mumbai - Diu - Somnath - Gir - Gondal - Rajkot - Banni Region (Kutch) - Dasada - Mumbai", duration: "17 Nights - 18 Days" },
+        { name: "Maharashtra, Goa & Gujarat Tour", href: site.link("/Maharashtra-Goa-Gujarat-Tour.html"), route: "Mumbai - Goa - Ahmedabad - Rajkot - Porbandar - Junagadh - Sasan Gir - Somnath - Diu - Palitana - Bhavnagar - Mumbai", duration: "16 Nights - 17 Days" },
+        { name: "Duet of Maharashtra with Gujarat Tour", href: site.link("maharashtra_gujarat_tour.html"), route: "Mumbai - Nashik - Ellora - Aurangabad - Ajanta - Mumbai - Diu - Somnath - Sasan Gir - Gondal - Rajkot - Bhuj - Dasada - Ahmedabad", duration: "17 Nights - 18 Days" },
         { name: "Discover Best of West India", href: site.link("west_india_tour_packages.html"), route: "Mumbai - Aurangabad - Ajanta - Ellora - Aurangabad - Mandu - Indore - Ujjain - Bhopal - Sanchi - Gwalior - Datia - Orcha - Khajuraho - Bandhavgarh - Kanha - Pench - Nagpur - Mumbai", duration: "21 Nights - 22 Days" }
       ]
     }

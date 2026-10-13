@@ -10,7 +10,7 @@ module.exports = {
   title: "Manipur Tour,Manipur Travel India,Imphal Tour Manipur,Wildlife Tribal Tours",
   description: "Manipur tour operators offer Manipur tour, Manipur travel plan with Imphal tour, wildlife and tribal holidays, Manipur Nagaland wildlife and tribal tours, Manipur, Assam, Mizoram holidays packages, tour Itinerary, Manipur Nagaland wildlife tour, India",
   keywords: "india travel agents,manipur tour operators, holiday and tour packages to manipur, visit and trip to north east india, complete travel information on manipur, wildlife and tribal trip, tourist attractions in manipur, places to see in the north east sector, explore west india wild life tourism, holidays package and tour itinerary, manipur nagaland wildlife and tribal tours, manipur assam mizoram holiday packages, indian wildlife and tribal trip, indian wildlife parks and sanctuaries, manipur travel, india tour, manipur tourism, manipur imphal, ministry of tourism,india tribal tours, rural tourist places of india, manipur, travel agents, holiday, trip, vacations, tour operators, manipur places of interest",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Manipur Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

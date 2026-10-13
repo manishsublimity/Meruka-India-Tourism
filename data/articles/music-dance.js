@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Music and Dance,Culture Tour India,India Arts and Forms",
   description: "",
   keywords: "",
-  heroSrc: site.IMG("music-dance.jpg"),
+  heroSrc: site.IMG("music-dance.webp"),
   heroAlt: "India: Music & Dance",
   nav: site.nav('', false),
   footCols: site.footCols(),

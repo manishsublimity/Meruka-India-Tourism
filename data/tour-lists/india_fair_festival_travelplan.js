@@ -9,7 +9,7 @@ module.exports = {
   title: "India Fair and Festival Travel Plan,Pushkar Fair Tour",
   description: "India fair and festival tour covering Diwali and worldly famous cattle fair of Pushkar with all other North India historical places, covering Rajasthan palaces, forts and Taj Mahal",
   keywords: "india,indian festival,india taj mahal tour,rajasthan pushkar tour,india historical tour,indian fair festival trip,festival travel plan,agra rajasthan tour,pushkar cattle fair tour rajasthan",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "India Fair and Festival Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -43,12 +43,12 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Exotic Rajasthan Fair and Festival Tour", href: site.link("pushkar_fair_tour.html"), route: "Delhi - Mathura - Agra - Fathepur Sikri - Ranthambore - Jaipur - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Pushkar - Delhi", duration: "18 Nights - 19 Days" },
-        { name: "Gujarat Culture, and Festival Tour", href: site.link("gujarat_fair_festival_tour.html"), route: "Ahmedabad - Bhavnagar - Palitana - Sasan Gir - Somnath - Dwaraka - Rajkot - Bhuj - Rann of Kutch - Ahmedabad - Mumbai", duration: "14 Nights - 15 Days" },
-        { name: "Rajasthan Panorama Tour with Pushkar Fair", href: site.link("rajasthan_pushkar_fair_diwali_festival_tour.html"), route: "Delhi - Nawalgarh - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Ranthambore - Pushkar - Jaipur - Fathepur Sikri - Agra - Sikandra/Mathura - Delhi", duration: "20 Nights - 21 Days" },
-        { name: "Rajasthan - North India Festive Panorama Tour", href: site.link("india_pushkar_fair_diwali_festival_tours.html"), route: "Delhi - Mathura - Agra - Fathepur Sikri - Ranthambhor - Jaipur - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Rohet - Ranakpur - Mount Abu - Udaipur - Bijaipur - Pushkar - Delhi - Varanasi - Khajuraho - Delhi", duration: "24 Nights - 25 Days" },
-        { name: "South India Festival and Backwater Tour", href: site.link("south_india_fair_festvial_tours.html"), route: "Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Kumbakonam - Tanjore - Trichy - Chettinad - Madurai - Periyar - Munnar - Alleppy - Cochin", duration: "13 Nights - 14 Days" },
-        { name: "Nagaland Culture and Festival Tour", href: site.link("north_east_india_fair_festvial_tours.html"), route: "Aizawl - Silchar - Unakoti - Kailashahar - Agartala - Imphal - Ukhrul - Kohima - Khonoma - Kohima - Touphema - Mokokchung - Jorhat -Kaziranga - Shillong - Cherrapunjee - Guwahati", duration: "19 Nights - 20 Days" }
+        { name: "Exotic Rajasthan Fair and Festival Tour", href: site.link("pushkar_fair_tour.html"), route: "Delhi - Mathura - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Pushkar - Delhi", duration: "18 Nights - 19 Days" },
+        { name: "Gujarat Culture and Festival Tour", href: site.link("gujarat_fair_festival_tour.html"), route: "Ahmedabad - Bhavnagar - Palitana - Sasan Gir - Somnath - Dwarka - Rajkot - Bhuj - Rann of Kutch - Dasada - Ahmedabad", duration: "14 Nights - 15 Days" },
+        { name: "Rajasthan Panorama Tour with Pushkar Fair", href: site.link("rajasthan_pushkar_fair_diwali_festival_tour.html"), route: "Delhi - Nawalgarh - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Ranthambore - Pushkar - Jaipur - Fatehpur Sikri - Agra - Sikandra/Mathura - Delhi", duration: "20 Nights - 21 Days" },
+        { name: "Rajasthan - North India Festive Panorama Tour", href: site.link("india_pushkar_fair_diwali_festival_tours.html"), route: "Delhi - Mathura - Sikandra - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Bijaipur - Pushkar - Delhi - Varanasi - Khajuraho - Delhi", duration: "24 Nights - 25 Days" },
+        { name: "South India Festival and Backwater Tour", href: site.link("south_india_fair_festvial_tours.html"), route: "Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Kumbakonam - Tanjore - Trichy - Chettinad - Madurai - Periyar - Munnar - Alleppey - Cochin", duration: "13 Nights - 14 Days" },
+        { name: "Nagaland Culture and Festival Tour", href: site.link("north_east_india_fair_festvial_tours.html"), route: "Aizawl - Silchar - Unakoti - Kailashahar - Agartala - Imphal - Ukhrul - Kohima - Khonoma - Kohima - Touphema - Mokokchung - Jorhat - Kaziranga - Shillong - Cherrapunjee - Guwahati", duration: "19 Nights - 20 Days" }
       ]
     }
   ],

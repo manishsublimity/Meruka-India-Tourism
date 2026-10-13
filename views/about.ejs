@@ -1,88 +1,114 @@
 <%- include('partials/head') %>
 <%
   const enquire = '/contactus#enquiry';
-  const P = d.paragraphs;   // the nine paragraphs of the original page, word for word, in order
-  const icon = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>';
+  const P = d.paragraphs;   // the nine paragraphs of the original page, word for word
+  const icon = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
 %>
-<div style="width:100%;overflow-x:clip;background:#F4F7FB">
-<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#F4F7FB">
+<div style="width:100%;overflow-x:clip;background:#fff">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#fff">
 
 <%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
 
-<!-- Hero: title on a soft sky with a line-art skyline (shared by the inner pages) -->
-<%- include('partials/sky-hero', { title: 'About us', theme: 'about taj', tint: '' }) %>
-<!-- About body: one calm pattern throughout — a small numbered label and heading on the left,
-     the original words on the right; two photos, the stats strip and a simple closing call -->
-<section class="az az-a" id="ih-next">
-  <div class="az-wrap az-row">
-    <div class="az-side"><span class="az-no">01</span><h2 class="h4-h2 az-h">About <em>Meruka</em></h2></div>
-    <div class="az-main"><p class="az-lead"><strong><%= d.leadName %></strong> <%= P[0] %></p></div>
-  </div>
-</section>
+<!-- 1) Hero: a full-width photo with the page heading -->
+<%- include('partials/photo-hero', { title: 'About Us', img: d.heroSrc, alt: 'Two business people shaking hands in front of a world map', sub: 'Private tours of India for overseas travellers since 2001.' }) %>
 
-<section class="az az-b">
-  <div class="az-wrap az-split">
-    <figure class="az-photo"><img src="/photos/handshake-deal.webp" alt="" loading="lazy"></figure>
-    <div class="az-main">
-      <span class="az-no">02</span>
-      <h2 class="h4-h2 az-h">Our <em>story</em></h2>
-      <p class="az-text"><%= P[1] %></p>
-      <p class="az-sign"><span>&ldquo;<%= d.mission %>&rdquo;</span><small><%= d.founder %>, Founder</small></p>
-    </div>
-  </div>
-</section>
-
-<section class="h8-stats az-stats" aria-label="Meruka India Tourism at a glance">
+<!-- the numbers band, exactly as under the home page hero -->
+<section class="h8-stats" aria-label="Meruka India Tourism at a glance">
   <div class="b-wrap h8-stats-in">
-    <div><b>20+</b><span>Years of rich experience</span></div>
-    <div><b>1000+</b><span>Happy guests</span></div>
-    <div><b><%= totalTours %></b><span>Tour packages</span></div>
-    <div><b class="h8-ic"><%- icon('<path d="M12 3 4 6v6c0 4.4 3.4 8.2 8 9 4.6-.8 8-4.6 8-9V6l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>') %></b><span>Private Tours — No Sharing</span></div>
+    <div><b>22</b><span>Years of Experience</span></div>
+    <div><b>1150+</b><span>Happy guests</span></div>
+    <div><b>135+</b><span>Tour packages</span></div>
+    <div><b>97.80%</b><span>Success Rate</span></div>
+    <div><b class="h8-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.4 3.4 8.3 8 9 4.6-.7 8-4.6 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></b><span>Private Tours — No Sharing</span></div>
   </div>
 </section>
 
-<section class="az az-a">
-  <div class="az-wrap az-row">
-    <div class="az-side"><span class="az-no">03</span><h2 class="h4-h2 az-h">Our <em>promise</em></h2></div>
-    <ol class="az-main az-list">
-      <% [2, 3, 6].forEach(k => { %><li><p class="az-text"><%= P[k] %></p></li><% }) %>
-    </ol>
+<!-- 2) About us: the live page's text, all nine paragraphs in their order (the hero already says "About Us") -->
+<section class="abx abx-about" id="ih-next">
+  <div class="abx-wrap abx-copy">
+    <div class="abx-cols">
+      <p class="abx-text"><strong><%= d.leadName %></strong> <%= P[0] %></p>
+      <% P.slice(1).forEach(p => { %><p class="abx-text"><%= p %></p>
+      <% }) %>
+    </div>
+    <p class="az-sign abx-sign"><span>&ldquo;<%= d.mission %>&rdquo;</span><small><%= d.founder %>, Founder</small></p>
   </div>
 </section>
 
-<section class="az az-b">
-  <div class="az-wrap az-row">
-    <div class="az-side"><span class="az-no">04</span><h2 class="h4-h2 az-h">Our <em>team</em></h2></div>
-    <div class="az-main">
-      <p class="az-text"><%= P[4] %></p>
-      <blockquote class="az-quote"><%= d.mission %></blockquote>
+<!-- 3) Why choose us: the same section as on the home page -->
+<section id="why" class="wn abx-wn">
+  <div class="b-wrap wn-grid">
+    <div class="wn-media">
+      <div class="wn-photo"><img src="/photos/handshake-deal.webp" alt="Two people shaking hands across a desk" loading="lazy"></div>
+      <figure class="wn-quote">
+        <blockquote>“The guest is the only Boss of our company; this is our prime duty and commitment to always provide the best services.”</blockquote>
+        <figcaption><span><b>Ashok Pareek</b>Founder, Meruka India Tourism Service</span></figcaption>
+      </figure>
+    </div>
+    <div class="wn-copy">
+      <h2 class="h4-h2">Why to <em>Choose Us?</em></h2>
+      <p class="h4-base">“Always give people more than what they expect to get.”</p>
+      <p class="wn-intro">Founded in 2001 to do one thing properly: look after overseas travellers inside India. No domestic groups, no merged coaches — your party, your car, your pace, with our own ground teams in every state you pass through.</p>
+      <% const wvTick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>'; %>
+      <ul class="wv-list">
+        <li><span class="wv-ic"><%- wvTick %></span><div><b>Routed by hand</b><span>Distances, driving hours and city order worked out for your party — never a template.</span></div></li>
+        <li><span class="wv-ic"><%- wvTick %></span><div><b>Hotels contracted direct</b><span>See the hotel name and room category before you pay.</span></div></li>
+        <li><span class="wv-ic"><%- wvTick %></span><div><b>Transparent to the last line</b><span>What is quoted is exactly what arrives.</span></div></li>
+        <li><span class="wv-ic"><%- wvTick %></span><div><b>Full inbound specialists</b><span>22 years of looking after overseas guests across India.</span></div></li>
+      </ul>
+      <div class="wn-contact">
+        <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="wn-btn wn-wa">WhatsApp</a>
+        <a href="mailto:<%= footer.hq.email %>" class="wn-btn">Email us</a>
+        <a href="tel:<%= footer.hq.phones[0].replace(/[^0-9+]/g, '') %>" class="wn-btn">Call <%= footer.hq.phones[0] %></a>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="az az-a">
-  <div class="az-wrap az-split az-split-r">
-    <div class="az-main">
-      <span class="az-no">05</span>
-      <h2 class="h4-h2 az-h"><%= d.atithi.phrase %> <em>(<%= d.atithi.meaning %>)</em></h2>
-      <p class="az-text"><%= P[5] %></p>
+<!-- 4) Testimonials: the same section as on the home page -->
+<section id="reviews" class="rm r1">
+  <% const r1All = T.all, r1Row = r1All.slice(0, 16); %>
+  <div class="rm-wrap rv3-head">
+    <div class="rv3-intro">
+      <h2 class="h4-h2">Guest <em>Reviews</em></h2>
+      <p class="h4-base">Stories You’ll Tell Forever.</p>
     </div>
-    <figure class="az-photo"><img src="/assets/taj-reflection.webp" alt="The Taj Mahal reflected in water" loading="lazy"></figure>
+    <div class="rv3-proof">
+      <div class="rv3-avs" aria-hidden="true"><% r1All.slice(0, 4).forEach(t => { %><span><%= t.initials %></span><% }) %><span class="rv3-more">+<%= r1All.length - 4 %></span></div>
+      <div class="rv3-nums">
+        <p><b><%= r1All.length %></b> guest testimonials</p>
+        <p><b>60%</b> of new guests come through friends and returning families.</p>
+        <p><b>97.80%</b> Tour Success Rate</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rm-rows" aria-label="Guest testimonials">
+    <div class="rm-row">
+      <div class="rm-track r1-track">
+        <% [0, 1].forEach(copy => { r1Row.forEach(t => { %>
+        <figure class="rm-card r1-card"<%- copy ? ' aria-hidden="true"' : '' %>>
+          <span class="r1-tour"><%= t.tour %></span>
+          <blockquote class="rm-quote"><%= t.quote %></blockquote>
+          <figcaption class="rm-who">
+            <span class="rm-av"><%= t.initials %></span>
+            <span class="rm-meta"><b><%= t.name %></b><small><%= t.country %></small></span>
+          </figcaption>
+        </figure>
+        <% }) }) %>
+      </div>
+    </div>
+  </div>
+
+  <p class="rm-wrap rv3-hope">“Hope to see your reviews here.”</p>
+  <div class="rm-wrap rm-foot">
+    <button type="button" class="rm-pause" aria-pressed="false"><span class="rm-pause-ic" aria-hidden="true"></span><span class="rm-pause-t">Pause</span></button>
+    <a href="<%= T.href %>" class="rm-all">Read all testimonials <span>→</span></a>
   </div>
 </section>
 
-<section class="az az-b az-end">
-  <div class="az-wrap az-cta">
-    <p class="az-cta-lead"><%= P[7] %></p>
-    <p class="az-text"><%= P[8] %></p>
-    <div class="az-acts">
-      <a href="/#plan" class="ph-btn ph-btn-gold">Plan My Trip <span>→</span></a>
-      <a href="<%= enquire %>" class="az-btn-line">Enquire Now <span>→</span></a>
-    </div>
-  </div>
-</section>
-
-<%- include('partials/listing-sections', { L: d.listings }) %>
+<!-- 5) Popular packages -->
+<%- include('partials/popular-tours', { current: '/aboutus' }) %>
 
 <%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
 

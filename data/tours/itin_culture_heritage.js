@@ -9,7 +9,7 @@ module.exports = {
   title: "India Culture Heritage Tours Packages,South India Tour Itinerary",
   description: "Tourism in South India with cultural and heritage destinations, South India tour itinerary with best packages for Karnataka culture and heritage tours, extensive tour packages for Tamilnadu, Kerala and Karnataka, South India culture and heritage tourism",
   keywords: "india,cultural heritage destinations,karnataka holiday packages,culture tours,budget tour packages,tamilnadu,kerala,karnataka,holy places,sectors,holiday itineraries kerala,tour itinerary,heritage tourism,south india cultural tour,south india travel plan,travel plan",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -421,11 +421,7 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Notes:",
-          "bold": true
-        },
-        {
-          "text": " Nilgiri Mountain Railway tickets are subject to railway availability and the confirmed service schedule. Access to Wellington military areas requires prior permission.",
+          "text": "Notes: Nilgiri Mountain Railway tickets are subject to railway availability and the confirmed service schedule. Access to Wellington military areas requires prior permission.",
           "bold": false
         }
       ]
@@ -538,11 +534,7 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Notes:",
-          "bold": true
-        },
-        {
-          "text": " Paradesi Synagogue is closed on Fridays, Saturdays and Jewish holidays. Mattancherry Palace is closed on Fridays. Visit scheduling should be arranged accordingly.",
+          "text": "Notes: Paradesi Synagogue is closed on Fridays, Saturdays and Jewish holidays. Mattancherry Palace is closed on Fridays. Visit scheduling should be arranged accordingly.",
           "bold": false
         }
       ]
@@ -693,11 +685,7 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Notes:",
-          "bold": true
-        },
-        {
-          "text": " Periyar Lake boat cruises and wildlife activities operate according to scheduled availability and should be reserved in advance where possible.",
+          "text": "Notes: Periyar Lake boat cruises and wildlife activities operate according to scheduled availability and should be reserved in advance where possible.",
           "bold": false
         }
       ]
@@ -914,11 +902,7 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Notes:",
-          "bold": true
-        },
-        {
-          "text": " Ramanathaswamy Temple generally operates in morning and evening sessions. Temple timings and special rituals may vary on particular days.",
+          "text": "Notes: Ramanathaswamy Temple generally operates in morning and evening sessions. Temple timings and special rituals may vary on particular days.",
           "bold": false
         }
       ]
@@ -1141,11 +1125,7 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Notes:",
-          "bold": true
-        },
-        {
-          "text": " Matrimandir Viewing Point at Auroville requires a visitor pass. Access to restricted areas is subject to the centre's visitor arrangements.",
+          "text": "Notes: Matrimandir Viewing Point at Auroville requires a visitor pass. Access to restricted areas is subject to the centre's visitor arrangements.",
           "bold": false
         }
       ]
@@ -1336,11 +1316,7 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Notes:",
-          "bold": true
-        },
-        {
-          "text": " Tirumala Darshan is subject to ticket availability, selected Darshan category and allotted reporting time. Darshan arrangements should be confirmed in advance.",
+          "text": "Notes: Tirumala Darshan is subject to ticket availability, selected Darshan category and allotted reporting time. Darshan arrangements should be confirmed in advance.",
           "bold": false
         }
       ]
@@ -1415,11 +1391,7 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Notes:",
-          "bold": true
-        },
-        {
-          "text": " Kalakshetra Heritage Walking Tour operates at scheduled times and is closed on Saturdays and Sundays. Fort St. George is closed on Fridays. Guindy Snake Park is closed on Tuesdays.",
+          "text": "Notes: Kalakshetra Heritage Walking Tour operates at scheduled times and is closed on Saturdays and Sundays. Fort St. George is closed on Fridays. Guindy Snake Park is closed on Tuesdays.",
           "bold": false
         }
       ]
@@ -1429,7 +1401,7 @@ module.exports = {
   details: [
     {
       "title": "Tour Pricing Details",
-      "text": "The final cost of this customized private tour varies according to accommodation category, travel period, number of travellers and individual preferences. An exact quotation can be provided after the travel details are finalized. The following indicative price range is based on a minimum of two persons travelling together and sharing a double room.",
+      "text": "The final cost of a customized tour varies depending on accommodation choices, travel period, number of travellers and individual preferences. While an exact quotation can be provided upon finalization of details, the following indicative price range will help you plan your holiday (based on a minimum of two persons sharing a double room together).",
       "items": [
         [
           {

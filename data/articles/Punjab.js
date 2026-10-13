@@ -10,7 +10,7 @@ module.exports = {
   title: "Delhi Travel agency and tour Operator, Punjab, Amritsar Golden Temple Tours, Delhi Car Rental Hotels, Hotels Bookings and Reservations",
   description: "",
   keywords: "Delhi, Punjab travel agent, Amritsar Delhi tour operator, Delhi Amritsar golden temple trip, vacations in north India, north india trip, Amritsar golden temple tour, tourism in north India, hotels approved by tourism of ministry of tourism, government of India, Delhi car rental, hotel booking, reservation, tourist places for vacations in India, Delhi, Amritsar, Punjab, north India trip, travel agent, tour operator, golden temple, trip, vacations, vacation, car rental, golden temple sightseeing, Delhi hotels, Delhi guide, Delhi tourist information, fourth Amritsar Punjab hotel booking, Ashok, Delhi",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Punjab Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "Buddhist Tourism in Bihar,Bihar Tour Itineraries,Travel Plans",
   description: "Explore Buddhist Destinations with East India Bihar, Bihar tours and East India holiday packages, Bihar travel plan, Bihar Buddhist tour plan, Bihar tour packages and travel itineraries to explore Bihar, Buddhist circuits of Bihar",
   keywords: "buddhist destinations,east india bihar,east india holiday packages,bihar travel plan,bihar buddhist tour plan,bihar tour packages,travel itineraries,bihar tours,buddhist circuits bihar,east india bihar destinations, bihar states",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Bihar Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "India Cuisine Tours,Cuisine Tour Packages,Culinary Tour India",
   description: "India Tourism Offer - India Cuisine Tours, Cuisine Tour Packages, Cuisine Tours Of India, Culinary Tour India,Indian Cuisines information, Guide on Indian Cuisines",
   keywords: "india cuisine tours,cuisine tour packages,cuisine tours of india, culinary tour india,india foods,indian cuisine,indian cuisines,india food,dishes of india,india eating places,india tourism,cuisine,hill stations india,pilgrimage tours india,india itineraries,travelers guidelines,culture of india, complete information,special interest packages, cuisine tours india,culinary tours india",
-  heroSrc: site.IMG("cuisine.jpg"),
+  heroSrc: site.IMG("cuisine.webp"),
   heroAlt: "India: Cuisine",
   nav: site.nav('', false),
   footCols: site.footCols(),

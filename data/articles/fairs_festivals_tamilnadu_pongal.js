@@ -10,7 +10,7 @@ module.exports = {
   title: "Fair Festivals of South India,Tamilnadu Pongal Fair",
   description: "South India fair and festivals, explore Tamilnadu with Fair and festival tours of Pongal and other tourist cities of Tamilnadu and South India, ",
   keywords: "India,south India,Tamilnadu fair, fairs,festivals, Pongal, fair festivals tours",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Pongal",
   nav: site.nav('', false),
   footCols: site.footCols(),

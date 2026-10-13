@@ -42,7 +42,7 @@
 
 <%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
 
-<%- include('partials/sky-hero', { title: d.heading, theme: d.heading + ' ' + d.url, tint: 'cool' }) %>
+<%- include('partials/photo-hero', { title: d.heading, img: d.heroSrc, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
 
 <% if (facts.length) { %>
 <section class="af az az-a" aria-label="At a glance">
@@ -120,7 +120,7 @@
 </section>
 <% } %>
 
-<%- include('partials/listing-sections', { L: d.listings }) %>
+<%- include('partials/popular-tours', { current: d.url }) %>
 
 <%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
 

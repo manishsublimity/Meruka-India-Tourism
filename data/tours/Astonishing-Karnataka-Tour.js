@@ -9,7 +9,7 @@ module.exports = {
   title: "Astonishing Karnataka Tour,South India Hill Station tour Package",
   description: "Discover South India covering astonishing Karnataka,  Bangalore, Mysore Palace, Ooty Nilgiri hills, Kodaikanal hill station, customizable Karnataka tour packages.",
   keywords: "karnataka tour package,tour plan, bangalore mysore ooty kodaikanal tour,south india hill stations tour,karnataka holiday package,india holiday package,india tour itinerary,india travel itinerary,india tour plan,private india tour,customized india tour,budget karnataka tour,budget bangalore tour,budget mysore tour,budget ooty tour,budget kodaikanal tour,srirangapatna tour,mysore palace tour,ooty toy train,kodaikanal hill station,coonoor sightseeing,nilgiri mountain railway tour,south india tour package",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),

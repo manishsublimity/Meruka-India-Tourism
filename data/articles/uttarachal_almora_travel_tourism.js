@@ -10,7 +10,7 @@ module.exports = {
   title: "North India,Tourism,Uttaranchal Travel,Tours,Almora City Guide",
   description: "Explore North India, tourism destination of Uttaranchal, tours and travel itineraries, Almora city guide, holidays and trip planning, tailor made and customized holidays, tourist places, guide, holidays and trip by private car, summer and winter holiday packages",
   keywords: "india, indian, almora, tourism, travel itineraries, uttaranchal tourism, north india tours, holidays north india, summer holidays, winter holidays, indian holidays, packages, private car tours, north india, destination",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Almora",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "Uttar Pradesh Tourism,Uttar Pradesh Holiday Packages,Uttar Pradesh Travel Plan",
   description: "",
   keywords: "",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Uttar Pradesh",
   nav: site.nav('', false),
   footCols: site.footCols(),

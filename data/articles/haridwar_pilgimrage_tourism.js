@@ -10,7 +10,7 @@ module.exports = {
   title: "Haridwar Pilgrimage,Haridwar Tourism,Holidays Trip to Haridwar",
   description: "India Tourism Offer - Haridwar Pilgrimage, Haridwar Tourism, Holidays Trip To Haridwar, Haridwar Rishikesh Tours, Haridwar Rishikesh Tours Packages, Uttaranchal Haridwar Tourism Information, Tourist Places In  Delhi And Rajasthan ",
   keywords: "Haridwar Pilgrimage, Haridwar Tourism, Holidays Trip To Haridwar, Haridwar Rishikesh Tours, Haridwar Rishikesh Tours Packages, Uttaranchal Haridwar Tourism Information, Tourist Places In  Delhi And Rajasthan, uttaranchal, india, indian pilgrimage, haridwar, rishikesh, tourism guide, rajasthan haridwar tours, delhi rishikesh tourism, delhi rajasthan tour packages, holidays, pilgrimage india trip, indian holy palaces, yoga tourism in rishikesh, tours packages, pilgrimage destinations india, tourist places, indian tourists palace, sightseeing, uttaranchal haridwar tourism, uttaranchal holy places, uttaranchal haridwar tours",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Haridwar",
   nav: site.nav('', false),
   footCols: site.footCols(),

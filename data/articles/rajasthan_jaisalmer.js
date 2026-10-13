@@ -10,7 +10,7 @@ module.exports = {
   title: "Jaisalmer Rajasthan Desert Tours Safari, Desert Travel Jaisalmer, Jaisalmer Thar Desert",
   description: "Well planned tours to explore desert tours of Jaisalmer Rajasthan, desert tour itineraries of Jaisalmer, Jaisalmer Thar desert tourist destinations of Jaisalmer, Rajasthan India, desert camel safari,  Jaisalmer city guide, Jaisalmer sightseeing places, visit and trip to Jaisalmer, Rajasthan, stay, climate, routing, distances in Jaisalmer Rajasthan  ",
   keywords: "official website, jaisalmer, india, indian rajasthan, desert holidays, desert tours, jaisalmer hotels, trip to jaisalmer, jaisalmer tourism, jaisalmer tours, desert tours of jaisalmer rajasthan, desert tour itineraries of jaisalmer, jaisalmer thar desert tourist destinations of jaisalmer, rajasthan india, jaisalmer city guide, jaisalmer sightseeing places, visit and trip to jaisalmer, rajasthan desert cities,  rajasthan desert places, monuments of rajasthan, stay, climate,  jaisalmer routing, distances in jaisalmer rajasthan, indian desert tours, camel safari in jaisalmer, rajasthan culture tours",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Jaisalmer",
   nav: site.nav('', false),
   footCols: site.footCols(),

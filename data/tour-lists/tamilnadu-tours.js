@@ -9,7 +9,7 @@ module.exports = {
   title: "Tamilnadu Tours Travel,South India Pilgrimage Destination,South India Temples",
   description: "Explore Indian temples with Tamilnadu packages, Tamil nadu tours and travel, make your visit to South India pilgrimage destination, South India Temples tours budget packages, Tamilnadu travel itineraries",
   keywords: "indian temples,tamilnadu packages,tamil nadu tours,travel, tamilnadu culture,heritage tours,south india pilgrimage destination,south india temples,tours,budget packages,tamilnadu travel itineraries",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Tamilnadu Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -37,7 +37,7 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Glimpses of Tamil Nadu Tour", href: site.link("south_india_tamilnadu_tour.html"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Chennai", duration: "09 Nights - 10 Days" },
+        { name: "Glimpses of Tamil Nadu Tour", href: site.link("south_india_tamilnadu_tour.html"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Chennai", duration: "08 Nights - 09 Days" },
         { name: "Marvelous Tamil Nadu Temple Tour", href: site.link("tamilnadu_tours_packages.html"), route: "Chennai - Tirupati - Mahabalipuram - Kanchipuram - Pondicherry - Chidambaram - Nalladai - Nagapattinam - Tanjore - Trichy - Madurai - Chennai", duration: "10 Nights - 11 Days" },
         { name: "Spiritual Tamil Nadu Tour", href: site.link("south_india_temples_spritual_tours.html"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Rameshwaram - Kanyakumari - Trivandrum", duration: "11 Nights - 12 Days" },
         { name: "South India Temples and Spiritual Tour", href: site.link("southindia_temples_tourism.html"), route: "Trichy - Vellore - Tirupati - Kalahasti - Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Kumbakonam - Puthukottai - Trichy", duration: "12 Nights - 13 Days" }

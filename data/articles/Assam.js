@@ -10,7 +10,7 @@ module.exports = {
   title: "East India Assam,Assam North East India Wildlife Tour,Assam Itineraries",
   description: "North East India Assam, Assam wildlife tour packages, Assam travel itineraries, Assam wildlife tours plan, North East India wildlife tour destinations, Assam North East India tour itineraries",
   keywords: "east india,north east india,india tourism,assam,north east India tour,assam wildlife tour itineraries,assam wildlife tour destinations,north east india travel plan,assam tours package,east india tour itineraries",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Assam Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

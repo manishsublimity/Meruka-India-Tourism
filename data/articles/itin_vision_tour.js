@@ -10,7 +10,7 @@ module.exports = {
   title: "South India Travel Packages,Northern India Tours,Incredible India",
   description: "Well planned tours package to explore most exotic tourist destinations of Southern and Northern India, West India tourism with holiday packages for Southern and Northern sector, best deal on Incredible India tour packages and travel related services",
   keywords: "west india tourism,southern india,northern india,incredible india tour packages,southern india tours,northern india trip,india tour guide,northern india holidays packages,individual travelers,best deal,tourists,indian tour itineraries,travelers india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Vision of India Tour",
   nav: site.nav('', false),
   footCols: site.footCols(),

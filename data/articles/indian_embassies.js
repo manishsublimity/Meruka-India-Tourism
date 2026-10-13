@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Embassies For Tourist Visa",
   description: "Indian Embassies, Embassies Of India, Indian Government Embassies of The World to obtain visa to travelIndia, tourist visa,  Contact Details, Phone Numbers, Locations, Embassy Consulates In Overseas Counties Europe, Asian Help Official Information",
   keywords: "indian embassies, embassies of india, indian embassies inf, worldwide address, visa travel india,  location of embassies, embassies of the world, contact details, phone numbers, American embassy indian, information on visa to india, consulates of the world, india, embassies, indian embassies, india embassy, world wide, information, guide, assistance, contact details, Europe, Asian, middle east, indian travel visa obtain,  fast east, tourist visa, government, travelling india, location of embassies, official assistance, consulate of indian embassies",
-  heroSrc: site.IMG("indian-embasy.jpg"),
+  heroSrc: site.IMG("indian-embasy.webp"),
   heroAlt: "Indian Embassies Abroad",
   nav: site.nav('', false),
   footCols: site.footCols(),

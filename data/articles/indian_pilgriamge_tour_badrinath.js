@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Pilgrimage Tour",
   description: "India Tourism Offer - India Pilgrimage Tourism, Badrinath travel plan, Indian Pilgrimage tour Packages, Explore  Indian pilgrimage travel destinations",
   keywords: " india pilgrimage tourism, badrinath travel guide, indian pilgrimage tour packages, explore india pilgrimage tourism, indian pilgrimage tour packages, travel destinations,  uttaranchal pilgrimage tour, badrinathh tour, india, indian, india pilgrimage tourism, india pilgrimage tours, tour packages, uttaranchal travel guide, badrinath travel, badrinath pilgrimage city guide, indian pilgrimage holidays, pilgrimage trip india ",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Badrinath",
   nav: site.nav('', false),
   footCols: site.footCols(),

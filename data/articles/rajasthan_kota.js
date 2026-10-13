@@ -10,7 +10,7 @@ module.exports = {
   title: "Rajasthan Kota Tours, Kota Bundi City Guide, Travel and Trip to Udaipur, Holidays Packages Kota Rajasthan",
   description: "Well planned Rajasthan  tour packages and itineraries to explore Rajasthan Kota Bundi, tourism guide Rajasthan, Kota travel guide, trip to Kota, Holidays in Kota Rajasthan, city travel guide, day to day sightseeing Udaipur",
   keywords: "official website, rajasthan websites, india, indian, rajasthan, udaipur, kota trip, kota tours, kota holiday packages, rajasthan kota sightseeing, kota holiday package, sightseeing rajasthan, rajasthan kota village tours, rural travel in rajasthan,  kota bundi heritage tourism, travel guide udaipur, hotel stay, accommodation udaipur, rajasthan heritage tours, rajasthan culture tours, kota forts, kota palaces, kota monuments, vacation tours of kota rajasthan",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Kota",
   nav: site.nav('', false),
   footCols: site.footCols(),

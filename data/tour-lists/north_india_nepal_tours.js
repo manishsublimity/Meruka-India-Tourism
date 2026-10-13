@@ -9,7 +9,7 @@ module.exports = {
   title: "Nepal Tour Packages, Nepal Kathmandu Travel Plan, North India Nepal Tourism",
   description: "We offer the well-designed North India with Nepal tours, holidays and tour packages with cost for North India and Nepal tourism, long and short holidays package, travel plan to explore best tourist cities of North India-Nepal, Kathmandu and Chitwan wildlife travel packages",
   keywords: "nepal tour itinerary,north india tours travel,nepal tours,holidays tour packages,north india,nepal tourism,buddhist sectors tour packages,holidays package,heritage tours,travel plan,explore india,tourist cities,north india,nepal,kathmandu trip,chitwan wildlife travel packages",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "North India-Nepal Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -37,9 +37,9 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Scenic of Nepal Tour", href: site.link("nepal_tours.html"), route: "Delhi - Kathmandu - Pokhra - Kathmandu - Delhi", duration: "06 Nights - 07 Days" },
-        { name: "Explore Nepal wildlife Tour", href: site.link("wildlife_nepal_tours.html"), route: "Delhi - Kathmandu - Chitwan - Pokhara - Kathmandu - Delhi", duration: "08 Nights - 09 Days" },
-        { name: "Rajasthan with Nepal Tour", href: site.link("rajasthan_nepal_tours.htm"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Bijaipur - Ranthambhore - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi - Kathmandu - Chitwan - Pokhara - Kathmandu - Delhi", duration: "25 Nights - 26 Days" }
+        { name: "Scenic of Nepal Tour", href: site.link("nepal_tours.html"), route: "Delhi - Kathmandu - Pokhara - Kathmandu - Delhi", duration: "06 Nights - 07 Days" },
+        { name: "Explore Nepal Wildlife Tour", href: site.link("wildlife_nepal_tours.html"), route: "Delhi - Kathmandu - Chitwan - Pokhara - Kathmandu - Delhi", duration: "08 Nights - 09 Days" },
+        { name: "Rajasthan with Nepal Tour", href: site.link("rajasthan_nepal_tours.htm"), route: "Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi - Kathmandu - Chitwan - Pokhara - Kathmandu - Delhi", duration: "25 Nights - 26 Days" }
       ]
     }
   ],

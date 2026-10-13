@@ -10,7 +10,7 @@ module.exports = {
   title: "India Hill Stations Tourism,India Hill Station Tour Package,India Hill Staion Tour",
   description: " India Hill Stations Tour Operators Provide - India Hill Stations Tourism, India Hill Station Tour Package, India Hill Staion Tour, India Hill Stations Tourism Guide, Travel And Tour Packages, Hill Station Tour Packages, Tamilnadu Nature  Tours, Tourism Guide",
   keywords: " india hill stations tourism, india hill station tour package, india hill staion tour, india hill stations tourism guide, travel and tour packages, hill station tour packages, tamilnadu nature  tours, tourism guide, popular hill stations south and north india, hill stations, hill, stations, india, indian hill stations, south india, north india,holidays guide, nature tour packages, tour packages hill stations, south india hill stations, north india tourism guide, india hill stations trip, rajasthan, kerala, tamilnadu, uttaranchal, andhra pradesh, tamilnadu hill stations,  mussoorie, ooty, kodaikanal, munnar, mount abu, darjeeling, sikkim, north east india  ",
-  heroSrc: site.IMG("hill-station.jpg"),
+  heroSrc: site.IMG("hill-station.webp"),
   heroAlt: "Hill Stations Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

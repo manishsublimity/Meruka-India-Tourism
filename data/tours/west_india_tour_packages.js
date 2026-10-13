@@ -9,7 +9,7 @@ module.exports = {
   title: "West India Tours,Wildlife Tour Packages,West India Travel Itineraries",
   description: "Well planned travel itineraries to explore West and North India wildlife tour destinations, tourism guide for West India and North India, wildlife tours package, enjoy budget and luxury holiday packages for Maharashtra and Gujarat sector",
   keywords: "west india tours,north india tour,budget tours west india,india holiday packages,private tours,holidays maharashtra,budget tours,luxury tours,tourism in india,indian tourist sectors,travel tips,gujarat travel guide,gujarat trip,vacations tours,indian tourist destinations tours",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -143,23 +143,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Elephanta Caves",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " and ",
-          "bold": false
-        },
-        {
-          "text": "Chhatrapati Shivaji Maharaj Vastu Sangrahalaya",
-          "bold": true
-        },
-        {
-          "text": " are closed on Mondays.",
+          "text": " Elephanta Caves and Chhatrapati Shivaji Maharaj Vastu Sangrahalaya are closed on Mondays.",
           "bold": false
         }
       ]
@@ -232,15 +220,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Ajanta Caves",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " are closed on Mondays.",
+          "text": " Ajanta Caves are closed on Mondays.",
           "bold": false
         }
       ]
@@ -291,15 +275,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Ellora Caves",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " are closed on Tuesdays.",
+          "text": " Ellora Caves are closed on Tuesdays.",
           "bold": false
         }
       ]
@@ -326,15 +306,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Mandu",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " is on India's UNESCO Tentative List, but is not currently a World Heritage Site.",
+          "text": " Mandu is on India's UNESCO Tentative List, but is not currently a World Heritage Site.",
           "bold": false
         }
       ]
@@ -503,15 +479,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: Temple entry and darshan at ",
-          "bold": false
-        },
-        {
-          "text": "Mahakaleshwar Temple",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " are subject to current security, dress and booking regulations.",
+          "text": " Temple entry and darshan at Mahakaleshwar Temple are subject to current security, dress and booking regulations.",
           "bold": false
         }
       ]
@@ -608,15 +580,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: The ",
-          "bold": false
-        },
-        {
-          "text": "Sanchi Archaeological Museum",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " is currently closed on Fridays.",
+          "text": " The Sanchi Archaeological Museum is currently closed on Fridays.",
           "bold": false
         }
       ]
@@ -713,23 +681,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Gujari Mahal Archaeological Museum",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " is closed on Mondays. ",
-          "bold": false
-        },
-        {
-          "text": "Jai Vilas Palace",
-          "bold": true
-        },
-        {
-          "text": " is closed on Wednesdays.",
+          "text": " Gujari Mahal Archaeological Museum is closed on Mondays. Jai Vilas Palace is closed on Wednesdays.",
           "bold": false
         }
       ]
@@ -874,15 +830,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: The visit to ",
-          "bold": false
-        },
-        {
-          "text": "Raneh Falls",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " is subject to seasonal water levels and local access conditions.",
+          "text": " The visit to Raneh Falls is subject to seasonal water levels and local access conditions.",
           "bold": false
         }
       ]
@@ -1022,15 +974,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: Access to ",
-          "bold": false
-        },
-        {
-          "text": "Bandhavgarh Fort",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " is subject to current forest and local authority regulations. Core-zone safaris are generally closed on Wednesday afternoons.",
+          "text": " Access to Bandhavgarh Fort is subject to current forest and local authority regulations. Core-zone safaris are generally closed on Wednesday afternoons.",
           "bold": false
         }
       ]
@@ -1221,7 +1169,7 @@ module.exports = {
   details: [
     {
       "title": "Tour Pricing Details",
-      "text": "The final cost of a customized tour varies depending on accommodation choices, travel period, number of travellers and individual preferences. The following indicative price range is based on a minimum of two persons sharing a double room.",
+      "text": "The final cost of a customized tour varies depending on accommodation choices, travel period, number of travellers and individual preferences. While an exact quotation can be provided upon finalization of details, the following indicative price range will help you plan your holiday (based on a minimum of two persons sharing a double room together).",
       "items": [
         [
           {
@@ -1375,79 +1323,43 @@ module.exports = {
         ],
         [
           {
-            "text": "Elephanta Caves",
-            "bold": true
-          },
-          {
-            "text": " and ",
-            "bold": false
-          },
-          {
-            "text": "Chhatrapati Shivaji Maharaj Vastu Sangrahalaya",
-            "bold": true
-          },
-          {
-            "text": " are closed on Mondays.",
+            "text": "Elephanta Caves and Chhatrapati Shivaji Maharaj Vastu Sangrahalaya are closed on Mondays.",
             "bold": false
           }
         ],
         [
           {
-            "text": "Ajanta Caves",
-            "bold": true
-          },
-          {
-            "text": " are closed on Mondays.",
+            "text": "Ajanta Caves are closed on Mondays.",
             "bold": false
           }
         ],
         [
           {
-            "text": "Ellora Caves",
-            "bold": true
-          },
-          {
-            "text": " are closed on Tuesdays.",
+            "text": "Ellora Caves are closed on Tuesdays.",
             "bold": false
           }
         ],
         [
           {
-            "text": "Gujari Mahal Archaeological Museum",
-            "bold": true
-          },
-          {
-            "text": " is closed on Mondays.",
+            "text": "Gujari Mahal Archaeological Museum is closed on Mondays.",
             "bold": false
           }
         ],
         [
           {
-            "text": "Jai Vilas Palace",
-            "bold": true
-          },
-          {
-            "text": " is closed on Wednesdays.",
+            "text": "Jai Vilas Palace is closed on Wednesdays.",
             "bold": false
           }
         ],
         [
           {
-            "text": "Sanchi Archaeological Museum",
-            "bold": true
-          },
-          {
-            "text": " is closed on Fridays.",
+            "text": "Sanchi Archaeological Museum is closed on Fridays.",
             "bold": false
           }
         ],
         [
           {
-            "text": "Bandhavgarh, Kanha and Pench",
-            "bold": true
-          },
-          {
-            "text": " safari operations are seasonal and subject to current forest department regulations, permits and zone availability.",
+            "text": "Bandhavgarh, Kanha and Pench safari operations are seasonal and subject to current forest department regulations, permits and zone availability.",
             "bold": false
           }
         ],
@@ -1471,15 +1383,7 @@ module.exports = {
         ],
         [
           {
-            "text": "Access to ",
-            "bold": false
-          },
-          {
-            "text": "Bandhavgarh Fort",
-            "bold": true
-          },
-          {
-            "text": " is subject to current forest and local authority regulations.",
+            "text": "Access to Bandhavgarh Fort is subject to current forest and local authority regulations.",
             "bold": false
           }
         ],

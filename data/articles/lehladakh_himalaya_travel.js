@@ -10,7 +10,7 @@ module.exports = {
   title: "Leh Ladakh Himalaya Travel,Leh Ladakh Travel,Leh Tourism Guide",
   description: "Well Planned And Organized Tours To Leh And Ladakh, Leh Ladakh Himalaya Travel, Leh Ladakh Travel, Jammu Kashmir Tours Packages, Leh Ladakh Tours Itineraries, Leh Tourism Guide, Leh Tourism, Leh Tour Operators ",
   keywords: "",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Leh Ladakh",
   nav: site.nav('', false),
   footCols: site.footCols(),

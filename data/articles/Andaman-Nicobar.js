@@ -10,7 +10,7 @@ module.exports = {
   title: "Andaman Nicobar Tours,Andaman Nicobar Tour Packages",
   description: "Andaman Nicobar tour operators offer Andaman Nicobar tours package with best deal,travel itineraries and tour plan of Andaman Nicobar with West, North and South India",
   keywords: "India,Indian andaman nicobar tours,south india andaman nicobar,best deal,north india andaman,nicobar tour,andaman nicobar travel itineraries,tour andaman,travel plan,andaman tour,andaman nicobar island tour itineraries",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Andaman & Nicobar Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

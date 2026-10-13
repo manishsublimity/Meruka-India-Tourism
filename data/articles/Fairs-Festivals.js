@@ -10,7 +10,7 @@ module.exports = {
   title: "Fair Festivals,South North India,Pushkar Fair Tour, Rajasthan,Fair Festival Tours",
   description: "North India, Rajasthan Fair Festivals tours, South India Tamilnadu  Pongal, Holi Festival India, Pushkar Fair, Makar Sankranti In India, Diwali Festival India",
   keywords: "India,south india,north india,fair festival tours,pushkar fair,Pongal fair tours,fair festival tours india",
-  heroSrc: site.IMG("fairs-festival.jpg"),
+  heroSrc: site.IMG("fairs-festival.webp"),
   heroAlt: "India: Fairs & Festivals",
   nav: site.nav('', false),
   footCols: site.footCols(),

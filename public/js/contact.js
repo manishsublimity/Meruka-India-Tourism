@@ -42,6 +42,13 @@
   // Pre-fill the tour when arriving from a tour page (?tour=...)
   var params = new URLSearchParams(location.search), wanted = params.get('tour');
   if (params.get('hotel')) form.elements.hotel.value = params.get('hotel') + ' hotels';
+  // ...and the start date and party size from a tour page's "Check Availability" (?date=2026-11-20&people=2)
+  var dt = /^(\d{4})-(\d{2})-\d{2}$/.exec(params.get('date') || '');
+  if (dt) {
+    var mo = form.elements.month.options[+dt[2]]; if (mo) form.elements.month.value = mo.value;
+    if (Array.prototype.some.call(form.elements.year.options, function (o) { return o.value === dt[1]; })) form.elements.year.value = dt[1];
+  }
+  if (/^\d{1,3}$/.test(params.get('people') || '')) form.elements.people.value = params.get('people');
   if (wanted) {
     var opt = Array.prototype.find.call(form.elements.tour.options, function (o) { return o.value === wanted; });
     if (opt) form.elements.tour.value = wanted;

@@ -4,7 +4,7 @@ const { IMG } = site;
 
 module.exports = {
   listings: require('./listings'),
-  heroSrc: IMG('about-us.jpg'),
+  heroSrc: IMG('about-us.webp'),
   nav: site.nav('About Us'),
   footCols: site.footCols('About Us'),
 

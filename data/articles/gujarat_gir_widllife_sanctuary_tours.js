@@ -10,7 +10,7 @@ module.exports = {
   title: "Gujarat Wildlife Tours,Tourism in Gujarat,Sasan Gir Gujarat",
   description: "Explore Gujarat wildlife tours, Visit Sasan Gir National Park in Gujarat and other tourist places of Gujarat, wildlife tourism in Gujarat, tours packages Gujarat",
   keywords: " explore indian wildlife, gujarat wildlife tour, sasan gir national park, wildlife sanctuary travel, trip and holiday guide, gujarat wildlife tourism, holidays in gujarat, wildlife sanctuary travels india, india rajasthan, india wildlife tourism, rajasthan tours, Ranthambore wildlife sanctuary, wildlife holidays, wildlife trip, tourist destinations wildlife, tiger reserve, national park, Ranthambore tourism, wildlife tourism north india, sanctuary rajasthan, national parks tours india, india wildlife trip, rajasthan wildlife tours, travel wildlife india, Ranthambore travel, parks, rajasthan tour packages, holidays",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Gir Wildlife Sanctuary",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -9,7 +9,7 @@ module.exports = {
   title: "Explore Karnataka Tourism,Karnataka Tours,South India Travel Guide",
   description: "Karnataka tour operator offering most exotic and well-designed tour of Karnataka with all travel related services, South India travel guide, short and long trip of Karnataka and South India tourism",
   keywords: "south india,karnataka tour operators,holidays tour packages,karnataka tourist sector,karnataka nature tourist cities,south india travel guide,bangalore tours,travel mysore,ooty trip,karnataka heritage package,ancient temple tours,karnataka hill stations,karnataka wildlife tours",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Karnataka Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),

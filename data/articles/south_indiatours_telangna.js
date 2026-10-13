@@ -10,7 +10,7 @@ module.exports = {
   title: "South India,South India Tours,Travel Plan,Tours Packages South India",
   description: "Explore South India with our suggested tours plan, South India Telangana tours offering South India beaches, temples, Ayurveda, South India wildlife, hill stations, historical monuments covering South India states, Karnataka, Kerala, Telangana, Andhra and Telangana",
   keywords: "south india, south india tours, south india travel plan, tour itineraries, wildlife, south india beaches, historical places, telangana, south india andhra tours, beaches, south india tamilnadu tours package, holidays, south india temple tours, south india kerala tour itineraries, south india states, karnataka south india tours",
-  heroSrc: site.IMG("south-india.jpg"),
+  heroSrc: site.IMG("south-india.webp"),
   heroAlt: "Telangana",
   nav: site.nav('', false),
   footCols: site.footCols(),

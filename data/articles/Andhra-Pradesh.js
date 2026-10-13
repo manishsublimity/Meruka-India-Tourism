@@ -10,7 +10,7 @@ module.exports = {
   title: "Andhra Pradesh Travel,South India Tour Operators,South India Tour Plan,Andhra Pradesh Tour Itinerary",
   description: "South India Andhra Pradesh travel agency offer tour itinerary with best tour packagesj for Tamilnadu, Kerala and Karnataka, South India Andhra Pradesh tour plan, explore beaches and temples with our travel itineraries and packages of South India",
   keywords: "south India,andhra pradesh,south india andhra pradesh tour,kerala,travel itineraries,tour operators,tamailndu,south india tourism,karnataka,andhra pradesh tour packages,temple beaches tourism,andhra pradesh tour itinerary,tamilnadu tour,karnataka travel itinerary,south india tour plan,andhra pradesh travel plan,kerala south India tour,tamilnadu tour packgaes,tour packages south india",
-  heroSrc: site.IMG("south-india.jpg"),
+  heroSrc: site.IMG("south-india.webp"),
   heroAlt: "Andhra Pradesh",
   nav: site.nav('', false),
   footCols: site.footCols(),

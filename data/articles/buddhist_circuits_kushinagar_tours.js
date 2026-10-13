@@ -10,7 +10,7 @@ module.exports = {
   title: "India Buddhist Circuits Tours",
   description: "IndiaTour Operators Offer, India Buddhist Circuits tours, Buddha tours packages, India Nepal Buddhist tours, Kushinagar tours, Buddha travel plan, India buddhist pilgrimage tour",
   keywords: "Buddhist Tour Operators,India Buddhist Circuits tours,Buddha travel plan, India Nepal Buddhist tours,tour packages,Kushinagar tours,Buddha tourism, Nepal Buddhist Circuits tours,India buddhist pilgrimage tour",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Kushinagar",
   nav: site.nav('', false),
   footCols: site.footCols(),

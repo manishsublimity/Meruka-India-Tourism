@@ -10,7 +10,7 @@ module.exports = {
   title: "Maharashtra Tour,Mumbai Travel Agents,Maharashtra Tour Operators",
   description: " Maharashtra tour operators and Mumbai travel agents offers best tour itineraries and travel plan to explore most exotic tourist destinations of Maharashtra and nearby to Mumbai",
   keywords: "maharashtra tour, maharashtra tour packages,india maharashtra,mumbai travel agents, maharashtra travel plan,maharashtra tour itineraries, tourist destinations, goa tours, travel agents,mumbai tour operators",
-  heroSrc: site.IMG("west-india.jpg"),
+  heroSrc: site.IMG("west-india.webp"),
   heroAlt: "Maharashtra Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

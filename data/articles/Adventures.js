@@ -10,7 +10,7 @@ module.exports = {
   title: "North South India Adventure Tour,Adventures Travel Plan",
   description: "India adventure tours, North South India adventures travel plan, adventures destinations tours  in India, North South India tour plan, day wise tour plan,India Tour Itineraries",
   keywords: "india,north india,south india,adventure tourism,north india adventure tours, south india adventures tourism,adventure destinations,day wise,tour plan,itineraries,North South India Tour Itineraries,India Tourism, adventure tourism India",
-  heroSrc: site.IMG("adventure.jpg"),
+  heroSrc: site.IMG("adventure.webp"),
   heroAlt: "Adventure Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "International Flight, Domestics Flight,Airport Information",
   description: "Meruka India tourism Service provide Airport Information, International and Domestics Flight, Travel Planning, flight tracker, flight status",
   keywords: "meruka india tourism servies, airport information, international and domestics flight, airport delays, departures, arrivals, travel planning, flight tracker, flight status",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Flights",
   nav: site.nav('', false),
   footCols: site.footCols(),

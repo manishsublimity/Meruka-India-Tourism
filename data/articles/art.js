@@ -10,7 +10,7 @@ module.exports = {
   title: "India Culture,Arts and Crafts Shopping Tours,Theme Tours of India",
   description: "India Tourism Offers - Information about Indian Culture Tourism, India Arts Crafts, Shopping and Leisure tours, theme tours of India to explore culture and arts of India",
   keywords: "india Tourism,india arts,india crafts,shopping,Indian culture Tourism,India Arts Crafts,arts india,india Shopping tours,theme tours india, travel guide,explore india culture,places of inertest",
-  heroSrc: site.IMG("art.jpg"),
+  heroSrc: site.IMG("art.webp"),
   heroAlt: "India - Art",
   nav: site.nav('', false),
   footCols: site.footCols(),

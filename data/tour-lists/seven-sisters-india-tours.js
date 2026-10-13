@@ -9,7 +9,7 @@ module.exports = {
   title: "Seven Sisters India Tours,North East India Tribal Tours Packages,Travel Plan North East India",
   description: "Most popular tribal and culture tours of Seven Sisters of India, North East India tours packages for Nagaland, Assam, Arunachal Pradesh, Mizoram, Manipur and Meghalaya tours itineraries, travel plan for North East India",
   keywords: "india,seven sisters tours,travel plan seven sisters of india,tour cost,india tribal tours,tour packages with cost,north east india tribal tours packages, mizoram tribal tours,holiday packages cost,north east india wildlife tours,arunachal pradesh tours,tribal travel itineraries,assam wildlife tours,manipur mizoram tribal wildlife,tour packages cost,north east india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Seven Sisters India Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -37,11 +37,11 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Nagaland and Kaziranga National Park Tour", href: site.link("north_east_tour.html"), route: "Kolkata - Dimapur - Khonoma - Kohima - Touphema - Wokha - Longkhum - Mockokchung - Jorhat - Majauli - Jorhat - Kaziranga - Shillong - Cherrapunjee - Guwahati", duration: "13 Nights - 14 Days" },
+        { name: "Nagaland and Kaziranga National Park Tour", href: site.link("north_east_tour.html"), route: "Kolkata - Dimapur - Khonoma - Kohima - Touphema - Wokha - Longkhum - Mokokchung - Jorhat - Majuli - Jorhat - Kaziranga - Shillong - Cherrapunjee - Guwahati - Kolkata", duration: "13 Nights - 14 Days" },
         { name: "Unexplored Arunachal Tour", href: site.link("north_east_widllife_tribal_tour.html"), route: "Guwahati - Shillong - Cherrapunjee - Kaziranga - Bhalukpong - Bomdila - Dirang - Tawang - Guwahati", duration: "13 Nights - 14 Days" },
-        { name: "Tribal and Culture Tour", href: site.link("north_east_tribal_tours_travel.htm"), route: "Guwahati - Aizawl - Silchar - Unakoti - Kailashahar - Agartala - Imphal - Ukhrul - Kohima - Khonoma - Kohima - Touphema - Mokokchung - Jorhat -Kaziranga - Shillong - Cherrapunjee - Guwahati", duration: "21 Nights - 22 Days" },
-        { name: "North East Tribal & Culture Tour", href: site.link("northeast_tribal_tours_packages.html"), route: "Guwahati - Eco camp/Bhalukpong - Dirang - Sela Pass - Tawang - Bomdila - Itanagar - Ziro -Daporijo - Along - Dibrugarh - Mon - Longwa - Tuensang - Noklak - Pangsha - Mokokchung - Touphema Bawe - Kohima - Khonoma - Kohima - Dimapur", duration: "22 Nights - 23 Days" },
-        { name: "Amazing North East Tour", href: site.link("north_east_india_widlife_tours.html"), route: "Guwahati - Eco camp/Bhalukpong - Dirang - Sela Pass - Tawang - Bomdila - Itanagar Ziro - Daporijo - Along - Dibrugarh - Mon - Longwa - Tuensang - Noklak - Pangsha Mokokchung - Touphema Bawe - Kohima - Khonoma - Kohima - Kaziranga National Park - Shillong - Cherrapunjee - Guwahati", duration: "28 Nights - 29 Days" }
+        { name: "Tribal and Culture Tour", href: site.link("north_east_tribal_tours_travel.htm"), route: "Guwahati - Aizawl - Silchar - Unakoti - Kailashahar - Agartala - Imphal - Ukhrul - Kohima - Khonoma - Kohima - Touphema - Mokokchung - Jorhat - Kaziranga - Shillong - Cherrapunjee - Guwahati", duration: "21 Nights - 22 Days" },
+        { name: "North East Tribal & Culture Tour", href: site.link("northeast_tribal_tours_packages.html"), route: "Guwahati - Eco Camp/Bhalukpong - Dirang - Sela Pass - Tawang - Bomdila - Itanagar - Ziro - Daporijo - Along - Dibrugarh - Mon - Longwa - Tuensang - Noklak - Pangsha - Mokokchung - Touphema Bawe - Kohima - Khonoma - Kohima - Dimapur", duration: "22 Nights - 23 Days" },
+        { name: "Amazing North East Tour", href: site.link("north_east_india_widlife_tours.html"), route: "Guwahati - Eco Camp/Bhalukpong - Dirang - Sela Pass - Tawang - Bomdila - Itanagar - Ziro - Daporijo - Along - Dibrugarh - Mon - Longwa - Tuensang - Noklak - Pangsha - Mokokchung - Touphema Bawe - Kohima - Khonoma - Kohima - Kaziranga National Park - Shillong - Cherrapunjee - Guwahati", duration: "28 Nights - 29 Days" }
       ]
     }
   ],

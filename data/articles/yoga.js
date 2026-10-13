@@ -10,7 +10,7 @@ module.exports = {
   title: "India Yoga Tours,Travel Plan North India Yoga Taj Mahal Tour",
   description: "Explore special interest tours of India, India Yoga tours, travel plan  and packages of Yoga and meditations tourism, tours packages for North India, Yoga Ashram in North India, Yoga tours with Taj Mahal Agra and Rajasthan",
   keywords: "india yoga tours,india yoga travel plan,north india,yoga tour packages,tour packages,north india taj mahal tours,taj mahal yoga tours,holidays north india,rajasthan yoga tours,tour plan india,north india travel plan,yoga tour packages,india yoga mediations tours,india mediations travel plan",
-  heroSrc: site.IMG("yoga.jpg"),
+  heroSrc: site.IMG("yoga.webp"),
   heroAlt: "Yoga Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

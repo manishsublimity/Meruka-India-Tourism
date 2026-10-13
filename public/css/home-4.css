@@ -266,8 +266,8 @@
    7 Oct: new logo, one blue (the header button's #336699) everywhere, simpler route line,
    big featured card aligned with the others, 3px gaps in the featured and region grids
    ===================================================================================== */
-/* logo (logo_meruka.png, full colour) in the header */
-#mk-frame.v3.h4 .mh.mh-over .mh-bird.mlogo{background:url(/assets/logo_meruka.png) center / contain no-repeat !important;-webkit-mask:none !important;mask:none !important;width:68px;aspect-ratio:1951 / 1032;filter:drop-shadow(0 2px 3px rgba(51,102,153,.25))}
+/* logo (logo_meruka.webp, full colour) in the header */
+#mk-frame.v3.h4 .mh.mh-over .mh-bird.mlogo{background:url(/assets/logo_meruka.webp) center / contain no-repeat !important;-webkit-mask:none !important;mask:none !important;width:68px;aspect-ratio:1951 / 1032;filter:drop-shadow(0 2px 3px rgba(51,102,153,.25))}
 @media (max-width:1199.98px){ #mk-frame.v3.h4 .mh.mh-over .mh-bird.mlogo{width:56px} }
 @media (max-width:479.98px){ #mk-frame.v3.h4 .mh.mh-over .mh-bird.mlogo{width:44px} }
 
@@ -374,7 +374,7 @@
    ===================================================================================== */
 /* header: brand blue, white text and logo */
 #mk-frame.v3.h4 .mh.mh-over,#mk-frame.v3.h4 .mh.mh-over.scrolled{background:#336699 !important;border-bottom:0;box-shadow:0 6px 18px rgba(14,47,110,.22)}
-#mk-frame.v3.h4 .mh.mh-over .mh-bird.mlogo{background:#fff !important;-webkit-mask:url(/assets/logo_meruka.png) center / contain no-repeat !important;mask:url(/assets/logo_meruka.png) center / contain no-repeat !important;filter:none}
+#mk-frame.v3.h4 .mh.mh-over .mh-bird.mlogo{background:#fff !important;-webkit-mask:url(/assets/logo_meruka.webp) center / contain no-repeat !important;mask:url(/assets/logo_meruka.webp) center / contain no-repeat !important;filter:none}
 #mk-frame.v3.h4 .mh.mh-over .mh-name{color:#fff;text-shadow:none}
 #mk-frame.v3.h4 .mh.mh-over .mh-link{color:#fff}
 #mk-frame.v3.h4 .mh.mh-over .mh-link .mh-chev,#mk-frame.v3.h4 .mh.mh-over .mh-link svg{color:#fff}
@@ -1103,8 +1103,8 @@
 #mk-frame.h4 .c6-amt b{font-size:clamp(78px,7.4cqw,104px) !important}
 #mk-frame.h4 .c6-amt span{margin-top:12px;font-size:34px}
 @media (max-width:767.98px){ #mk-frame.h4 .c6-amt b{font-size:68px !important} #mk-frame.h4 .c6-amt span{font-size:30px;margin-top:8px} }
-/* footer logo: the same new mark as the header (logo_meruka.png), in white */
-#mk-frame.v3.h4 .sf .sf-logo-mark.mlogo{background:#fff !important;-webkit-mask:url(/assets/logo_meruka.png) center / contain no-repeat !important;mask:url(/assets/logo_meruka.png) center / contain no-repeat !important;aspect-ratio:1951 / 1032;width:68px}
+/* footer logo: the same new mark as the header (logo_meruka.webp), in white */
+#mk-frame.v3.h4 .sf .sf-logo-mark.mlogo{background:#fff !important;-webkit-mask:url(/assets/logo_meruka.webp) center / contain no-repeat !important;mask:url(/assets/logo_meruka.webp) center / contain no-repeat !important;aspect-ratio:1951 / 1032;width:68px}
 
 /* =====================================================================================
    GLOBAL BASE — one source for the whole site (home + every inner page). Any new section or
@@ -1436,3 +1436,91 @@
 
 /* regions: the South India photo is wide; keep the whole temple tower (right side) in the tall tile */
 #mk-frame.h4 #destinations img[src*="region-south-india"]{object-position:92% center !important}
+
+/* numbers band (home and About): five items — 22 years, 1150+ guests, 135+ tours, 97.80% success, private tours */
+#mk-frame.h4 .h8-stats-in{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:1099.98px){ #mk-frame.h4 .h8-stats-in > div{padding-left:12px;padding-right:12px;gap:10px} }
+@media (max-width:899.98px){ #mk-frame.h4 .h8-stats-in{grid-template-columns:repeat(2,minmax(0,1fr))} #mk-frame.h4 .h8-stats-in > div:last-child{grid-column:1 / -1} }
+
+/* GLOBAL: 5px corners for the newer boxes too (site.css squares every corner inside #mk-frame first,
+   so each box class must be listed here). Add any new card, panel, chip or button class to this list. */
+#mk-frame.ux.v3.h4 :is(.tp2-card,.tp2-row,.tp2-filters,.tp2-chip span,.tp2-row-days,.tp2-none,.tp2-chev,.tp2-row-go,.abx-why-card,.abx-why-ic,.abx-stats,.abx-photo::after,.abx-rv,.ar-toc-box,.tp-help,.pr-card,.pr-display,.pr-tier,.sf-reach-i,.sf-top,.sf-top span,.sf-soc,.sf-ic,.sf-pay img,.rv3-proof,.ct-q,.it-note,.tc-go){border-radius:var(--mk-radius) !important}
+
+/* seasonal offer: no "View tours" button — the line fills the gold panel, larger, centred in its height */
+#mk-frame.h4 .dz-a .dz-main{justify-content:center;gap:10px;padding-top:28px;padding-bottom:28px}
+#mk-frame.h4.v3 .dz-a .dz-t{font-size:clamp(24px,2.7cqw,40px) !important;line-height:1.15 !important;max-width:900px}
+@media (max-width:639.98px){ #mk-frame.h4.v3 .dz-a .dz-t{font-size:22px !important} #mk-frame.h4 .dz-a .dz-main{padding-top:20px;padding-bottom:20px} }
+#mk-frame.h4.v3 .dz-a .dz-t{max-width:none}
+
+/* seasonal offer: the line always on one line inside the gold panel (size follows the panel width); phones may wrap */
+#mk-frame.h4 .dz-a .dz-main{container-type:inline-size;min-width:0}
+@media (min-width:640px){ #mk-frame.h4.v3 .dz-a .dz-t{white-space:nowrap;font-size:clamp(14px,2.7cqi,40px) !important} }
+@media (min-width:640px){ #mk-frame.h4.v3 .dz-a .dz-t{font-size:clamp(14px,calc((100cqi - 64px) / 29.5),40px) !important} }
+/* seasonal offer: the line fills the gold panel edge to edge, in white */
+@media (min-width:640px){ #mk-frame.h4.v3 .dz-a .dz-t{font-size:clamp(14px,calc((100cqi - 64px) / 26.6),44px) !important} }
+#mk-frame.h4.v3 .dz-a .dz-t,#mk-frame.h4.v3 .dz-a .dz-t *{color:#fff !important;text-shadow:0 1px 2px rgba(120,70,0,.45),0 2px 10px rgba(120,70,0,.25)}
+
+/* hero heading "One Country / Many Worlds...": upright again (not italic), 20% larger than before */
+#mk-frame.v3.h4 .h8-title,#mk-frame.v3.h4 .h8-title .h4-l2,#mk-frame.v3.h4 .h8-title em{font-style:normal !important}
+#mk-frame.v3.h4 .h8-title{font-size:clamp(48px,5.28cqw,76.8px) !important}
+@media (max-width:899.98px){ #mk-frame.v3.h4 .h8-title{font-size:clamp(38.4px,10.08vw,55.2px) !important} }
+
+/* Best Tour Packages: each photo placed so its subject sits in the middle of the tile */
+#mk-frame.h4 .h4-bn img[src*="red-fort-hd"]{object-position:45% 50% !important}
+#mk-frame.h4 .h4-bn img[src*="gadisar-lake-hd"]{object-position:0% 50% !important}
+#mk-frame.h4 .h4-bn img[src*="kerala-houseboat-dusk"]{object-position:30% 50% !important}
+#mk-frame.h4 .h4-bn img[src*="mysore-palace-lit"],#mk-frame.h4 .h4-bn img[src*="delhi-lotus-temple"]{object-position:50% 50% !important}
+/* South India tile: the palace raised into the middle (above the title), a little larger */
+#mk-frame.h4 .h4-bn img[src*="mysore-palace-lit"]{top:-22% !important;height:122% !important}
+
+/* finder: the same space at both ends of the blue bar (28px), so the reset button sits in as far as the first field */
+@media (min-width:900px){ #mk-frame.v3.h4 .tf4-go{margin-right:20px} }
+/* seasonal offer line: a clear amber shadow under the white letters (same family as the 10%% emboss) */
+#mk-frame.h4.v3 .dz-a .dz-t,#mk-frame.h4.v3 .dz-a .dz-t *{text-shadow:0 2px 0 #B37800,0 3px 0 rgba(140,80,0,.55),0 6px 14px rgba(90,50,0,.45) !important}
+/* seasonal offer line: a simple soft shadow (no 3D edge), just enough to lift the white letters off the gold */
+#mk-frame.h4.v3 .dz-a .dz-t,#mk-frame.h4.v3 .dz-a .dz-t *{text-shadow:0 2px 10px rgba(110,60,0,.35) !important}
+
+/* why us: the quote card runs edge to edge of the photo (16px each side); the founder line sits at the right */
+#mk-frame.h4 .wn-quote{max-width:none !important;width:auto !important;left:16px !important;right:16px !important}
+#mk-frame.h4 .wn-quote figcaption{justify-content:flex-end;text-align:right}
+
+/* FAQs (desktop): the heading on its own row, so the questions start level with the picture card; the card keeps sticking */
+@media (min-width:1100px){
+  #mk-frame.h4 #faq .fq-wrap{grid-template-rows:auto auto 1fr;row-gap:0}
+  #mk-frame.h4 #faq .fq-intro{display:contents}
+  #mk-frame.h4 #faq .fq-intro > .h4-h2{grid-column:1;grid-row:1}
+  #mk-frame.h4 #faq .fq-intro > .h4-base{grid-column:1;grid-row:2}
+  #mk-frame.h4 #faq .fq5{grid-column:1;grid-row:3;align-self:start;position:sticky;top:110px}
+  #mk-frame.h4 #faq .fq-list{grid-column:2;grid-row:3;align-self:start}
+}
+@media (min-width:1100px){ #mk-frame.h4 #faq .fq5{margin-top:0 !important} #mk-frame.h4 #faq .fq-intro > .h4-base{margin-bottom:18px} }
+
+/* "Chalk out your own private tour": the two notes as three short points each, with the same text style */
+#mk-frame.h4 .c6-list{margin:0;padding:0 0 0 18px;list-style:disc}
+#mk-frame.h4 .c6-list li{margin:0 0 6px;font-size:15px;line-height:1.55;color:#3A4A62}
+#mk-frame.h4 .c6-list li:last-child{margin-bottom:0}
+#mk-frame.h4 .c6-list li::marker{color:var(--mk-blue)}
+/* the two bullet boxes the same width */
+@media (min-width:1000px){ #mk-frame.h4 .c6-parts{grid-template-columns:minmax(0,.78fr) minmax(0,1.11fr) minmax(0,1.11fr) minmax(0,.72fr) !important} }
+
+/* header menus: Tour Packages and Destinations use the same column heading and link style (13 Oct 2026) */
+#mk-frame .mh-dd .mh-col-title{display:flex;align-items:center;gap:8px;margin:0 0 8px;padding:0;font-size:13.5px;font-weight:700;letter-spacing:0;text-transform:none;color:#0B1B33}
+#mk-frame .mh-dd .mh-col a:not(.mh-col-title){font-size:14px;color:#33445E;padding:7px 0}
+#mk-frame .mh-dd .mh-col a:not(.mh-col-title):hover{color:#336699}
+
+/* GLOBAL BUTTONS, part 2 (13 Oct 2026 site check): the buttons that still had their own height and text size
+   join the two sizes of the button system — 46px / 14.5px 800 for action buttons, 42px / 14px 800 inside cards
+   and rows. Colours and hover stay those of each button's kind (gold, blue, outline). */
+#mk-frame.ux.v3.h4 :is(.rm-all,.rm-pause,.wn-btn,.sf-btn,.fq5-cta,.pv-submit,.ct-submit,.sb-btn,.sb-plan,.pz-go,.pr-cta){height:var(--mk-btn-h) !important;min-height:0 !important;padding-top:0 !important;padding-bottom:0 !important;font-family:var(--mk-font-body) !important;font-size:14.5px !important;font-weight:800 !important;line-height:1 !important;box-sizing:border-box;border-radius:var(--mk-radius) !important}
+#mk-frame.ux.v3.h4 :is(.tp2-row-go,.pq-view,.pq-wa){height:var(--mk-btn-h-sm) !important;font-size:14px !important;font-weight:800;box-sizing:border-box}
+#mk-frame.ux.v3.h4 .sb-go{height:var(--mk-btn-h) !important;border-radius:0 var(--mk-radius) var(--mk-radius) 0 !important}
+/* contact page: filter chips, copy buttons and office rows get the same hover as the other chips */
+#mk-frame.ux.v3.h4 :is(.chip,.copy){transition:border-color var(--mk-ease),color var(--mk-ease),background-color var(--mk-ease)}
+#mk-frame.ux.v3.h4 :is(.chip,.copy):hover{border-color:var(--mk-blue) !important;color:var(--mk-blue) !important}
+#mk-frame.ux.v3.h4 .off-row{transition:border-color var(--mk-ease),box-shadow var(--mk-ease)}
+#mk-frame.ux.v3.h4 .off-row:not([aria-selected="true"]):hover{border-color:var(--mk-blue) !important;box-shadow:0 6px 16px rgba(51,102,153,.12)}
+#mk-frame.ux.v3.h4 :is(.tm-load,.az-btn-line){height:var(--mk-btn-h) !important;min-height:0 !important;padding-top:0 !important;padding-bottom:0 !important;font-size:14.5px !important;font-weight:800 !important}
+/* the search field is as tall as its button */
+#mk-frame.ux.v3.h4 .sb-go ~ input,#mk-frame.ux.v3.h4 :has(> .sb-go) > input{height:var(--mk-btn-h) !important;box-sizing:border-box}
+/* contact page: the call and map buttons written with inline styles take the compact size */
+#mk-frame.ux.v3.h4 a[style*="height:44px"][style*="background:#FFB81C"],#mk-frame.ux.v3.h4 a[style*="height:40px"][style*="background:#336699"]{height:var(--mk-btn-h-sm) !important;font-size:14px !important;font-weight:800 !important;transition:background-color var(--mk-ease),color var(--mk-ease)}

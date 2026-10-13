@@ -10,7 +10,7 @@ module.exports = {
   title: "India Goa Tourism",
   description: "India Tourism Offers - Goa Tour, Goa Beaches Tour ,Goa Tour Packages India",
   keywords: "goa tour,goa beaches tour,goa tour packages india,beaches,tourist places of goa,goa beaches tour operators",
-  heroSrc: site.IMG("west-india.jpg"),
+  heroSrc: site.IMG("west-india.webp"),
   heroAlt: "Goa Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

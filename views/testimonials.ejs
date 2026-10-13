@@ -20,7 +20,7 @@
 
 <%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
 
-<%- include('partials/sky-hero', { title: d.heading, theme: 'testimonials', feature: 'stupa', tint: 'fresh' }) %>
+<%- include('partials/photo-hero', { title: d.heading, img: d.heroSrc, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
 
 <section class="az az-a">
   <div class="az-wrap az-row">

@@ -53,12 +53,12 @@
             <span class="mh-feature-text">
               <small>MOST BOOKED</small>
               <strong>Golden Triangle Classic</strong>
-              <em>6 nights · from $545</em>
+              <em>6 nights · from USD 510</em>
             </span>
           </a>
           <% menu.pkgCols.forEach(c => { %>
           <div class="mh-col">
-            <div class="mh-col-label"><%= c.title %></div>
+            <div class="mh-col-title"><span class="mh-dot"></span><%= c.title %></div>
             <% c.items.forEach(i => { const to = menu.to(i); %><a href="<%= to %>"<%- ext(to) %>><%= i %></a><% }) %>
           </div>
           <% }) %>

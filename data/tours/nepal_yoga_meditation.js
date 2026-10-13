@@ -9,7 +9,7 @@ module.exports = {
   title: "Nepal Yoga Tour Packages,Meditation centres in Nepal",
   description: "Nepal Meditation Centres with Yoga training and information, Kathmandu sightseeing, Yoga tourism and Nepal holiday plan, holiday packages for Nepal and India",
   keywords: "nepal meditation centres,india yoga centre,meditation,travel packages,yoga training,meditation information,yoga tourism,ayurveda package,holiday packages,nepal holiday plan,kathmandu sightseeing,healing chakra meditation kathmandu yoga tour,kathmandu yoga retreat,nepal wellness tour,chakra healing retreat,meditation tour nepal,ayurveda retreat nepal,shirodhara therapy,reiki healing,tibetan singing bowl therapy,kundalini yoga,shivananda yoga,yoga nidra,mount everest scenic flight,kathmandu sightseeing,pashupatinath temple,boudhanath stupa,swayambhunath temple,spiritual tour nepal,himalayan wellness retreat,nepal yoga package",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -501,7 +501,7 @@ module.exports = {
   details: [
     {
       "title": "Tour Pricing Details",
-      "text": "The final cost of this private wellness tour depends on your preferred accommodation category, travel season, group size and personal wellness requirements. The following estimates are based on a minimum of two adults travelling together and sharing one double room.",
+      "text": "The final cost of a customized tour varies depending on accommodation choices, travel period, number of travellers and individual preferences. While an exact quotation can be provided upon finalization of details, the following indicative price range will help you plan your holiday (based on a minimum of two persons sharing a double room together).",
       "items": [
         [
           {

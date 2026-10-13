@@ -10,7 +10,7 @@ module.exports = {
   title: "North India Uttaranchal Tourism,Pilgrimage Travel,Tour Packages,Kedarnath Pilgrimage of North India",
   description: "Discover India Uttaranchal tourism, travel agents and Indian tour operators offers pilgrimage  information about trip plan, Kedarnath tourist cities and places of North India, pilgrimage sightseeing places, temple city information, holiday packages",
   keywords: "india, pilgrimage west india, west india tours, uttaranchal, tourism, india uttaranchal tourism, north india holidays, uttaranchal holidays guide, kedarnath travel guide, pilgrimage holidays packages, kedarnath uttaranchal  trip, tourists information, uttaranchal travel itineraries, tour packages, travel guide, indian tourist cities ahmedabad",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Ranikhet",
   nav: site.nav('', false),
   footCols: site.footCols(),

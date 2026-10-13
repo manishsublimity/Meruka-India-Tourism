@@ -9,7 +9,7 @@ module.exports = {
   title: "Rajasthan North India Tours,North India Rajasthan Tours Packages",
   description: "Explore splendid Rajasthan and North India, customized and tailor-made North India tours itineraries, travel plan, tour packages and tourism guide",
   keywords: "north india,north india rajasthan,tours,rajasthan tours,rajasthan tour packages,rajasthan india tours packages,rajasthan india travel plan,north india rajasthan tours packages guidelines,tourist destinations,india rajasthan tours,rajasthan india tourism",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Rajasthan North India Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -43,11 +43,11 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Splendid North India Tour", href: site.link("itin_rajasthan_northindia_tour.htm"), route: "Delhi - Varanasi - Khajuraho - Orachha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi", duration: "11 Nights - 12 Days" },
+        { name: "Splendid North India Tour", href: site.link("itin_rajasthan_northindia_tour.htm"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi", duration: "11 Nights - 12 Days" },
         { name: "Wonderful Rajasthan and North India Tour", href: site.link("northindia_rajasthan_packages.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Delhi", duration: "15 Nights - 16 Days" },
-        { name: "Alluring North India and Rajasthan Tour", href: site.link("tour_North_India_Rajasthan.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittourgarh - Udaipur - Ranakpur - Jodhpur - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi", duration: "20 Nights - 21 Days" },
-        { name: "Grand North India Heritage Tour", href: site.link("/north-india-heritage-tour.html"), route: "Delhi - Varanasi - Khajuraho - Bandhavgarh National Park - Jabalpur - Bhopal - Sanchi - Orachha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Jodhpur - Bishnoi Village - Bikaner - Deshnok - Mandawa - Delhi", duration: "21 Nights - 22 Days" },
-        { name: "Discover North India Tour", href: site.link("/Discover-north-india-tour.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Corbett - Delhi - Nawalgarh - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Gwalior - Orchha - Khajuraho - Varanasi - Delhi", duration: "28 Nights - 29 Days" }
+        { name: "Alluring North India and Rajasthan Tour", href: site.link("tour_North_India_Rajasthan.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittorgarh - Udaipur - Ranakpur - Jodhpur - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi", duration: "20 Nights - 21 Days" },
+        { name: "Enchanting India Tour", href: site.link("/north-india-heritage-tour.html"), route: "Delhi - Varanasi - Khajuraho - Bandhavgarh - Jabalpur - Bhopal - Sanchi - Orchha - Gwalior - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Jodhpur - Bishnoi Village - Bikaner - Deshnok - Mandawa - Delhi", duration: "21 Nights - 22 Days" },
+        { name: "Glimpses of Rajasthan and North India Tour", href: site.link("/Discover-north-india-tour.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Corbett - Delhi - Nawalgarh - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittorgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Gwalior - Orchha - Khajuraho - Varanasi - Delhi", duration: "28 Nights - 29 Days" }
       ]
     }
   ],

@@ -18,11 +18,12 @@
     const label = boldLabel || (whole.match(/^[^:]+:/) || [''])[0];
     const rest = boldLabel ? it.filter(x => !x.bold).map(x => x.text).join('').trim() : whole.slice(label.length).trim();
     const m = rest.match(/^((?:\$|USD\s*)(\d+)\s*-\s*(?:\$|USD\s*)(\d+)\s*\+?)\s*(.*)$/);
-    return { label, rest, range: m ? m[1].trim() : rest, unit: m ? m[4] : '', priced: !!m, lo: m ? +m[2] : 0, hi: m ? +m[3] : 0, stars: parseInt(label, 10) || 0 };
+    const toUsd = s => String(s).replace(/\$\s*([\d,]+)\s*-\s*\$\s*/g, 'USD $1 - ').replace(/\$\s*/g, 'USD ');
+    return { label, rest: toUsd(rest), range: toUsd(m ? m[1].trim() : rest), unit: m ? m[4] : '', priced: !!m, lo: m ? +m[2] : 0, hi: m ? +m[3] : 0, stars: parseInt(label, 10) || 0 };
   }).filter(t => t.label || t.rest);
   const priced = tiers.filter(t => t.priced);
   const tierMin = priced.length ? Math.min(...priced.map(t => t.lo)) : 0, tierMax = priced.length ? Math.max(...priced.map(t => t.hi)) : 0;
-  const cur = priced.length && /USD/.test(priced[0].range) ? 'USD ' : '$';
+  const cur = 'USD ';
   tiers.forEach(t => {
     const span = Math.max(1, tierMax - tierMin);
     t.left = t.priced ? ((t.lo - tierMin) / span * 100).toFixed(1) : 0;
@@ -76,9 +77,9 @@
   let photoSide = 0;
 %>
 <% const dhWords = d.heading.trim().split(' '); const dhLast = dhWords.length > 1 ? dhWords.pop() : '';
-   const dhFrom = priced.length ? '$' + tierMin : '';
+   const dhFrom = priced.length ? 'USD ' + tierMin : '';
    const dhUnit = priced.length ? (priced.find(t => t.lo === tierMin) || priced[0]).unit : '';
-   const dhFixed = !priced.length && tiers.length === 1 ? (tiers[0].rest.match(/^(\$\s*[\d,]+)\s*(.*)$/) || null) : null; %>
+   const dhFixed = !priced.length && tiers.length === 1 ? (tiers[0].rest.match(/^(USD\s*[\d,]+)\s*(.*)$/) || null) : null; %>
 <%
   // tour page v5: photos for the days first (the gallery uses the first two), then the page
   const dayPhotos = d.days.map(dayPhoto);
@@ -94,7 +95,7 @@
     phone: ico('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>'),
     mail: ico('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>')
   };
-  const priceLine = dhFrom ? { pre: 'From', amt: dhFrom, unit: dhUnit } : dhFixed ? { pre: tiers[0].label.replace(/:$/, ''), amt: dhFixed[1].replace(/\s+/g, ''), unit: dhFixed[2] } : null;
+  const priceLine = dhFrom ? { pre: 'From', amt: dhFrom, unit: dhUnit } : dhFixed ? { pre: tiers[0].label.replace(/:$/, ''), amt: dhFixed[1].replace(/\s+/g, ' '), unit: dhFixed[2] } : null;
 %>
 <section id="top" class="tp-top">
   <div class="tp-wrap">
@@ -187,7 +188,7 @@
     <% if (dhFixed) { %>
     <div class="dc-cost">
       <span class="dc-cost-l"><%= tiers[0].label.replace(/:$/, '') %></span>
-      <b class="dc-cost-p"><%= dhFixed[1].replace(/\s+/g, '') %></b>
+      <b class="dc-cost-p"><%= dhFixed[1].replace(/\s+/g, ' ') %></b>
       <span class="dc-cost-u"><%= dhFixed[2] %></span>
       <% if (pricing.text) { %><p class="dc-cost-t"><%= pricing.text %></p><% } %>
     </div>
@@ -313,7 +314,7 @@
 </div>
 <% } %>
 
-<%- include('partials/listing-sections', { L: d.listings }) %>
+<%- include('partials/popular-tours', { current: d.url }) %>
 
 <%- include('partials/page-footer', { footCols: d.footCols, enquireHref: d.enquire.href }) %>
 

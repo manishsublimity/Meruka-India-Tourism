@@ -9,7 +9,7 @@ module.exports = {
   title: "North and South India Tours,North India,South India Tours Packages",
   description: "Explore the most popular tourist destinations of North and South India, North India and South India tours combining heritage, culture, backwaters, forts and palaces, hill stations, wildlife, beaches of South and North India",
   keywords: "north india,south india,north india tours,south india tours,north india heritage tours,temples,religious,yoga,forts palaces,hill stations,beaches,south india tourist destinations tours,north india tourist places tours",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "South - North India Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -44,11 +44,11 @@ module.exports = {
       href: '',
       tours: [
         // Added: a tour designed for a US-based guest, December 2026
-        { name: "South and North India Religious Tour", href: "/south_north_india_religious_tour", route: "Bangalore - Puttaparthi - Tirupati - Varanasi - Mumbai", duration: "7 Nights - 8 Days", img: '/photos/varanasi-ghats.jpg' },
-        { name: "Golden Triangle with Kerala Tour", href: site.link("/Golden-Triangle-kerala-tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Banglore - Srirangapatnam - Mysore - Ooty - Coonoor - Ooty - Munnar - Alleppy - Cochin", duration: "16 Nights - 17 Days" },
-        { name: "Exciting Karnataka & Kerala with Golden Triangle Tour", href: site.link("karnataka-kerala-golden-triangle-tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Banglore - Srirangapatnam - Mysore - Ooty - Guruvayur - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "20 Nights - 21 Days" },
-        { name: "Amazing North and South India Tour", href: site.link("north_south_indiatours.html"), route: "Delhi - Haridwar - Rishikesh - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Bangalore - Mysore - Shravanabelagola - Hassan - Chitradurga - Hampi - Hospet - Aihole - Pattadakal - Badami - Goa", duration: "21 Nights - 22 Days" },
-        { name: "Glimpses of India Tour", href: site.link("/Glimpses-of-India-Tour.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Ranthambhore - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Coonoor - Ooty - Munnar - Alleppy - Cochin", duration: "23 Nights - 24 Days" }
+        { name: "South and North India Religious Tour", href: "/south_north_india_religious_tour", route: "Bangalore - Puttaparthi - Tirupati - Varanasi - Mumbai", duration: "7 Nights - 8 Days", img: '/photos/varanasi-ghats.webp' },
+        { name: "Glimpses of North and South India Tour", href: site.link("/Golden-Triangle-kerala-tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Coonoor - Ooty - Munnar - Alleppey - Cochin", duration: "16 Nights - 17 Days" },
+        { name: "Exciting Karnataka & Kerala with Golden Triangle Tour", href: site.link("karnataka-kerala-golden-triangle-tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Guruvayur - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "20 Nights - 21 Days" },
+        { name: "Amazing North and South India Tour", href: site.link("north_south_indiatours.html"), route: "Delhi - Haridwar - Rishikesh - Haridwar - Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Bangalore - Mysore - Shravanabelagola - Hassan - Chitradurga - Hampi - Hospet - Aihole - Pattadakal - Badami - Goa", duration: "21 Nights - 22 Days" },
+        { name: "North and South India Panorama Tour", href: site.link("/Glimpses-of-India-Tour.html"), route: "Delhi - Varanasi - Khajuraho - Orchha - Gwalior - Agra - Fatehpur Sikri - Ranthambore - Jaipur - Bangalore - Srirangapatnam - Mysore - Ooty - Coonoor - Munnar - Alleppey - Cochin", duration: "23 Nights - 24 Days" }
       ]
     }
   ],

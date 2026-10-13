@@ -10,7 +10,7 @@ module.exports = {
   title: "Nainital Tours,Hill Station Tour Nainital,North India Hill Station Nainital",
   description: "Popular Hill Station Of India, Nainital Tours, Hill Station Tour Nainital, Nainital Tour Packages, Tour Trip Nainital, Nainital Tourism India, Nainital Hill Stations Tours, Tourism Guide Nainital, Nainital Corbett Park, City Travel Guide, Nainital Holiday Packages ",
   keywords: "india, indian, nainital tours, hill station tour nainital, uttaranchal tours, nainital, hill, hill stations, city guide, nainital hill station tours, nainital hill stations tourism, uttaranchal tourism guide, nainital nature tours, nainital city tour guide, travel guide, nainital holiday packages, holidays nainital, places to visit nainital, hill stations trip, vacations tours nainital, india hill station trip, indian hill stations tourism guide, summer tours, winter tours, visit nainital, uttaranchal wildlife tours, uttaranchal pilgrimage tours, uttaranchal nainital tours, nainital corbett tours",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Nainital",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -10,7 +10,7 @@ module.exports = {
   title: "India Widlife,Karnataka National Parks,Indian Widlife Sanctuaries",
   description: "India Widlife Travel And Tourism, Nagarhole Karnataka Widlife National Parks, Indian Widlife Sanctuaries, Nagarhole Widlife, India Widlife Tour Packages, Karnataka National Parks Trip, Nagarhole Widlife Holidays Travel Guide, Indian Widlife Sanctuaries Guide, Tour Itineraries",
   keywords: "india widlife travel, india widlife tourism, nagarhole national park, widlife trip, vacations, holidaying, stay, accommodation, south india, karnataka widlife national parks,indian widlife sanctuaries, forest, adventure, jungle, stay, guide, naturalist, flora,fauna,north india trip, india widlife tour packages, karnataka national parks destinations, nagarhole widlife holidays travel guide, indian widlife sanctuaries guide, tour itineraries",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Nagarahole National Park",
   nav: site.nav('', false),
   footCols: site.footCols(),

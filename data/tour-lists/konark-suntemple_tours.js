@@ -9,7 +9,7 @@ module.exports = {
   title: "Sun Temple Tours, Konark Orissa Tourism, Konark Sun Temple Tours Packages",
   description: "Explore most exotic Sun Temple in Konark in Orissa, West Bengal Konark Sun temple tours, travel itineraries of Sun temple, Puri and Konark tours packages with cost and travel plan for Orissa beach holidays, tours packages for Konark and Puri",
   keywords: "orissa tours,puri,konark sun temple tour,sun temple travel plan,orissa tour packages,beach holidays,sun temple tour packages,sun temple konark tours,orissa travel plan travel itineraries,sun temple orissa travel itineraries,orissa west india,bhubaneswar,west bengal orissa tourism guide",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Exotic Sun Temple Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -49,9 +49,9 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Spiritual Sun Temple Tour", href: site.link("spiritual_suntemple_tour.html"), route: "Kolkata - Bhubaneswar - Dhauli - Konark - Puri - Chilika Lake - Puri - Bhubaneswar - Kolkata", duration: "06 Nights - 07 Days" },
+        { name: "Spiritual Sun Temple Tour", href: site.link("spiritual_suntemple_tour.html"), route: "Kolkata - Bhubaneswar - Dhauli - Konark - Puri - Chilika Lake - Puri - Bhubaneswar - Kolkata", duration: "07 Nights - 08 Days" },
         { name: "Sun Temple - Golden Triangle Tour", href: site.link("goldentriangle_konark.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Neemrana - Delhi - Bhubaneswar - Dhauli - Konark - Puri - Chilika - Bhubaneswar - Kolkata", duration: "11 Nights - 12 Days" },
-        { name: "Elating Orissa Tribal Tour", href: site.link("orissa_tribal_heritage_culture_tour.htm"), route: "Kolkata - Bhubaneshwar - Dhauli - Pipli - Raghurajpur - Puri - Chandrabhaga beach - Konark - Chilika - Gopalpur - Taptapani - Barhampur - Rayagada - Bisamkatak - Dukum - Jeypore - Koraput - Kunduli - Jagdalpur - Nagarner - Kangervalley National park - Tiradgarh Waterfall - Bastar - Kondagaon/Narayanpur - Kanker - Rajim - Siripur - Raipur - Delhi", duration: "17 Nights - 18 Days" }
+        { name: "Elating Orissa Tribal Tour", href: site.link("orissa_tribal_heritage_culture_tour.htm"), route: "Kolkata - Bhubaneswar - Dhauli - Pipli - Raghurajpur - Puri - Chandrabhaga Beach - Konark - Chilika - Gopalpur - Taptapani - Berhampur - Rayagada - Bisamkatak - Dukum - Jeypore - Koraput - Kunduli - Jagdalpur - Kanger Valley National Park - Tirathgarh Waterfall - Bastar - Kondagaon/Narayanpur - Kanker - Rajim - Sirpur - Raipur - Delhi", duration: "17 Nights - 18 Days" }
       ]
     }
   ],

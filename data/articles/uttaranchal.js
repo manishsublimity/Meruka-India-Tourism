@@ -10,7 +10,7 @@ module.exports = {
   title: "Uttaranchal Tourism,Uttaranchal North India Tour Packages,Uttarakhand Travel Operator",
   description: "All about Uttaranchal North India tourism, Uttaranchal tour packages, trip and travel guide, Uttarakhand travel operator, offering best travel itineraries and holiday plan",
   keywords: "uttaranchal tour itinerary, uttaranchal north india tourism, uttaranchal tour packages, uttarakhand trip, travel agency, travel guide, uttarakhand travel operator, travel agents, holiday tours packages, holiday plan",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Uttaranchal Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

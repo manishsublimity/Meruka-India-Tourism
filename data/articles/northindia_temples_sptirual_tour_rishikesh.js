@@ -10,7 +10,7 @@ module.exports = {
   title: "North India Temples,Spiritual Tour,Packages,Rishikesh Travel Guide",
   description: "North India temples and Spiritual tour plan, Rishikesh travel guide, well planned trip and holiday packages, tourist destinations guide, tourism information, tourism cities and towns, holiday itineraries",
   keywords: "north india, north india temple tours, north india rishikesh, rishikesh travel, Rishikesh tour itineraries, holiday packages, tourist destinations, tourism guide, north india travel itinerary, cities, towns",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Rishikesh",
   nav: site.nav('', false),
   footCols: site.footCols(),

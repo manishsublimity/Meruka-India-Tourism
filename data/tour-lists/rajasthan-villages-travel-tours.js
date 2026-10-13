@@ -9,7 +9,7 @@ module.exports = {
   title: "Rajasthan Villages Tours, India Rural Culture Trip Plan, Villages Travel Guide",
   description: "Explore Rajasthan picturesque villages, we provide Rajasthan villages tours and travel plan and itinerary to explore the fascinating villages and rural destinations of Rajasthan to witness the true culture of India, villages travel guide, tradition and custom of villages tourism in Rajasthan",
   keywords: "rajasthan,india,rajasthan india tours, rajasthan villages tours,villages,rajasthan rural destinations,rajasthan tour packages,villages culture tours,villages travel itinerary,rajasthan rural tour itinerary,rajasthan villages holidays,rajasthan villages tourism,rajasthan rural tourism",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Rajasthan Village Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -38,8 +38,8 @@ module.exports = {
       href: '',
       tours: [
         { name: "Ultimate Village Tour", href: site.link("rajasthan_villages_rural_tours.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Nimaj - Rohet - Jodhpur - Deogarh - Udaipur - Devigarh - Delhi", duration: "12 Nights - 13 Days" },
-        { name: "North India Rajasthan Heritage, Culture and Wildlife Tour", href: site.link("north_india_rajasthan_tour.html"), route: "Delhi - Corbett - Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Bijaipur - Ranthambhore - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "20 Nights - 21 Days" },
-        { name: "Archaeological Tour of Rajasthan", href: site.link("rajasthan_villages_rural_tourism.htm"), route: "Delhi – Jaipur – Samode – Nawalgarh – Bikaner – Gajner – Pokhran – Jaisalmer – Manvar – Khimsar – Jodhpur – Rohet – Ranakpur – Mount Abu – Udaipur – Dungarpur – Deogarh – Ajmer – Pushkar – Pachewar – Ranthambhore – Agra – Sikandra – Delhi", duration: "22 Nights - 23 Days" }
+        { name: "North India Rajasthan Heritage, Culture and Wildlife Tour", href: site.link("north_india_rajasthan_tour.html"), route: "Delhi - Corbett - Delhi - Mandawa - Bikaner - Pokhran - Jaisalmer - Manvar - Jodhpur - Ranakpur - Udaipur - Chittourgarh - Bijaipur - Ranthambore - Jaipur - Fatehpur Sikri - Agra - Sikandra - Delhi", duration: "20 Nights - 21 Days" },
+        { name: "Archaeological Tour of Rajasthan", href: site.link("rajasthan_villages_rural_tourism.htm"), route: "Delhi - Jaipur - Samode - Nawalgarh - Bikaner - Gajner - Pokhran - Jaisalmer - Manvar - Khimsar - Jodhpur - Rohet - Ranakpur - Mount Abu - Udaipur - Dungarpur - Deogarh - Ajmer - Pushkar - Pachewar - Ranthambore - Agra - Sikandra - Delhi", duration: "22 Nights - 23 Days" }
       ]
     }
   ],

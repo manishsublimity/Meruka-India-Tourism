@@ -16,7 +16,7 @@ const organization = base => ({
   name: NAME,
   alternateName: hq.name,
   url: base + '/',
-  logo: base + '/assets/meruka-logo-leaflet.png',
+  logo: base + '/assets/meruka-logo-leaflet.webp',
   image: base + '/photos/taj-mahal-feature.webp',
   description: 'Inbound travel agency for overseas visitors since 2001: private tours of India with 3–5 star hotels and a dedicated car and driver from arrival to departure.',
   foundingDate: '2001',

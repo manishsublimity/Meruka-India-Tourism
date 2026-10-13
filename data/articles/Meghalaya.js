@@ -10,7 +10,7 @@ module.exports = {
   title: "West India,Meghalaya Tour,Shillong Tour Operators,Meghalaya Tourist Attraction,Sightseeing Tour of Meghalaya",
   description: "West India, Meghalaya Shillong tour operators, the tourist attraction of Shillong, West India Meghalaya holidays, Meghalaya tour itineraries, Meghalaya travel guide, Meghalaya tourist attraction places, Sightseeing tour of Meghalaya",
   keywords: "west india,meghalaya shillong tour operators,tourist attraction of shillong,meghalaya holidays,meghalaya tour itineraries,meghalaya travel guide,meghalaya tourist attraction, sightseeing tour,meghalaya,tourism ministry government of india,west india tribal tours, tourism guide,tours itineraries hotel bookings,holiday packages shilong meghalaya,meghalaya tourism,meghalaya trip,meghalaya tour packages,shilong travel agents india",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Meghalaya Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

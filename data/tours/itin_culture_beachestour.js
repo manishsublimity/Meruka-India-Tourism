@@ -9,7 +9,7 @@ module.exports = {
   title: "India Tours: Heritage, Culture & Goa Beach Holidays",
   description: "Discover India’s rich heritage and culture with curated tours across Rajasthan, Maharashtra and Goa. Explore historic destinations, vibrant villages and relaxing beach holidays.",
   keywords: "India,Rajasthan tours,Rajasthan goa tours,North India,Goa beaches tours,Rajasthan tour itinerary,Ajanta Ellora,tourism department of India,government of Indian tourism,Maharashtra Ajanta Ellora tours,Rajasthan heritage tours,North India culture tours Mumbai tours,Varanasi Khajuraho trip,Delhi,Taj mahal Agra tours,",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -143,23 +143,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Elephanta Caves",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " and ",
-          "bold": false
-        },
-        {
-          "text": "Chhatrapati Shivaji Maharaj Vastu Sangrahalaya",
-          "bold": true
-        },
-        {
-          "text": " are closed on Mondays. The Elephanta ferry operates from the Gateway of India and the journey takes approximately one hour each way.",
+          "text": " Elephanta Caves and Chhatrapati Shivaji Maharaj Vastu Sangrahalaya are closed on Mondays. The Elephanta ferry operates from the Gateway of India and the journey takes approximately one hour each way.",
           "bold": false
         }
       ]
@@ -194,15 +182,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Ajanta Caves",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " are closed on Mondays.",
+          "text": " Ajanta Caves are closed on Mondays.",
           "bold": false
         }
       ]
@@ -261,15 +245,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Ellora Caves",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " are closed on Tuesdays.",
+          "text": " Ellora Caves are closed on Tuesdays.",
           "bold": false
         }
       ]
@@ -986,15 +966,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Taj Mahal",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " is closed every Friday.",
+          "text": " Taj Mahal is closed every Friday.",
           "bold": false
         }
       ]
@@ -1319,7 +1295,7 @@ module.exports = {
   details: [
     {
       "title": "Tour Pricing Details",
-      "text": "The final cost of a customized tour varies depending on accommodation choices, travel period, number of travellers and individual preferences. The following indicative price range is based on a minimum of two persons sharing a double room.",
+      "text": "The final cost of a customized tour varies depending on accommodation choices, travel period, number of travellers and individual preferences. While an exact quotation can be provided upon finalization of details, the following indicative price range will help you plan your holiday (based on a minimum of two persons sharing a double room together).",
       "items": [
         [
           {
@@ -1467,41 +1443,25 @@ module.exports = {
         ],
         [
           {
-            "text": "Elephanta Caves",
-            "bold": true
-          },
-          {
-            "text": " are closed on Mondays.",
+            "text": "Elephanta Caves are closed on Mondays.",
             "bold": false
           }
         ],
         [
           {
-            "text": "Ajanta Caves",
-            "bold": true
-          },
-          {
-            "text": " are closed on Mondays.",
+            "text": "Ajanta Caves are closed on Mondays.",
             "bold": false
           }
         ],
         [
           {
-            "text": "Ellora Caves",
-            "bold": true
-          },
-          {
-            "text": " are closed on Tuesdays.",
+            "text": "Ellora Caves are closed on Tuesdays.",
             "bold": false
           }
         ],
         [
           {
-            "text": "Taj Mahal",
-            "bold": true
-          },
-          {
-            "text": " is closed every Friday.",
+            "text": "Taj Mahal is closed every Friday.",
             "bold": false
           }
         ],

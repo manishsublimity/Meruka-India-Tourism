@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Fair and Festival Tours",
   description: "India Tourism Offer - Fair and Festivals tourism in India, Indian Festival Holi, Holi Holidays Packages, Indian popular Fair and Festival tours, Holi Festival trip, Indian Fair and Festival tourism, guided festival tours, Holi Festival festivity in Rajasthan, Bihar, Uttar Pradesh, Madhya Pradesh, Himachal, Delhi, Punjab and other cities and states in South, East, West and North India",
   keywords: "Indian Fair And Festival Tours, Fair And Festivals Of India, Holi Festival Information, India Tourism, India Fair, Festivals Holidays India, India Festival Trip, Festival Vacations Tour, Tour Packages, Holiday, Itinerary, Travel Plan, Season, Occasions, Travel Itineraries, Indian Fair Festival Tours, Holi Festival Trip, Book A Tour, Online Travel Arrangements, Hotel Bookings, Reservations Indian Festival Tour,Fair Festivals Celebration North India, Private Tour, Indian Fair Festival Guided Tours, Holi Festival Festivity, Festival Calender, Rajasthan, Bihar, Uttar Pradesh, Madhya Pradesh, Himachal, Delhi, Punjab, Tourists Cities States South India, East, West, North India, Summer Holidays, Festival Winters Holidays, Festival Calender ",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Holi",
   nav: site.nav('', false),
   footCols: site.footCols(),

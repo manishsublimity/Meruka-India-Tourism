@@ -10,7 +10,7 @@ module.exports = {
   title: "Madhya Pradesh Tour,Madhya Pradesh Tourism,Madhya Pradesh Tour Packages",
   description: "Explore Central And North India Travel Plan, Madhya Pradesh Tour,Madhya Pradesh Tourism,Madhya Pradesh Tour Packages, Madhya Pradesh Tourism Guide, Culture Tour And Holiday Packages,  Central And North India, Madhya Pradesh Wildlife Tourism  ",
   keywords: "madhya pradesh tour, madhya pradesh tourism, gwalior tour madhya pradesh, khajuraho tourim madhya pradesh, holiday packages, mp online travel guide, hotels in madhya pradesh, madhya pradesh hotel bookings, official website, hotel approved by tourism of ministry of tourism, north india tourism, holiday packages, central india tours, government of india, eastern india holidays, mp tourist attraction, travel destination, vacations in madhya pradesh, western india tours planning, northern india tourism, southern india trip car rental services in mp, consultancy, trip adviser, tourist guide lines",
-  heroSrc: site.IMG("west-india.jpg"),
+  heroSrc: site.IMG("west-india.webp"),
   heroAlt: "Madhya Pradesh Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

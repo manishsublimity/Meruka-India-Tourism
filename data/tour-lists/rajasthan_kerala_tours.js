@@ -9,7 +9,7 @@ module.exports = {
   title: "Rajasthan Kerala Tours,Kerala Rajasthan Tours Packages,Rajasthan Kerala Tours Plan,North South India",
   description: "India tourism offering the well-designed Rajasthan Kerala tours packages with many options of Kerala Rajasthan travel itineraries and tours packages with all kind of travel services for Rajasthan and Kerala with South India",
   keywords: "india,north india,rajasthan tours,kerala tours,rajasthan kerala tours,kerala travel plan,rajasthan tour itineraries,kerala tour packages,rajasthan kerala travel,kerala backwater tour,rajasthan desert tour,south india",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Rajasthan Kerala Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -51,10 +51,10 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Golden Traingle & Scenic Kerala Tours", href: site.link("golden_triangle_kerala_tours.html"), route: "Delhi - Sikandra - Agra - Fathepur Sikri - Jaipur - Mumbai - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "16 Nights - 17 Days" },
+        { name: "Golden Triangle & Scenic Kerala Tour", href: site.link("golden_triangle_kerala_tours.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "16 Nights - 17 Days" },
         { name: "Golden Triangle, Goa & Kerala Tour", href: site.link("/Golden-Triangle-Goa-Kerala-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Goa - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "19 Nights - 20 Days" },
-        { name: "Rajasthan Legacy & Scenic Kerala Tour", href: site.link("rajasthan_kerala_backwater_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - A Pushkar - Jodhpur - Ranakpur - Udaipur - Mumbai - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "20 Nights - 21 Days" },
-        { name: "Rajasthan Culture and Scenic Kerala Tour", href: site.link("rajasthan_Kerala_Tour.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittourgarh - Udaipur - Ranakpur - Jodhpur - Manwar - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "24 Nights - 25 Day" }
+        { name: "Rajasthan Legacy & Scenic Kerala Tour", href: site.link("rajasthan_kerala_backwater_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Mumbai - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "20 Nights - 21 Days" },
+        { name: "Rajasthan Culture and Scenic Kerala Tour", href: site.link("rajasthan_Kerala_Tour.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittorgarh - Udaipur - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "24 Nights - 25 Days" }
       ]
     }
   ],

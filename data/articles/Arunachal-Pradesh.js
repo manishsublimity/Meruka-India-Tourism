@@ -10,7 +10,7 @@ module.exports = {
   title: "East India,Arunachal Pradesh Tribal Wildlife Tour,East India Arunachal Pradesh Packages",
   description: "",
   keywords: "",
-  heroSrc: site.IMG("east-india.jpg"),
+  heroSrc: site.IMG("east-india.webp"),
   heroAlt: "Arunachal Pradesh Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),

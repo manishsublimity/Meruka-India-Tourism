@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian Wildlife Tourism,Wildlife Travel Packages",
   description: "Most exotic detailed travel itineraries for wildlife and medieval tours of India, tourism places of wildlife and medieval in North and Central India, Indian wildlife trip information, wildlife tour, India wildlife tourism and travels packages, thrilling wildlife experiences",
   keywords: "india wildlife tourism,india medieval tourism,wildlife travel packages,india wildlife tours,wildlife travel guide,thrilling wildlife experiences,tourism,north india wildlife tours,central india wildlife tour,medieval tourist destinations,tourist sector india,wildlife trip information,best deals,wildlife sanctuaries",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "India Wildlife and Medieval Tour",
   nav: site.nav('', false),
   footCols: site.footCols(),

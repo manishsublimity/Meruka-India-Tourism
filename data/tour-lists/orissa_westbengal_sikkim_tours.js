@@ -9,7 +9,7 @@ module.exports = {
   title: "West Bengal Tours,Travel Sikkim,Orissa Tourist Destinations",
   description: "Incredible travel plan for West Bengal, Sikkim-Orissa Konark and Puri tours with holiday packages, travel itineraries, tours package with cost, West Bengal Orissa beaches, hills stations, wildlife, temples, buddhist places tours of West Bengal, Orissa and Sikkim",
   keywords: " west north east india tours,west bengal,india tourism,sikkim tours,west bengal orissa sikkim,tour packages cost,wildlife,temples,beaches,buddhist,hill stations tours,sikkim orissa tours,orissa konark sun temple tours cost,west bengal tourism,sikkim travel itineraries,holiday packages,west bengal orissa travel plan",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Konark West Bengal Tours",
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -37,7 +37,7 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Glorious Sun Temple with Sunderban Tour", href: site.link("west_bengal_orrissa_tours.html"), route: "Kolkata - GangaSagar - Sunderban - Kolkata - Bhubaneswar - Dhauli - Konark - Puri - Raghurajpur village - Bhitarkanika - Ratnagiri - Bhubaneswar", duration: "12 Nights - 13 Days" },
+        { name: "Glorious Sun Temple with Sunderban Tour", href: site.link("west_bengal_orrissa_tours.html"), route: "Kolkata - GangaSagar - Sunderban - Kolkata - Bhubaneswar - Dhauli - Konark - Puri - Raghurajpur Village - Bhitarkanika - Ratnagiri - Bhubaneswar", duration: "12 Nights - 13 Days" },
         { name: "Sun Temple with Sikkim Tour", href: site.link("west_india_sikkim_tours.html"), route: "Bhubaneswar - Dhauli - Konark - Puri - Chilika Lake - Bhubaneswar - Kolkata - Kalimpong - Pelling - Gangtok - Tsongo - Darjeeling - Bagdogra - Kolkata", duration: "14 Nights - 15 Days" }
       ]
     }

@@ -10,7 +10,7 @@ module.exports = {
   title: "North India,Khajuraho Travel and Tour,Khajuraho Temples Guide",
   description: "Explore Exotic Tourist Places Of North India,Khajuraho Travel Plan,Tour Packages,Khajuraho Temples Guide, North India Holiday Itineraries, Khajuraho Travel Plan, Budget And Economy Tour, Khajuraho Temples Trip ",
   keywords: "north india,khajuraho,khajuraho travel guide,madhya pradesh,khajuraho temples tours, hotel bookings,approved by tourism ministry of indian government,khajuraho vacations tours,khajuraho tour guide,khajuraho city tours,khajuraho tourism,holidays khajuraho sightseeing places,khajuraho trip,travel plan,tour itinerary,north india sightseeing places,khajuraho temple tour,khajuraho travel information,indian tourist destinations ",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Khajuraho",
   nav: site.nav('', false),
   footCols: site.footCols(),

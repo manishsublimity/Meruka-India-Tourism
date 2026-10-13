@@ -10,7 +10,7 @@ module.exports = {
   title: "Rajasthan Rural and Off beat destinations Tours to Bundi, Bundi City Guide, Forts, Palaces Bundi",
   description: "Well planned tour packages of Rural Rajasthan, off beat destinations tourism in Rajasthan, Bundi city guide,  trip and visit to Bundi, sightseeing places of Bundi, forts and palaces in Bundi, what to see in Bundi, Rajasthan tourists cities and towns, villages tours of Rajasthan, desert cities of Rajasthan information provided by travel agents and tour operators of Rajasthan",
   keywords: "official website, rajasthan,  planned tour packages of rural rajasthan, bundi city guide, rajasthan,  rajasthan off beat destinations, tourism in rajasthan, bundi city guide, sightseeing places, bundi visit, bundi trip, bundi, forts and palaces in bundi, what to see in bundi, rajasthan tourists cities, towns, rajasthan villages tours, desert cities of rajasthan, travel agents, tour operators of rajasthan, hotels bundi, people bundi, distances, shopping in bundi, culture in bundi rajasthan, monuments in bundi, rajasthan state, rajasthan tourists cities, rajasthan tourists towns, india, indian",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Bundi",
   nav: site.nav('', false),
   footCols: site.footCols(),

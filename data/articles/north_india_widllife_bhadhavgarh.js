@@ -10,7 +10,7 @@ module.exports = {
   title: "North India Wildlife Tour Plan,Bandhavgarh",
   description: "Well planned tour programme to explore India wildlife and adventure tourism, Bandhavgarh National Park and other wildlife sanctuaries, North India travel guide, wildlife trip, vacation tour and holiday packages/",
   keywords: "india,india wildlife,india wildlife sanctuaries,indian national park,india wildlife tour plan,india vacation tour,india holidays,india travel plan,india wildlife sanctuaries,india wildlife tour/",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Bandhavgarh",
   nav: site.nav('', false),
   footCols: site.footCols(),

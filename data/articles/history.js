@@ -10,7 +10,7 @@ module.exports = {
   title: "Indian History, History of Incredible India",
   description: "",
   keywords: "india tourism, indian history, history of incredible india, the history of india, information, tour programme india, india tour packages, india history, culture, tourist places",
-  heroSrc: site.IMG("history-india.jpg"),
+  heroSrc: site.IMG("history-india.webp"),
   heroAlt: "India: History",
   nav: site.nav('', false),
   footCols: site.footCols(),

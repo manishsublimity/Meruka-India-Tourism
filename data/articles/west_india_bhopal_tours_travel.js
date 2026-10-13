@@ -10,7 +10,7 @@ module.exports = {
   title: "West India Tourism,Tour to West India MP,Bhopal Sightseeing,Bhopal City Guide,West India Madhya Pradesh Trip",
   description: " West India tourism, tour to West India cities and towns, tourist places of MP, places of Bhopal sightseeing, Bhopal city guide, West India Madhya Pradesh trip, West India tourist destinations, tourism information, tour packages of West India, Bhopal tourist attractions and sightseeing guide, Bhopal city trip, West India Madhya Pradesh visit",
   keywords: "West India tourism, west india tour, cities and towns, \r\ntourist places of MP, tourist destinations,  places of Bhopal sightseeing, Bhopal city trip, West India Madhya Pradesh holidays, west india  trip, West India tourist destinations, tourism information, West India tour packages, Bhopal tourist attractions,  MP sightseeing guide, Bhopal city sightseeing  trip, West India Madhya Pradesh visit",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: "Bhopal",
   nav: site.nav('', false),
   footCols: site.footCols(),

@@ -9,7 +9,7 @@ module.exports = {
   title: "Scenic Himachal Tour,Himachal Tour Package,Shimla Manali Tour,India Holiday Packages",
   description: "Scenic Himachal tour, Shimla Manali tour, Himachal holiday package and customized India holiday packages.",
   keywords: "scenic himachal tour,himachal tour package,shimla manali tour,himachal holiday package,india holiday package,private india tour,customized india tour,budget himachal tour,budget shimla manali tour,chandigarh tour,kufri tour,naldehra tour,kullu manali tour,rohtang pass tour,parwanoo tour,himalayan hill station tour",
-  heroSrc: site.IMG("india-tours-main.jpg"),
+  heroSrc: site.IMG("india-tours-main.webp"),
   heroAlt: 'India Tours',
   nav: site.nav('India Tours', false),
   footCols: site.footCols(),
@@ -531,15 +531,11 @@ module.exports = {
       ],
       "note": [
         {
-          "text": "Note: ",
-          "bold": false
-        },
-        {
-          "text": "Rohtang Pass",
+          "text": "Note:",
           "bold": true
         },
         {
-          "text": " remains closed on Tuesdays and access is subject to weather conditions and local government regulations.",
+          "text": " Rohtang Pass remains closed on Tuesdays and access is subject to weather conditions and local government regulations.",
           "bold": false
         }
       ]

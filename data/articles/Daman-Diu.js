@@ -10,7 +10,7 @@ module.exports = {
   title: "Gujarat Tourism,Daman Diu Tour,Gujarat Tourism,Daman Diu Travel",
   description: "Gujarat travel agents and tour operators offers, Daman Diu Tour, Gujarat Tourism, Daman Diu Travel and Trip, Gujarat tour packages, customized tour Gujarat, tailor made holidays Gujarat",
   keywords: "Gujarat,Daman Diu Tour,Gujarat Tourism,Daman Diu Travel,Daman Diu holidays,beaches trip, india tourism,tour packages gujarat,",
-  heroSrc: site.IMG("west-india.jpg"),
+  heroSrc: site.IMG("west-india.webp"),
   heroAlt: "Daman Diu Tourism",
   nav: site.nav('', false),
   footCols: site.footCols(),
