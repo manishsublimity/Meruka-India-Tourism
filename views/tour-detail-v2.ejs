@@ -264,7 +264,14 @@
       <ul class="td2-other"><% tdOther.forEach(t => { %><li><strong><%= hotelOf(t) || 'Price' %></strong><span><%= t.rest %></span></li><% }) %></ul>
       <% } %>
       <% if (!pricing.text) { %><p class="pr-note td2-pnote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg><span>Per person, two sharing a double room. Your final quote depends on hotels, dates and group size.</span></p><% } %>
+      <div class="td2-pinc">
+        <p class="td2-pinc-t">Price includes</p>
+        <ul>
+          <% ['Hotel accommodation on twin sharing basis', 'Air-conditioned car with driver throughout sightseeing', 'Transport service right from arrival until final departure'].forEach(x => { %><li><%= x %></li><% }) %>
+        </ul>
+      </div>
       <a class="pr-cta" data-cta data-base="<%= d.enquire.href %>" href="<%= priced.length ? withHotel(d.enquire.href, hotelOf(sel)) : d.enquire.href %>"><%= d.enquire.label %> <span>→</span></a>
+      <p class="td2-pvary">The above quote may vary 10–15% according to travel period, season, festivals, etc.</p>
     </div>
     <div class="tp-help">
       <b>Questions about this tour?</b>

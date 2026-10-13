@@ -2121,3 +2121,19 @@
   #mk-frame.ux.v3.h4.in4 .tp2 h2.h4-h2.tp2-heading{order:-2;margin:0 0 18px}
   #mk-frame.in4 .tp2-side{order:-1;width:100%;margin:0 0 16px}
 }
+
+/* tour pages, pricing box (13 Oct 2026): gold frame, blue hotel buttons (chosen one dark blue),
+   what the price includes, and the note under the Enquire button */
+#mk-frame.ux.v3.h4.in4.td2 .td2-price{border:2px solid var(--mk-gold) !important;box-shadow:0 10px 28px rgba(18,63,109,.1)}
+#mk-frame.ux.v3.h4.in4.td2 .td2-tiers .pr-tier{background:#EEF3F9;border:1px solid var(--mk-blue);box-shadow:none;transition:background-color var(--mk-ease),border-color var(--mk-ease),color var(--mk-ease)}
+#mk-frame.ux.v3.h4.in4.td2 .td2-tiers .pr-tier:hover{background:#E1EAF5;border-color:var(--mk-blue-d)}
+#mk-frame.ux.v3.h4.in4.td2 .td2-tiers .pr-tier::after{border-color:var(--mk-blue)}
+#mk-frame.ux.v3.h4.in4.td2 .td2-tiers .pr-tier.on{background:var(--mk-blue-d);border-color:var(--mk-blue-d);box-shadow:none}
+#mk-frame.ux.v3.h4.in4.td2 .td2-tiers .pr-tier.on :is(strong,span,.td2-tier-total,.td2-tier-day){color:#fff}
+#mk-frame.ux.v3.h4.in4.td2 .td2-tiers .pr-tier.on::after{background-color:var(--mk-gold);filter:none}
+#mk-frame.td2 .td2-pinc{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--mk-line)}
+#mk-frame.td2 .td2-pinc-t{margin:0 0 8px;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mk-blue)}
+#mk-frame.td2 .td2-pinc ul{margin:0 0 16px;padding:0;list-style:none}
+#mk-frame.td2 .td2-pinc li{position:relative;margin:0 0 7px;padding-left:24px;font-size:13.5px;line-height:1.5;color:var(--mk-text)}
+#mk-frame.td2 .td2-pinc li::before{content:"";position:absolute;left:0;top:3px;width:15px;height:15px;border-radius:50% !important;background:var(--mk-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12 4 4 8-8'/%3E%3C/svg%3E") center/11px no-repeat}
+#mk-frame.td2 .td2-pvary{margin:10px 0 0;font-size:12.5px;line-height:1.5;color:var(--mk-muted);text-align:center}
