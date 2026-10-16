@@ -17,7 +17,7 @@ const RULES = [
   [/udaipur/i, ['udaipur-lake-pichola.webp']],
   [/jodhpur/i, ['jodhpur-umaid-bhawan.webp', 'jodhpur-jaswant-thada.webp']],
   [/bikaner/i, ['bikaner-junagarh-fort.webp']],
-  [/golden.?triangle|\btaj\b|agra/i, ['taj-mahal-feature.webp', 'north-india.webp', 'north-india-b.webp']],
+  [/golden.?triangle|\btaj\b|agra/i, ['taj-mahal-feature.webp', 'north-india-b.webp', 'taj-mahal-wide.webp']],
   [/jaipur/i, ['jaipur-amber-fort.webp', 'jaipur-city-palace.webp', 'jaipur-hawa-mahal.webp']],
   [/rajasthan|rajsthan|mount.?abu|chittor|kota|bundi|shekhawati|mandawa|ranakpur/i, ['rajasthan-forts.webp', 'jaipur-hawa-mahal.webp', 'jodhpur-umaid-bhawan.webp', 'jaisalmer-fort-night.webp', 'jaipur-city-palace.webp']],
   [/sikkim|darjeeling|gangtok/i, ['darjeeling.webp']],
@@ -33,10 +33,11 @@ const RULES = [
   [/west.?india|westindia|madhya|khajuraho|gwalior|orccha|orchha|bhopal/i, ['west-india.webp', 'rajasthan-forts.webp']],
   [/orissa|odisha|bengal|kolkata|bihar|jharkhand|east.?india|eastindia|puri|konark/i, ['east-india.webp', 'darjeeling.webp']],
   [/delhi/i, ['delhi-red-fort.webp']],
-  [/north.?india|northindia/i, ['north-india.webp', 'north-india-b.webp']],
+  [/north.?india|northindia/i, ['north-india-b.webp', 'golden-temple-amritsar.webp', 'delhi-red-fort.webp']],
   [/weather|geography|history|culture|art\b|music|dance|cuisine|shopping|tradition|custom|communication|visa|embass|maps?\b|guide|currency|phone|travel/i, ['travel-guide.webp']]
 ];
-const FALLBACK = ['taj-mahal-feature.webp', 'india-main.webp', 'north-india.webp'];
+// (15 Oct 2026) north-india.webp is not used: it is an Adobe Stock preview with a watermark
+const FALLBACK = ['taj-mahal-feature.webp', 'india-main.webp', 'north-india-b.webp'];
 
 const hash = s => { let h = 0; for (const c of String(s)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h; };
 

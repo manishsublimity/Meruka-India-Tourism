@@ -5,13 +5,13 @@
   const links = [
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/aboutus' },
-    { label: 'Destinations', href: '/#destinations', menu: 'dest' },
-    { label: 'Tour Packages', href: '/#packages', menu: 'pkg' },
+    // (15 Oct 2026) direct links, no dropdowns — as on the original site
+    { label: 'Tour Packages', href: '/itineraries' },
     { label: 'Contact', href: '/contactus' }
   ];
   // home-2 (Anshuman's brief): the old site's Testimonials link and the traced logo
   const v2 = typeof variant !== 'undefined' && variant === 'over';
-  if (v2) links.splice(4, 0, { label: 'Testimonials', href: '/testimonials' });
+  if (v2) links.splice(3, 0, { label: 'Testimonials', href: '/testimonials' });
   const phone = footer.hq.phones[0], tel = 'tel:' + phone.replace(/[^0-9+]/g, '');
   const popular = footer.cols[0].items.slice(0, 5);
   const icon = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
@@ -78,7 +78,7 @@
             <% menu.langs.forEach(l => { %><button type="button" data-mh-lang-pick="<%= l %>"><%= l %></button><% }) %>
           </div>
       </div>
-      <a href="/#plan" class="mh-plan">Plan My Trip</a>
+      <a href="/plan-my-trip" class="mh-plan">Plan My Trip</a>
       <button type="button" class="mh-burger" data-mh-burger aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -88,6 +88,6 @@
     <% links.forEach(l => { %>
     <a href="<%= l.href %>" class="mh-drawer-link<%= l.label === current ? ' on' : '' %>"><%= l.label %><span>→</span></a>
     <% }) %>
-    <a href="/#plan" class="mh-plan mh-drawer-plan">Plan My Trip</a>
+    <a href="/plan-my-trip" class="mh-plan mh-drawer-plan">Plan My Trip</a>
   </div>
 </header>

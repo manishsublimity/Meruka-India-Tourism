@@ -94,7 +94,7 @@
     </label>
     <a href="/contactus" class="sb-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Contact Us</a>
     <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="sb-btn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>WhatsApp</a>
-    <a href="#plan" class="sb-plan">Plan My Trip</a>
+    <a href="/plan-my-trip" class="sb-plan">Plan My Trip</a>
   </form>
 </section>
 
@@ -248,7 +248,7 @@
       <span class="c6-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 6 6 6-6 6"/><path d="m13 6 6 6-6 6"/></svg></span>
       <div class="c6-part c6-acts">
         <div class="c3-actions">
-          <a href="#plan" class="c3-btn c3-gold">Tell Us Your Plan <span aria-hidden="true">→</span></a>
+          <a href="/plan-my-trip" class="c3-btn c3-gold">Tell Us Your Plan <span aria-hidden="true">→</span></a>
           <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="c3-btn c3-line"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>WhatsApp</a>
           <a href="mailto:<%= footer.hq.email %>" class="c3-btn c3-line">Email us</a>
         </div>
@@ -411,7 +411,7 @@
           <p>A planner answers, not a bot.</p>
           <a href="tel:<%= footer.hq.phones[0].replace(/[^0-9+]/g, '') %>" class="fq5-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><%= footer.hq.phones[0] %></a>
           <a href="mailto:<%= footer.hq.email %>" class="fq5-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14"/><path d="m3 7 9 6 9-6"/></svg><%= footer.hq.email %></a>
-          <a href="#plan" class="fq5-cta">Plan My Trip <span aria-hidden="true">→</span></a>
+          <a href="/plan-my-trip" class="fq5-cta">Plan My Trip <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -447,40 +447,7 @@
 </section>
 
 <section id="plan" class="pv pz">
-  <div class="b-wrap">
-    <div class="pz-head">
-      <div>
-        <div class="pz-title"><h2 class="h4-h2 pz-h">Plan Your <em>Trip</em></h2>
-        <p class="pz-q">“The journey of a thousand miles begins with one step.”</p></div>
-      </div>
-      <ul class="pz-trust">
-        <li>Reply &lt; 24h</li><li>No obligation</li><li>No deposit</li><li>Details never shared</li>
-      </ul>
-    </div>
-    <div class="pz-body">
-      <div id="plan-sent" class="is-hidden pl-sent">
-          <div class="pl-sent-tick">✓</div>
-          <div class="pl-sent-t">Enquiry received</div>
-          <div class="pl-sent-p">A planner will write within one working day. Urgent? Call <a href="tel:<%= footer.hq.phones[0].replace(/[^0-9+]/g, '') %>"><%= footer.hq.phones[0] %></a>.</div>
-        </div>
-      <form id="plan-form" novalidate class="pz-form">
-        <div class="pz-row">
-          <label class="pv5-f"><span class="sr-only">Full name</span><input name="name" class="pv-in" placeholder="Full name" autocomplete="name"></label>
-          <label class="pv5-f"><span class="sr-only">Email address</span><input name="email" type="email" class="pv-in" placeholder="Email address" autocomplete="email"></label>
-          <label class="pv5-f"><span class="sr-only">Country</span><select name="country" class="pv-in"><% d.countries.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %></select></label>
-          <label class="pv5-f"><span class="sr-only">Arrival date</span><input name="date" type="date" class="pv-in"></label>
-          <label class="pv5-f"><span class="sr-only">Travellers</span><select name="travellers" class="pv-in"><% d.paxOpts.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %></select></label>
-          <label class="pv5-f"><span class="sr-only">Duration</span><select name="duration" class="pv-in"><% d.filters.days.opts.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %></select></label>
-        </div>
-        <div class="pz-row2">
-          <div class="pz-stars"><span class="pz-l">Hotel</span><div class="pv-stars">               <% d.starChips.forEach(x => { %>               <button type="button" class="star" data-star="<%= x %>" data-on="<%= starOn %>" data-off="<%= starOff %>" style="<%= x === d.defaultStar ? starOn : starOff %>"><%= x %></button>               <% }) %>             </div></div>
-          <label class="pz-msg"><span class="sr-only">Your trip</span><textarea name="message" rows="1" class="pv-in pv-ta" placeholder="Destinations or tour code in mind — e.g. IGT-551 plus the Kerala backwaters, slow pace."></textarea></label>
-          <button type="submit" class="pv-submit pz-go">Send My Enquiry <span aria-hidden="true">→</span></button>
-        </div>
-        <div id="plan-err" class="is-hidden pl-err"></div>
-      </form>
-    </div>
-  </div>
+<%- include('partials/plan-form', { P: d }) %>
 </section>
 
 

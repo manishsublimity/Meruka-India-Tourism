@@ -1,7 +1,8 @@
 (function () {
   // Testimonials: filter by tour group, search, "Show more", and "Read more" on long quotes.
   var cards = $$('.tm-card'), chips = $$('.tm-chip'), input = $('#tm-q');
-  var PAGE = 18, limit = PAGE, group = '', q = '';
+  // (16 Oct 2026) nine reviews to start (three rows), then 18 more per click
+  var FIRST = window.matchMedia('(max-width: 767.98px)').matches ? 4 : 9, PAGE = 18, limit = FIRST, group = '', q = '';   // phones: four to start
 
   function render() {
     var matches = cards.filter(function (c) {
@@ -18,18 +19,20 @@
   }
   chips.forEach(function (b) {
     b.addEventListener('click', function () {
-      group = b.dataset.g; limit = PAGE;
+      group = b.dataset.g; limit = FIRST;
       chips.forEach(function (x) { var on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
       render();
     });
   });
-  input.addEventListener('input', function () { q = input.value.trim().toLowerCase(); limit = PAGE; render(); });
+  input.addEventListener('input', function () { q = input.value.trim().toLowerCase(); limit = FIRST; render(); });
   $('#tm-load').addEventListener('click', function () { limit += PAGE; render(); });
   $('#tm-reset').addEventListener('click', function () {
-    q = ''; input.value = ''; group = ''; limit = PAGE;
+    q = ''; input.value = ''; group = ''; limit = FIRST;
     chips.forEach(function (x, i) { x.classList.toggle('on', i === 0); x.setAttribute('aria-pressed', i === 0); });
     render();
   });
+
+  if (FIRST !== 9) render();   // phones start with fewer than the page shows
 
   // "Read more" only where the quote is actually cut off
   function checkMore() {

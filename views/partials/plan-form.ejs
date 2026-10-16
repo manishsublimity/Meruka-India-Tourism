@@ -1,0 +1,42 @@
+<%
+  // "Plan Your Trip" enquiry form (15 Oct 2026: shared by the home page and the Plan My Trip page).
+  // Params: P (the home page data — countries, travellers, durations, hotel stars), prefill? (text for the message box)
+  const d = P;
+  const pfMsg = typeof prefill !== 'undefined' && prefill ? prefill : '';
+  const starOff = 'font-size:13.5px;font-weight:700;padding:10px 15px;cursor:pointer;border:1px solid #DDE4EE;background:#F7F9FC;color:#33445E;font-family:inherit;transition:all .2s';
+  const starOn = 'font-size:13.5px;font-weight:700;padding:10px 15px;cursor:pointer;border:1px solid #336699;background:#336699;color:#fff;font-family:inherit;transition:all .2s';
+%>
+  <div class="b-wrap">
+    <div class="pz-head">
+      <div>
+        <div class="pz-title"><h2 class="h4-h2 pz-h">Plan Your <em>Trip</em></h2>
+        <p class="pz-q">“The journey of a thousand miles begins with one step.”</p></div>
+      </div>
+      <ul class="pz-trust">
+        <li>Reply &lt; 24h</li><li>No obligation</li><li>No deposit</li><li>Details never shared</li>
+      </ul>
+    </div>
+    <div class="pz-body">
+      <div id="plan-sent" class="is-hidden pl-sent">
+          <div class="pl-sent-tick">✓</div>
+          <div class="pl-sent-t">Enquiry received</div>
+          <div class="pl-sent-p">A planner will write within one working day. Urgent? Call <a href="tel:<%= footer.hq.phones[0].replace(/[^0-9+]/g, '') %>"><%= footer.hq.phones[0] %></a>.</div>
+        </div>
+      <form id="plan-form" novalidate class="pz-form">
+        <div class="pz-row">
+          <label class="pv5-f"><span class="sr-only">Full name</span><input name="name" class="pv-in" placeholder="Full name" autocomplete="name"></label>
+          <label class="pv5-f"><span class="sr-only">Email address</span><input name="email" type="email" class="pv-in" placeholder="Email address" autocomplete="email"></label>
+          <label class="pv5-f"><span class="sr-only">Country</span><select name="country" class="pv-in"><% d.countries.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %></select></label>
+          <label class="pv5-f"><span class="sr-only">Arrival date</span><input name="date" type="date" class="pv-in"></label>
+          <label class="pv5-f"><span class="sr-only">Travellers</span><select name="travellers" class="pv-in"><% d.paxOpts.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %></select></label>
+          <label class="pv5-f"><span class="sr-only">Duration</span><select name="duration" class="pv-in"><% d.filters.days.opts.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %></select></label>
+        </div>
+        <div class="pz-row2">
+          <div class="pz-stars"><span class="pz-l">Hotel</span><div class="pv-stars">               <% d.starChips.forEach(x => { %>               <button type="button" class="star" data-star="<%= x %>" data-on="<%= starOn %>" data-off="<%= starOff %>" style="<%= x === d.defaultStar ? starOn : starOff %>"><%= x %></button>               <% }) %>             </div></div>
+          <label class="pz-msg"><span class="sr-only">Your trip</span><textarea name="message" rows="1" class="pv-in pv-ta" placeholder="Destinations or tour code in mind — e.g. IGT-551 plus the Kerala backwaters, slow pace."><%= pfMsg %></textarea></label>
+          <button type="submit" class="pv-submit pz-go">Send My Enquiry <span aria-hidden="true">→</span></button>
+        </div>
+        <div id="plan-err" class="is-hidden pl-err"></div>
+      </form>
+    </div>
+  </div>

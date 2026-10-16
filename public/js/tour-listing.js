@@ -13,11 +13,15 @@
     var b = g.querySelector('.tp2-chev'); if (b) b.setAttribute('aria-expanded', open);
   }
   groups.forEach(function (g) {
-    g.querySelector('[data-tp2-toggle]').addEventListener('click', function (e) {
+    var tg = g.querySelector('[data-tp2-toggle]'); if (!tg) return;   // a one-category page has no card header
+    tg.addEventListener('click', function (e) {
       if (e.target.closest('a')) return;
       setOpen(g, !g.classList.contains('open'));
     });
   });
+
+  // no filters on a one-category page (the original's layout): nothing more to wire up
+  if (!form) return;
 
   var inRange = function (v, r) { if (!r) return true; var p = r.split('-'); v = +v; return v > 0 && v >= +p[0] && v <= +p[1]; };
   function values(name) { return $$('input[name="' + name + '"]:checked', form).map(function (i) { return i.value; }); }

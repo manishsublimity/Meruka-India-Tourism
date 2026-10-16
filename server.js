@@ -45,6 +45,19 @@ app.locals.toursFor = (place, n = 4) => {
   return ALL_TOURS.map(t => ({ t, s: score(t) })).filter(x => x.s < 9)
     .sort((a, b) => a.s - b.s || nightsOf(a.t) - nightsOf(b.t)).slice(0, n).map(x => x.t);
 };
+// Every inner page ends with the same "explore" block as the original site (partials/explore-india): the four
+// regions, every tour category in its group, and the travel guide — the home page's designs, the home page's data
+app.locals.tourNav = require('./data/tour-nav');
+app.locals.explore = (() => {
+  const H2 = require('./data/home2');
+  const REGION_IMG = { 'North India': '/photos/golden-temple-amritsar.webp', 'South India': '/photos/region-south-india.webp', 'West India': '/photos/goa-beach-palms.webp', 'East India': '/photos/arunachal-losar.webp' };
+  return {
+    regions: ['North India', 'South India', 'East India', 'West India'].map(n => H2.regions.find(r => r.name === n)).filter(Boolean)
+      .map(r => Object.assign({}, r, { img: REGION_IMG[r.name] || r.img })),
+    guideCols: home.guideCols,
+    guideImgs: ['/photos/guide-travelers.webp', '/photos/guide-attractions.webp', '/photos/travel-tools-hd.webp']
+  };
+})();
 // The header's Destinations / Tour Packages dropdowns appear on every page
 app.locals.menu = { pkgCols: home.pkgMenuCols, destCols: home.destMenuCols, to: home.to, mostBookedHref: home.mostBookedHref, langs: home.langs };
 // ...and so does the one footer (partials/site-footer), with the head office details from the contact page
@@ -112,7 +125,11 @@ app.get('/', renderHome4(true));
 // the design copy keeps working for further changes; it is the same page, not indexed
 app.get('/home-4', renderHome4(false));
 app.get('/aboutus', (req, res) => res.render('about', { ...inner4(), totalTours: require('./data/home2').totalTours, T: home.testimonials, title: 'About us — Meruka India Tourism', d: about, meta: { description: 'Meruka India Tourism has looked after overseas travellers inside India since 2001: private, hand-routed tours with our own ground teams across the country.', canonical: '/aboutus' } }));
-app.get('/contactus', (req, res) => res.render('contact', { ...inner4(), title: 'Contact us — Meruka India Tourism', d: contact, meta: { description: 'Contact Meruka India Tourism: head office in Jaipur, phone and WhatsApp +91 99203 63777, email ask@india-tourism.net. A planner replies within one working day.', canonical: '/contactus' } }));
+// Plan My Trip (15 Oct 2026): every "Plan My Trip" button opens this page; ?tour=<name> fills in the message
+app.get('/plan-my-trip', (req, res) => res.render('plan', { ...inner4(), title: 'Plan My Trip — Meruka India Tourism', H: home, q: req.query,
+  d: { nav: site.nav('', false), footCols: site.footCols() },
+  meta: { description: 'Plan a private tour of India with Meruka India Tourism: tell us your places, dates and hotels, and a planner replies within one working day with a route and a price.', canonical: '/plan-my-trip' } }));
+app.get('/contactus',(req, res) => res.render('contact', { ...inner4(), title: 'Contact us — Meruka India Tourism', d: contact, meta: { description: 'Contact Meruka India Tourism: head office in Jaipur, phone and WhatsApp +91 99203 63777, email ask@india-tourism.net. A planner replies within one working day.', canonical: '/contactus' } }));
 // The Testimonials page has its own layout; its content is still the imported page, word for word.
 app.get('/testimonials', (req, res) => {
   const d = require('./data/articles/testimonials');

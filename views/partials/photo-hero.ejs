@@ -1,15 +1,24 @@
 <%
-  // Inner-page hero (12 Oct 2026, from the About page): the page's own banner from the live site behind
-  // a blue wash, a breadcrumb and the title (last word in the accent face). Same height on every page.
-  // Params: title, img, alt?, crumbs? ([{ label, href? }], defaults to Home / title), sub? (one short line)
+  // Inner-page hero (15 Oct 2026): the page's own banner from the live site as a clean picture — no wash, nothing
+  // written on it — and below it the breadcrumb and the title (last word in the accent face). Same height on every page.
+  // Params: title, img, alt?, crumbs? ([{ label, href? }], defaults to Home / title), sub? (one short line),
+  //         part? ('media' = the picture only, 'head' = the title only — a page can put a band between the two)
   const hWords = String(title).trim().split(' '), hLast = hWords.length > 1 ? hWords.pop() : '';
   const hCrumbs = (typeof crumbs !== 'undefined' && crumbs && crumbs.length) ? crumbs : [{ label: 'Home', href: '/' }, { label: title }];
+  const hPart = typeof part !== 'undefined' ? part : '';
 %>
-<section class="abx-hero">
-  <img src="<%= img %>" alt="<%= typeof alt !== 'undefined' && alt ? alt : '' %>" class="abx-hero-img">
-  <div class="abx-hero-in">
-    <nav class="abx-crumb" aria-label="Breadcrumb"><% hCrumbs.forEach((c, i) => { %><% if (i) { %><span aria-hidden="true">/</span><% } %><% if (c.href && i < hCrumbs.length - 1) { %><a href="<%= c.href %>"><%= c.label %></a><% } else { %><span><%= c.label %></span><% } %><% }) %></nav>
-    <h1 class="abx-h1"><%= hWords.join(' ') %><% if (hLast) { %> <em><%= hLast %></em><% } %></h1>
-    <% if (typeof sub !== 'undefined' && sub) { %><p class="abx-hero-sub"><%= sub %></p><% } %>
+<% if (hPart !== 'head') { %>
+<section class="abx-hero ph2<%= hPart ? ' ph2-split' : '' %>">
+  <div class="ph2-media"><img src="<%= img %>" alt="<%= typeof alt !== 'undefined' && alt ? alt : '' %>" class="abx-hero-img"></div>
+<% } %>
+<% if (hPart !== 'media') { %>
+  <% if (hPart === 'head') { %><section class="ph2 ph2-head-only"><% } %>
+  <div class="ph2-head">
+    <div class="abx-hero-in">
+      <nav class="abx-crumb" aria-label="Breadcrumb"><% hCrumbs.forEach((c, i) => { %><% if (i) { %><span aria-hidden="true">/</span><% } %><% if (c.href && i < hCrumbs.length - 1) { %><a href="<%= c.href %>"><%= c.label %></a><% } else { %><span><%= c.label %></span><% } %><% }) %></nav>
+      <h1 class="abx-h1"><%= hWords.join(' ') %><% if (hLast) { %> <em><%= hLast %></em><% } %></h1>
+      <% if (typeof sub !== 'undefined' && sub) { %><p class="abx-hero-sub"><%= sub %></p><% } %>
+    </div>
   </div>
+<% } %>
 </section>

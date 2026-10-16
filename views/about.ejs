@@ -10,7 +10,7 @@
 <%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
 
 <!-- 1) Hero: a full-width photo with the page heading -->
-<%- include('partials/photo-hero', { title: 'About Us', img: d.heroSrc, alt: 'Two business people shaking hands in front of a world map', sub: 'Private tours of India for overseas travellers since 2001.' }) %>
+<%- include('partials/photo-hero', { title: 'About Us', img: d.heroSrc, alt: 'Two business people shaking hands in front of a world map', sub: 'Private tours of India for overseas travellers since 2001.', part: 'media' }) %>
 
 <!-- the numbers band, exactly as under the home page hero -->
 <section class="h8-stats" aria-label="Meruka India Tourism at a glance">
@@ -22,6 +22,9 @@
     <div><b class="h8-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.4 3.4 8.3 8 9 4.6-.7 8-4.6 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></b><span>Private Tours — No Sharing</span></div>
   </div>
 </section>
+
+<!-- the page title under the picture and the numbers band -->
+<%- include('partials/photo-hero', { title: 'About Us', img: d.heroSrc, alt: 'Two business people shaking hands in front of a world map', sub: 'Private tours of India for overseas travellers since 2001.', part: 'head' }) %>
 
 <!-- 2) About us: the live page's text, all nine paragraphs in their order (the hero already says "About Us") -->
 <section class="abx abx-about" id="ih-next">
@@ -102,6 +105,8 @@
 
 <!-- 5) Popular packages -->
 <%- include('partials/popular-tours', { current: '/aboutus' }) %>
+
+<%- include('partials/explore-india', { current: '/aboutus' }) %>
 
 <%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
 

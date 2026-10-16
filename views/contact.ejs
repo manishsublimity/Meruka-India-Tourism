@@ -21,12 +21,11 @@
 
 <% const hq = d.offices[0]; const tel = p => 'tel:' + p.replace(/[^0-9+]/g, ''); %>
 <!-- Hero: title on a soft sky with a line-art skyline; the lead line and quick contacts follow -->
-<%- include('partials/photo-hero', { title: 'Contact Us', img: '/photos/hero-desert-camel.webp', alt: 'A camel caravan crossing the Thar desert at sunset' }) %>
+<%- include('partials/photo-hero', { title: 'Contact Us', img: '/photos/hero-desert-camel.webp', alt: 'A camel caravan crossing the Thar desert at sunset', sub: 'Thanks for visiting our web site. Please send us the following information, enabling us to design the best tour for you.' }) %>
 <section class="az az-a ct-top">
   <div class="az-wrap az-row">
-  <div class="az-side"><span class="az-no">01</span><h2 class="h4-h2 az-h">Get in <em>touch</em></h2></div>
+  <%# (15 Oct 2026) no "Get in touch" heading: the page title sits right above; the line under it is the hero's sub %>
   <div class="az-main">
-  <p class="az-lead">Thanks for visiting our web site. Please send us the following information, enabling us to design the best tour for you.</p>
   <div class="ct-quick az-contacts">
       <% hq.phones.forEach(p => { %>
       <a class="ct-q" href="<%= tel(p) %>">
@@ -183,6 +182,8 @@
     </div>
   </div>
 </section>
+
+<%- include('partials/explore-india', { current: '/contactus', skipRegions: true, skipGuide: true }) %>
 
 <%- include('partials/page-footer', { footCols: d.footCols, enquireHref: '#enquiry' }) %>
 

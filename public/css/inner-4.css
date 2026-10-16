@@ -2156,3 +2156,272 @@
 #mk-frame.in4 .abx-about .abx-cols{column-count:1 !important;max-width:none;width:100%}
 #mk-frame.in4 .abx-about .abx-cols .abx-text{max-width:none !important;margin:0 0 16px !important}
 #mk-frame.in4 .abx-about .abx-cols .abx-text:last-child{margin-bottom:0 !important}
+
+/* =====================================================================================
+   EXPLORE block (15 Oct 2026) — partials/explore-india, at the end of every inner page, as on the original site:
+   India Tour Packages (every category in its group), Tourist Destinations of India (the home page's region tiles),
+   India Travel Guide (the home page's section). Same spacing, headings, cards and 5px corners as the home page.
+   ===================================================================================== */
+#mk-frame.in4 .ex-wrap{max-width:1408px;margin:0 auto;padding:0 24px;box-sizing:border-box}
+#mk-frame.in4 :is(.ex-pk,.ex-rg,.ex-g2){padding-top:var(--h4-sp,clamp(44px,4.6cqw,72px)) !important;padding-bottom:0 !important}
+#mk-frame.in4 .ex-g2{padding-bottom:var(--h4-sp,clamp(44px,4.6cqw,72px)) !important}
+/* packages: seven group cards */
+#mk-frame.in4 .ex-pk-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+#mk-frame.in4 .ex-pk-card{padding:18px 18px 10px;background:#fff;border:1px solid var(--mk-line);border-top:3px solid var(--mk-blue);border-radius:var(--mk-radius) !important;box-shadow:0 8px 22px rgba(18,63,109,.06)}
+#mk-frame.in4 .ex-pk-card:nth-child(4n+1){border-top-color:var(--mk-gold)}
+#mk-frame.in4 .ex-pk-t{margin:0 0 8px;font-family:var(--mk-font-head) !important;font-size:17px;font-weight:700;letter-spacing:-.01em;color:var(--mk-ink)}
+#mk-frame.in4 .ex-pk-card ul{margin:0;padding:0;list-style:none}
+#mk-frame.in4 .ex-pk-card li + li{border-top:1px solid var(--mk-line)}
+#mk-frame.in4 .ex-pk-card a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;font-size:14.5px;font-weight:600;color:var(--mk-text);text-decoration:none;transition:color var(--mk-ease)}
+#mk-frame.in4 .ex-pk-card a i{font-style:normal;color:var(--mk-blue);opacity:0;transform:translateX(-4px);transition:opacity var(--mk-ease),transform var(--mk-ease)}
+#mk-frame.in4 .ex-pk-card a:hover{color:var(--mk-blue)}
+#mk-frame.in4 .ex-pk-card a:hover i{opacity:1;transform:none}
+#mk-frame.in4 .ex-pk-card a.on{color:var(--mk-blue-d);font-weight:800}
+#mk-frame.in4 .ex-pk-card a.on i{opacity:1;transform:none;color:var(--mk-gold)}
+/* regions: four tiles in a row */
+#mk-frame.in4 .ex-rg-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+#mk-frame.in4 .ex-rg-grid .rg{height:280px}
+@media (max-width:1099.98px){ #mk-frame.in4 .ex-pk-grid,#mk-frame.in4 .ex-rg-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:599.98px){ #mk-frame.in4 .ex-pk-grid,#mk-frame.in4 .ex-rg-grid{grid-template-columns:minmax(0,1fr)} #mk-frame.in4 .ex-rg-grid .rg{height:230px} }
+#mk-frame.in4 .ex-pk-card.ex-pk-cta{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;padding:22px;background:var(--mk-blue-d);border:0;border-top:3px solid var(--mk-gold)}
+#mk-frame.in4 .ex-pk-cta .ex-pk-t{color:#fff}
+#mk-frame.in4 .ex-pk-cta p{margin:0 0 14px;font-size:14px;line-height:1.55;color:rgba(255,255,255,.82)}
+#mk-frame.in4 .ex-pk-cta a.ph-btn{display:inline-flex;padding:0 18px;justify-content:center;color:var(--mk-gold-ink)}
+#mk-frame.in4 .ex-pk-cta a.ph-btn:hover{background:#fff !important;border-color:#fff !important;color:var(--mk-blue-d) !important}
+
+/* tour page flow (15 Oct 2026), as on the original site: the other tours of the same category in the sidebar,
+   and the previous / next tour of the category after the days */
+#mk-frame.td2 .td2-cat{margin:16px 0 0;padding:18px 18px 14px;background:#fff;border:1px solid var(--mk-line);border-top:3px solid var(--mk-blue);border-radius:var(--mk-radius) !important}
+#mk-frame.td2 .td2-cat-t{margin:0 0 6px;font-family:var(--mk-font-head) !important;font-size:16px;font-weight:700;color:var(--mk-ink)}
+#mk-frame.td2 .td2-cat ul{margin:0;padding:0;list-style:none}
+#mk-frame.td2 .td2-cat li + li{border-top:1px solid var(--mk-line)}
+#mk-frame.td2 .td2-cat li a{display:flex;flex-direction:column;gap:2px;padding:9px 0 9px 12px;border-left:3px solid transparent;text-decoration:none;transition:border-color var(--mk-ease)}
+#mk-frame.td2 .td2-cat li a span{font-size:14px;font-weight:600;line-height:1.35;color:var(--mk-text);transition:color var(--mk-ease)}
+#mk-frame.td2 .td2-cat li a small{font-size:12px;color:var(--mk-muted)}
+#mk-frame.td2 .td2-cat li a:hover{border-left-color:var(--mk-gold)}
+#mk-frame.td2 .td2-cat li a:hover span{color:var(--mk-blue)}
+#mk-frame.td2 .td2-cat li a.on{border-left-color:var(--mk-blue)}
+#mk-frame.td2 .td2-cat li a.on span{color:var(--mk-blue-d);font-weight:800}
+#mk-frame.td2 .td2-cat-all{display:inline-flex;align-items:center;gap:6px;margin:10px 0 0;font-size:14px;font-weight:800;color:var(--mk-blue);text-decoration:none}
+#mk-frame.td2 .td2-cat-all:hover{color:var(--mk-blue-d)}
+@media (max-width:1279.98px){ #mk-frame.in4 .ex-rg-grid{grid-template-columns:repeat(2,minmax(0,1fr))} #mk-frame.in4 .ex-rg-grid .rg{height:250px} }
+@media (max-width:599.98px){ #mk-frame.in4 .ex-rg-grid{grid-template-columns:minmax(0,1fr)} #mk-frame.in4 .ex-rg-grid .rg{height:230px} }
+
+/* Inner-page hero v2 (15 Oct 2026): a clean picture on top (no blue wash, no text on it), then the breadcrumb and
+   the title below it on the page background — the same title style as the tour pages. Same height on every page. */
+#mk-frame.in4 .abx-hero.ph2{display:block;height:auto !important;min-height:0 !important;overflow:visible;background:transparent}
+#mk-frame.in4 .abx-hero.ph2::after{display:none !important}
+#mk-frame.in4 .ph2-media{position:relative;height:clamp(220px,26cqw,380px);overflow:hidden;background:var(--mk-blue-d)}
+#mk-frame.in4 .ph2 .abx-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%}
+#mk-frame.in4 .ph2-head .abx-hero-in{padding:clamp(18px,2cqw,26px) 24px 0}
+#mk-frame.in4 .ph2 .abx-crumb{margin-bottom:10px;font-size:13px;font-weight:600;color:var(--mk-muted)}
+#mk-frame.in4 .ph2 .abx-crumb a{color:var(--mk-text)}
+#mk-frame.in4 .ph2 .abx-crumb a:hover{color:var(--mk-blue)}
+#mk-frame.in4 .ph2 .abx-crumb span:last-child{color:var(--mk-blue-d)}
+#mk-frame.in4 .ph2 .abx-crumb span[aria-hidden]{color:#B7C6DA}
+#mk-frame.v3.in4 .ph2 .abx-h1{font-size:clamp(34px,3.8cqw,54px);font-weight:700;line-height:1.08;letter-spacing:-.03em;color:var(--mk-ink) !important;text-shadow:none}
+#mk-frame.v3.in4 .ph2 .abx-h1 em{color:var(--mk-blue) !important}
+#mk-frame.in4 .ph2 .abx-hero-sub{margin:10px 0 0;max-width:720px;font-size:16px;font-weight:500;color:var(--mk-text)}
+@media (max-width:899.98px){ #mk-frame.in4 .ph2-head .abx-hero-in{padding-left:16px;padding-right:16px} }
+@media (max-width:639.98px){ #mk-frame.in4 .ph2-media{height:200px} }
+#mk-frame.in4 .ph2 + .h8-stats{margin-top:clamp(22px,2.4cqw,32px)}
+/* the title block under the banner sits on white, like the content after it (About: picture, numbers band, title) */
+#mk-frame.in4 .ph2-head{background:#fff}
+#mk-frame.in4 .ph2-head-only .ph2-head .abx-hero-in{padding-top:clamp(26px,2.8cqw,40px)}
+#mk-frame.in4 .ph2 + .h8-stats{margin-top:0}
+/* tour lists sit on the light grey page: their title block keeps it */
+#mk-frame.in4 .ph2:has(+ .tp2) .ph2-head{background:transparent}
+
+/* 15 Oct 2026: the title under the banner is always plain — no colour band — and the section right after it is white
+   too (tour lists, the "At a glance" facts), so title and content read as one. Banner 30% lower than before. */
+#mk-frame.in4 .ph2-head,#mk-frame.in4 .ph2:has(+ .tp2) .ph2-head{background:transparent !important}
+#mk-frame.in4 .ph2{background:#fff}
+#mk-frame.in4 .ph2 + :is(.tp2,.af),#mk-frame.in4 .tp2{background:#fff !important}
+#mk-frame.in4 .ph2-media{height:clamp(154px,18.2cqw,266px) !important}
+@media (max-width:639.98px){ #mk-frame.in4 .ph2-media{height:140px !important} }
+#mk-frame.in4 .abx-hero.ph2,#mk-frame.in4 section.ph2.ph2-head-only{background:#fff !important}
+
+/* Region pages (North / South / East / West India), 15 Oct 2026: the facts come right under the page title as one
+   white strip — four cells split by thin lines, a small icon beside each label, the value or the place chips below.
+   No section heading of their own. */
+#mk-frame.in4 .af2{padding-top:clamp(18px,2cqw,26px) !important;padding-bottom:0 !important}
+#mk-frame.in4 .af2 .az-row{display:block}
+#mk-frame.in4 .af2 .af-wrap.az-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 !important;background:#fff !important;border:1px solid var(--mk-line) !important;border-top:3px solid var(--mk-gold) !important;border-radius:var(--mk-radius) !important;box-shadow:0 8px 22px rgba(18,63,109,.06);overflow:hidden}
+#mk-frame.in4 .af2 .af-card,#mk-frame.in4 .af2 .af-card:nth-child(-n+2),#mk-frame.in4 .af2 .af-card:first-child{display:grid !important;grid-template-columns:auto minmax(0,1fr);align-items:center;align-content:start;gap:10px 10px !important;padding:18px 20px !important;margin:0;background:none !important;border:0 !important;border-left:1px solid var(--mk-line) !important;box-shadow:none !important;border-radius:0 !important}
+#mk-frame.in4 .af2 .af-card:first-child{border-left:0 !important}
+#mk-frame.in4 .af2 .af-ic{width:34px !important;height:34px !important;margin:0 !important}
+#mk-frame.in4 .af2 .af-ic svg{width:17px !important;height:17px !important}
+#mk-frame.in4 .af2 .af-label{margin:0 !important;font-size:12px !important;letter-spacing:.1em}
+#mk-frame.in4 .af2 :is(.af-value,.af-chips){grid-column:1 / -1;margin:0 !important;padding:0 !important;border:0 !important}
+#mk-frame.in4 .af2 .af-value{font-size:16px !important;line-height:1.45}
+@media (max-width:1099.98px){ #mk-frame.in4 .af2 .af-wrap.az-facts{grid-template-columns:repeat(2,minmax(0,1fr))} #mk-frame.in4 .af2 .af-card:nth-child(3){border-left:0 !important} #mk-frame.in4 .af2 .af-card:nth-child(n+3){border-top:1px solid var(--mk-line) !important} }
+@media (max-width:599.98px){ #mk-frame.in4 .af2 .af-wrap.az-facts{grid-template-columns:minmax(0,1fr)} #mk-frame.in4 .af2 .af-card{border-left:0 !important} #mk-frame.in4 .af2 .af-card:nth-child(n+2){border-top:1px solid var(--mk-line) !important} }
+#mk-frame.ux.v3.h4 :is(.ar-body,.ar-region,.ar-dest,.ar-single) .prose > p{font-style:normal !important}
+
+/* Tour category pages (15 Oct 2026), as on the original (e.g. India Golden Triangle Tours): under the title the
+   category's description, then the tours — no card repeating the title, no filters. /itineraries keeps its cards. */
+#mk-frame.in4 .tp2-intro{margin:0 0 clamp(22px,2.4cqw,32px)}
+#mk-frame.in4 .tp2-intro p{margin:0 0 14px;font-size:16px;line-height:1.85;color:var(--mk-text)}
+#mk-frame.in4 .tp2-intro p:last-child{margin-bottom:0}
+#mk-frame.in4 .tp2-intro strong{font-weight:700;color:var(--mk-ink)}
+#mk-frame.in4 .tp2-one .tp2-grid{display:block}
+#mk-frame.in4 .tp2-one .tp2-card.tp2-flat{background:transparent;border:0;box-shadow:none;overflow:visible}
+#mk-frame.in4 .tp2-one .tp2-flat .tp2-rows{display:block !important;padding:0 !important;background:transparent !important;border:0 !important}
+#mk-frame.in4 .tp2-one .tp2-flat .tp2-row{margin:0 0 12px}
+#mk-frame.in4 .tp2 .tp2-intro + .tp2-grid .tp2-heading{display:none}
+#mk-frame.in4 .tp2-intro.prose{max-width:none !important}
+
+/* Tour page, shorter (15 Oct 2026): each day is a compact card like the original's — the photo is a small thumbnail
+   (still alternating right / left) so the text runs wide and the card is only as tall as its words. */
+#mk-frame.td2 .td2-day.td2-wrap{padding:16px 18px}
+#mk-frame.td2 .td2-wrap .td2-dfig{width:190px !important;height:130px !important;margin:2px 0 6px 18px}
+#mk-frame.td2 .td2-wrap.td2-flip .td2-dfig{margin:2px 18px 6px 0}
+#mk-frame.td2 .td2-wrap .td2-dhead{margin-bottom:8px}
+#mk-frame.td2 .td2-days{gap:12px}
+#mk-frame.td2 .td2-days > li + li{margin-top:0}
+#mk-frame.td2 .td2-p{margin:0 0 8px;line-height:1.75}
+#mk-frame.td2 .td2-p:last-child{margin-bottom:0}
+@media (max-width:767.98px){
+  #mk-frame.td2 .td2-wrap .td2-dfig,#mk-frame.td2 .td2-wrap.td2-flip .td2-dfig{float:right !important;width:120px !important;height:90px !important;margin:2px 0 6px 12px !important}
+}
+
+/* phones: the days as an accordion (public/js/tour-detail.js) — closed days show only their header */
+#mk-frame.td2 .td2-acc-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px}
+#mk-frame.td2 .td2-acc-bar[hidden]{display:none}
+#mk-frame.td2 .td2-acc-bar span{font-family:var(--mk-font-head) !important;font-size:17px;font-weight:700;color:var(--mk-ink)}
+#mk-frame.td2 .td2-acc-all{height:var(--mk-btn-h-sm);padding:0 14px;background:#fff;border:1.5px solid var(--mk-blue);border-radius:var(--mk-radius) !important;color:var(--mk-blue);font-size:14px;font-weight:800;cursor:pointer}
+#mk-frame.td2 .td2-acc .td2-day .td2-dhead{position:relative;margin:0 !important;padding-right:30px;cursor:pointer}
+#mk-frame.td2 .td2-acc .td2-day .td2-dhead::after{content:"";position:absolute;right:4px;top:50%;width:9px;height:9px;margin-top:-7px;border-right:2px solid var(--mk-blue);border-bottom:2px solid var(--mk-blue);transform:rotate(45deg);transition:transform var(--mk-ease)}
+#mk-frame.td2 .td2-acc .td2-day.td2-open .td2-dhead{margin-bottom:10px !important}
+#mk-frame.td2 .td2-acc .td2-day.td2-open .td2-dhead::after{transform:rotate(225deg);margin-top:-2px}
+#mk-frame.td2 .td2-acc .td2-day:not(.td2-open) :is(.td2-p,.td2-note,.td2-dfig){display:none !important}
+@media (max-width:767.98px){
+  #mk-frame.td2 .td2-wrap .td2-dfig,#mk-frame.td2 .td2-wrap.td2-flip .td2-dfig{float:none !important;width:100% !important;height:150px !important;margin:0 0 12px !important}
+}
+
+/* Plan My Trip: the planner card (phone / WhatsApp / email) */
+#mk-frame.in4 .pm-reach{padding:20px;background:var(--mk-blue-d);border-top:3px solid var(--mk-gold);border-radius:var(--mk-radius) !important}
+#mk-frame.in4 .pm-reach-t{margin:0 0 12px;font-family:var(--mk-font-head) !important;font-size:18px;font-weight:700;color:#fff}
+#mk-frame.in4 .pm-line{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid rgba(255,255,255,.14);text-decoration:none}
+#mk-frame.in4 .pm-ic{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:var(--mk-radius) !important;background:rgba(255,255,255,.1);color:var(--mk-gold)}
+#mk-frame.in4 .pm-ic svg{width:19px;height:19px}
+#mk-frame.in4 .pm-line small{display:block;font-size:12px;color:rgba(255,255,255,.7)}
+#mk-frame.in4 .pm-line b{display:block;font-size:15px;font-weight:700;color:#fff;transition:color var(--mk-ease)}
+#mk-frame.in4 .pm-line:hover b{color:var(--mk-gold)}
+
+/* "Can't find the right tour?" card (15 Oct 2026): white heading on the dark blue (a page-wide rule made headings
+   dark), a gold compass mark, and the text at full white for easy reading */
+#mk-frame.in4 .ex-pk-cta{position:relative;overflow:hidden}
+#mk-frame.in4 .ex-pk-cta::before{content:"";position:absolute;right:-28px;bottom:-28px;width:120px;height:120px;border-radius:50% !important;border:16px solid rgba(255,184,28,.12)}
+#mk-frame.in4 .ex-pk-cta .ex-pk-t,#mk-frame.v3.in4 .ex-pk-cta h3.ex-pk-t{position:relative;margin:0 0 8px;font-size:19px;line-height:1.3;color:#fff !important}
+#mk-frame.in4 .ex-pk-cta p{position:relative;color:#fff !important;opacity:.92;font-size:14.5px;line-height:1.6}
+#mk-frame.in4 .ex-pk-cta a.ph-btn{position:relative}
+
+/* Plan My Trip, redesigned (15 Oct 2026): inside the container, a white form card (labelled fields, two columns)
+   beside a sidebar with the next steps and the planner's phone / WhatsApp / email. Fields follow the site's field
+   system: 46px, 5px corners, blue focus ring. */
+#mk-frame.in4 .pm{padding:clamp(24px,2.6cqw,36px) 0 0}
+#mk-frame.in4 .pm .pm-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:24px;align-items:start}
+#mk-frame.in4 .pm-card{padding:clamp(20px,2.2cqw,30px);background:#fff;border:1px solid var(--mk-line);border-top:3px solid var(--mk-gold);border-radius:var(--mk-radius) !important;box-shadow:0 12px 30px rgba(18,63,109,.07)}
+#mk-frame.in4 .pm-card-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 18px;margin:0 0 20px;padding:0 0 16px;border-bottom:1px solid var(--mk-line)}
+#mk-frame.v3.in4 .pm-card-t{margin:0;font-family:var(--mk-font-head) !important;font-size:22px;font-weight:700;letter-spacing:-.01em;color:var(--mk-ink) !important}
+#mk-frame.in4 .pm-trust{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0;padding:0;list-style:none}
+#mk-frame.in4 .pm-trust li{position:relative;padding-left:20px;font-size:13px;font-weight:600;color:var(--mk-text)}
+#mk-frame.in4 .pm-trust li::before{content:"✓";position:absolute;left:0;top:50%;display:grid;place-items:center;width:15px;height:15px;margin-top:-7.5px;border-radius:50% !important;background:var(--mk-gold);color:var(--mk-gold-ink);font-size:9px;font-weight:900}
+#mk-frame.in4 .pm-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 18px}
+#mk-frame.in4 .pm-f{display:flex;flex-direction:column;gap:6px;min-width:0;margin:0;padding:0;border:0}
+#mk-frame.in4 .pm-f > span,#mk-frame.in4 .pm-f > legend{padding:0;font-size:13.5px;font-weight:700;color:var(--mk-ink)}
+#mk-frame.in4 .pm-f > span i{font-style:normal;color:#C0392B}
+#mk-frame.in4 .pm-in{width:100%;height:var(--mk-btn-h);padding:0 14px;background:#fff;border:1.5px solid #D5DEEA;border-radius:var(--mk-radius) !important;font-family:var(--mk-font-body) !important;font-size:15px;color:var(--mk-ink);box-sizing:border-box;transition:border-color var(--mk-ease),box-shadow var(--mk-ease)}
+#mk-frame.in4 .pm-in::placeholder{color:#8A97AB}
+#mk-frame.in4 .pm-in:focus{outline:0;border-color:var(--mk-blue);box-shadow:0 0 0 3px rgba(51,102,153,.15)}
+#mk-frame.in4 textarea.pm-in{height:auto;min-height:118px;padding:12px 14px;line-height:1.6;resize:vertical}
+#mk-frame.in4 .pm-hotels{margin:18px 0 0}
+#mk-frame.in4 .pm-chips{display:flex;flex-wrap:wrap;gap:8px}
+#mk-frame.in4 .pm-chip{height:40px;padding:0 16px;border-radius:var(--mk-radius) !important;font-family:var(--mk-font-body) !important;font-size:14px;font-weight:700;cursor:pointer;transition:background-color var(--mk-ease),border-color var(--mk-ease),color var(--mk-ease)}
+#mk-frame.in4 .pm-msg{margin:18px 0 0}
+#mk-frame.in4 .pm-err{margin:16px 0 0;padding:11px 14px;background:#FDF0EE;border-left:3px solid #C0392B;border-radius:var(--mk-radius) !important;font-size:14px;color:#8E2A1F}
+#mk-frame.ux.v3.h4.in4 .pm-go{display:flex;width:100%;justify-content:center;margin:18px 0 0;background:var(--mk-gold);border:0;color:var(--mk-gold-ink) !important;cursor:pointer}
+#mk-frame.ux.v3.h4.in4 .pm-go:hover{background:var(--mk-blue);color:#fff !important}
+#mk-frame.in4 .pm-note{margin:10px 0 0;font-size:12.5px;color:var(--mk-muted);text-align:center}
+#mk-frame.in4 .pm-sent{padding:28px 10px;text-align:center}
+#mk-frame.in4 .pm-sent-tick{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50% !important;background:var(--mk-gold);color:var(--mk-gold-ink);font-size:24px;font-weight:900}
+#mk-frame.in4 .pm-sent-t{margin:12px 0 4px;font-family:var(--mk-font-head) !important;font-size:22px;font-weight:700;color:var(--mk-ink)}
+#mk-frame.in4 .pm-sent-p{margin:0;font-size:15px;color:var(--mk-text)}
+/* sidebar */
+#mk-frame.in4 .pm-side{display:grid;gap:16px}
+#mk-frame.in4 .pm-box{padding:20px;background:#fff;border:1px solid var(--mk-line);border-radius:var(--mk-radius) !important}
+#mk-frame.in4 .pm-box-t{margin:0 0 12px;font-family:var(--mk-font-head) !important;font-size:18px;font-weight:700;color:var(--mk-ink)}
+#mk-frame.in4 .pm-steps{margin:0;padding:0;list-style:none}
+#mk-frame.in4 .pm-steps li{display:flex;gap:12px;align-items:flex-start;padding:10px 0}
+#mk-frame.in4 .pm-steps li + li{border-top:1px solid var(--mk-line)}
+#mk-frame.in4 .pm-steps .pm-n{display:grid;place-items:center;flex:none;width:30px;height:30px;border-radius:var(--mk-radius) !important;background:var(--mk-blue-d);color:#fff;font-family:var(--mk-font-head) !important;font-size:15px;font-weight:700}
+#mk-frame.in4 .pm-steps li:first-child .pm-n{background:var(--mk-gold);color:var(--mk-gold-ink)}
+#mk-frame.in4 .pm-steps b{display:block;font-size:15px;font-weight:700;color:var(--mk-ink)}
+#mk-frame.in4 .pm-steps small{display:block;margin-top:2px;font-size:13.5px;line-height:1.5;color:var(--mk-text)}
+@media (max-width:999.98px){ #mk-frame.in4 .pm .pm-grid{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:599.98px){ #mk-frame.in4 .pm-fields{grid-template-columns:minmax(0,1fr)} }
+/* the submit sits on the white form card: on hover it turns blue with white text (the site-wide gold hover is white,
+   which would vanish into the card) */
+#mk-frame.ux.v3.h4.in4 .pm-card .pm-go:hover,#mk-frame.ux.v3.h4.in4 .pm-card .pm-go:focus-visible{background:var(--mk-blue) !important;border-color:var(--mk-blue) !important;color:#fff !important;box-shadow:0 8px 18px rgba(18,63,109,.22) !important}
+#mk-frame.ux.v3.h4.in4 .pm-card .pm-go:hover *,#mk-frame.ux.v3.h4.in4 .pm-card .pm-go:focus-visible *{color:#fff !important}
+
+/* =====================================================================================
+   ONE VERTICAL RHYTHM for every inner page (15 Oct 2026): a section opens with the section gap (--h4-sp) and adds
+   nothing at its foot, so two sections are always one gap apart — no doubled 90–160px empty bands. Sections with a
+   background of their own (Why choose us, the popular-tours band) keep their foot padding so the colour frames them;
+   the footer sits one gap below the last section.
+   ===================================================================================== */
+#mk-frame.in4 > :is(.abx-about,.az,.ar,.tp2,.ex-pk,.ex-rg,.ex-g2,.pm,.abx-popular,.rm){padding-top:var(--h4-sp,clamp(40px,4.4cqw,64px)) !important;padding-bottom:0 !important}
+#mk-frame.in4 > :is(.wn,.abx-wn){padding-top:var(--h4-sp,clamp(40px,4.4cqw,64px)) !important;padding-bottom:var(--h4-sp,clamp(40px,4.4cqw,64px)) !important}
+#mk-frame.in4 > .abx-popular{padding-bottom:var(--h4-sp,clamp(40px,4.4cqw,64px)) !important}
+#mk-frame.in4 > .abx-popular + .ex-pk,#mk-frame.in4 > .wn + *{margin-top:0}
+#mk-frame.in4 > .tp-body{padding-bottom:0 !important}
+#mk-frame.in4 > footer.sf{margin-top:var(--h4-sp,clamp(40px,4.4cqw,64px)) !important}
+/* the last thing inside a section adds no margin of its own */
+#mk-frame.in4 :is(.prose,.tp2-rows,.tp2-list,.td2-three,.pm-grid,.ex-pk-grid,.ex-rg-grid,.g2-grid,.tc-grid,.az-wrap) > :last-child{margin-bottom:0 !important}
+#mk-frame.in4 section:is(.az,.ct-enq,.ct-offices):not(.az-end){padding-top:var(--h4-sp,clamp(40px,4.4cqw,64px)) !important;padding-bottom:0 !important}
+/* Contact: the quick contacts follow the page title directly */
+#mk-frame.in4 section.az.ct-top{padding-top:clamp(20px,2.2cqw,28px) !important}
+#mk-frame.in4 .ct-top .az-row{display:block}
+#mk-frame.in4 .ct-top .az-main{max-width:none}
+
+
+/* Testimonials: the intro and the review numbers follow the page title directly, full width */
+#mk-frame.in4 section.az.tm-top{padding-top:clamp(18px,2cqw,26px) !important}
+#mk-frame.in4 .tm-top .az-row{display:block}
+#mk-frame.in4 .tm-top .az-main{max-width:none}
+#mk-frame.in4 .tm-top .gbadges{justify-content:flex-start;margin-top:18px}
+#mk-frame.ux.v3.h4.in4 .tm-top .gbadges{justify-content:flex-start !important}
+
+/* Contact quick contacts (16 Oct 2026, redesigned): four white cards in a row — a gold icon tile, a small label and
+   the number / address in the brand blue. Hover: blue border, the card lifts, the icon turns solid gold. */
+#mk-frame.in4 .ct-top .az-contacts.ct-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0}
+#mk-frame.v3.in4 .ct-top .az-contacts .ct-q{display:flex;align-items:center;gap:14px;min-width:0;padding:18px 18px;background:#fff;border:1px solid var(--mk-line);border-radius:var(--mk-radius) !important;box-shadow:0 8px 22px rgba(18,63,109,.06);color:var(--mk-ink);text-decoration:none;transition:border-color var(--mk-ease),box-shadow var(--mk-ease),transform var(--mk-ease)}
+#mk-frame.v3.in4 .ct-top .az-contacts .ct-q:hover{border-color:var(--mk-blue);box-shadow:0 14px 30px rgba(18,63,109,.12);transform:translateY(-2px);color:var(--mk-ink)}
+#mk-frame.v3.in4 .ct-top .az-contacts .ct-q-ic{width:46px;height:46px;background:#FFF4DA;color:#B07A00;border-radius:var(--mk-radius) !important;transition:background-color var(--mk-ease),color var(--mk-ease)}
+#mk-frame.v3.in4 .ct-top .az-contacts .ct-q:hover .ct-q-ic{background:var(--mk-gold);color:var(--mk-gold-ink)}
+#mk-frame.in4 .ct-top .az-contacts .ct-q-ic svg{width:21px;height:21px}
+#mk-frame.in4 .ct-top .az-contacts .ct-q small{margin:0 0 3px;font-size:11.5px;font-weight:800;letter-spacing:.1em;color:var(--mk-muted)}
+#mk-frame.in4 .ct-top .az-contacts .ct-q > span:last-child{font-family:var(--mk-font-head) !important;font-size:16.5px;font-weight:700;line-height:1.35;color:var(--mk-blue-d)}
+@media (max-width:1099.98px){ #mk-frame.in4 .ct-top .az-contacts.ct-quick{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:599.98px){ #mk-frame.in4 .ct-top .az-contacts.ct-quick{grid-template-columns:minmax(0,1fr);gap:10px} #mk-frame.v3.in4 .ct-top .az-contacts .ct-q{padding:14px 16px} }
+/* tour page: the route and the days follow the nights / stops line closely (was 64px) */
+#mk-frame.in4 .td2-top{padding-bottom:0 !important}
+#mk-frame.in4 .td2-body{padding-top:20px !important}
+
+/* =====================================================================================
+   16 Oct 2026 — every inner page on plain white (#ffffff): the page, its wrapper and every section that had a light
+   grey band (Why choose us, Most Popular Tours, the contact form, the reviews …). Only the intentional colour bands
+   stay: the blue numbers band and the blue "Plan your trip" band (.az-end). With one background, sections are kept
+   apart by the section gap alone: each section opens with --h4-sp, and the last section before the footer, and any
+   section that ends in a card, keeps the same gap at its foot.
+   ===================================================================================== */
+body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
+#mk-frame.in4 :is(section,.tp-top,.tp-body):not(.az-end):not(.h8-stats):not(.sf):not(.dz){background-color:#fff !important}
+#mk-frame.in4 :is(.wn,.abx-wn,.abx-popular){background:#fff !important}
+#mk-frame.in4 > :is(.wn,.abx-wn,.abx-popular){padding-bottom:0 !important}
+/* sections end clear of the next one: the content of every section is followed by half a gap */
+#mk-frame.in4 section:not(.az-end):not(.h8-stats):not(.ph2):not(.abx-hero){padding-bottom:calc(var(--h4-sp,clamp(40px,4.4cqw,64px)) / 2) !important}
+#mk-frame.in4 .tp-body{padding-bottom:calc(var(--h4-sp,clamp(40px,4.4cqw,64px)) / 2) !important}
+#mk-frame.in4 section.tm.az,#mk-frame.in4 section.az.az-a:not(.az-end){padding-bottom:calc(var(--h4-sp,clamp(40px,4.4cqw,64px)) / 2) !important}

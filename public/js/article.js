@@ -72,16 +72,18 @@
       var arWrap = document.getElementById('ar-wrap');
       if (arWrap) {
         var cta = document.querySelector('.az-end .az-acts');
-        var side = document.createElement('aside'); side.className = 'ar-aside2';
-        side.innerHTML = '<div class="ar-a2-card"><p class="ar-a2-h">Places to <em>explore</em></p><div class="ar-a2-list"></div></div>'
-          + (cta ? '<div class="ar-a2-card ar-a2-plan"><p class="ar-a2-h">Plan your <em>trip</em></p><div class="ar-a2-acts"></div></div>' : '');
+        // the sidebar may already hold the region's "At a glance" card (rendered by the page); the places and
+        // Plan your trip cards go after it
+        var side = arWrap.querySelector('.ar-aside2') || document.createElement('aside'); side.classList.add('ar-aside2');
+        side.insertAdjacentHTML('beforeend', '<div class="ar-a2-card"><p class="ar-a2-h">Places to <em>explore</em></p><div class="ar-a2-list"></div></div>'
+          + (cta ? '<div class="ar-a2-card ar-a2-plan"><p class="ar-a2-h">Plan your <em>trip</em></p><div class="ar-a2-acts"></div></div>' : ''));
         var list = side.querySelector('.ar-a2-list');
         items.forEach(function (li) {
           var n = (($$(':scope > a', li)[1] || {}).textContent || '').trim(); if (!n) return;
           var a = document.createElement('a'); a.href = '#' + li.id; a.textContent = n; list.appendChild(a);
         });
         if (cta) $$('a', cta).forEach(function (a) { side.querySelector('.ar-a2-acts').appendChild(a.cloneNode(true)); });
-        arWrap.appendChild(side); arWrap.classList.add('ar-has-aside2');
+        if (!side.parentNode) arWrap.appendChild(side); arWrap.classList.add('ar-has-aside2');
       }
     }
     // the whole card opens the place (clicks on its links work as usual)
@@ -271,7 +273,7 @@
     } else if (type === 'plan') {
       box = el('div', 'dx-plan');
       body.forEach(function (p) { box.appendChild(p.cloneNode(true)); });
-      box.appendChild(el('div', 'dx-acts', '<a href="/#plan" class="dx-btn dx-btn-gold">Plan My Trip <span>→</span></a><a href="/contactus#enquiry" class="dx-btn dx-btn-line">Enquire Now <span>→</span></a>'));
+      box.appendChild(el('div', 'dx-acts', '<a href="/plan-my-trip" class="dx-btn dx-btn-gold">Plan My Trip <span>→</span></a><a href="/contactus#enquiry" class="dx-btn dx-btn-line">Enquire Now <span>→</span></a>'));
     }
     body.forEach(function (p) { p.remove(); });
     h.parentNode.insertBefore(box, h.nextSibling);

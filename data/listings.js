@@ -4,7 +4,7 @@ const { link } = require('./site');
 
 module.exports = {
   regions: [
-    ['North India', '/photos/north-india.webp', 'north_india_tour.html'],
+    ['North India', '/photos/golden-temple-amritsar.webp', 'north_india_tour.html'],
     ['South India', '/photos/kerala-houseboat.webp', 'south_india_tours_tourism.html'],
     ['East India', '/photos/darjeeling.webp', 'east_india_tour_tourism.html'],
     ['West India', '/photos/jaisalmer-dunes.webp', 'west_india_tour_tourism.html']

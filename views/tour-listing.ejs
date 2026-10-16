@@ -40,19 +40,27 @@
    const REGIONS = [['north', 'North India'], ['south', 'South India'], ['east', 'East India'], ['west', 'West India']].filter(([k]) => ROWS.some(t => t.regions.includes(k)));
    const INTERESTS = ['Heritage', 'Wildlife', 'Religious', 'Beaches', 'Wellness', 'Festivals', 'Adventure', 'Villages'].filter(k => ROWS.some(t => t.interests.includes(k)));
    const usd = v => 'USD ' + Number(v).toLocaleString('en-US');
+   // one category (every list page except /itineraries): as on the original — the description, then the tours; no
+   // card repeating the page title, no filters for a handful of tours
+   const single = G.length === 1;
    const nightsTxt = g => g.nights ? (g.nights[0] === g.nights[1] ? g.nights[0] : g.nights[0] + '–' + g.nights[1]) + ' nights' : '';
 %>
 <!-- Tour packages: each category a card (photo, title, line, lowest price); open it for its tours.
      Filters on the right: price, region, interest, length. -->
-<section id="tour-options" class="tp2">
+<section id="tour-options" class="tp2<%= single ? ' tp2-one' : '' %>">
   <div class="tp2-wrap">
+    <% if (single && (d.intro || []).some(p => paraHtml(p).trim().length > 40)) { %>
+    <div class="tp2-intro prose">
+      <% d.intro.forEach(p => { const h = paraHtml(p).trim(); if (h) { %><p><%- h %></p><% } }) %>
+    </div>
+    <% } %>
     <div class="tp2-grid">
       <div class="tp2-list">
-        <h2 class="h4-h2 tp2-heading">Best Tour Packages <em>in The Industry</em></h2>
         <p class="tp2-status is-hidden" data-tp2-count data-total="<%= ROWS.length %>"></p>
         <div class="tp2-none is-hidden" data-tp2-none>No tours match these filters. <button type="button" data-tp2-clear>Clear filters</button></div>
-        <% G.forEach((g, gi) => { const open = gi === 0; %>
-        <article class="tp2-card<%= open ? ' open' : '' %>" data-tp2-group id="<%= slug(g.title) %>">
+        <% G.forEach((g, gi) => { const open = single; /* (16 Oct 2026) on /itineraries every category starts closed */ %>
+        <article class="tp2-card<%= open ? ' open' : '' %><%= single ? ' tp2-flat' : '' %>" data-tp2-group id="<%= slug(g.title) %>">
+          <% if (!single) { %>
           <div class="tp2-top" data-tp2-toggle>
             <span class="tp2-img"><img src="<%= g.img %>" alt="" loading="<%= gi < 3 ? 'eager' : 'lazy' %>"></span>
             <span class="tp2-info">
@@ -65,6 +73,7 @@
               <button type="button" class="tp2-chev" aria-expanded="<%= open %>" aria-controls="tp2-rows-<%= gi %>" aria-label="Show the tours in <%= g.title %>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
             </span>
           </div>
+          <% } %>
           <div class="tp2-rows" id="tp2-rows-<%= gi %>">
             <% g.rows.forEach(t => { %>
             <div class="tp2-row" data-tp2-row data-price="<%= t.price || '' %>" data-nights="<%= t.nights || '' %>" data-region="<%= t.regions.join(' ') %>" data-interest="<%= t.interests.join(' ') %>" data-search="<%= (t.name + ' ' + t.route + ' ' + g.title).toLowerCase() %>">
@@ -83,6 +92,7 @@
         <% }) %>
       </div>
 
+      <% if (!single) { %>
       <aside class="tp2-side">
         <details class="tp2-filters" data-tp2-details open>
           <summary class="tp2-f-sum">Filters <span data-tp2-fcount></span></summary>
@@ -116,6 +126,7 @@
           </div>
         </details>
       </aside>
+      <% } %>
     </div>
 
     <% if (d.outro.length) { %>
@@ -126,7 +137,9 @@
   </div>
 </section>
 
-<%- include('partials/popular-tours', { current: d.url }) %>
+<% if (single) { %><%- include('partials/popular-tours', { current: d.url }) %><% } %>
+
+<% if (single) { %><%- include('partials/explore-india', { current: d.url }) %><% } %>
 
 <%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
 
