@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Rajasthan South India Tours > Duo of Rajasthan and Tamil Nadu Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Rajasthan South India Tours", href: site.link("rajasthan_south_india_tours.html") },
     { label: "Duo of Rajasthan and Tamil Nadu Tour" }
   ],

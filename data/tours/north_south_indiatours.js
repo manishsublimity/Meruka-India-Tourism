@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > South - North India Tours > Amazing North and South India Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "South - North India Tours", href: site.link("south_north_india_tours.html") },
     { label: "Amazing North and South India Tour" }
   ],

@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Leh and Ladakh Tours
   breadcrumb: [
     { label: "Home", href: site.link("index-2.html") },
-    { label: "India Tours", href: site.link("itineraries.html") },
+    { label: "India Tour Packages", href: site.link("itineraries.html") },
     { label: "Leh and Ladakh Tours" }
   ],
   heading: "Leh and Ladakh Tours",

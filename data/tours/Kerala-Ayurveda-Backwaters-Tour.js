@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Yoga and Ayurveda Tours > Kerala Ayurveda & Backwaters Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Yoga and Ayurveda Tours", href: site.link("yoga_ayurveda_tours.html") },
     { label: "Kerala Ayurveda Tour" }
   ],

@@ -149,27 +149,20 @@
     if (t.length <= 440) { tdDesc = t; break; }
   }
 %>
-<% // the top photos: the main one, then two from the route that no day uses (no picture twice on the page)
-   const topUsed = new Set([heroImg].concat(dayPhotos.filter(Boolean)));
-   // a photo named after a city is used only when that city is on this route
-   const routeTxt = stops.join(' ').toLowerCase();
-   const onRoute = f => { const c = (String(f).match(/(jaisalmer|jodhpur|jaipur|udaipur|bikaner|pushkar|delhi|agra|varanasi|kerala|goa|ladakh|mysore|madurai|darjeeling|amritsar)/i) || [])[1]; return !c || routeTxt.includes(c.toLowerCase()); };
-   const topPics = [heroImg].concat([...new Set(stops.slice().reverse().flatMap(st => photoChoices(st)).concat(photoCandidates(d.heading + ' ' + d.route)))].filter(x => !topUsed.has(x) && onRoute(x)).slice(0, 2)); %>
-<section id="top" class="tp-top td2-top">
+<% // (16 Oct 2026) the top: the same banner as every inner page (the tour's main photo, breadcrumb and title under it),
+   // then the description, the route, and the nights / stops
+   const topPics = [heroImg]; %>
+<%- include('partials/photo-hero', { title: d.heading, img: heroImg, alt: d.heroAlt || d.heading, crumbs: d.breadcrumb }) %>
+<section id="top" class="td2-top td2-intro">
   <div class="tp-wrap">
-    <%# (16 Oct 2026) order: photos → title → description → nights / stops %>
-    <div class="tp-gallery tp-g<%= topPics.length %> td2-gallery">
-      <% topPics.forEach((g, i) => { %><figure class="tp-gi"><img src="<%= g %>" alt="<%= i ? '' : (d.heroAlt || d.heading) %>"<%= i ? ' loading="lazy"' : '' %>></figure><% }) %>
-    </div>
-    <nav aria-label="Breadcrumb" class="tp-crumbs td2-crumbs">
-      <% d.breadcrumb.forEach((b, i) => { %><% if (i) { %><span>›</span><% } %><% if (b.href) { %><a href="<%= b.href %>"><%= b.label %></a><% } else { %><strong><%= b.label %></strong><% } %><% }) %>
-    </nav>
-    <h1 class="tp-title td2-title"><%= dhWords.join(' ') %><% if (dhLast) { %> <em><%= dhLast %></em><% } %></h1>
     <p class="td2-desc"><%= tdDesc %></p>
-    <ul class="td2-facts">
+    <%# (16 Oct 2026, client's pick P) the facts as pills, a thin line, then the route %>
+    <ul class="td2-pills">
       <li><%- I.clock %><%= tdNights %> Nights / <%= tdDays %> Days</li>
-      <li><%- I.pin %><%= stops.length %> stops · <%= stops[0] %> to <%= stops[stops.length - 1] %></li>
+      <li><%- I.pin %><%= stops.length %> stops</li>
+      <li class="td2-pill-g"><%= stops[0] %> to <%= stops[stops.length - 1] %></li>
     </ul>
+    <p class="td2-proute"><b>Route:</b> <% stops.forEach((s, j) => { %><%= s %><% if (j < stops.length - 1) { %> <i aria-hidden="true">→</i> <% } %><% }) %></p>
   </div>
 </section>
 
@@ -179,18 +172,16 @@
   <div class="tp-main">
 
     <section id="itinerary" class="tp-sec td2-sec">
-      <p class="td2-rline" aria-label="Route"><span class="td2-rline-l"><%- I.pin %>Route</span><% stops.forEach((s, j) => { const edge = j === 0 || j === stops.length - 1; %><span class="td2-rstop<%= edge ? ' td2-redge' : '' %>"><%= s %></span><% if (j < stops.length - 1) { %><i aria-hidden="true">→</i><% } %><% }) %></p>
       <ol class="td2-days">
-        <% let tdSide = 0; d.days.forEach((day, i) => { const [num, ...rest] = day.day.split(' '); const ph = dayPhotos[i]; const flip = ph && (tdSide++ % 2 === 1); %>
-        <li class="td2-day td2-wrap<%= ph ? '' : ' td2-noimg' %><%= flip ? ' td2-flip' : '' %>">
-          <% if (ph) { %><figure class="td2-dfig"><img src="<%= ph %>" alt="" loading="lazy"></figure><% } %>
+        <%# (16 Oct 2026) each day as in the client's itinerary documents: "01 Day: Arrival Delhi" underlined on one line,
+            the photo on the left with the text running beside it — no card, no badge %>
+        <% let tdSide = 0; d.days.forEach((day, i) => { const [num, ...rest] = day.day.split(' '); const ph = dayPhotos[i]; const flip = ph && (tdSide++ % 2 === 1);   /* photos take turns: left, right, left… */ %>
+        <li class="td2-day td2-doc<%= ph ? '' : ' td2-noimg' %><%= flip ? ' td2-doc-r' : '' %>">
           <div class="td2-dhead">
-            <span class="td2-dn"><small><%= rest.join(' ') || 'Day' %></small><b><%= num %></b></span>
-            <div>
-              <h3 class="td2-dt"><%= day.title %></h3>
-              <% if (day.eta) { %><span class="td2-eta"><%- I.clock %><%= day.eta %></span><% } %>
-            </div>
+            <h3 class="td2-dt"><span class="td2-dn"><%= num %> <%= rest.join(' ') || 'Day' %></span> <%= day.title %></h3>
+            <% if (day.eta) { %><span class="td2-eta"><%- I.clock %><%= day.eta %></span><% } %>
           </div>
+          <% if (ph) { %><figure class="td2-dfig"><img src="<%= ph %>" alt="" loading="lazy"></figure><% } %>
           <% (day.paras || [day.body]).forEach((para, k) => { if (isInfo(para, k)) return; %><p class="td2-p"><%- rs(para, 'color:#336699;font-weight:700') %></p><% }) %>
           <% if (day.note) { %><p class="td2-note"><%- rs(day.note, 'font-weight:800') %></p><% } %>
         </li>
@@ -299,7 +290,8 @@
 <% } %>
 
 <% const catCrumb = d.breadcrumb[d.breadcrumb.length - 2] || {}; %>
-<%- include('partials/popular-tours', { current: d.url, tours: similarTours(d.url, catCrumb.href, 3), heading: 'Related <em>Tours</em>', sub: 'More journeys like this one, from our ' + (catCrumb.label || 'India tours') + '.', allHref: '/itineraries', allLabel: 'View all Tours', avoid: dayPhotos.filter(Boolean).concat([d.heroSrc], topPics), note: false }) %>
+<%# (16 Oct 2026) Most Popular Tours in place of Related Tours: this tour's category is already listed in the sidebar %>
+<%- include('partials/popular-tours', { current: d.url, avoid: dayPhotos.filter(Boolean).concat([d.heroSrc], topPics), note: false }) %>
 
 
 <%- include('partials/explore-india', { current: catCrumb.href, skipRegions: true, skipGuide: true }) %>

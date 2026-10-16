@@ -11,7 +11,7 @@
   ];
   // home-2 (Anshuman's brief): the old site's Testimonials link and the traced logo
   const v2 = typeof variant !== 'undefined' && variant === 'over';
-  if (v2) links.splice(3, 0, { label: 'Testimonials', href: '/testimonials' });
+  if (v2) links.splice(3, 0, { label: 'Guest Reviews', href: '/testimonials' });   // (16 Oct 2026) one name everywhere: Guest Reviews
   const phone = footer.hq.phones[0], tel = 'tel:' + phone.replace(/[^0-9+]/g, '');
   const popular = footer.cols[0].items.slice(0, 5);
   const icon = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';

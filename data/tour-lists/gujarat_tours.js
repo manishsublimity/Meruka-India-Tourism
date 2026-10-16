@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Gujarat India Tours
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Gujarat India Tours" }
   ],
   heading: "Gujarat India Tours",

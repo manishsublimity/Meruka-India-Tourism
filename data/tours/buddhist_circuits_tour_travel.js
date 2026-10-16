@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Buddhist Circuit Tours > West India Buddhist and Culture Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Buddhist Circuit Tours", href: site.link("buddhist_pilgirmage_tour.html") },
     { label: "West India Buddhist and Culture Tour" }
   ],

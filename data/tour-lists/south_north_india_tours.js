@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > South - North India Tours
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "South - North India Tours" }
   ],
   heading: "South - North India Tours",

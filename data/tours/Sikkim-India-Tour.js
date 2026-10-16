@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Sikkim India Tours > Sikkim, Darjeeling & Himalayan Valleys Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Sikkim India Tours", href: site.link("sikkimtours.html") },
     { label: "Sikkim - Valley of Wonders Tour" }
   ],

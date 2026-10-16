@@ -43,6 +43,17 @@
    // one category (every list page except /itineraries): as on the original — the description, then the tours; no
    // card repeating the page title, no filters for a handful of tours
    const single = G.length === 1;
+   // (16 Oct 2026) a photo for each tour row on a category page: what sets the tour apart (its name without the
+   // category's words, its far stops first), never the same picture twice in the list
+   const rowUsed = new Set();
+   const rowPhoto = t => {
+     const common = new RegExp('\\b(' + String(d.heading || '').split(/\s+/).filter(w => w.length > 3).join('|') + '|tours?)\\b', 'gi');
+     const own = String(t.name || '').replace(common, ' ') + ' ' + String(t.route || '').split(/\s*-\s*/).reverse().join(' ');
+     const list = photoCandidates(own).concat(photoCandidates(t.name + ' ' + t.route), [tourPhoto(t.href), t.img].filter(Boolean));
+     const pick = list.find(x => !rowUsed.has(x)) || list[0];
+     if (pick) rowUsed.add(pick);
+     return pick;
+   };
    const nightsTxt = g => g.nights ? (g.nights[0] === g.nights[1] ? g.nights[0] : g.nights[0] + '–' + g.nights[1]) + ' nights' : '';
 %>
 <!-- Tour packages: each category a card (photo, title, line, lowest price); open it for its tours.
@@ -50,9 +61,10 @@
 <section id="tour-options" class="tp2<%= single ? ' tp2-one' : '' %>">
   <div class="tp2-wrap">
     <% if (single && (d.intro || []).some(p => paraHtml(p).trim().length > 40)) { %>
-    <div class="tp2-intro prose">
+    <div class="tp2-intro prose is-clamped" id="tp2-intro">
       <% d.intro.forEach(p => { const h = paraHtml(p).trim(); if (h) { %><p><%- h %></p><% } }) %>
     </div>
+    <button type="button" class="tp2-intro-more" aria-controls="tp2-intro" aria-expanded="false" hidden>Read more <span aria-hidden="true">↓</span></button>
     <% } %>
     <div class="tp2-grid">
       <div class="tp2-list">
@@ -77,9 +89,10 @@
           <div class="tp2-rows" id="tp2-rows-<%= gi %>">
             <% g.rows.forEach(t => { %>
             <div class="tp2-row" data-tp2-row data-price="<%= t.price || '' %>" data-nights="<%= t.nights || '' %>" data-region="<%= t.regions.join(' ') %>" data-interest="<%= t.interests.join(' ') %>" data-search="<%= (t.name + ' ' + t.route + ' ' + g.title).toLowerCase() %>">
+              <% if (single) { const rp = rowPhoto(t); if (rp) { %><a class="tp2-row-img" href="<%= t.href || '#' %>" tabindex="-1" aria-hidden="true"><img src="<%= rp %>" alt="" loading="lazy"></a><% } } %>
               <div class="tp2-row-main">
                 <% if (t.href) { %><a class="tp2-row-name" href="<%= t.href %>"><%= t.name %></a><% } else { %><span class="tp2-row-name"><%= t.name %></span><% } %>
-                <% if (t.route) { %><span class="tp2-row-route"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span><%= t.route %></span></span><% } %>
+                <% if (t.route) { %><span class="tp2-row-route"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span title="<%= t.route %>"><%= t.route %></span></span><% } %>
               </div>
               <% if (t.duration) { %><span class="tp2-row-days"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/></svg><%= t.duration.replace(/\s*[-–]\s*/, ' / ') %></span><% } %>
               <span class="tp2-row-price"><% if (t.price) { %><small>From</small><%= usd(t.price) %><em>per person</em><% } else { %><small>Price</small>On request<% } %></span>

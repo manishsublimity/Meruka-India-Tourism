@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours >Buddhist Circuit Tours &gt; Vision of Buddha Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Vision of Buddha Tour" }
   ],
   heading: "Vision of Buddha Tour",

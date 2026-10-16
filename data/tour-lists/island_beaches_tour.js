@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > India Island and Beaches Tours
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "India Island and Beaches Tours" }
   ],
   heading: "India Island and Beaches Tours",

@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > North India - Rajasthan and Himachal Tours > Scenic Himachal Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "North India - Rajasthan and Himachal Tours", href: site.link("rajasthan_himachal_tours_packages.html") },
     { label: "Scenic Himachal Tour" }
   ],

@@ -3,6 +3,17 @@
 // the home page) preset the filters.
 (function () {
   var root = document.querySelector('.tp2'); if (!root) return;
+
+  // category pages: the description shows five lines; "Read more" opens the rest (only when it is cut off)
+  var intro = document.getElementById('tp2-intro'), more = document.querySelector('.tp2-intro-more');
+  if (intro && more) {
+    more.hidden = intro.scrollHeight <= intro.clientHeight + 2;
+    more.addEventListener('click', function () {
+      var open = intro.classList.toggle('is-clamped') === false;
+      more.setAttribute('aria-expanded', open);
+      more.innerHTML = open ? 'Show less <span aria-hidden="true">↑</span>' : 'Read more <span aria-hidden="true">↓</span>';
+    });
+  }
   var $$ = function (s, el) { return Array.prototype.slice.call((el || root).querySelectorAll(s)); };
   var groups = $$('[data-tp2-group]'), form = root.querySelector('[data-tp2-form]');
   var none = root.querySelector('[data-tp2-none]'), count = root.querySelector('[data-tp2-count]'), fcount = root.querySelector('[data-tp2-fcount]');

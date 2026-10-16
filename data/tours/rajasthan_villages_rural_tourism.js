@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Rajasthan Village Tours > Archaeological Tour of Rajasthan
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Rajasthan Village Tours", href: site.link("rajasthan-villages-travel-tours.html") },
     { label: "Archaeological Tour of Rajasthan" }
   ],

@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Leh and Ladakh Tours > Heart of Himalayas Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Leh and Ladakh Tours", href: site.link("leh_ladakh_tours.html") },
     { label: "Heart of Himalayas Tour" }
   ],

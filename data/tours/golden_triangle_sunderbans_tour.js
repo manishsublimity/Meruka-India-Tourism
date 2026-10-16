@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Indian Golden Triangle Tours > Golden Triangle and Sunderbans Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Indian Golden Triangle Tours", href: site.link("india-golden-triangle-tour.html") },
     { label: "Golden Triangle and Sunderbans Tour" }
   ],

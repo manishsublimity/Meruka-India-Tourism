@@ -2425,3 +2425,274 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 #mk-frame.in4 section:not(.az-end):not(.h8-stats):not(.ph2):not(.abx-hero){padding-bottom:calc(var(--h4-sp,clamp(40px,4.4cqw,64px)) / 2) !important}
 #mk-frame.in4 .tp-body{padding-bottom:calc(var(--h4-sp,clamp(40px,4.4cqw,64px)) / 2) !important}
 #mk-frame.in4 section.tm.az,#mk-frame.in4 section.az.az-a:not(.az-end){padding-bottom:calc(var(--h4-sp,clamp(40px,4.4cqw,64px)) / 2) !important}
+/* tour list price box (16 Oct 2026, client's pick C): warm cream with a gold edge instead of the solid blue block */
+#mk-frame.in4 .tp2-price,#mk-frame.in4 .tp2-price{background:#FFF8E6 !important;border-left:3px solid var(--mk-gold,#FFB81C) !important}
+#mk-frame.in4 .tp2-price small,#mk-frame.in4 .tp2-price em{color:#8A6A1F !important}
+#mk-frame.in4 .tp2-price b{color:#123F6D !important}
+#mk-frame.in4 .tp2-price .tp2-chev{background:#123F6D !important;color:#FFB81C !important}
+#mk-frame.in4 .tp2-price .tp2-chev:hover{background:#336699 !important}
+@media (max-width:639.98px){ #mk-frame.in4 .tp2-price{border-left:0 !important;border-top:3px solid var(--mk-gold,#FFB81C) !important} }
+/* category pages (16 Oct 2026): each tour row starts with the tour's own photo */
+#mk-frame.in4 .tp2-one .tp2-row{grid-template-columns:150px minmax(0,1fr) auto 120px auto !important;padding:0 18px 0 0 !important;overflow:hidden;min-height:104px}
+#mk-frame.in4 .tp2-one .tp2-row-img{align-self:stretch;display:block;margin:-1px 0 -1px -1px;overflow:hidden}
+#mk-frame.in4 .tp2-one .tp2-row-img img{width:100%;height:100%;min-height:104px;object-fit:cover;display:block;transition:transform .4s ease}
+#mk-frame.in4 .tp2-one .tp2-row:hover .tp2-row-img img{transform:scale(1.05)}
+#mk-frame.in4 .tp2-one .tp2-row-main{padding:14px 0}
+@media (max-width:899.98px){
+  #mk-frame.in4 .tp2-one .tp2-row{grid-template-columns:120px minmax(0,1fr) auto !important;gap:8px 14px !important;padding:0 14px 0 0 !important}
+  #mk-frame.in4 .tp2-one .tp2-row-img{grid-row:1 / span 3}
+  #mk-frame.in4 .tp2-one .tp2-row-main{grid-column:2 / -1;padding:12px 0 0}
+  #mk-frame.in4 .tp2-one .tp2-row-days{grid-column:2 / -1;justify-self:start}
+  #mk-frame.in4 .tp2-one .tp2-row-price{grid-column:2;text-align:left;padding-bottom:12px}
+  #mk-frame.in4 .tp2-one .tp2-row-go{grid-column:3;padding-bottom:0;margin-bottom:12px}
+}
+@media (max-width:479.98px){
+  #mk-frame.in4 .tp2-one .tp2-row{grid-template-columns:96px minmax(0,1fr) !important}
+  #mk-frame.in4 .tp2-one .tp2-row-img{grid-row:1 / span 4}
+  #mk-frame.in4 .tp2-one .tp2-row-price{grid-column:2}
+  #mk-frame.in4 .tp2-one .tp2-row-go{grid-column:2;justify-self:start}
+}
+/* category pages: the original description kept whole, shown in five lines with "Read more" */
+#mk-frame.in4 .tp2-intro.is-clamped{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+#mk-frame.in4 .tp2-intro.is-clamped p{display:inline}
+#mk-frame.in4 .tp2-intro.is-clamped p + p::before{content:" "}
+#mk-frame.in4 .tp2-intro-more{display:inline-flex;align-items:center;gap:6px;margin:6px 0 18px;padding:0;border:0;background:none;font:inherit;font-size:14.5px;font-weight:700;color:var(--mk-blue);cursor:pointer}
+#mk-frame.in4 .tp2-intro-more:hover{text-decoration:underline}
+/* Most Popular / Related Tours on inner pages (16 Oct 2026): four cards in view, a slider with arrows */
+#mk-frame.in4 .mp .pq-head-r{display:flex;align-items:center;gap:12px;flex-shrink:0}
+#mk-frame.in4 .mp .pq-arrows{display:flex;gap:8px}
+#mk-frame.in4 .mp .pq-arrows[hidden]{display:none}
+#mk-frame.in4 .mp .pq-arr{width:46px;height:46px;display:grid;place-items:center;border:1.5px solid var(--mk-blue);border-radius:5px;background:#fff;color:var(--mk-blue);cursor:pointer;transition:background .2s,color .2s}
+#mk-frame.in4 .mp .pq-arr svg{width:20px;height:20px}
+#mk-frame.in4 .mp .pq-arr:hover:not(:disabled){background:var(--mk-blue);color:#fff}
+#mk-frame.in4 .mp .pq-arr:disabled{opacity:.35;cursor:default}
+#mk-frame.in4 .mp .pq-slide{display:grid !important;grid-template-columns:none !important;grid-auto-flow:column;grid-auto-columns:calc((100% - 3 * 20px) / 4);gap:20px !important;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:4px 2px 18px;margin:0 -2px}
+#mk-frame.in4 .mp .pq-slide::-webkit-scrollbar{display:none}
+#mk-frame.in4 .mp .pq-slide > .pq-card{scroll-snap-align:start;min-width:0}
+#mk-frame.in4 .mp .pq-slide .pq-img img{height:210px;object-fit:cover}
+#mk-frame.in4 .mp .pq-slide .pq-cost{flex-wrap:wrap;gap:10px}
+@media (max-width:1199.98px){ #mk-frame.in4 .mp .pq-slide{grid-auto-columns:calc((100% - 2 * 20px) / 3)} }
+@media (max-width:899.98px){ #mk-frame.in4 .mp .pq-slide{grid-auto-columns:calc((100% - 20px) / 2)} }
+@media (max-width:599.98px){
+  #mk-frame.in4 .mp .pq-slide{grid-auto-columns:85%;gap:14px !important}
+  #mk-frame.in4 .mp .pq-head-r{width:100%;justify-content:space-between}
+}
+#mk-frame.in4 .mp .pq-slide .pq-img{height:190px !important;min-height:0 !important;aspect-ratio:auto !important}
+#mk-frame.in4 .mp .pq-slide .pq-img img{width:100%;height:100% !important;object-fit:cover}
+#mk-frame.in4 .mp .pq-slide .pq-cost{display:flex !important;flex-direction:column;align-items:stretch;gap:10px}
+#mk-frame.in4 .mp .pq-slide .pq-price b{white-space:nowrap}
+#mk-frame.in4 .mp .pq-slide .pq-btns{display:flex;gap:8px}
+#mk-frame.in4 .mp .pq-slide .pq-view{flex:1;justify-content:center}
+#mk-frame.in4 .bx{padding-top:var(--h4-sp,clamp(40px,4.4cqw,64px));background:#fff}
+/* Explore India, option H (16 Oct 2026): one big photo with region buttons, the guide as an accordion beside it */
+#mk-frame.in4 .bxh-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;align-items:stretch}
+#mk-frame.in4 .bxh-stage{position:relative;min-height:500px;border-radius:5px;overflow:hidden;background:#123F6D}
+#mk-frame.in4 .bxh-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s}
+#mk-frame.in4 .bxh-slide.on{opacity:1;visibility:visible}
+#mk-frame.in4 .bxh-slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#mk-frame.in4 .bxh-slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,27,51,.05) 30%,rgba(11,27,51,.85) 100%)}
+#mk-frame.in4 .bxh-copy{position:absolute;left:28px;right:28px;bottom:28px;z-index:1;color:#fff;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+#mk-frame.in4 .bxh-k{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#FFB81C}
+#mk-frame.in4 .bxh-n{font-family:var(--mk-font-head);font-size:clamp(28px,3cqw,40px);font-weight:700;line-height:1.1;color:#fff;text-decoration:none}
+#mk-frame.in4 .bxh-cities{margin:2px 0 10px;font-size:14.5px;color:rgba(255,255,255,.85)}
+#mk-frame.in4 .bxh-cities span{font-weight:700;color:#fff}
+#mk-frame.in4 .bxh-cities a{color:#fff;text-decoration:none}
+#mk-frame.in4 .bxh-cities a:hover{text-decoration:underline;text-decoration-color:#FFB81C}
+#mk-frame.in4 .bxh-tabs{position:absolute;top:20px;left:20px;right:20px;z-index:2;display:flex;flex-wrap:wrap;gap:8px}
+#mk-frame.in4 .bxh-side{display:flex;flex-direction:column;gap:10px}
+#mk-frame.in4 .bxh-season{display:flex;align-items:stretch;background:#123F6D;border-radius:5px;overflow:hidden;text-decoration:none;color:#fff;min-height:110px}
+#mk-frame.in4 .bxh-season img{width:120px;flex-shrink:0;object-fit:cover}
+#mk-frame.in4 .bxh-season > span{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:12px 16px}
+#mk-frame.in4 .bxh-season small{align-self:flex-start;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#FFB81C;color:#123F6D;padding:3px 7px;border-radius:5px}
+#mk-frame.in4 .bxh-season b{font-family:var(--mk-font-head);font-size:18px;line-height:1.25}
+#mk-frame.in4 .bxh-season em{font-style:normal;font-size:13.5px;opacity:.85}
+#mk-frame.in4 .bxh-season:hover b{text-decoration:underline;text-decoration-color:#FFB81C;text-underline-offset:4px}
+@media (max-width:999.98px){
+  #mk-frame.in4 .bxh-grid{grid-template-columns:minmax(0,1fr)}
+  #mk-frame.in4 .bxh-stage{min-height:440px}
+}
+@media (max-width:559.98px){
+  #mk-frame.in4 .bxh-stage{min-height:420px}
+  #mk-frame.in4 .bxh-tabs{top:14px;left:14px;right:14px;gap:6px}
+  #mk-frame.in4 .bxh-copy{left:18px;right:18px;bottom:20px}
+  #mk-frame.in4 .bxh-season img{width:96px}
+}
+/* Explore India H, made to match the site (16 Oct 2026): region buttons are the site's compact buttons, the season card is
+   the dark CTA card, the guide is an India Tour Packages card with a button per group */
+#mk-frame.in4 .bxh-tab{height:42px;padding:0 16px;border:0;border-radius:5px;background:#fff;color:var(--mk-blue-d);font:inherit;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(11,27,51,.18);transition:background .2s,color .2s}
+#mk-frame.in4 .bxh-tab:hover{color:var(--mk-blue)}
+#mk-frame.in4 .bxh-tab.on{background:var(--mk-blue);color:#fff}
+#mk-frame.in4 .bxh-season{border-top:3px solid var(--mk-gold);background:var(--mk-blue-d)}
+#mk-frame.in4 .bxh-side{gap:16px}
+@media (max-width:559.98px){
+  #mk-frame.in4 .bxh-tab{height:38px;padding:0 12px;font-size:13px}
+}
+/* Explore India guide card, option K (16 Oct 2026): the three groups as rows, all links in view */
+#mk-frame.in4 .bxh-guide{flex:1;display:flex;flex-direction:column;padding:0 !important}
+#mk-frame.in4 .bxh-grow{flex:1;display:flex;align-items:center;gap:16px;padding:16px 20px;border-bottom:1px solid var(--mk-line)}
+#mk-frame.in4 .bxh-grow:last-child{border-bottom:0}
+#mk-frame.in4 .bxh-gic{width:46px;height:46px;flex-shrink:0;display:grid;place-items:center;border-radius:5px;background:var(--mk-blue);color:#fff}
+#mk-frame.in4 .bxh-gic svg{width:22px;height:22px}
+#mk-frame.in4 .bxh-grow:hover .bxh-gic{background:var(--mk-gold);color:var(--mk-blue-d)}
+#mk-frame.in4 .bxh-gbody{min-width:0}
+#mk-frame.in4 .bxh-gt{margin:0 0 4px;font-family:var(--mk-font-head);font-size:17px;font-weight:700;color:var(--mk-blue-d)}
+#mk-frame.in4 .bxh-gl{margin:0;font-size:14px;line-height:1.7;color:var(--mk-muted)}
+#mk-frame.in4 .ex-pk-card .bxh-gl a{display:inline;padding:0;font-size:14px;font-weight:600;color:var(--mk-blue);text-decoration:none}
+#mk-frame.in4 .ex-pk-card .bxh-gl a:hover{color:var(--mk-blue-d);text-decoration:underline;text-decoration-color:var(--mk-gold);text-underline-offset:3px}
+#mk-frame.in4 .bxh-gl i{font-style:normal;margin:0 3px;color:#B7C4D6}
+@media (max-width:559.98px){
+  #mk-frame.in4 .bxh-grow{align-items:flex-start;gap:12px;padding:14px 16px}
+  #mk-frame.in4 .bxh-gic{width:40px;height:40px}
+}
+#mk-frame.in4 .ex-pk-card .bxh-gl a{white-space:nowrap}
+/* Explore India: the site's 5px corners on every box (a global reset had made some square) */
+#mk-frame.in4 :is(.bxh-stage,.bxh-tab,.bxh-go,.bxh-season,.bxh-guide,.bxh-gic){border-radius:5px !important}
+#mk-frame.in4 .bxh-stage,#mk-frame.in4 .bxh-season,#mk-frame.in4 .bxh-guide{overflow:hidden}
+/* tour pages (16 Oct 2026): under the inner-page banner — description, route, nights / stops */
+#mk-frame.in4 .td2-intro{padding-top:0 !important;background:#fff}
+#mk-frame.in4 .td2-intro .td2-desc{margin:14px 0 0}
+#mk-frame.in4 .td2-intro .td2-rline{margin:18px 0 14px}
+#mk-frame.in4 .td2-intro .td2-facts{margin:0}
+#mk-frame.in4 .td2-intro .td2-facts{margin:16px 0 0;display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px 28px}
+#mk-frame.in4 .td2-froute{flex:1;min-width:0}
+#mk-frame.in4 .td2-froute span{line-height:1.6}
+#mk-frame.in4 .td2-froute i{font-style:normal;color:var(--mk-gold);margin:0 2px}
+/* tour days (16 Oct 2026), as in the client's itinerary documents: no card — "01 Day: Title" underlined, the photo on
+   the left, the text beside and under it; a thin line between days */
+#mk-frame.td2 .td2-days{gap:0 !important}
+#mk-frame.td2 .td2-day.td2-doc{display:flow-root !important;padding:24px 0 !important;margin:0 !important;background:none !important;border:0 !important;border-bottom:1px solid var(--mk-line) !important;box-shadow:none !important;border-radius:0 !important}
+#mk-frame.td2 .td2-day.td2-doc:first-child{padding-top:0 !important}
+#mk-frame.td2 .td2-doc .td2-dhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin:0 0 14px !important}
+#mk-frame.v3.td2 .td2-doc .td2-dt{margin:0 !important;font-family:var(--mk-font-head) !important;font-size:19px;font-weight:700;line-height:1.35;color:var(--mk-blue-d);text-decoration:underline;text-decoration-color:var(--mk-gold);text-decoration-thickness:2px;text-underline-offset:5px}
+#mk-frame.td2 .td2-doc .td2-dn{display:inline;width:auto;height:auto;padding:0;background:none !important;color:var(--mk-blue);font:inherit;border-radius:0 !important}
+#mk-frame.td2 .td2-doc .td2-dfig{float:left !important;width:260px !important;height:175px !important;min-height:0 !important;margin:4px 22px 10px 0 !important;border-radius:5px !important;overflow:hidden}
+#mk-frame.td2 .td2-doc .td2-p{margin:0 0 10px}
+#mk-frame.td2 .td2-doc .td2-p:last-child{margin-bottom:0}
+@media (max-width:767.98px){
+  #mk-frame.td2 .td2-doc .td2-dfig{width:42% !important;height:120px !important;margin:4px 14px 8px 0 !important}
+  #mk-frame.v3.td2 .td2-doc .td2-dt{font-size:17px}
+}
+@media (max-width:479.98px){
+  #mk-frame.td2 .td2-doc .td2-dfig{float:none !important;width:100% !important;height:170px !important;margin:0 0 12px !important}
+}
+/* day heading (16 Oct 2026): no underline; "01 Day" on a coloured label */
+#mk-frame.v3.td2 .td2-doc .td2-dt{text-decoration:none !important}
+#mk-frame.td2 .td2-doc .td2-dn{display:inline-block;margin-right:6px;padding:3px 10px;border-radius:5px !important;background:var(--mk-blue) !important;color:#fff;font-size:15px;line-height:1.4;vertical-align:2px}
+/* tour days: every second photo on the right */
+#mk-frame.td2 .td2-doc.td2-doc-r .td2-dfig{float:right !important;margin:4px 0 10px 22px !important}
+@media (max-width:767.98px){ #mk-frame.td2 .td2-doc.td2-doc-r .td2-dfig{margin:4px 0 8px 14px !important} }
+@media (max-width:479.98px){ #mk-frame.td2 .td2-doc.td2-doc-r .td2-dfig{float:none !important;margin:0 0 12px !important} }
+/* tour intro (16 Oct 2026): the route as a plain line between the description and nights / stops */
+#mk-frame.in4 .td2-intro p.td2-froute{margin:14px 0 0;font-size:15px;font-weight:600;line-height:1.7;color:var(--mk-blue-d)}
+#mk-frame.in4 .td2-intro .td2-facts{margin:10px 0 0}
+/* the route line in the same style as the nights / stops line under it */
+#mk-frame.in4 .td2-intro p.td2-froute{display:flex;align-items:flex-start;gap:8px;margin:16px 0 0;font-size:15px;font-weight:600;line-height:1.6;color:var(--mk-text)}
+#mk-frame.in4 .td2-froute svg{width:18px;height:18px;flex-shrink:0;margin-top:3px;color:var(--mk-blue)}
+#mk-frame.in4 .td2-froute i{font-style:normal;color:#9AAFCB;margin:0 3px}
+/* category pages: the row photo never sets the row's height — it fills whatever the text needs, same size on every row */
+#mk-frame.in4 .tp2-one .tp2-row{min-height:112px}
+#mk-frame.in4 .tp2-one .tp2-row-img{position:relative;min-height:112px}
+#mk-frame.in4 .tp2-one .tp2-row-img img{position:absolute;inset:0;width:100%;height:100% !important;min-height:0 !important}
+@media (min-width:900px){
+  #mk-frame.in4 .tp2-one .tp2-row{height:120px;min-height:0}
+  #mk-frame.in4 .tp2-one .tp2-row-route > span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+}
+/* tour intro, option P (16 Oct 2026): the facts as pills, a thin line, then the route */
+#mk-frame.in4 .td2-pills{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}
+#mk-frame.in4 .td2-pills li{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px;border-radius:5px !important;background:#EEF3FA;font-size:14px;font-weight:700;color:var(--mk-blue)}
+#mk-frame.in4 .td2-pills li svg{width:16px;height:16px}
+#mk-frame.in4 .td2-pills .td2-pill-g{background:#FFF8E6;color:#7A5600}
+#mk-frame.in4 .td2-proute{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--mk-line);font-size:15px;line-height:1.7;color:var(--mk-text)}
+#mk-frame.in4 .td2-proute b{color:var(--mk-blue-d);font-weight:800;margin-right:2px}
+#mk-frame.in4 .td2-proute i{font-style:normal;color:#9AAFCB;margin:0 3px}
+/* popular tours slider: room inside the scroll box for the cards' shadows (they were cut off left, right and below) */
+#mk-frame.in4 .mp .pq-slide{padding:10px 14px 30px !important;margin:-10px -14px -16px !important;scroll-padding-inline:14px}
+#mk-frame.in4 .mp .pq-slide .pq-card:hover{box-shadow:0 8px 20px rgba(18,63,109,.12)}
+/* popular tours slider (16 Oct 2026): a small shadow that fits inside the scroll box (the big one was cut into a grey band),
+   and the stops wrap instead of being cut mid-word */
+#mk-frame.in4 .mp .pq-slide .pq-card{box-shadow:0 2px 8px rgba(20,40,80,.07) !important}
+#mk-frame.in4 .mp .pq-slide .pq-card:hover{box-shadow:0 6px 16px rgba(18,63,109,.12) !important}
+#mk-frame.in4 .mp .pq-slide{padding:6px 10px 24px !important;margin:-6px -10px -10px !important;scroll-padding-inline:10px}
+#mk-frame.in4 .mp .pq-slide .pq-stops{flex-wrap:wrap !important;white-space:normal !important;overflow:visible !important;row-gap:2px}
+#mk-frame.in4 .mp .pq-slide .pq-stops span{white-space:nowrap}
+/* slider arrows, option Q (16 Oct 2026): round buttons on the photos, either side of the slider */
+#mk-frame.in4 .mp .pq-sl{position:relative}
+#mk-frame.in4 .mp .pq-arr{position:absolute;top:101px;z-index:3;width:48px;height:48px;margin-top:-24px;border:0;border-radius:50% !important;background:#fff;color:var(--mk-blue-d);box-shadow:0 4px 14px rgba(11,27,51,.22);transition:background .2s,color .2s,opacity .2s,transform .2s}
+#mk-frame.in4 .mp .pq-arr-l{left:-18px}
+#mk-frame.in4 .mp .pq-arr-r{right:-18px}
+#mk-frame.in4 .mp .pq-arr:hover:not(:disabled){background:var(--mk-blue);color:#fff;transform:scale(1.06)}
+#mk-frame.in4 .mp .pq-arr:disabled,#mk-frame.in4 .mp .pq-fit .pq-arr{opacity:0;pointer-events:none}
+#mk-frame.in4 .mp .pq-arr svg{width:22px;height:22px}
+@media (max-width:1199.98px){ #mk-frame.in4 .mp .pq-arr-l{left:-8px} #mk-frame.in4 .mp .pq-arr-r{right:-8px} }
+@media (max-width:599.98px){ #mk-frame.in4 .mp .pq-arr{width:40px;height:40px;margin-top:-20px} #mk-frame.in4 .mp .pq-arr-l{left:-4px} #mk-frame.in4 .mp .pq-arr-r{right:-4px} }
+/* Guest Reviews page (16 Oct 2026): less space under the title and above the reviews */
+#mk-frame.in4 section.tm-top{padding-top:12px !important;padding-bottom:0 !important}
+#mk-frame.in4 section#reviews{padding-top:28px !important}
+#mk-frame.in4 .tm-foot.tm-auto .tm-load{display:none !important}
+#mk-frame.in4 .tm-foot.tm-auto{height:1px;margin:0;padding:0}
+/* the review card, redesigned: guest on top, the words, then the tour */
+#mk-frame.in4 .tm2 .tm-card{min-height:0 !important;gap:14px;padding:22px 24px !important;border:1px solid var(--mk-line) !important;border-top:3px solid var(--mk-blue) !important;border-radius:5px !important;box-shadow:0 2px 8px rgba(20,40,80,.06) !important}
+#mk-frame.in4 .tm2 .tm-card:hover{border-top-color:var(--mk-gold) !important;box-shadow:0 10px 24px rgba(18,63,109,.1) !important}
+#mk-frame.in4 .tm2 .tm-card::after{display:none}
+#mk-frame.in4 .tm2 .tm-card .tm-who{display:flex;align-items:center;gap:12px;margin:0 !important;padding:0 0 14px !important;border-top:0 !important;border-bottom:1px solid #EEF2F7}
+#mk-frame.in4 .tm2 .tm-card .tm-av{width:44px;height:44px;flex-shrink:0;display:grid;place-items:center;border-radius:50% !important;background:var(--mk-blue);color:var(--mk-gold);font-weight:800}
+#mk-frame.in4 .tm2 .tm-card .tm-meta{display:flex;flex-direction:column;min-width:0}
+#mk-frame.in4 .tm2 .tm-card .tm-meta b{font-family:var(--mk-font-head);font-size:16px;color:var(--mk-blue-d)}
+#mk-frame.in4 .tm2 .tm-card .tm-quote::before{content:"\201C";font-family:'Instrument Serif',Georgia,serif;font-size:30px;line-height:0;vertical-align:-10px;margin-right:3px;color:var(--mk-gold)}
+#mk-frame.in4 .tm2 .tm-card .tm-more{align-self:flex-start;margin-top:-8px}
+#mk-frame.in4 .tm2 .tm-card .tm-tour{display:flex !important;flex-direction:row !important;align-items:center;gap:6px;margin-top:auto;padding:0 !important}
+#mk-frame.in4 .tm2 .tm-card .tm-tour svg{width:15px;height:15px;flex-shrink:0;color:var(--mk-gold)}
+#mk-frame.in4 .tm2 .tm-card .tm-tour b{padding:0 !important;background:none !important;font-size:13px;font-weight:700;color:var(--mk-blue)}
+#mk-frame.ux.v3.h4.in4 section.az.tm-top{padding-top:12px !important;padding-bottom:0 !important}
+#mk-frame.ux.v3.h4.in4 section#reviews.tm{padding-top:28px !important}
+/* review card, option U (16 Oct 2026): editorial — big gold quote mark, the words in the serif, the guest underneath */
+#mk-frame.in4 .tm3 .tm-card{gap:12px;padding:26px 26px 22px !important;border-top:1px solid var(--mk-line) !important}
+#mk-frame.in4 .tm3 .tm-card:hover{border-color:#C9D6EA !important}
+#mk-frame.in4 .tm3 .tm-mark{display:block;height:30px;font-family:'Instrument Serif',Georgia,serif;font-size:72px;line-height:.9;color:var(--mk-gold)}
+#mk-frame.v3.in4 .tm3 .tm-card .tm-quote{font-family:'Instrument Serif',Georgia,serif !important;font-style:italic;font-size:20px;line-height:1.45;color:var(--mk-blue-d);-webkit-line-clamp:6}
+#mk-frame.in4 .tm3 .tm-card .tm-quote::before{content:none}
+#mk-frame.in4 .tm3 .tm-card .tm-more{margin-top:-4px}
+#mk-frame.in4 .tm3 .tm-card .tm-who{margin-top:auto !important;padding:16px 0 0 !important;border-bottom:0 !important;border-top:1px solid #EEF2F7 !important}
+#mk-frame.in4 .tm3 .tm-card .tm-meta small{font-size:12.5px;line-height:1.45;color:#7A879B}
+@media (max-width:639.98px){ #mk-frame.v3.in4 .tm3 .tm-card .tm-quote{font-size:18px} #mk-frame.in4 .tm3 .tm-card{padding:22px 20px 18px !important} }
+#mk-frame.in4 .tm3 .tm-mark{height:44px;font-size:120px;line-height:1;margin:-8px 0 -4px;overflow:visible}
+/* review card: the site's own fonts — the words in Manrope like all body text, the quote mark in the heading face */
+#mk-frame.v3.in4 .tm3 .tm-card .tm-quote{font-family:'Manrope',system-ui,sans-serif !important;font-style:normal;font-size:16px;line-height:1.7;color:#33445E;-webkit-line-clamp:6}
+#mk-frame.in4 .tm3 .tm-mark{font-family:var(--mk-font-head),sans-serif;font-size:76px;font-weight:800;height:40px;line-height:1;margin:-6px 0 -6px}
+@media (max-width:639.98px){ #mk-frame.v3.in4 .tm3 .tm-card .tm-quote{font-size:15.5px} }
+/* (16 Oct 2026) the section right under the page title starts close to it on every inner page */
+#mk-frame.ux.v3.h4.in4 section.ph2 + section:not(.td2-intro){padding-top:14px !important}
+#mk-frame.in4 .tp2-one .tp2-intro{margin-bottom:0 !important}
+#mk-frame.in4 .tp2-intro-more{margin:8px 0 18px}
+/* ===== one vertical rhythm for every inner page (16 Oct 2026, client: equal gaps between all sections) =====
+   every block after the page title starts 56px below the one before it and adds nothing at its foot; the first block
+   under the title sits 14px below it; the footer is 56px below the last block. "#mk-frame#mk-frame" outranks the
+   older per-section paddings, so this is the one place the gaps are set. */
+#mk-frame#mk-frame.in4{--sec-gap:56px}
+#mk-frame#mk-frame.in4 > :is(section,div):not(.ph2):not(.abx-hero):not(.h8-stats){padding-top:var(--sec-gap) !important;padding-bottom:0 !important;margin-top:0 !important;margin-bottom:0 !important}
+#mk-frame#mk-frame.in4 > section.ph2 + :is(section,div):not(.ph2):not(.abx-hero):not(.h8-stats):not(.td2-intro){padding-top:14px !important}
+#mk-frame#mk-frame.in4 > section.td2-intro:not(.ph2):not(.abx-hero):not(.h8-stats){padding-top:0 !important}
+#mk-frame#mk-frame.in4 > footer.sf{margin-top:var(--sec-gap) !important}
+/* the closing call-to-action box: no extra margins of its own */
+#mk-frame#mk-frame.in4 > section.az-end > .az-cta{margin-top:0 !important;margin-bottom:0 !important;transform:none !important}
+/* a block with its own background keeps equal room inside and takes the gap outside */
+#mk-frame#mk-frame.in4 > section.tm + section.az-end:not(.ph2):not(.abx-hero):not(.h8-stats):not(.x){margin-top:var(--sec-gap) !important;padding-top:40px !important;padding-bottom:40px !important}
+@media (max-width:639.98px){ #mk-frame#mk-frame.in4{--sec-gap:40px} }
+#mk-frame#mk-frame.in4 > section#reviews.tm:not(.ph2):not(.abx-hero):not(.h8-stats){padding-top:var(--sec-gap) !important;padding-bottom:0 !important}
+/* rhythm: nothing extra at the foot of the tour body or the popular-tours slider */
+#mk-frame#mk-frame.in4 .tp-body .tp-main > .tp-sec:last-child{margin-bottom:0 !important;padding-bottom:0 !important}
+#mk-frame#mk-frame.in4 .tp-body{padding-bottom:0 !important}
+#mk-frame#mk-frame.in4 .mp .pq-slide{margin-bottom:-24px !important}
+/* rhythm: the last thing in a block never adds its own bottom margin */
+#mk-frame#mk-frame.in4 > section :is(.prose,.ar-body,.az-wrap,.ex-wrap,.abx-wrap) > :last-child{margin-bottom:0 !important}
+#mk-frame#mk-frame.in4 > section .ar-body .prose :is(p,ul,ol,li,div,table):last-child{margin-bottom:0 !important}
+#mk-frame#mk-frame.in4 > section .ar-body .prose > p:empty{display:none}
+#mk-frame#mk-frame.in4 > section .ar-body .prose > :last-child{margin-bottom:0 !important}
+#mk-frame#mk-frame.in4 > section.ct-enq:not(.ph2):not(.abx-hero):not(.h8-stats):not(.x){padding-top:calc(var(--sec-gap) + 16px) !important}
+/* (16 Oct 2026) a little more room under the page title, the same on every page */
+#mk-frame#mk-frame.in4{--title-gap:28px}
+#mk-frame#mk-frame.in4 > section.ph2 + :is(section,div):not(.ph2):not(.abx-hero):not(.h8-stats):not(.td2-intro):not(.x){padding-top:var(--title-gap) !important}
+#mk-frame#mk-frame.in4 > section.td2-intro .td2-desc{margin-top:var(--title-gap) !important}
+@media (max-width:639.98px){ #mk-frame#mk-frame.in4{--title-gap:22px} }
+#mk-frame#mk-frame.in4 .ph2-head .abx-hero-sub{margin-bottom:0 !important}
+#mk-frame#mk-frame.in4 > section.td2-intro .td2-desc{margin-top:12px !important}   /* tour pages: the description follows the title closely */

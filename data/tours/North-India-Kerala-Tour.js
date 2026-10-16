@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > North India-Kerala Tours > North India Heritage with Kerala Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "North India-Kerala Tours", href: site.link("northindia_rajasthan_kerala_tours.html") },
     { label: "North India Heritage with Kerala Tour" }
   ],

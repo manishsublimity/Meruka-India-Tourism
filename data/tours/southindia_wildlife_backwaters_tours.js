@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > South India Tours >South India Wildlife, Backwaters and Beaches Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "South India Tours", href: site.link("south_india_tour.html") }
   ],
   heading: "South India - Wildlife, Backwaters and Beaches Tour",

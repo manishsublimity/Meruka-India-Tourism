@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > North India - Nepal Tours > Rajasthan with Nepal Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "North India - Nepal Tours", href: site.link("north_india_nepal_tours.html") },
     { label: "Rajasthan with Nepal Tour" }
   ],

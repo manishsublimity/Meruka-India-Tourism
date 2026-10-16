@@ -48,6 +48,10 @@ app.locals.toursFor = (place, n = 4) => {
 // Every inner page ends with the same "explore" block as the original site (partials/explore-india): the four
 // regions, every tour category in its group, and the travel guide — the home page's designs, the home page's data
 app.locals.tourNav = require('./data/tour-nav');
+// A tour's own main photo (the first picture on its page), for the rows of the category pages (16 Oct 2026)
+const TOUR_PAGES = {};
+fs.readdirSync(path.join(__dirname, 'data', 'tours')).filter(f => f.endsWith('.js')).forEach(f => { const t = require('./data/tours/' + f); TOUR_PAGES[t.url.toLowerCase()] = t; });
+app.locals.tourPhoto = url => { const t = TOUR_PAGES[String(url || '').toLowerCase()]; return t ? (t.photo || app.locals.photoFor([t.heading, t.url, t.route])) : ''; };
 app.locals.explore = (() => {
   const H2 = require('./data/home2');
   const REGION_IMG = { 'North India': '/photos/golden-temple-amritsar.webp', 'South India': '/photos/region-south-india.webp', 'West India': '/photos/goa-beach-palms.webp', 'East India': '/photos/arunachal-losar.webp' };

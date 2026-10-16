@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Indian Golden Triangle Tours > Golden Triangle and Wildlife Tour with Hill Stations of Himachal
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Indian Golden Triangle Tours", href: site.link("india-golden-triangle-tour.html") },
     { label: "Golden Triangle with Wildlife and Hill Stations Tour" }
   ],

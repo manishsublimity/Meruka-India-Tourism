@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > North India Kerala Tours
   breadcrumb: [
     { label: "Home", href: site.link("index-2.html") },
-    { label: "India Tours", href: site.link("itineraries.html") },
+    { label: "India Tour Packages", href: site.link("itineraries.html") },
     { label: "North India Kerala Tours" }
   ],
   heading: "North India Kerala Tours",

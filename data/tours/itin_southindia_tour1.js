@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Kerala & Karnataka Tours > Best of Karnataka and Kerala Tour
   breadcrumb: [
     { label: "Home", href: site.link("index-htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Kerala & Karnataka Tours", href: site.link("kerala_karnataka_tour.html") },
     { label: "Best of Karnataka and Kerala Tour" }
   ],

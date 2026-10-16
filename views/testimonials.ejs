@@ -12,15 +12,15 @@
   ];
   const groupsOf = t => GROUPS.filter(g => g[2].test(t.tour)).map(g => g[0]);
   const counts = Object.fromEntries(GROUPS.map(g => [g[0], all.filter(t => g[2].test(t.tour)).length]));
-  const extra = '<div class="ph-facts"><span><b>' + all.length + '</b> guest testimonials</span></div>'
+  const extra = '<div class="ph-facts"><span><b>' + all.length + '</b> guest reviews</span></div>'
     + '<div class="ph-actions"><a href="#reviews" class="ph-btn ph-btn-gold">Read the reviews <span>↓</span></a><a href="' + enquire + '" class="ph-btn ph-btn-line">Plan your trip <span>→</span></a></div>';
 %>
 <div style="width:100%;overflow-x:clip;background:#F4F7FB">
 <div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#F4F7FB">
 
-<%- include('partials/page-header', { nav: d.nav, enquireHref: enquire, active: 'Testimonials' }) %>
+<%- include('partials/page-header', { nav: d.nav, enquireHref: enquire, active: 'Guest Reviews' }) %>
 
-<%- include('partials/photo-hero', { title: d.heading, img: d.heroSrc, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
+<%- include('partials/photo-hero', { title: 'Guest Reviews', img: d.heroSrc, alt: d.heroAlt || '', crumbs: [{ label: 'Home', href: '/' }, { label: 'Guest Reviews' }] }) %>
 
 <%# (16 Oct 2026) no "In our guests' words" heading: the page title sits right above; the intro follows it %>
 <section class="az az-a tm-top">
@@ -34,38 +34,26 @@
 
 <section id="reviews" class="tm az az-b">
   <div class="az-wrap">
-    <div class="az-head"><h2 class="h4-h2 az-h">What our guests <em>say</em></h2></div>
-    <div class="tm-bar">
-      <div class="tm-chips" role="group" aria-label="Filter by tour">
-        <button type="button" class="tm-chip on" data-g="" aria-pressed="true">All <span><%= all.length %></span></button>
-        <% GROUPS.forEach(g => { if (!counts[g[0]]) return; %>
-        <button type="button" class="tm-chip" data-g="<%= g[0] %>" aria-pressed="false"><%= g[1] %> <span><%= counts[g[0]] %></span></button>
-        <% }) %>
-      </div>
-      <label class="tm-search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <span class="sr-only">Search testimonials</span>
-        <input type="search" id="tm-q" placeholder="Search by name, country or tour" autocomplete="off">
-      </label>
-    </div>
-    <p class="tm-status" id="tm-status" aria-live="polite">Showing <b id="tm-shown"><%= Math.min(9, all.length) %></b> of <b id="tm-total"><%= all.length %></b></p>
-
-    <div class="tm-grid" id="tm-grid">
+    <%# (16 Oct 2026) the heading, the tour filter and the search are removed at the client's request: the reviews start here %>
+    <%# (16 Oct 2026, client's pick U) no "Showing 9 of 72" line; an editorial card — a big gold quote mark, the guest's
+        words large in the serif, then the guest (initials, name, details) and the tour they took; more reviews load
+        by themselves as the visitor scrolls %>
+    <div class="tm-grid tm2 tm3" id="tm-grid">
       <% all.forEach((t, i) => { %>
       <figure class="tm-card<%= i >= 9 ? ' is-hidden' : '' %>" data-g="<%= groupsOf(t).join(' ') %>" data-search="<%= (t.name + ' ' + t.details.join(' ') + ' ' + t.tour + ' ' + t.route).toLowerCase() %>">
-        <div class="tm-tour"><b><%= t.tour %></b></div>
+        <span class="tm-mark" aria-hidden="true">“</span>
         <blockquote class="tm-quote" id="tm-q-<%= i %>"><%= t.quote %></blockquote>
         <button type="button" class="tm-more" aria-expanded="false" aria-controls="tm-q-<%= i %>" hidden>Read more</button>
         <figcaption class="tm-who">
           <span class="tm-av"><%= t.initials %></span>
-          <span class="tm-meta"><b><%= t.name %></b><% t.details.forEach(x => { %><small><%= x %></small><% }) %></span>
+          <span class="tm-meta"><b><%= t.name %></b><small><%= t.details.concat([t.tour]).filter(Boolean).join(' · ') %></small></span>
         </figcaption>
       </figure>
       <% }) %>
     </div>
 
-    <div class="tm-empty is-hidden" id="tm-empty">No testimonials match your search. <button type="button" id="tm-reset">Show all</button></div>
-    <div class="tm-foot"><button type="button" class="tm-load" id="tm-load">Show more testimonials <span>↓</span></button></div>
+    <div class="tm-empty is-hidden" id="tm-empty">No reviews match your search. <button type="button" id="tm-reset">Show all</button></div>
+    <div class="tm-foot"><button type="button" class="tm-load" id="tm-load">Show more reviews <span>↓</span></button></div>
   </div>
 </section>
 

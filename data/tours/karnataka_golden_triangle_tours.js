@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Karnataka Tours > Karnataka Golden Triangle Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Karnataka Tours", href: site.link("karnataka_tours.html") },
     { label: "Karnataka Golden Triangle Tour" }
   ],
