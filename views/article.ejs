@@ -51,31 +51,12 @@
 
 <%- include('partials/photo-hero', { title: d.heading, img: d.heroSrc, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
 
-<% if (facts.length) { %>
-<section class="af az az-a" aria-label="At a glance">
-  <div class="az-wrap az-row">
-  <div class="az-side"><span class="az-no">01</span><h2 class="h4-h2 az-h">At a <em>glance</em></h2></div>
-  <div class="af-wrap az-facts">
-    <% facts.forEach((f, i) => { const list = chips(f.value); %>
-    <div class="af-card">
-      <span class="af-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><%- iconFor(f.label) %></svg></span>
-      <span class="af-label"><%= f.label %></span>
-      <% if (list && list.length > 1) { %>
-      <span class="af-chips"><% list.forEach(c => { %><span><%- c %></span><% }) %></span>
-      <% } else { %>
-      <span class="af-value"><%- f.value %></span>
-      <% } %>
-    </div>
-    <% }) %>
-  </div>
-  </div>
-</section>
-<% } %>
+<%# (15 Oct 2026) region facts are in the sidebar ("At a glance" card, the same card as the destination pages' Quick facts) %>
 
 <section id="content" class="ar az <%= facts.length ? 'az-b ar-region' : isDest ? 'az-a ar-dest' : 'az-a' %>">
   <div class="az-wrap">
-  <div class="az-head"><% if (isDest) { %><h2 class="h4-h2 az-h">Discover <em><%= place %></em></h2><% } else { %><h2 class="h4-h2 az-h">Travel <em>guide</em></h2><% } %></div>
-  <div class="ar-wrap" id="ar-wrap">
+  <%# (15 Oct 2026) no "Discover …" / "Travel guide" heading here: the page title sits right above, under the banner %>
+  <div class="ar-wrap<%= facts.length ? ' ar-has-aside2' : '' %>" id="ar-wrap">
     <aside class="ar-side is-hidden" id="ar-side">
       <div class="ar-toc-box">
         <span class="ar-toc-label">On this page</span>
@@ -86,6 +67,18 @@
     <article class="ar-body">
       <div class="prose"><%- rewriteHtml(body) %></div>
     </article>
+    <% if (facts.length) { %>
+    <aside class="ar-aside2 rg-aside">
+      <div class="ar-a2-card dx-qf rg-qf">
+        <p class="ar-a2-h">At a <em>glance</em></p>
+        <div class="dx-facts">
+          <% facts.forEach(f => { const list = chips(f.value); %>
+          <div class="dx-fact"><span class="dx-fact-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><%- iconFor(f.label) %></svg></span><span class="dx-fact-t"><small><%= f.label %></small><b><% if (list && list.length > 1) { %><%- list.join(', ') %><% } else { %><%- f.value %><% } %></b></span></div>
+          <% }) %>
+        </div>
+      </div>
+    </aside>
+    <% } %>
   </div>
   </div>
 </section>
@@ -120,7 +113,7 @@
     <span class="az-no az-no-c"><%= d.heading %></span>
     <p class="az-cta-lead">Tell us which places you'd like to see — <em>we'll draw the route.</em></p>
     <div class="az-acts">
-      <a href="/#plan" class="ph-btn ph-btn-gold">Plan My Trip <span>→</span></a>
+      <a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip <span>→</span></a>
       <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="az-btn-line">WhatsApp us <span>→</span></a>
     </div>
   </div>
@@ -128,6 +121,8 @@
 <% } %>
 
 <%- include('partials/popular-tours', { current: d.url }) %>
+
+<%- include('partials/explore-india', { current: d.url }) %>
 
 <%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
 

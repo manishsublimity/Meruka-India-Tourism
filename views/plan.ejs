@@ -1,0 +1,92 @@
+<%- include('partials/head') %>
+<%
+  // Plan My Trip (15 Oct 2026, redesigned): a clean two-column page inside the site container — the enquiry form in a
+  // white card on the left (labelled fields), what happens next and the direct ways to reach a planner on the right.
+  // The form keeps the home page form's ids and field names, so public/js/home-2.js sends it the same way.
+  // ?tour=<name> (from a tour page) fills in the message.
+  const enquire = '/plan-my-trip';
+  const tel = 'tel:' + footer.hq.phones[0].replace(/[^0-9+]/g, '');
+  const ico = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+  const prefill = q.tour ? 'I would like to know more about the ' + String(q.tour).slice(0, 120) + '.' : '';
+  // hotel chips: the chosen one is drawn with data-on (set again by the script on click)
+  const chipOff = 'border:1.5px solid var(--mk-line);background:#fff;color:var(--mk-text)';
+  const chipOn = 'border:1.5px solid var(--mk-blue);background:var(--mk-blue);color:#fff';
+%>
+<div style="width:100%;overflow-x:clip;background:#fff">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#fff">
+
+<%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
+
+<%- include('partials/photo-hero', { title: 'Plan My Trip', img: '/photos/hero-ladakh.webp', alt: 'A mountain lake below brown Himalayan peaks', sub: 'Tell us how you would like to travel — a planner replies within one working day, with a route and a price.' }) %>
+
+<section class="pm" aria-label="Plan your trip">
+  <div class="ex-wrap pm-grid">
+
+    <!-- the enquiry form -->
+    <div class="pm-card">
+      <div class="pm-card-head">
+        <h2 class="pm-card-t">Your trip details</h2>
+        <ul class="pm-trust"><li>Reply in 24h</li><li>No obligation</li><li>No deposit</li><li>Details never shared</li></ul>
+      </div>
+
+      <div id="plan-sent" class="is-hidden pm-sent">
+        <span class="pm-sent-tick" aria-hidden="true">✓</span>
+        <p class="pm-sent-t">Enquiry received</p>
+        <p class="pm-sent-p">A planner will write within one working day. Urgent? Call <a href="<%= tel %>"><%= footer.hq.phones[0] %></a>.</p>
+      </div>
+
+      <form id="plan-form" class="pm-body" novalidate>
+        <div class="pm-fields">
+          <label class="pm-f"><span>Full name <i aria-hidden="true">*</i></span><input name="name" class="pm-in" placeholder="Your name" autocomplete="name" required></label>
+          <label class="pm-f"><span>Email address <i aria-hidden="true">*</i></span><input name="email" type="email" class="pm-in" placeholder="name@example.com" autocomplete="email" required></label>
+          <label class="pm-f"><span>Country</span><select name="country" class="pm-in"><% H.countries.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %></select></label>
+          <label class="pm-f"><span>Arrival date</span><input name="date" type="date" class="pm-in"></label>
+          <label class="pm-f"><span>Travellers</span><select name="travellers" class="pm-in"><% H.paxOpts.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %></select></label>
+          <label class="pm-f"><span>Duration</span><select name="duration" class="pm-in"><% H.filters.days.opts.forEach(c => { %><option value="<%= c %>"<%= c === H.filters.days.value ? ' selected' : '' %>><%= c %></option><% }) %></select></label>
+        </div>
+
+        <fieldset class="pm-f pm-hotels">
+          <legend>Hotels</legend>
+          <div class="pv-stars pm-chips">
+            <% H.starChips.forEach(x => { const on = x === H.defaultStar; %><button type="button" class="star pm-chip" data-star="<%= x %>" data-on="<%= chipOn %>" data-off="<%= chipOff %>" style="<%= on ? chipOn : chipOff %>" aria-pressed="<%= on %>"><%= x %></button><% }) %>
+          </div>
+        </fieldset>
+
+        <label class="pm-f pm-msg"><span>Your trip</span><textarea name="message" rows="4" class="pm-in" placeholder="Places you'd like to see, a tour code, the pace you like — e.g. IGT-551 plus the Kerala backwaters, slow pace."><%= prefill %></textarea></label>
+
+        <div id="plan-err" class="is-hidden pm-err" role="alert"></div>
+        <button type="submit" class="pv-submit pm-go">Send My Enquiry <span aria-hidden="true">→</span></button>
+        <p class="pm-note">By sending this you agree that a Meruka planner may contact you about your trip.</p>
+      </form>
+    </div>
+
+    <!-- what happens next, and the direct ways to reach a planner -->
+    <aside class="pm-side">
+      <div class="pm-box">
+        <p class="pm-box-t">What happens next</p>
+        <ol class="pm-steps">
+          <li><span class="pm-n">1</span><div><b>Tell us your plan</b><small>A few lines are enough.</small></div></li>
+          <li><span class="pm-n">2</span><div><b>Get your itinerary and price</b><small>Within one working day — change it as often as you like.</small></div></li>
+          <li><span class="pm-n">3</span><div><b>Travel with your own car and driver</b><small>Hotels you chose, our team on call across India.</small></div></li>
+        </ol>
+      </div>
+      <div class="pm-reach">
+        <p class="pm-reach-t">Rather talk to a planner?</p>
+        <a href="<%= tel %>" class="pm-line"><span class="pm-ic"><%- ico('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>') %></span><span><small>Call us</small><b><%= footer.hq.phones[0] %></b></span></a>
+        <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="pm-line"><span class="pm-ic"><%- ico('<path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/>') %></span><span><small>WhatsApp</small><b>Chat with a planner</b></span></a>
+        <a href="mailto:<%= footer.hq.email %>" class="pm-line"><span class="pm-ic"><%- ico('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>') %></span><span><small>Email</small><b><%= footer.hq.email %></b></span></a>
+      </div>
+    </aside>
+
+  </div>
+</section>
+
+<%- include('partials/explore-india', { current: '/plan-my-trip', skipRegions: true, skipGuide: true }) %>
+
+<%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
+
+</div>
+</div>
+<script src="/js/home-2.js" defer></script>
+</body>
+</html>

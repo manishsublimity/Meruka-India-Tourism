@@ -1,0 +1,101 @@
+<%
+  // "Explore" block at the end of every inner page (15 Oct 2026), as on the original site: from any page the visitor
+  // reaches every tour category (the original's seven groups, word for word), the four regions and the travel guide.
+  // The regions and the guide are the home page's own sections (same markup, same classes, same data).
+  // Params: current? (this page's URL — its category is marked), skipRegions?, skipGuide? (tour pages keep only the packages)
+  const exHere = typeof current !== 'undefined' ? String(current || '').toLowerCase() : '';
+  const exExt = h => /^https?:/.test(h) ? ' target="_blank" rel="noopener"' : '';
+  const exTotal = tourNav.groups.reduce((n, g) => n + g.cats.length, 0);
+%>
+<!-- India Tour Packages: every category, in the original's groups -->
+<section class="ex-pk" id="tour-packages" aria-label="India tour packages">
+  <div class="ex-wrap">
+    <div class="h4-head">
+      <div>
+        <h2 class="h4-h2">India Tour <em>Packages</em></h2>
+        <p class="h4-base"><%= exTotal %> kinds of tour, from Rajasthan's forts to Kerala's backwaters — pick one and see every itinerary.</p>
+      </div>
+      <a href="/itineraries" class="h4-all">View all packages <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="ex-pk-grid">
+      <% tourNav.groups.forEach(g => { %>
+      <div class="ex-pk-card">
+        <h3 class="ex-pk-t"><%= g.title %></h3>
+        <ul>
+          <% g.cats.forEach(c => { const on = c.href.toLowerCase() === exHere; %>
+          <li><a href="<%= c.href %>"<%- on ? ' class="on" aria-current="page"' : '' %>><span><%= c.name %></span><i aria-hidden="true">→</i></a></li>
+          <% }) %>
+        </ul>
+      </div>
+      <% }) %>
+      <div class="ex-pk-card ex-pk-cta">
+        <h3 class="ex-pk-t">Can't find the right tour?</h3>
+        <p>Tell us the places, dates and hotels you like — we'll draw a private tour around them.</p>
+        <a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% if (typeof skipRegions === 'undefined' || !skipRegions) { %>
+<!-- Tourist Destinations of India: the home page's region tiles, four in a row -->
+<section class="h4-regions ex-rg" aria-label="Tourist destinations of India">
+  <div class="ex-wrap">
+    <div class="h4-head">
+      <div>
+        <h2 class="h4-h2">Tourist Destinations <em>of India</em></h2>
+        <p class="h4-base">Four regions, four different countries.</p>
+      </div>
+    </div>
+    <div class="ex-rg-grid">
+      <% explore.regions.forEach(r => { %>
+      <div class="rg rg2">
+        <img src="<%= r.img %>" alt="" loading="lazy" class="rg-img">
+        <span class="rg-shade"></span>
+        <div class="rg-body">
+          <a href="<%= r.href %>" class="rg-name rg2-main"><%= r.name %></a>
+          <span class="rg-kicker h4-kick"><%= r.kicker %></span>
+          <p class="rq-cities"><span class="rq-l">Popular cities:</span> <% r.cities.forEach((c, ci) => { %><a href="<%= c[1] %>"><%= c[0] %></a><% if (ci < r.cities.length - 1) { %><i aria-hidden="true">·</i> <% } %><% }) %></p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<% if (typeof skipGuide === 'undefined' || !skipGuide) { %>
+<!-- India Travel Guide: the home page's section -->
+<section class="g2 ex-g2" aria-label="India travel guide">
+  <div class="g2-wrap">
+    <div class="h4-head">
+      <div>
+        <h2 class="h4-h2">India <em>Travel Guide</em></h2>
+        <p class="h4-base">Travel with peace of mind — everything we are asked before a first trip, answered plainly.</p>
+      </div>
+      <a href="/travelers_guide" class="h4-all">Open the full guide <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="g2-grid">
+      <div class="g2-season">
+        <img src="/photos/guide-main.webp" alt="A young woman in a hat by a mountain lake" loading="lazy">
+        <div class="g2-season-copy">
+          <span class="g2-tag">WHEN TO COME</span>
+          <div class="g2-season-t">The Country for All Seasons</div>
+          <div class="g2-season-p">September to March is the best time.</div>
+        </div>
+      </div>
+      <% explore.guideCols.forEach((g, gi) => { %>
+      <div class="g2-card">
+        <div class="g2-card-img"><img src="<%= explore.guideImgs[gi] %>" alt="" loading="lazy"></div>
+        <div class="g2-card-head"><span class="g2-card-t"><%= g.title %></span></div>
+        <ul>
+          <% g.items.forEach(it => { const h = menu.to(it, 'guide'); %>
+          <li><a href="<%= h %>"<%- exExt(h) %>><span><%= it %></span><i aria-hidden="true">→</i></a></li>
+          <% }) %>
+        </ul>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>

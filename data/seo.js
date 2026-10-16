@@ -78,7 +78,7 @@ function graph(base, page) {
 
 // All indexable URLs (the home-2 design copy is left out on purpose)
 function urls() {
-  const list = ['/', '/aboutus', '/contactus', '/testimonials'];
+  const list = ['/', '/aboutus', '/contactus', '/testimonials', '/plan-my-trip'];
   for (const dir of ['tour-lists', 'tours', 'articles']) {
     fs.readdirSync(path.join(__dirname, dir)).filter(f => f.endsWith('.js')).forEach(f => {
       const u = require('./' + dir + '/' + f).url;

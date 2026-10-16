@@ -44,7 +44,7 @@ const TARGETS = {
   'India Tour Itineraries': 'itineraries.htm',
   // Footer
   'Golden Triangle': 'india-golden-triangle-tour.html', 'Exotic Rajasthan': 'rajasthan-tours.html',
-  'Rajasthan North India': 'rajasthan_north_india_tours.html', 'Group tours (7+)': '#plan',
+  'Rajasthan North India': 'rajasthan_north_india_tours.html', 'Group tours (7+)': '/plan-my-trip',
   'Best time to visit': 'weather.htm', 'Wildlife & parks': 'wildlife.htm', "Traveller's guide": 'travelers_guide.htm',
   'Why Meruka India': 'aboutus.htm', 'How we work': '#process', 'Guest reviews': '#reviews', 'FAQs': '#faq',
   'Booking policy': '#faq', 'Contact us': 'contactus.htm',
@@ -52,7 +52,7 @@ const TARGETS = {
   'India tour packages': 'itineraries.htm', 'India travel agency': 'aboutus.htm', 'Indian tour operators': 'aboutus.htm',
   'India holiday packages': 'itineraries.htm', 'Golden Triangle tour': 'india-golden-triangle-tour.html',
   'Rajasthan tour packages': 'rajasthan-tours.html', 'Kerala backwaters tours': 'southindia_kerala_tours.html',
-  'Kerala tour operators': 'southindia_kerala_tours.html', 'Private tours India': 'itineraries.htm', 'India tour plan': '#plan'
+  'Kerala tour operators': 'southindia_kerala_tours.html', 'Private tours India': 'itineraries.htm', 'India tour plan': '/plan-my-trip'
 };
 // The same text can mean a tour (menus) or a guide topic (travel guide, footer guide column).
 const GUIDE = { 'Yoga & Ayurveda': 'yoga.htm', 'Buddhist circuit': 'buddha.htm', 'Fairs & festivals': 'Fairs-Festivals.htm' };

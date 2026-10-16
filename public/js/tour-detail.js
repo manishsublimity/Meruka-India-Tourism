@@ -88,3 +88,39 @@
     if (!on) root.scrollIntoView({ block: 'start' });
   });
 })();
+
+// Tour page on phones (15 Oct 2026): the days fold into an accordion — each day shows its number, title and
+// distance; a tap opens its text. Day 1 starts open, and "Show all days" opens (or closes) every day.
+// From 768px up every day stays open, as before.
+(function () {
+  var list = document.querySelector('.td2-days'); if (!list) return;
+  var days = Array.prototype.slice.call(list.querySelectorAll(':scope > .td2-day'));
+  if (days.length < 3) return;
+  var mq = window.matchMedia('(max-width: 767.98px)');
+  var bar = document.createElement('div'); bar.className = 'td2-acc-bar';
+  bar.innerHTML = '<span>' + days.length + ' days</span><button type="button" class="td2-acc-all">Show all days</button>';
+  var allBtn = bar.querySelector('button');
+  function setDay(d, open) {
+    d.classList.toggle('td2-open', open);
+    var h = d.querySelector('.td2-dhead'); if (h) h.setAttribute('aria-expanded', open);
+  }
+  function syncAll() {
+    var allOpen = days.every(function (d) { return d.classList.contains('td2-open'); });
+    allBtn.textContent = allOpen ? 'Close all days' : 'Show all days';
+  }
+  days.forEach(function (d, i) {
+    var h = d.querySelector('.td2-dhead'); if (!h) return;
+    h.setAttribute('role', 'button'); h.setAttribute('tabindex', '0');
+    var toggle = function () { if (!mq.matches) return; setDay(d, !d.classList.contains('td2-open')); syncAll(); };
+    h.addEventListener('click', toggle);
+    h.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+    setDay(d, i === 0);
+  });
+  allBtn.addEventListener('click', function () {
+    var open = !days.every(function (d) { return d.classList.contains('td2-open'); });
+    days.forEach(function (d) { setDay(d, open); }); syncAll();
+  });
+  list.parentNode.insertBefore(bar, list);
+  function apply() { list.classList.toggle('td2-acc', mq.matches); bar.hidden = !mq.matches; }
+  apply(); (mq.addEventListener ? mq.addEventListener('change', apply) : mq.addListener(apply));
+})();

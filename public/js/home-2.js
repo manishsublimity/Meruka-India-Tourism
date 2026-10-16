@@ -53,7 +53,8 @@
   var form = $('#plan-form');
   if (form) {
     var stars = $$('.star'), star = '';
-    stars.forEach(function (s) { if (/#(1E5FD6|0B2B66)/i.test(s.getAttribute('style'))) star = s.dataset.star; });
+    // the chip drawn in its "on" style is the one chosen at the start (4-star)
+    stars.forEach(function (s) { if (s.getAttribute('style') === s.dataset.on || s.getAttribute('aria-pressed') === 'true') star = s.dataset.star; });
     stars.forEach(function (s) {
       s.addEventListener('click', function () { star = s.dataset.star; stars.forEach(function (x) { setOn(x, x === s); }); });
     });
@@ -61,7 +62,7 @@
       e.preventDefault();
       var f = form.elements, err = $('#plan-err');
       postEnquiry({
-        source: 'home', name: f.name.value, email: f.email.value, country: f.country.value, date: f.date.value,
+        source: location.pathname === '/plan-my-trip' ? 'plan-my-trip' : 'home', name: f.name.value, email: f.email.value, country: f.country.value, date: f.date.value,
         travellers: f.travellers.value, duration: f.duration.value, hotel: star, message: f.message.value
       }).then(function (r) {
         if (!r.ok) { err.textContent = r.error; err.classList.remove('is-hidden'); return; }

@@ -117,6 +117,8 @@
   const tdFrom = priced.length && tdNights ? Math.min(...priced.map(t => t.totalLo)) : 0;
   const tdUnit = 'per person · ' + tdNights + ' nights';
   const tdDays = d.days.length;
+  // the tour's category (its breadcrumb's list page): the other tours in it, and the tours before and after this one
+  const tdCat = tourNav.inCategory(d.url, (d.breadcrumb[d.breadcrumb.length - 2] || {}).href);
   // the short description under the title: written by hand for some tours, otherwise built from the route
   const TD_DESC = {
     '/rajasthan_holiday_tour_packages': 'A private 11-day journey from Delhi to the Taj Mahal at Agra and on through the royal cities of Rajasthan — Jaipur, Pushkar, Jodhpur and Udaipur — with forts, palaces, lakes and temples along the way, and the great fort of Chittorgarh on the last day.'
@@ -155,6 +157,7 @@
    const topPics = [heroImg].concat([...new Set(stops.slice().reverse().flatMap(st => photoChoices(st)).concat(photoCandidates(d.heading + ' ' + d.route)))].filter(x => !topUsed.has(x) && onRoute(x)).slice(0, 2)); %>
 <section id="top" class="tp-top td2-top">
   <div class="tp-wrap">
+    <%# (16 Oct 2026) order: photos → title → description → nights / stops %>
     <div class="tp-gallery tp-g<%= topPics.length %> td2-gallery">
       <% topPics.forEach((g, i) => { %><figure class="tp-gi"><img src="<%= g %>" alt="<%= i ? '' : (d.heroAlt || d.heading) %>"<%= i ? ' loading="lazy"' : '' %>></figure><% }) %>
     </div>
@@ -162,20 +165,15 @@
       <% d.breadcrumb.forEach((b, i) => { %><% if (i) { %><span>›</span><% } %><% if (b.href) { %><a href="<%= b.href %>"><%= b.label %></a><% } else { %><strong><%= b.label %></strong><% } %><% }) %>
     </nav>
     <h1 class="tp-title td2-title"><%= dhWords.join(' ') %><% if (dhLast) { %> <em><%= dhLast %></em><% } %></h1>
+    <p class="td2-desc"><%= tdDesc %></p>
     <ul class="td2-facts">
       <li><%- I.clock %><%= tdNights %> Nights / <%= tdDays %> Days</li>
       <li><%- I.pin %><%= stops.length %> stops · <%= stops[0] %> to <%= stops[stops.length - 1] %></li>
     </ul>
-    <p class="td2-desc"><%= tdDesc %></p>
   </div>
 </section>
 
-<nav class="tj" aria-label="Tour sections">
-  <div class="tj-inner">
-    <% jump.forEach(j => { %><a href="<%= j[0] %>"><%= j[1] %><% if (j[2]) { %><span><%= j[2] %></span><% } %></a><% }) %>
-    <a href="<%= d.enquire.href %>" class="tj-cta"><%= d.enquire.label %> <span>→</span></a>
-  </div>
-</nav>
+<%# (15 Oct 2026) the section jump bar (Itinerary · Pricing · Includes …) is removed at the client's request %>
 
 <div class="tp-body td2-body">
   <div class="tp-main">
@@ -279,6 +277,17 @@
       <a href="mailto:<%= hq.email %>"><%- I.mail %><%= hq.email %></a>
       <a href="/#faq" class="td2-policy-l"><%- ico('<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>') %>Booking &amp; cancellation policy <span aria-hidden="true">→</span></a>
     </div>
+    <% if (tdCat && tdCat.tours.length > 1) { %>
+    <nav class="td2-cat" id="category-tours" aria-label="More <%= tdCat.title %>">
+      <p class="td2-cat-t">More <%= tdCat.title %></p>
+      <ul>
+        <% tdCat.tours.slice(0, 8).forEach((t, i) => { const on = i === tdCat.index; %>
+        <li><a href="<%= t.href %>"<%- on ? ' class="on" aria-current="page"' : '' %>><span><%= t.name %></span><small><%= String(t.duration || '').replace(/\s*[-–]\s*/, ' / ') %></small></a></li>
+        <% }) %>
+      </ul>
+      <a href="<%= tdCat.url %>" class="td2-cat-all">All <%= tdCat.tours.length %> <%= tdCat.title %> <span aria-hidden="true">→</span></a>
+    </nav>
+    <% } %>
   </aside>
 </div>
 
@@ -292,6 +301,8 @@
 <% const catCrumb = d.breadcrumb[d.breadcrumb.length - 2] || {}; %>
 <%- include('partials/popular-tours', { current: d.url, tours: similarTours(d.url, catCrumb.href, 3), heading: 'Related <em>Tours</em>', sub: 'More journeys like this one, from our ' + (catCrumb.label || 'India tours') + '.', allHref: '/itineraries', allLabel: 'View all Tours', avoid: dayPhotos.filter(Boolean).concat([d.heroSrc], topPics), note: false }) %>
 
+
+<%- include('partials/explore-india', { current: catCrumb.href, skipRegions: true, skipGuide: true }) %>
 
 <%- include('partials/page-footer', { footCols: d.footCols, enquireHref: d.enquire.href }) %>
 

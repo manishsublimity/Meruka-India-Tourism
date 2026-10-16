@@ -22,9 +22,9 @@
 
 <%- include('partials/photo-hero', { title: d.heading, img: d.heroSrc, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
 
-<section class="az az-a">
+<%# (16 Oct 2026) no "In our guests' words" heading: the page title sits right above; the intro follows it %>
+<section class="az az-a tm-top">
   <div class="az-wrap az-row">
-    <div class="az-side"><span class="az-no">01</span><h2 class="h4-h2 az-h">In our guests&rsquo; <em>words</em></h2></div>
     <div class="az-main">
       <p class="az-lead"><%= T.intro %></p>
       <%- include('partials/review-proof', { all: all }) %>
@@ -34,7 +34,7 @@
 
 <section id="reviews" class="tm az az-b">
   <div class="az-wrap">
-    <div class="az-head"><span class="az-no">02</span><h2 class="h4-h2 az-h">What our guests <em>say</em></h2></div>
+    <div class="az-head"><h2 class="h4-h2 az-h">What our guests <em>say</em></h2></div>
     <div class="tm-bar">
       <div class="tm-chips" role="group" aria-label="Filter by tour">
         <button type="button" class="tm-chip on" data-g="" aria-pressed="true">All <span><%= all.length %></span></button>
@@ -48,11 +48,11 @@
         <input type="search" id="tm-q" placeholder="Search by name, country or tour" autocomplete="off">
       </label>
     </div>
-    <p class="tm-status" id="tm-status" aria-live="polite">Showing <b id="tm-shown"><%= Math.min(18, all.length) %></b> of <b id="tm-total"><%= all.length %></b></p>
+    <p class="tm-status" id="tm-status" aria-live="polite">Showing <b id="tm-shown"><%= Math.min(9, all.length) %></b> of <b id="tm-total"><%= all.length %></b></p>
 
     <div class="tm-grid" id="tm-grid">
       <% all.forEach((t, i) => { %>
-      <figure class="tm-card<%= i >= 18 ? ' is-hidden' : '' %>" data-g="<%= groupsOf(t).join(' ') %>" data-search="<%= (t.name + ' ' + t.details.join(' ') + ' ' + t.tour + ' ' + t.route).toLowerCase() %>">
+      <figure class="tm-card<%= i >= 9 ? ' is-hidden' : '' %>" data-g="<%= groupsOf(t).join(' ') %>" data-search="<%= (t.name + ' ' + t.details.join(' ') + ' ' + t.tour + ' ' + t.route).toLowerCase() %>">
         <div class="tm-tour"><b><%= t.tour %></b></div>
         <blockquote class="tm-quote" id="tm-q-<%= i %>"><%= t.quote %></blockquote>
         <button type="button" class="tm-more" aria-expanded="false" aria-controls="tm-q-<%= i %>" hidden>Read more</button>
@@ -74,12 +74,14 @@
   <div class="az-wrap az-cta">
     <blockquote class="az-cta-quote">&ldquo;<%= T.closing %>&rdquo;</blockquote>
     <div class="az-acts">
-      <a href="/#plan" class="ph-btn ph-btn-gold">Plan My Trip <span>→</span></a>
+      <a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip <span>→</span></a>
       <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="az-btn-line">WhatsApp us <span>→</span></a>
     </div>
   </div>
 </section>
 <% } %>
+
+<%- include('partials/explore-india', { current: '/testimonials', skipRegions: true, skipGuide: true }) %>
 
 <%- include('partials/page-footer', { footCols: d.footCols, enquireHref: enquire }) %>
 
