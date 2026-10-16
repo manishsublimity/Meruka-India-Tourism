@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > India Wildlife Tours > North India Wildlife Adventure Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "India Wildlife Tours", href: site.link("wildlife_tour.html") },
     { label: "North India Wildlife Adventure Tour" }
   ],

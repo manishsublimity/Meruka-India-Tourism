@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Konark West Bengal Tours
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Konark West Bengal Tours" }
   ],
   heading: "Konark West Bengal Tours",

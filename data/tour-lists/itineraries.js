@@ -6,11 +6,11 @@ const site = require('../site');
 module.exports = {
   file: "itineraries.htm",
   url: "/itineraries",
-  title: "India Tours,India Tour Itineraries,India Travel Plan",
+  title: "Incredible India Tour Packages, India Tour Itineraries, India Travel Plan",
   description: "Incredible India tours, incomparable Indian travel itineraries for North and South India with cost, itinerary,travel plan for North India,South East and West India with best tour packages covering Rajasthan,Kerala, Tamilnadu, Karnatak and all other tourism sector of India",
   keywords: "india,tours,travl,india,tour package,tour itinerary,indian travel itineraries,east india,west india,holiday plan price,india tour plan cost,packages,india tour itineraries,north india tour plans,tour cost,south india travel itinerary,karnataka,tamilnadu,guide tour itinerary,rajasthan,north india holiday packages,travel itineraries,east india travel itinerary",
   heroSrc: site.IMG("india-tours-main.webp"),
-  heroAlt: "India Tours",
+  heroAlt: "Incredible India Tour Packages",
   nav: site.nav('India Tours', true),
   footCols: site.footCols(),
   listings: require('../listings'),
@@ -18,9 +18,9 @@ module.exports = {
   // Original: Home > India Tours
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours" }
+    { label: "India Tour Packages" }
   ],
-  heading: "India Tours",
+  heading: "Incredible India Tour Packages",
 
   intro: [
     [

@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Rajasthan North India Tours
   breadcrumb: [
     { label: "Home", href: site.link("index-2.html") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Rajasthan North India Tours" }
   ],
   heading: "Rajasthan North India Tours",

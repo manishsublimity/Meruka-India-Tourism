@@ -65,7 +65,9 @@
       </div>
     </aside>
     <article class="ar-body">
-      <div class="prose"><%- rewriteHtml(body) %></div>
+      <%# (16 Oct 2026) a broken "<div" left at the end by the import, and empty paragraphs / blocks left at the end of the text, are
+          dropped (they only added space) %>
+      <div class="prose"><%- rewriteHtml(body).replace(/<div\s*$/i, '').replace(/(<\/p>)\s*<\/a>\s*<\/p>\s*$/i, '$1').replace(/(\s*<(p|div)\b[^>]*>(\s|&nbsp;|<br\s*\/?>)*<\/\2>)+\s*$/i, '') %></div>
     </article>
     <% if (facts.length) { %>
     <aside class="ar-aside2 rg-aside">

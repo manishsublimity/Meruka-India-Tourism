@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Kerala Backwaters Tours
   breadcrumb: [
     { label: "Home", href: site.link("index-2.html") },
-    { label: "India Tours", href: site.link("itineraries.html") },
+    { label: "India Tour Packages", href: site.link("itineraries.html") },
     { label: "Kerala Backwaters Tours" }
   ],
   heading: "Kerala Backwaters Tours",

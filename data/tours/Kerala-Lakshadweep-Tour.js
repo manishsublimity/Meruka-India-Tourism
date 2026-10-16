@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Kerala Backwaters Tours > Kerala & Lakshadweep Island Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Kerala Backwaters Tours", href: site.link("southindia_kerala_tours.html") },
     { label: "Kerala and Lakshadweep Tour" }
   ],

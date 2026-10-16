@@ -37,65 +37,73 @@
   </div>
 </section>
 
-<% if (typeof skipRegions === 'undefined' || !skipRegions) { %>
-<!-- Tourist Destinations of India: the home page's region tiles, four in a row -->
-<section class="h4-regions ex-rg" aria-label="Tourist destinations of India">
+<% if (typeof skipRegions === 'undefined' || !skipRegions || typeof skipGuide === 'undefined' || !skipGuide) {
+  const [gTrav, gAttr, gTools] = explore.guideCols; %>
+<!-- (16 Oct 2026, client's pick H) Tourist Destinations and the India Travel Guide in one section:
+     one big photo with a button for each region (the photo and text change), the guide as an accordion beside it -->
+<section class="bx bxh" aria-label="Explore India: destinations and travel guide">
   <div class="ex-wrap">
     <div class="h4-head">
       <div>
-        <h2 class="h4-h2">Tourist Destinations <em>of India</em></h2>
-        <p class="h4-base">Four regions, four different countries.</p>
-      </div>
-    </div>
-    <div class="ex-rg-grid">
-      <% explore.regions.forEach(r => { %>
-      <div class="rg rg2">
-        <img src="<%= r.img %>" alt="" loading="lazy" class="rg-img">
-        <span class="rg-shade"></span>
-        <div class="rg-body">
-          <a href="<%= r.href %>" class="rg-name rg2-main"><%= r.name %></a>
-          <span class="rg-kicker h4-kick"><%= r.kicker %></span>
-          <p class="rq-cities"><span class="rq-l">Popular cities:</span> <% r.cities.forEach((c, ci) => { %><a href="<%= c[1] %>"><%= c[0] %></a><% if (ci < r.cities.length - 1) { %><i aria-hidden="true">·</i> <% } %><% }) %></p>
-        </div>
-      </div>
-      <% }) %>
-    </div>
-  </div>
-</section>
-<% } %>
-
-<% if (typeof skipGuide === 'undefined' || !skipGuide) { %>
-<!-- India Travel Guide: the home page's section -->
-<section class="g2 ex-g2" aria-label="India travel guide">
-  <div class="g2-wrap">
-    <div class="h4-head">
-      <div>
-        <h2 class="h4-h2">India <em>Travel Guide</em></h2>
-        <p class="h4-base">Travel with peace of mind — everything we are asked before a first trip, answered plainly.</p>
+        <h2 class="h4-h2">Explore <em>India</em></h2>
+        <p class="h4-base">Four regions, four different countries — and everything to know before you go.</p>
       </div>
       <a href="/travelers_guide" class="h4-all">Open the full guide <span aria-hidden="true">→</span></a>
     </div>
-    <div class="g2-grid">
-      <div class="g2-season">
-        <img src="/photos/guide-main.webp" alt="A young woman in a hat by a mountain lake" loading="lazy">
-        <div class="g2-season-copy">
-          <span class="g2-tag">WHEN TO COME</span>
-          <div class="g2-season-t">The Country for All Seasons</div>
-          <div class="g2-season-p">September to March is the best time.</div>
+    <div class="bxh-grid">
+      <div class="bxh-stage">
+        <% explore.regions.forEach((r, ri) => { %>
+        <div class="bxh-slide<%= ri ? '' : ' on' %>" data-bxh-slide="<%= ri %>"<%- ri ? ' aria-hidden="true"' : '' %>>
+          <img src="<%= r.img %>" alt="" loading="lazy">
+          <div class="bxh-copy">
+            <span class="bxh-k"><%= r.kicker %></span>
+            <a href="<%= r.href %>" class="bxh-n"><%= r.name %></a>
+            <p class="bxh-cities"><span>Popular cities:</span> <% r.cities.slice(0, 6).forEach((c, ci) => { %><a href="<%= c[1] %>"><%= c[0] %></a><% if (ci < Math.min(r.cities.length, 6) - 1) { %> · <% } %><% }) %></p>
+            <a href="<%= r.href %>" class="ph-btn ph-btn-gold bxh-go">Explore <%= r.name %> <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <% }) %>
+        <div class="bxh-tabs" role="group" aria-label="Choose a region">
+          <% explore.regions.forEach((r, ri) => { %><button type="button" class="bxh-tab<%= ri ? '' : ' on' %>" data-bxh-tab="<%= ri %>" aria-pressed="<%= !ri %>"><%= r.name %></button><% }) %>
         </div>
       </div>
-      <% explore.guideCols.forEach((g, gi) => { %>
-      <div class="g2-card">
-        <div class="g2-card-img"><img src="<%= explore.guideImgs[gi] %>" alt="" loading="lazy"></div>
-        <div class="g2-card-head"><span class="g2-card-t"><%= g.title %></span></div>
-        <ul>
-          <% g.items.forEach(it => { const h = menu.to(it, 'guide'); %>
-          <li><a href="<%= h %>"<%- exExt(h) %>><span><%= it %></span><i aria-hidden="true">→</i></a></li>
+      <div class="bxh-side">
+        <a href="<%= menu.to('Weather & Best Season', 'guide') %>" class="bxh-season">
+          <img src="/photos/guide-main.webp" alt="" loading="lazy">
+          <span><small>When to come</small><b>The Country for All Seasons</b><em>September to March is the best time.</em></span>
+        </a>
+        <%# (16 Oct 2026, client's pick K) the guide: one card, its three groups as rows — an icon, the title, the links %>
+        <%
+          const gIco = ['<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+                        '<path d="M4 21h16M6 21V10M18 21V10M12 3 3 8h18zM10 21v-6h4v6"/>',
+                        '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>'];
+        %>
+        <div class="ex-pk-card bxh-guide">
+          <% [gTrav, gAttr, gTools].forEach((g, gi) => { if (!g) return; %>
+          <div class="bxh-grow">
+            <span class="bxh-gic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><%- gIco[gi] %></svg></span>
+            <div class="bxh-gbody">
+              <p class="bxh-gt"><%= g.title %></p>
+              <p class="bxh-gl"><% g.items.forEach((it, ii) => { const h = menu.to(it, 'guide'); %><a href="<%= h %>"<%- exExt(h) %>><%= it %></a><% if (ii < g.items.length - 1) { %> <i aria-hidden="true">·</i> <% } %><% }) %></p>
+            </div>
+          </div>
           <% }) %>
-        </ul>
+        </div>
       </div>
-      <% }) %>
     </div>
   </div>
+  <script>
+  (function () {   // region buttons change the photo
+    var sec = document.currentScript.closest('section');
+    var slides = sec.querySelectorAll('[data-bxh-slide]'), tabs = sec.querySelectorAll('[data-bxh-tab]');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        var i = t.getAttribute('data-bxh-tab');
+        slides.forEach(function (s) { var on = s.getAttribute('data-bxh-slide') === i; s.classList.toggle('on', on); if (on) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true'); });
+        tabs.forEach(function (x) { var on = x === t; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
+      });
+    });
+  })();
+  </script>
 </section>
 <% } %>

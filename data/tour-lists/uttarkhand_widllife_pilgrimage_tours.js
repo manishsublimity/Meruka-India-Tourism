@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Uttaranchal Tours
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Uttaranchal Tours" }
   ],
   heading: "Uttarakhand Tours",

@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > India Fair and Festival Tours > South India Festival and Backwater Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "India Fair and Festival Tours", href: site.link("india_fair_festival_travelplan.html") },
     { label: "South India Festival and Backwater Tour" }
   ],

@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Maharashtra Tours > Best of Maharashtra Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Maharashtra Tours", href: site.link("maharashtra_tours.html") },
     { label: "Best of Maharashtra Tour" }
   ],

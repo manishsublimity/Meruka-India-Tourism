@@ -3,7 +3,7 @@
   // (12 Oct 2026, in place of "Tourist Destinations of India"). Params: current? (this page's URL, left out)
   const ptHere = typeof current !== 'undefined' ? String(current || '').toLowerCase() : '';
   const ptOwn = typeof tours !== 'undefined' && tours && tours.length;
-  const ptList = (ptOwn ? tours : popularTours()).filter(t => String(t.href).toLowerCase() !== ptHere).slice(0, 3);
+  const ptList = (ptOwn ? tours : popularTours()).filter(t => String(t.href).toLowerCase() !== ptHere).slice(0, 10);   // (16 Oct 2026) up to ten, four in view, in a slider
   const ptHead = typeof heading !== 'undefined' && heading ? heading : 'Most Popular Tours <em>of India</em>';
   const ptBase = typeof sub !== 'undefined' && sub ? sub : 'From Thar Desert of Rajasthan to Backwaters of Kerala.';   // (not `base`: that is the site address)
   const ptAll = typeof allHref !== 'undefined' && allHref ? allHref : '/itineraries', ptAllL = typeof allLabel !== 'undefined' && allLabel ? allLabel : 'View all packages';
@@ -23,9 +23,14 @@
         <h2 class="h4-h2"><%- ptHead %></h2>
         <p class="h4-base"><%= ptBase %></p>
       </div>
-      <a href="<%= ptAll %>" class="h4-all"><%= ptAllL %> <span aria-hidden="true">→</span></a>
+      <div class="pq-head-r">
+        <a href="<%= ptAll %>" class="h4-all"><%= ptAllL %> <span aria-hidden="true">→</span></a>
+      </div>
     </div>
-    <div class="pq-grid">
+    <%# (16 Oct 2026, client's pick Q) round arrows on the photos, either side of the slider %>
+    <div class="pq-sl" data-pq-arrows>
+    <% if (ptList.length > 1) { %><button type="button" class="pq-arr pq-arr-l" data-pq-prev aria-label="Previous tours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button><button type="button" class="pq-arr pq-arr-r" data-pq-next aria-label="Next tours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button><% } %>
+    <div class="pq-grid pq-slide" data-pq-track>
       <% ptList.forEach(t => { const st = ptStops(t.route), n = ptNights(t.duration); %>
       <article class="pq-card">
         <a href="<%= t.href %>" class="pq-img" tabindex="-1" aria-hidden="true"><img src="<%= ptImg(t) %>" alt="" loading="lazy"></a>
@@ -45,6 +50,19 @@
       </article>
       <% }) %>
     </div>
+    </div>
+    <script>
+    (function () {   // the slider: arrows move one view of cards; hidden when everything fits
+      var sec = document.currentScript.closest('section'), tr = sec.querySelector('[data-pq-track]'), ar = sec.querySelector('[data-pq-arrows]');
+      if (!tr || !ar || !ar.querySelector('[data-pq-prev]')) return;
+      var prev = ar.querySelector('[data-pq-prev]'), next = ar.querySelector('[data-pq-next]');
+      function step() { var c = tr.firstElementChild; return c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(tr).columnGap || 0) : tr.clientWidth; }
+      function upd() { var max = tr.scrollWidth - tr.clientWidth - 2; ar.classList.toggle('pq-fit', max <= 0); prev.disabled = tr.scrollLeft <= 2; next.disabled = tr.scrollLeft >= max; }
+      prev.addEventListener('click', function () { tr.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { tr.scrollBy({ left: step(), behavior: 'smooth' }); });
+      tr.addEventListener('scroll', upd, { passive: true }); window.addEventListener('resize', upd); upd();
+    })();
+    </script>
     <%# (13 Oct 2026) the "Note: Tour cost is for a minimum of 2 persons…" line is not shown on inner pages any more %>
   </div>
 </section>

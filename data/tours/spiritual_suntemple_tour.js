@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Exotic Sun Temple Tours > Spiritual Sun Temple Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Exotic Sun Temple Tours", href: site.link("konark-suntemple_tours.html") },
     { label: "Spiritual Sun Temple Tour" }
   ],

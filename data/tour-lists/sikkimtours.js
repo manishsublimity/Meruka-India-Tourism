@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Sikkim India Tours
   breadcrumb: [
     { label: "Home", href: site.link("index-2.html") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Sikkim India Tours" }
   ],
   heading: "Sikkim India Tours",

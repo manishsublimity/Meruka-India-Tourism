@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Tamil Nadu Tours > South India Temples and Spiritual Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Tamil Nadu Tours", href: site.link("tamilnadu-tours.html") },
     { label: "South India Temples and Spiritual Tour" }
   ],

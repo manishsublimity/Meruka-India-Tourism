@@ -19,7 +19,7 @@ module.exports = {
   // Original: Home > India Tours > Incredible India Tours > Southern India Panorama Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Incredible India Tours", href: site.link("incredible_india_tours.html") },
     { label: "Southern India Panorama Tour" }
   ],

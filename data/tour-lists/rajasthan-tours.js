@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Exotic Rajasthan Tours
   breadcrumb: [
     { label: "Home", href: site.link("index-2.html") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Exotic Rajasthan Tours" }
   ],
   heading: "Exotic Rajasthan Tours",

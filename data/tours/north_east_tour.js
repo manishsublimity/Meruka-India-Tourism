@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Seven Sisters India Tours > Nagaland and Kaziranga National Park Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Seven Sisters India Tours", href: site.link("seven-sisters-india-tours.html") },
     { label: "Nagaland and Kaziranga National Park Tour" }
   ],

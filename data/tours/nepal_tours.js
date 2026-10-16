@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Nepal Tours > Scenic of Nepal Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Nepal Tours", href: site.link("north_india_nepal_tours.html") },
     { label: "Scenic of Nepal Tour" }
   ],

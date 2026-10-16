@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Konark, West Bengal and Sikkim Tours > Sun Temple with Sikkim Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Konark, West Bengal and Sikkim Tours", href: site.link("orissa_westbengal_sikkim_tours.html") },
     { label: "Sun Temple with Sikkim Tour" }
   ],

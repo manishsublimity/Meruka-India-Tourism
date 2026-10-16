@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Incredible India Tours > Discover India Culture Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Incredible India Tours", href: site.link("incredible_india_tours.html") },
     { label: "Discover Culture and Pilgrimage of India Tour" }
   ],

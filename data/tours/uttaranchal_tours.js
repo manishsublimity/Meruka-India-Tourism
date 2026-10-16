@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Uttarkhand Tours > Picturesque Uttaranchal Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Uttarkhand Tours", href: site.link("uttarkhand_widllife_pilgrimage_tours.html") },
     { label: "Picturesque Uttaranchal Tour" }
   ],

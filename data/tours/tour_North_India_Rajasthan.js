@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Rajasthan - North India Tours > Alluring North India and Rajasthan Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Rajasthan - North India Tours", href: site.link("rajasthan_north_india_tours.html") },
     { label: "Alluring North India and Rajasthan Tour" }
   ],

@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Exotic Rajasthan Tours > Rajasthan Forts and Palaces Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Exotic Rajasthan Tours", href: site.link("rajasthan-tours.html") },
     { label: "Rajasthan Forts and Palaces Tour" }
   ],

@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Best of West India Tours > Discover Best of West India
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Best of West India Tours", href: site.link("maharashtra_gujarat_tours.html") },
     { label: "Discover Best of West India" }
   ],

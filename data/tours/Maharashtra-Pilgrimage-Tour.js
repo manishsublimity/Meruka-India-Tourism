@@ -18,7 +18,7 @@ module.exports = {
   // Original: Home > India Tours > Maharashtra Tours >Maharashtra Jyotirlinga Pilgrimage Tour
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
-    { label: "India Tours", href: site.link("itineraries.htm") },
+    { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Maharashtra Tours", href: site.link("maharashtra_tours.html") }
   ],
   heading: "Culture and Pilgrimage Maharashtra Tour",

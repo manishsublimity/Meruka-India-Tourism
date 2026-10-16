@@ -106,9 +106,9 @@ module.exports = {
   nav: (active, self = true) => NAV.map(([label, file]) => ({ label, href: label === active && self ? '#top' : link(file), active: label === active })),
 
   footCols: active => [
-    { title: 'Quick Links', items: [{ label: 'Home', href: link('index.htm') }, { label: 'About Us', href: active === 'About Us' ? '#top' : link('aboutus.htm') }, { label: 'India Tours', href: link('itineraries.htm') }, { label: 'Contact', href: active === 'Contact Us' ? '#top' : link('contactus.htm') }] },
+    { title: 'Quick Links', items: [{ label: 'Home', href: link('index.htm') }, { label: 'About Us', href: active === 'About Us' ? '#top' : link('aboutus.htm') }, { label: 'India Tour Packages', href: link('itineraries.htm') }, { label: 'Contact', href: active === 'Contact Us' ? '#top' : link('contactus.htm') }] },
     { title: 'Tours', items: li([['North India', 'north_india_tour.html'], ['South India', 'south_india_tour.html'], ['East India', 'east_india_tour_tourism.html'], ['West India', 'west_india_tour_tourism.html']]) },
-    { title: 'Resources', items: li([['Testimonials', 'testimonials.htm'], ['Important Links', 'important_links.html']]) },
+    { title: 'Resources', items: li([['Guest reviews', 'testimonials.htm'], ['Important Links', 'important_links.html']]) },
     { title: 'Contact Us', items: [{ label: 'info@india-tourism.net', href: 'mailto:info@india-tourism.net' }].concat(active === 'About Us'
       ? [{ label: 'A-30 Subash Nagar Shopping Center, Jaipur, Rajasthan - 302016', href: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('A-30 Subash Nagar Shopping Center, Jaipur, Rajasthan 302016') }]
       : []) }
