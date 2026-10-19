@@ -1704,3 +1704,29 @@
 @media (max-width:1023.98px){ #mk-frame.h4 .bn-grid.bn-four{grid-template-columns:repeat(2,minmax(0,1fr)) !important} }
 @media (max-width:559.98px){ #mk-frame.h4 .bn-grid.bn-four{grid-template-columns:1fr !important} #mk-frame.h4 .bn-four .bn-card{aspect-ratio:4 / 3} }
 
+
+/* (19 Oct 2026, client) shorter home page: the hero with its stats strip as tall as the original site's banner
+   (1356 × 528), and smaller pictures in Best Tour Packages, Most Popular Tours and the four regions */
+@media (min-width:900px){
+  #mk-frame.h4 .h8,#mk-frame.h4 .h8-in{height:calc(100cqw * 528 / 1356 - 72px) !important;min-height:380px !important}
+}
+#mk-frame.h4 .bn-four .bn-card{aspect-ratio:4 / 3.1 !important}
+#mk-frame.h4 .pq-img{height:210px}
+@media (max-width:1099.98px){ #mk-frame.h4 .pq-img{height:200px} }
+@media (max-width:639.98px){ #mk-frame.h4 .pq-img{height:190px} }
+#mk-frame.h4 #destinations .h4-head + div{grid-auto-rows:260px !important}
+@media (max-width:639.98px){ #mk-frame.h4 #destinations .h4-head + div{grid-auto-rows:240px !important} }
+/* (19 Oct 2026, client) Best Tour Packages pictures 30% taller; the hero 30% shorter */
+#mk-frame.h4 .bn-four .bn-card{aspect-ratio:1 / 1 !important}
+@media (min-width:900px){
+  #mk-frame.h4 .h8,#mk-frame.h4 .h8-in{height:calc((100cqw * 528 / 1356 - 72px) * .7) !important;min-height:260px !important}
+}
+@media (max-width:899.98px){
+  #mk-frame.h4 .h8{height:231px !important;min-height:0 !important}
+  #mk-frame.h4 .h8-in{height:auto !important;min-height:0 !important;padding-bottom:22px !important}
+}
+/* the shorter hero: the title clear of the slider arrow and a little smaller */
+@media (min-width:900px){
+  #mk-frame#mk-frame.h4 .h8-in{padding-left:96px !important;padding-bottom:32px !important}
+  #mk-frame#mk-frame.ux.v3.h4 .h8-title{font-size:clamp(40px,4.4cqw,60px) !important}
+}
