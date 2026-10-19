@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Log in — Meruka admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin-assets/admin.css?v=3">
+</head>
+<body>
+<div class="login">
+  <form class="card" method="post" action="/admin/login">
+    <h1>Meruka admin</h1>
+    <p class="hint">Log in to edit the website.</p>
+    <% if (error) { %><div class="err"><%= error %></div><% } %>
+    <% if (!closed) { %>
+    <input type="hidden" name="next" value="<%= next %>">
+    <div class="f" style="margin-top:18px"><label class="lb" for="u">Username</label><input class="in" id="u" name="user" autocomplete="username" required autofocus></div>
+    <div class="f"><label class="lb" for="p">Password</label><input class="in" id="p" name="password" type="password" autocomplete="current-password" required></div>
+    <button class="btn btn-p" style="width:100%;margin-top:6px">Log in</button>
+    <% } %>
+  </form>
+</div>
+</body>
+</html>

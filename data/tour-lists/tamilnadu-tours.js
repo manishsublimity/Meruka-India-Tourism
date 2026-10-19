@@ -39,7 +39,7 @@ module.exports = {
       tours: [
         { name: "Glimpses of Tamil Nadu Tour", href: site.link("south_india_tamilnadu_tour.html"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Chennai", duration: "08 Nights - 09 Days" },
         { name: "Marvelous Tamil Nadu Temple Tour", href: site.link("tamilnadu_tours_packages.html"), route: "Chennai - Tirupati - Mahabalipuram - Kanchipuram - Pondicherry - Chidambaram - Nalladai - Nagapattinam - Tanjore - Trichy - Madurai - Chennai", duration: "10 Nights - 11 Days" },
-        { name: "Spiritual Tamil Nadu Tour", href: site.link("south_india_temples_spritual_tours.html"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Rameshwaram - Kanyakumari - Trivandrum", duration: "11 Nights - 12 Days" },
+        { name: "Spiritual Tamil Nadu Tour", href: site.link("south_india_temples_spiritual_tours.html"), route: "Chennai - Tirupati - Kanchipuram - Mahabalipuram - Pondicherry - Chidambaram - Tanjore - Trichy - Madurai - Rameshwaram - Kanyakumari - Trivandrum", duration: "11 Nights - 12 Days" },
         { name: "South India Temples and Spiritual Tour", href: site.link("southindia_temples_tourism.html"), route: "Trichy - Vellore - Tirupati - Kalahasti - Chennai - Kanchipuram - Mahabalipuram - Pondicherry - Kumbakonam - Puthukottai - Trichy", duration: "12 Nights - 13 Days" }
       ]
     }

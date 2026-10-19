@@ -1,0 +1,43 @@
+<%- include('_top', { pageTitle: 'Dashboard' }) %>
+<div class="ad-top">
+  <div><h1>Dashboard</h1><p class="lead">Your website in numbers: the enquiries it brings in, your tours, and how ready your pages are for Google. Point at any bar to see its number, or open "Show as table".</p></div>
+</div>
+
+<!-- 1) Enquiries: the period filter sits above everything it changes -->
+<div class="dash-sec"><div><h2>Enquiries</h2><p>Messages people sent from the website’s forms.</p></div></div>
+<div class="filter-row" role="group" aria-label="Period">
+  <span>Period</span>
+  <div class="seg" data-range>
+    <button type="button" data-d="7">Last 7 days</button><button type="button" data-d="30" aria-pressed="true">Last 30 days</button><button type="button" data-d="90">Last 90 days</button><button type="button" data-d="365">Last 12 months</button><button type="button" data-d="0">All time</button>
+  </div>
+</div>
+<div class="kpis">
+  <div class="kpi hero"><small>Enquiries in this period</small><b data-k="count">–</b><span class="delta" data-k="delta"></span></div>
+  <div class="kpi"><small>Waiting for a reply</small><b data-k="unread">–</b><a href="/admin/enquiries">Open enquiries →</a></div>
+  <div class="kpi"><small>Top country</small><b data-k="country" style="font-size:24px">–</b><span class="delta" data-k="countryN"></span></div>
+  <div class="kpi"><small>Most asked trip length</small><b data-k="length" style="font-size:22px">–</b><span class="delta" data-k="lengthN"></span></div>
+</div>
+<div class="charts" style="margin-top:14px" data-enq>
+  <div class="chart-card wide"><h3>Enquiries over time</h3><p class="sub" data-k="timeSub">Number of enquiries per day.</p><div data-c="time"></div></div>
+  <div class="chart-card"><h3>Which form they used</h3><p class="sub">Where on the website the enquiry was sent from.</p><div data-c="source"></div></div>
+  <div class="chart-card"><h3>Where travellers come from</h3><p class="sub">Country given in the enquiry (top 6).</p><div data-c="country"></div></div>
+  <div class="chart-card"><h3>Trip length asked for</h3><p class="sub">How long people want to travel.</p><div data-c="length"></div></div>
+  <div class="chart-card"><h3>Hotels asked for</h3><p class="sub">The hotel class chosen in the form.</p><div data-c="hotel"></div></div>
+</div>
+
+<!-- 2) The website: not tied to a period -->
+<div class="dash-sec"><div><h2>Your website</h2><p>Your tours and pages today.</p></div></div>
+<div class="kpis" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+  <div class="kpi"><small>Tours online</small><b data-k="tours">–</b><a href="/admin/tours">See tours →</a></div>
+  <div class="kpi"><small>Tour categories</small><b data-k="lists">–</b><a href="/admin/lists">See categories →</a></div>
+  <div class="kpi"><small>Pages & travel guide</small><b data-k="pages">–</b><a href="/admin/pages">See pages →</a></div>
+  <div class="kpi"><small>Pages Google may skip</small><b data-k="seoBad">–</b><span class="st" data-k="seoSt"></span></div>
+</div>
+<div class="charts" style="margin-top:14px">
+  <div class="chart-card wide"><h3>Google readiness by section</h3><p class="sub">How many pages have a good Google title and description. <a href="/admin/seo">Improve them →</a></p><div data-c="seo"></div></div>
+  <div class="chart-card"><h3>Tours by region</h3><p class="sub">Number of tours in each group of the menu.</p><div data-c="groups"></div></div>
+  <div class="chart-card"><h3>Tours by length</h3><p class="sub">How many tours of each length you offer.</p><div data-c="tlength"></div></div>
+  <div class="chart-card"><h3>Tours by starting price</h3><p class="sub">“From” price per person, as shown on the website.</p><div data-c="price"></div></div>
+  <div class="chart-card"><h3>Recently changed</h3><p class="sub">The last pages edited in this panel.</p><div data-c="recent"></div></div>
+</div>
+<%- include('_bottom', { scripts: ['/admin-assets/charts.js?v=1', '/admin-assets/insights.js?v=2'] }) %>

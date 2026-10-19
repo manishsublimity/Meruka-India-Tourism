@@ -3,18 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<%
+  // Google settings from the admin panel (data/seo-settings.js): verification codes, Analytics, the share picture,
+  // and a page's own "hide from Google" switch and share picture (16 Oct 2026)
+  const G = seoSettings || {};
+  const pdx = typeof d !== 'undefined' && d ? d : {};
+  const robotsTag = pdx.noindex ? 'noindex, follow' : (typeof meta !== 'undefined' && meta && meta.robots);
+%>
 <title><%= title %></title>
 <% if (typeof meta !== 'undefined' && meta) { %>
 <% if (meta.description) { %><meta name="description" content="<%= meta.description %>"><% } %>
 <% if (meta.keywords) { %><meta name="keywords" content="<%= meta.keywords %>"><% } %>
-<% if (meta.robots) { %><meta name="robots" content="<%= meta.robots %>"><% } %>
 <% if (meta.canonical) { %><link rel="canonical" href="<%= base + meta.canonical %>"><% } %>
+<% } %>
+<% if (robotsTag) { %><meta name="robots" content="<%= robotsTag %>"><% } %>
+<% if (G.googleVerification) { %><meta name="google-site-verification" content="<%= G.googleVerification %>"><% } %>
+<% if (G.bingVerification) { %><meta name="msvalidate.01" content="<%= G.bingVerification %>"><% } %>
+<% if (/^G-[A-Z0-9]{4,}$/i.test(G.googleAnalytics || '')) { %>
+<script async src="https://www.googletagmanager.com/gtag/js?id=<%= G.googleAnalytics %>"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config',<%- JSON.stringify(G.googleAnalytics) %>);</script>
 <% } %>
 <%
   // Open Graph / Twitter cards and schema.org JSON-LD (SEO, AI answers and generative search)
   const mt = (typeof meta !== 'undefined' && meta) || {};
-  const pd = typeof d !== 'undefined' && d ? d : {};
-  const ogImg = base + (pd.heroSrc && /^\//.test(pd.heroSrc) ? pd.heroSrc : '/photos/taj-mahal-feature.webp');
+  const pd = pdx;
+  const shareSrc = [pd.ogImage, pd.photo, pd.heroSrc, G.defaultShareImage, '/photos/taj-mahal-feature.webp'].find(x => x && /^\//.test(x));
+  const ogImg = base + shareSrc;
   const pg = {};
   if (Array.isArray(pd.faqs) && pd.faqs[0] && pd.faqs[0].q) pg.faqs = pd.faqs;
   if (pd.route && pd.days) pg.trip = pd;

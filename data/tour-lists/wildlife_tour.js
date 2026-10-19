@@ -43,7 +43,7 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "North India Rajasthan Wildlife Tour", href: site.link("travel-rajasthan-India-hertiage-widllife-tours.htm"), route: "Delhi - Corbett - Bharatpur - Ranthambore - Delhi", duration: "08 Nights - 09 Days" },
+        { name: "North India Rajasthan Wildlife Tour", href: site.link("travel-rajasthan-India-heritage-wildlife-tours.htm"), route: "Delhi - Corbett - Bharatpur - Ranthambore - Delhi", duration: "08 Nights - 09 Days" },
         { name: "Call of The Wild Tour", href: site.link("itin_wildlife_southindia.htm"), route: "Bangalore - Coorg - Nagarhole - Bandipur - Ooty - Coonoor - Ooty - Bangalore", duration: "10 Nights - 11 Days" },
         { name: "North India Wildlife Adventure Tour", href: site.link("itin_wildlife_adventure.htm"), route: "Delhi - Corbett - Agra - Gwalior - Orchha - Khajuraho - Bandhavgarh - Kanha - Pench - Nagpur - Delhi", duration: "15 Nights - 16 Days" }
       ]

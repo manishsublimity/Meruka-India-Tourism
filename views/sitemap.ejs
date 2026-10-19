@@ -1,0 +1,44 @@
+<%- include('partials/head') %>
+<%# Sitemap (18 Oct 2026): every page of the website, in the site's own groups %>
+<div style="width:100%;overflow-x:clip;background:#fff">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#fff">
+
+<%- include('partials/page-header', { nav: d.nav, enquireHref: '/plan-my-trip' }) %>
+<%- include('partials/photo-hero', { title: 'Sitemap', img: '/images/india-tours-main.webp', alt: 'India tours' }) %>
+
+<section class="smap">
+  <div class="ex-wrap">
+    <div class="smap-grid">
+      <div class="smap-col">
+        <h2 class="smap-h">Main pages</h2>
+        <ul>
+          <% [['Home', '/'], ['About Us', '/aboutus'], ['India Tour Packages', '/itineraries'], ['Guest Reviews', '/testimonials'], ['Contact Us', '/contactus'], ['Plan My Trip', '/plan-my-trip']].forEach(([n, h]) => { %><li><a href="<%= h %>"><%= n %></a></li><% }) %>
+        </ul>
+        <% explore.guideCols.forEach(g => { %>
+        <h2 class="smap-h"><%= g.title %></h2>
+        <ul><% g.items.forEach(it => { %><li><a href="<%= menu.to(it, 'guide') %>"><%= it %></a></li><% }) %></ul>
+        <% }) %>
+      </div>
+      <div class="smap-col">
+        <% tourNav.groups.forEach(g => { %>
+        <h2 class="smap-h"><%= g.title %></h2>
+        <ul><% g.cats.forEach(c => { %><li><a href="<%= c.href %>"><%= c.name %></a></li><% }) %></ul>
+        <% }) %>
+      </div>
+      <div class="smap-col">
+        <h2 class="smap-h">All tours (<%= tours.length %>)</h2>
+        <ul><% tours.forEach(t => { %><li><a href="<%= t.href %>"><%= t.name %></a></li><% }) %></ul>
+      </div>
+      <div class="smap-col">
+        <h2 class="smap-h">Destinations & travel pages (<%= pages.length %>)</h2>
+        <ul><% pages.forEach(t => { %><li><a href="<%= t.href %>"><%= t.name %></a></li><% }) %></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/page-footer', { footCols: d.footCols, enquireHref: '/plan-my-trip' }) %>
+</div>
+</div>
+</body>
+</html>

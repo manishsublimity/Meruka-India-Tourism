@@ -17,23 +17,47 @@
       </div>
       <a href="/itineraries" class="h4-all">View all packages <span aria-hidden="true">→</span></a>
     </div>
-    <div class="ex-pk-grid">
-      <% tourNav.groups.forEach(g => { %>
-      <div class="ex-pk-card">
-        <h3 class="ex-pk-t"><%= g.title %></h3>
-        <ul>
-          <% g.cats.forEach(c => { const on = c.href.toLowerCase() === exHere; %>
-          <li><a href="<%= c.href %>"<%- on ? ' class="on" aria-current="page"' : '' %>><span><%= c.name %></span><i aria-hidden="true">→</i></a></li>
+    <%# (18 Oct 2026, the client's layout) sectors on the left with their number of tours; the chosen sector's
+        categories in the middle; "Can't find the right tour?" on the right. Every panel is in the page; the buttons
+        only change which one shows. %>
+    <% const exTC = explore.tourCounts || { cat: {}, sector: {} };
+       const exStart = Math.max(0, tourNav.groups.findIndex(g => g.cats.some(c => c.href.toLowerCase() === exHere))); %>
+    <div class="ex-tabs" data-ex-tabs>
+      <div class="ex-rail" role="tablist" aria-label="Sectors">
+        <div class="ex-rail-h" aria-hidden="true"><span>Sectors</span><span>No. of Tours</span></div>
+        <% tourNav.groups.forEach((g, gi) => { %>
+        <button type="button" class="ex-sec" role="tab" id="ex-tab-<%= gi %>" aria-controls="ex-panel-<%= gi %>" aria-selected="<%= gi === exStart %>" tabindex="<%= gi === exStart ? 0 : -1 %>"><span><%= g.title %></span><span class="ex-n"><%= exTC.sector[g.title] || 0 %></span></button>
+        <% }) %>
+      </div>
+      <% tourNav.groups.forEach((g, gi) => { %>
+      <section class="ex-panel" role="tabpanel" id="ex-panel-<%= gi %>" aria-labelledby="ex-tab-<%= gi %>"<%= gi === exStart ? '' : ' hidden' %>>
+        <div class="ex-ph"><h3><%= g.title %></h3><span><%= exTC.sector[g.title] || 0 %> tours in <%= g.cats.length %> categor<%= g.cats.length === 1 ? 'y' : 'ies' %></span></div>
+        <ul class="ex-cats">
+          <% g.cats.forEach(c => { const on = c.href.toLowerCase() === exHere; const n = exTC.cat[c.href] || 0; %>
+          <li><a href="<%= c.href %>"<%- on ? ' class="on" aria-current="page"' : '' %>><span><%= c.name %></span><small><%= n %> tour<%= n === 1 ? '' : 's' %></small></a></li>
           <% }) %>
         </ul>
-      </div>
+      </section>
       <% }) %>
-      <div class="ex-pk-card ex-pk-cta">
-        <h3 class="ex-pk-t">Can't find the right tour?</h3>
+      <aside class="ex-cta">
+        <h3>Can't find the right tour?</h3>
         <p>Tell us the places, dates and hotels you like — we'll draw a private tour around them.</p>
         <a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip <span aria-hidden="true">→</span></a>
-      </div>
+      </aside>
     </div>
+    <script>
+    (function () {   // sector buttons: show that sector's categories (arrow keys move between sectors)
+      var box = document.currentScript.previousElementSibling, tabs = [].slice.call(box.querySelectorAll('[role="tab"]'));
+      function pick(t, focus) {
+        tabs.forEach(function (x) { var on = x === t; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1; document.getElementById(x.getAttribute('aria-controls')).hidden = !on; });
+        if (focus) t.focus();
+      }
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { pick(t); });
+        t.addEventListener('keydown', function (e) { var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (d) { e.preventDefault(); pick(tabs[(i + d + tabs.length) % tabs.length], true); } });
+      });
+    })();
+    </script>
   </div>
 </section>
 

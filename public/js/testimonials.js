@@ -1,8 +1,8 @@
 (function () {
   // Testimonials: filter by tour group, search, "Show more", and "Read more" on long quotes.
   var cards = $$('.tm-card'), chips = $$('.tm-chip'), input = $('#tm-q');
-  // (16 Oct 2026) nine reviews to start (three rows), then 18 more per click
-  var FIRST = window.matchMedia('(max-width: 767.98px)').matches ? 4 : 9, PAGE = 18, limit = FIRST, group = '', q = '', more = true;   // phones: four to start
+  // (18 Oct 2026, client) two rows of four to start, then eight more per click on "View more reviews"
+  var FIRST = window.matchMedia('(max-width: 767.98px)').matches ? 4 : 8, PAGE = 8, limit = FIRST, group = '', q = '', more = true;   // phones: four to start
 
   function render() {
     var matches = cards.filter(function (c) {
@@ -33,7 +33,7 @@
     render();
   });
 
-  if (FIRST !== 9) render();   // phones start with fewer than the page shows
+  if (FIRST !== 8) render();   // phones start with fewer than the page shows
 
   // "Read more" only where the quote is actually cut off
   function checkMore() {
@@ -54,12 +54,5 @@
   window.addEventListener('resize', checkMore);
   render();
 
-  // (16 Oct 2026) the rest load by themselves as the visitor scrolls near the end of the list (the button stays as a fallback)
-  if ('IntersectionObserver' in window) {
-    var foot = $('.tm-foot');
-    foot.classList.add('tm-auto');
-    new IntersectionObserver(function (es) {
-      if (es[0].isIntersecting && more) { limit += PAGE; render(); }
-    }, { rootMargin: '0px 0px 400px 0px' }).observe(foot);
-  }
+  // (18 Oct 2026, client) no loading on scroll: a "View more reviews" button
 })();

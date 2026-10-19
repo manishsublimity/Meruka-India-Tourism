@@ -1,68 +1,13 @@
 <%
-  // "Most Popular Tours of India" — the home page's tour cards, three of them, at the foot of the inner pages
-  // (12 Oct 2026, in place of "Tourist Destinations of India"). Params: current? (this page's URL, left out)
-  const ptHere = typeof current !== 'undefined' ? String(current || '').toLowerCase() : '';
-  const ptOwn = typeof tours !== 'undefined' && tours && tours.length;
-  const ptList = (ptOwn ? tours : popularTours()).filter(t => String(t.href).toLowerCase() !== ptHere).slice(0, 10);   // (16 Oct 2026) up to ten, four in view, in a slider
-  const ptHead = typeof heading !== 'undefined' && heading ? heading : 'Most Popular Tours <em>of India</em>';
-  const ptBase = typeof sub !== 'undefined' && sub ? sub : 'From Thar Desert of Rajasthan to Backwaters of Kerala.';   // (not `base`: that is the site address)
-  const ptAll = typeof allHref !== 'undefined' && allHref ? allHref : '/itineraries', ptAllL = typeof allLabel !== 'undefined' && allLabel ? allLabel : 'View all packages';
-  // a card never repeats a picture already on the page (avoid: those pictures)
-  const ptUsed = new Set(typeof avoid !== 'undefined' && avoid ? avoid : []);
-  // ...falling back to any India photo still free on the page
-  const ptPool = photoCandidates('india delhi agra taj jaipur rajasthan jaisalmer udaipur jodhpur kerala goa beach mumbai varanasi ladakh himalaya sikkim temple fort palace festival wildlife tiger yoga');
-  const ptImg = t => { const c = [t.img].concat(photoCandidates(t.name + ' ' + (t.route || '')), ptPool).find(x => x && !ptUsed.has(x)) || t.img; ptUsed.add(c); return c; };
-  const ptStops = r => String(r || '').split(/\s+[-–]\s+/).map(x => x.trim()).filter((x, i, a) => x && a.indexOf(x) === i);
-  const ptNights = v => { const m = String(v || '').match(/(\d+)\s*Nights?/i); return m ? +m[1] : 0; };
-  const ptDur = v => { const m = String(v || '').match(/(\d+)\s*Nights?\s*[-–]\s*(\d+)\s*Days?/i); return m ? (+m[1]) + ' Nights / ' + (+m[2]) + ' Days' : (v || ''); };
+  // "Most Popular Tours" on the inner pages (18 Oct 2026, client): the cards are gone; a slim band with one button to the
+  // home page's Most Popular Tours remains. (The earlier slider is kept in git history, 16 Oct 2026.)
+  // Params are no longer used (current, tours, heading… — the callers may still pass them).
 %>
-<section class="abx abx-popular mp" id="popular-tours">
-  <div class="abx-wrap">
-    <div class="h4-head abx-head">
-      <div>
-        <h2 class="h4-h2"><%- ptHead %></h2>
-        <p class="h4-base"><%= ptBase %></p>
-      </div>
-      <div class="pq-head-r">
-        <a href="<%= ptAll %>" class="h4-all"><%= ptAllL %> <span aria-hidden="true">→</span></a>
-      </div>
+<section class="pop-band" id="popular-tours" aria-label="Most popular tours">
+  <div class="ex-wrap">
+    <div class="pop-band-in">
+      <p class="pop-band-t">Most Popular Tours <em>of India</em><span>From the Thar Desert of Rajasthan to the backwaters of Kerala.</span></p>
+      <a href="/#popular" class="ph-btn ph-btn-gold">View most popular tours <span aria-hidden="true">→</span></a>
     </div>
-    <%# (16 Oct 2026, client's pick Q) round arrows on the photos, either side of the slider %>
-    <div class="pq-sl" data-pq-arrows>
-    <% if (ptList.length > 1) { %><button type="button" class="pq-arr pq-arr-l" data-pq-prev aria-label="Previous tours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button><button type="button" class="pq-arr pq-arr-r" data-pq-next aria-label="Next tours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button><% } %>
-    <div class="pq-grid pq-slide" data-pq-track>
-      <% ptList.forEach(t => { const st = ptStops(t.route), n = ptNights(t.duration); %>
-      <article class="pq-card">
-        <a href="<%= t.href %>" class="pq-img" tabindex="-1" aria-hidden="true"><img src="<%= ptImg(t) %>" alt="" loading="lazy"></a>
-        <div class="pq-mid">
-          <h3 class="pq-name"><a href="<%= t.href %>"><%= t.name %></a></h3>
-          <% if (t.duration) { %><p class="pq-nd"><%= ptDur(t.duration) %></p><% } %>
-          <p class="pq-stops"><svg class="pq-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><% st.slice(0, 4).forEach(x => { %><span><%= x %></span><% }) %><% if (st.length > 4) { %><span>+<%= st.length - 4 %> more</span><% } %></p>
-          <% if (t.line || t.category) { %><p class="pq-desc"><%= t.line || t.category %></p><% } %>
-        </div>
-        <div class="pq-cost">
-          <div class="pq-price"><small>Starts From</small><% if (t.price) { %><b>USD <%= Number(t.price).toLocaleString('en-US') %></b><% } else if (t.from && n) { %><b>USD <%= (t.from * n).toLocaleString('en-US') %></b><% } else { %><b class="pq-req">On request</b><% } %></div>
-          <div class="pq-btns">
-            <a href="<%= t.href %>" class="pq-view">View Itinerary</a>
-            <a href="<%= footer.wa %>?text=<%= encodeURIComponent('Hello Meruka, I am interested in the ' + t.name + '.') %>" target="_blank" rel="noopener" class="pq-wa" aria-label="Ask on WhatsApp" title="Ask on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg></a>
-          </div>
-        </div>
-      </article>
-      <% }) %>
-    </div>
-    </div>
-    <script>
-    (function () {   // the slider: arrows move one view of cards; hidden when everything fits
-      var sec = document.currentScript.closest('section'), tr = sec.querySelector('[data-pq-track]'), ar = sec.querySelector('[data-pq-arrows]');
-      if (!tr || !ar || !ar.querySelector('[data-pq-prev]')) return;
-      var prev = ar.querySelector('[data-pq-prev]'), next = ar.querySelector('[data-pq-next]');
-      function step() { var c = tr.firstElementChild; return c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(tr).columnGap || 0) : tr.clientWidth; }
-      function upd() { var max = tr.scrollWidth - tr.clientWidth - 2; ar.classList.toggle('pq-fit', max <= 0); prev.disabled = tr.scrollLeft <= 2; next.disabled = tr.scrollLeft >= max; }
-      prev.addEventListener('click', function () { tr.scrollBy({ left: -step(), behavior: 'smooth' }); });
-      next.addEventListener('click', function () { tr.scrollBy({ left: step(), behavior: 'smooth' }); });
-      tr.addEventListener('scroll', upd, { passive: true }); window.addEventListener('resize', upd); upd();
-    })();
-    </script>
-    <%# (13 Oct 2026) the "Note: Tour cost is for a minimum of 2 persons…" line is not shown on inner pages any more %>
   </div>
 </section>

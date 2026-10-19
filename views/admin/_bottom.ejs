@@ -1,0 +1,15 @@
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="modal" id="media-modal" hidden>
+  <div class="modal-box">
+    <div class="modal-head"><h2>Choose a photo</h2><button type="button" class="btn btn-s" data-close>Close</button></div>
+    <div class="drop" data-drop>Drop an image here, or <label style="color:var(--blue);font-weight:700;cursor:pointer">choose a file<input type="file" accept="image/*" hidden data-file multiple></label> — WebP, JPG, PNG up to 10 MB</div>
+    <div class="tabs" data-tabs style="margin-top:14px"></div>
+    <div class="media-grid" data-grid></div>
+  </div>
+</div>
+<script src="/admin-assets/admin.js?v=3"></script>
+<% if (typeof scripts !== 'undefined') scripts.forEach(s => { %><script src="<%= s %>"></script><% }) %>
+</body>
+</html>

@@ -13,7 +13,7 @@ const TARGETS = {
   'East India tours': 'east_india_tour_tourism.html', 'West India tours': 'west_india_tour_tourism.html',
   'Grand India tours': 'incredible_india_tours.html', 'Leh & Ladakh': 'leh_ladakh_tours.html',
   'Religious & pilgrimage': 'golden_triangle_temple_packages.html', 'Yoga & Ayurveda': 'yoga_ayurveda_tours.html',
-  'Wildlife tours': 'wildlife_tour.html', 'Buddhist circuit': 'buddhist_pilgirmage_tour.html',
+  'Wildlife tours': 'wildlife_tour.html', 'Buddhist circuit': 'buddhist_pilgrimage_tour.html',
   'Fairs & festivals': 'india_fair_festival_travelplan.html', 'Village tours': 'rajasthan-villages-travel-tours.html',
   // Destinations menu, region cards and footer: each place goes to its own guide page (the state guide
   // when the place has no page of its own — Agra and Varanasi are in the Uttar Pradesh guide, and so on)
@@ -42,6 +42,14 @@ const TARGETS = {
   'Visa Information': 'visa_information.htm', 'Indian Embassies': 'indian_embassies.htm', 'Health & Safety': 'travelers-guidlines-information.htm',
   'Money and Tipping': 'travelers_guide.htm', 'Maps & Phone codes': 'maps.htm', 'Booking & Cancellation': '#faq',
   'India Tour Itineraries': 'itineraries.htm',
+  // the travel guide links exactly as on the original site (client, 18 Oct 2026)
+  'Geography': 'geography.htm', 'History': 'history.htm', 'Weather': 'weather.htm', 'Communication': 'communication.htm',
+  'Music And Dance': 'music-dance.htm', 'Traditions And Customs': 'traditions_and_customs.htm', 'Art': 'art.htm',
+  'Buddha Tourism': 'buddha.htm', 'Hill Stations Tourism': 'Hillstations.htm', 'Adventure Tourism': 'Adventures.htm',
+  'Fairs And Festivals': 'Fairs-Festivals.htm', 'Phone Codes': 'phone_codes.htm', 'Maps': 'maps.htm',
+  "Traveler's Guide": 'travelers_guide.htm', 'Other Guidelines': 'travelers-guidlines-information.htm',
+  // footer (18 Oct 2026)
+  'India Tourism': 'index.htm', 'South India Tours': 'south_india_tour.html', 'North India Tours': '/north_india_tour', 'Sitemap': '/sitemap',
   // Footer
   'Golden Triangle': 'india-golden-triangle-tour.html', 'Exotic Rajasthan': 'rajasthan-tours.html',
   'Rajasthan North India': 'rajasthan_north_india_tours.html', 'Group tours (7+)': '/plan-my-trip',
@@ -141,10 +149,11 @@ module.exports = {
   ],
 
   guideCols: [
-    // client, 7 Oct 2026: section names and links in upper- and lower-case, as listed
-    { title: 'Travelers Guide', count: '6 topics', items: ['Weather & Best Season', 'Cuisine & Food', 'Fair & Festivals', 'Shopping', 'Traditions and Customs', 'History & Geography'] },
-    { title: 'Attractions of India', count: '7 themes', items: ['Yoga Tourism', 'Ayurveda Tourism', 'Pilgrimage Tourism', 'Wildlife Tourism', 'Buddhist Circuits Tourism', 'Beaches Tourism', 'Tribal & Rural Tourism'] },
-    { title: 'Travel Tools', count: '6 tools', items: ['Visa Information', 'Indian Embassies', 'Health & Safety', 'Money and Tipping', 'Maps & Phone codes', 'Booking & Cancellation'] }
+    // client, 18 Oct 2026: every link of the original site's India Travel Guide, in its order; Fairs And Festivals moved
+    // from the Travelers Guide to the Attractions, and Adventure Tourism added back
+    { title: 'Travelers Guide', count: '9 topics', items: ['Geography', 'History', 'Weather', 'Communication', 'Shopping', 'Music And Dance', 'Traditions And Customs', 'Art', 'Cuisine'] },
+    { title: 'Attractions of India', count: '9 themes', items: ['Ayurveda Tourism', 'Yoga Tourism', 'Pilgrimage Tourism', 'Wildlife Tourism', 'Buddha Tourism', 'Beaches Tourism', 'Hill Stations Tourism', 'Adventure Tourism', 'Fairs And Festivals'] },
+    { title: 'Travel Tools', count: '6 tools', items: ['Phone Codes', 'Maps', 'Indian Embassies', 'Visa Information', "Traveler's Guide", 'Other Guidelines'] }
   ],
 
   reviews: [
@@ -172,9 +181,9 @@ module.exports = {
     { title: 'Tour packages', items: ['Golden Triangle', 'Exotic Rajasthan', 'Rajasthan North India', 'Kerala backwaters', 'South India', 'Group tours (7+)'] },
     { title: 'Destinations', items: ['North India', 'South India', 'East India', 'West India', 'Rajasthan', 'Leh & Ladakh'] },
     { title: 'Travel guide', items: ['Best time to visit', 'Fairs & festivals', 'Cuisine', 'Visa information', 'Wildlife & parks', "Traveller's guide"] },
-    { title: 'Company', items: ['Why Meruka India', 'How we work', 'Guest reviews', 'FAQs', 'Booking policy', 'Contact us'] }
+    { title: 'Company', items: ['Why Meruka India', 'Guest reviews', 'FAQs', 'Booking policy', 'Contact us', 'Sitemap'] }   // 18 Oct 2026: How we work out, Sitemap in
   ],
-  seoLinks: ['India tour packages', 'India travel agency', 'Indian tour operators', 'India holiday packages', 'Golden Triangle tour', 'Rajasthan tour packages', 'Kerala backwaters tours', 'Kerala tour operators', 'Private tours India', 'India tour plan', 'India Tour Itineraries'],
+  seoLinks: ['India tour packages', 'India travel agency', 'Indian tour operators', 'India holiday packages', 'Golden Triangle tour', 'Rajasthan tour packages', 'Kerala backwaters tours', 'Kerala tour operators', 'Private tours India', 'India tour plan', 'India Tour Itineraries', 'India Tourism', 'South India Tours', 'North India Tours'],
   socials: ['f', 'in', 'ig', 'yt']
 };
 

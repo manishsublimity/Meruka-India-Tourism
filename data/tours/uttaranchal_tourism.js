@@ -19,7 +19,7 @@ module.exports = {
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
     { label: "India Tour Packages", href: site.link("itineraries.htm") },
-    { label: "Uttarkhand Tours", href: site.link("uttarkhand_widllife_pilgrimage_tours.html") },
+    { label: "Uttarkhand Tours", href: site.link("uttarakhand_wildlife_pilgrimage_tours.html") },
     { label: "Pilgrimage and Scenic Uttaranchal Tour" }
   ],
   heading: "Pilgrimage and Scenic Uttaranchal Tour",

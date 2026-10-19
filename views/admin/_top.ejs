@@ -1,0 +1,64 @@
+<%
+  // simple line icons for the menu
+  const IC = {
+    home: '<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',
+    tours: '<path d="M3 6h18M3 12h18M3 18h12"/>',
+    lists: '<rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="4" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    pages: '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/>',
+    homepage: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/>',
+    reviews: '<path d="M4 5h16v11H9l-5 4z"/>',
+    about: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>',
+    contact: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+    social: '<circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6"/>',
+    seo: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+    photos: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-8 8"/>',
+    enquiries: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+    trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+    web: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+    out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>',
+    chart: '<path d="M4 20V10M10 20V4M16 20v-7M21 20H3"/>'
+  };
+  const ic = n => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[n] + '</svg>';
+  const SICON = { home: 'homepage', reviews: 'reviews', about: 'about', contact: 'contact', social: 'social', seo: 'seo' };
+  const onKind = k => typeof kind !== 'undefined' && kind === k;
+  const onSingle = k => typeof kind !== 'undefined' && kind === 'single' && typeof id !== 'undefined' && id === k;
+%><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' — ' : '' %>Meruka admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin-assets/admin.css?v=3">
+</head>
+<body>
+<div class="ad">
+  <aside class="ad-side">
+    <a class="ad-brand" href="/admin"><i>M</i><span>MERUKA<small>Website editor</small></span></a>
+    <%# (19 Oct 2026, the WeWeed admin's layout) menu in groups that open and close; the open page's group is highlighted %>
+    <% const grp = (key, label, icon, open, links) => { %>
+      <details class="ad-grp<%= open ? ' on' : '' %>"<%= open ? ' open' : '' %>>
+        <summary><%- ic(icon) %><span><%= label %></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
+        <div class="ad-sub"><% links.forEach(([href, text, on, extra]) => { %><a href="<%= href %>" class="<%= on ? 'on' : '' %>"<%- extra || '' %>><%= text %></a><% }) %></div>
+      </details>
+    <% }; %>
+    <nav class="ad-nav">
+      <% grp('dash', 'Dashboard', 'chart', page === 'dashboard' || page === 'insights', [['/admin', 'Start here', page === 'dashboard'], ['/admin/dashboard', 'Charts', page === 'insights']]); %>
+      <% grp('tours', 'Tours', 'tours', onKind('tours'), [['/admin/tours', 'All tours', onKind('tours')], ['/admin/tours#new', 'Add tour', false]]); %>
+      <% grp('lists', 'Tour categories', 'lists', onKind('lists'), [['/admin/lists', 'All categories', onKind('lists')], ['/admin/lists#new', 'Add category', false]]); %>
+      <% grp('pages', 'Pages & guide', 'pages', onKind('pages'), [['/admin/pages', 'All pages', onKind('pages')], ['/admin/pages#new', 'Add page', false]]); %>
+      <% const cmsKeys = Object.keys(singles).filter(k => k !== 'seo'); %>
+      <% grp('cms', 'CMS', 'homepage', cmsKeys.some(onSingle), cmsKeys.map(k => ['/admin/settings/' + k, singles[k].label, onSingle(k)])); %>
+      <% grp('seo', 'SEO', 'seo', page === 'seo' || onSingle('seo'), [['/admin/seo', 'Google & SEO check', page === 'seo'], ['/admin/settings/seo', 'Google settings', onSingle('seo')]]); %>
+      <% grp('files', 'Media', 'photos', page === 'media' || page === 'trash', [['/admin/media', 'Photos', page === 'media'], ['/admin/trash', 'Deleted items', page === 'trash']]); %>
+      <% grp('enq', 'Enquiries', 'enquiries', page === 'enquiries', [['/admin/enquiries', 'All enquiries', page === 'enquiries']]); %>
+    </nav>
+    <div class="ad-foot">
+      <a href="/" target="_blank" rel="noopener"><%- ic('web') %>Open the website ↗</a>
+      <a href="/admin/logout"><%- ic('out') %>Log out</a>
+    </div>
+  </aside>
+  <main class="ad-main">
+    <div class="ad-bar"><button type="button" class="ad-burger" data-burger aria-label="Show or hide the menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><a href="/" target="_blank" rel="noopener" class="ad-bar-site">View website ↗</a></div>
