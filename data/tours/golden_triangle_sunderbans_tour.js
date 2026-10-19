@@ -20,9 +20,9 @@ module.exports = {
     { label: "Home", href: site.link("index.htm") },
     { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Indian Golden Triangle Tours", href: site.link("india-golden-triangle-tour.html") },
-    { label: "Golden Triangle and Sunderbans Tour" }
+    { label: "Golden Triangle and Sundarbans Tour" }
   ],
-  heading: "Golden Triangle and Sunderbans Tour",
+  heading: "Golden Triangle and Sundarbans Tour",
   route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Kolkata - Sunderbans - Kolkata",
   duration: "10 Nights · 11 Days",
 
@@ -973,5 +973,5 @@ module.exports = {
   ],
 
   // The original's button goes to /enquiry.aspx#Golden Triangle and Sunderbans Tour; here it opens the enquiry form.
-  enquire: { label: "Enquire Now", href: '/contactus?tour=' + encodeURIComponent("Golden Triangle and Sunderbans Tour") + '#enquiry' }
+  enquire: { label: "Enquire Now", href: '/contactus?tour=' + encodeURIComponent("Golden Triangle and Sundarbans Tour") + '#enquiry' }
 };

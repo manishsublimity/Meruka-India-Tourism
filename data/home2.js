@@ -26,7 +26,7 @@ const nights = s => { const m = String(s || '').match(/(\d+)\s*Nights?/i); retur
 const listTours = l => l.groups.flatMap(g => g.tours);
 
 // photos chosen by hand where the keyword match isn't the best fit
-const CAT_IMG = { '/wildlife_tour': '/photos/tiger-pair.webp', '/india_fair_festival_travelplan': '/photos/holi-festival.webp', '/island_beaches_tour': '/photos/goa-beach-loungers.webp', '/buddhist_pilgirmage_tour': '/photos/varanasi-ghats.webp', '/leh_ladakh_tours': '/photos/ladakh-nubra.webp', '/konark-suntemple_tours': '/photos/madurai.webp', '/rajasthan-tours': '/photos/jaipur-hawa-mahal.webp' };
+const CAT_IMG = { '/wildlife_tour': '/photos/tiger-pair.webp', '/india_fair_festival_travelplan': '/photos/holi-festival.webp', '/island_beaches_tour': '/photos/goa-beach-loungers.webp', '/buddhist_pilgrimage_tour': '/photos/varanasi-ghats.webp', '/leh_ladakh_tours': '/photos/ladakh-nubra.webp', '/konark-suntemple_tours': '/photos/madurai.webp', '/rajasthan-tours': '/photos/jaipur-hawa-mahal.webp' };
 const TOUR_IMG = { 'Heart of Himalayas Tour': '/photos/ladakh.webp', 'North India Rajasthan Wildlife Tour': '/photos/bengal-tiger.webp', 'Exotic Rajasthan Fair and Festival Tour': '/photos/pushkar-fair.webp', 'Kerala Ayurveda & Backwaters Tour': '/photos/yoga-ayurveda.webp', 'Golden Traingle & Scenic Kerala Tours': '/photos/kerala-houseboat.webp', 'Golden Triangle Tour': '/photos/taj-mahal-feature.webp' };
 
 // 1) Tour categories (the tour-list pages), most useful first
@@ -40,7 +40,7 @@ const CATS = [
   ['/india_fair_festival_travelplan', 'Fairs & Festivals', 'Pushkar, Diwali, Holi and more'],
   ['/leh_ladakh_tours', 'Leh & Ladakh', 'High passes and Himalayan monasteries'],
   ['/yoga_ayurveda_tours', 'Yoga & Ayurveda', 'Wellness retreats in Kerala'],
-  ['/buddhist_pilgirmage_tour', 'Buddhist Circuit', 'Bodhgaya, Sarnath and Kushinagar'],
+  ['/buddhist_pilgrimage_tour', 'Buddhist Circuit', 'Bodhgaya, Sarnath and Kushinagar'],
   ['/konark-suntemple_tours', 'India Temple Tours', 'Sun temples and sacred sites'],
   ['/seven-sisters-india-tours', 'North East India', 'The Seven Sisters and Kaziranga'],
   ['/island_beaches_tour', 'Beaches & Islands', 'Lakshadweep, the Andamans and Kerala']
@@ -84,7 +84,7 @@ const byDays = [['Up to 7 nights', '0-7'], ['8 – 10 nights', '8-10'], ['11 –
 const bySector = ['/india-golden-triangle-tour', '/rajasthan-tours', '/south_north_india_tours', '/rajasthan_north_india_tours', '/north_west_india_tours',
   '/rajasthan_kerala_tours', '/south_india_tour', '/konark-suntemple_tours', '/maharashtra_tours', '/seven-sisters-india-tours']
   .filter(u => lists[u]).map(u => ({ label: lists[u].heading, href: u, count: listTours(lists[u]).length }));
-const byInterest = [['Wildlife', '/wildlife_tour'], ['Spiritual', '/buddhist_pilgirmage_tour'], ['Adventure', '/leh_ladakh_tours'], ['Heritage', '/rajasthan-tours'],
+const byInterest = [['Wildlife', '/wildlife_tour'], ['Spiritual', '/buddhist_pilgrimage_tour'], ['Adventure', '/leh_ladakh_tours'], ['Heritage', '/rajasthan-tours'],
   ['Wellness', '/yoga_ayurveda_tours'], ['Beaches', '/island_beaches_tour'], ['Villages', '/rajasthan-villages-travel-tours'], ['Festivals', '/india_fair_festival_travelplan']]
   .filter(([, u]) => lists[u]).map(([label, href]) => ({ label, href }));
 

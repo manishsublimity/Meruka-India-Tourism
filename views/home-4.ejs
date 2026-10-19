@@ -113,27 +113,28 @@
     </div>
 
     <% const bnNights = c => c.nights ? (c.nights[0] === c.nights[1] ? c.nights[0] : c.nights[0] + '–' + c.nights[1]) + ' nights' : '';
-       const bnMain = H2.categories.slice(0, 5), bnMore = H2.categories.slice(5); %>
-    <div class="bn-grid">
+       // (18 Oct 2026, client) four categories in one row
+       const bnMain = H2.categories.slice(0, 4), bnMore = H2.categories.slice(4); %>
+    <div class="bn-grid bn-four">
       <% bnMain.forEach((c, i) => { %>
-      <article class="bn-card<%= i === 0 ? ' bn-big' : '' %>">
+      <article class="bn-card">
         <img src="<%= c.img %>" alt="" loading="lazy">
         <span class="bn-shade" aria-hidden="true"></span>
         <a href="<%= c.url %>" class="bn-hit" tabindex="-1" aria-hidden="true"></a>
         <div class="bn-body">
           
+          <%- pvt('pvt-sm pvt-on') %>
           <h3 class="bn-title"><a href="<%= c.url %>" class="bn-link"><%= c.title %></a></h3>
-          <% if (i === 0) { %>
-          <p class="bn-line"><%= c.line %></p>
-          <% } %>
           <div class="bn-foot">
-            <% if (c.from) { %><span class="bn-price">From <b>USD <%= c.from %></b> / person / day</span><% } %>
+            <%# (18 Oct 2026, client) the starting price per person for the whole tour %>
+            <% if (c.fromTotal) { %><span class="bn-price"><b>USD <%= c.fromTotal.toLocaleString('en-US') %></b> per person*</span><% } %>
             <span class="bn-go" aria-hidden="true">→</span>
           </div>
         </div>
       </article>
       <% }) %>
     </div>
+    <p class="bn-note">*Starting price per person for the whole tour, two people sharing a room in 3-star hotels. All our tours are private: no sharing with other travellers.</p>
   </div>
 </section>
 
@@ -197,6 +198,7 @@
           <img src="<%= t.img %>" alt="" loading="lazy"<%- /taj-mahal/.test(t.img) ? ' class="pq-zoom"' : '' %>>
         </a>
         <div class="pq-mid">
+          <%- pvt('pvt-sm pvt-on') %>
           <h3 class="pq-name"><a href="<%= t.href %>"><%= t.name %></a></h3>
           <% if (t.duration) { %><p class="pq-nd"><%= longDur(t.duration) %></p><% } %>
           <p class="pq-stops"><svg class="pq-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><% st.forEach((x, i) => { %><span<%- i >= 3 ? ' class="pq-more-x" hidden' : '' %>><%= x %></span><% }) %><button type="button" class="pq-more" data-pq-more aria-expanded="false"<%- st.length > 3 ? '' : ' hidden' %>>+<%= Math.max(st.length - 3, 0) %> more</button></p>

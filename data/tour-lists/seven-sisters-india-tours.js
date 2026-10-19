@@ -38,10 +38,10 @@ module.exports = {
       href: '',
       tours: [
         { name: "Nagaland and Kaziranga National Park Tour", href: site.link("north_east_tour.html"), route: "Kolkata - Dimapur - Khonoma - Kohima - Touphema - Wokha - Longkhum - Mokokchung - Jorhat - Majuli - Jorhat - Kaziranga - Shillong - Cherrapunjee - Guwahati - Kolkata", duration: "13 Nights - 14 Days" },
-        { name: "Unexplored Arunachal Tour", href: site.link("north_east_widllife_tribal_tour.html"), route: "Guwahati - Shillong - Cherrapunjee - Kaziranga - Bhalukpong - Bomdila - Dirang - Tawang - Guwahati", duration: "13 Nights - 14 Days" },
+        { name: "Unexplored Arunachal Tour", href: site.link("north_east_wildlife_tribal_tour.html"), route: "Guwahati - Shillong - Cherrapunjee - Kaziranga - Bhalukpong - Bomdila - Dirang - Tawang - Guwahati", duration: "13 Nights - 14 Days" },
         { name: "Tribal and Culture Tour", href: site.link("north_east_tribal_tours_travel.htm"), route: "Guwahati - Aizawl - Silchar - Unakoti - Kailashahar - Agartala - Imphal - Ukhrul - Kohima - Khonoma - Kohima - Touphema - Mokokchung - Jorhat - Kaziranga - Shillong - Cherrapunjee - Guwahati", duration: "21 Nights - 22 Days" },
         { name: "North East Tribal & Culture Tour", href: site.link("northeast_tribal_tours_packages.html"), route: "Guwahati - Eco Camp/Bhalukpong - Dirang - Sela Pass - Tawang - Bomdila - Itanagar - Ziro - Daporijo - Along - Dibrugarh - Mon - Longwa - Tuensang - Noklak - Pangsha - Mokokchung - Touphema Bawe - Kohima - Khonoma - Kohima - Dimapur", duration: "22 Nights - 23 Days" },
-        { name: "Amazing North East Tour", href: site.link("north_east_india_widlife_tours.html"), route: "Guwahati - Eco Camp/Bhalukpong - Dirang - Sela Pass - Tawang - Bomdila - Itanagar - Ziro - Daporijo - Along - Dibrugarh - Mon - Longwa - Tuensang - Noklak - Pangsha - Mokokchung - Touphema Bawe - Kohima - Khonoma - Kohima - Kaziranga National Park - Shillong - Cherrapunjee - Guwahati", duration: "28 Nights - 29 Days" }
+        { name: "Amazing North East Tour", href: site.link("north_east_india_wildlife_tours.html"), route: "Guwahati - Eco Camp/Bhalukpong - Dirang - Sela Pass - Tawang - Bomdila - Itanagar - Ziro - Daporijo - Along - Dibrugarh - Mon - Longwa - Tuensang - Noklak - Pangsha - Mokokchung - Touphema Bawe - Kohima - Khonoma - Kohima - Kaziranga National Park - Shillong - Cherrapunjee - Guwahati", duration: "28 Nights - 29 Days" }
       ]
     }
   ],

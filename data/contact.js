@@ -3,6 +3,14 @@ const site = require('./site');
 const { IMG, li } = site;
 
 module.exports = {
+  // the head office as the client wrote it for the Contact page (18 Oct 2026)
+  hqBlock: {
+    city: 'Jaipur',
+    name: 'Meruka India Tourism Service:',
+    lines: ['A 30, Subhash Nagar, Shopping Centre,', 'Jaipur – 302016 (Rajasthan) India.'],
+    cell: '9920363777', landline: '0141-4045777',
+    email: 'tour@india-tourism.net', gmail: 'meruka.india@gmail.com', website: 'www.india-tourism.net'
+  },
   heroSrc: '/photos/handshake.webp',   // the original contact-us.webp is a wide banner that crops badly in the hero frame
 
   nav: site.nav('Contact Us'),

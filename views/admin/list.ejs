@@ -1,0 +1,60 @@
+<%- include('_top', { pageTitle: k.label }) %>
+<%# (19 Oct 2026, the WeWeed admin's list layout) title and add button; filters, bulk actions and search; a bordered table %>
+<div class="ad-top ad-head">
+  <h1><%= k.label %></h1>
+  <button class="btn btn-g" type="button" data-new>+ Add <%= k.one %></button>
+</div>
+
+<div class="lst-bar">
+  <div class="lst-left">
+    <% if (cats.length) { %>
+    <select class="in lst-sel" data-cat aria-label="Filter by category">
+      <option value="">All categories</option>
+      <% cats.forEach(c => { %><option value="<%= c.code %>"><%= c.code %> · <%= c.name %></option><% }) %>
+    </select>
+    <% } %>
+    <select class="in lst-sel" data-google aria-label="Filter by Google check">
+      <option value="">All Google checks</option><option value="good">Good</option><option value="ok">Could be better</option><option value="bad">Needs attention</option>
+    </select>
+    <select class="in lst-sel" data-bulk aria-label="Bulk actions">
+      <option value="">Bulk actions</option><option value="delete">Delete selected</option>
+    </select>
+    <button class="btn btn-s btn-p" type="button" data-bulk-go>Apply</button>
+  </div>
+  <div class="lst-right">
+    <span class="muted" data-count><%= items.length %> <%= k.one %>s</span>
+    <input class="in lst-q" type="search" placeholder="Search <%= k.one %> name, code or address…" data-q>
+  </div>
+</div>
+
+<div class="lst-wrap">
+<table class="tbl lst" data-kind="<%= kind %>">
+  <thead><tr>
+    <th class="lst-ck"><input type="checkbox" data-all aria-label="Select all"></th>
+    <% if (kind !== 'pages') { %><th>Code</th><% } %>
+    <th><%= k.one.charAt(0).toUpperCase() + k.one.slice(1) %> name</th>
+    <% if (kind === 'tours') { %><th>Length</th><% } %>
+    <th>Google</th><th>Last change</th><th>Actions</th>
+  </tr></thead>
+  <tbody>
+    <% items.forEach(it => { %>
+    <tr data-row data-id="<%= it.id %>" data-name="<%= it.name %>" data-code="<%= it.code %>" data-seo="<%= it.seo %>" data-s="<%= (it.code + ' ' + it.name + ' ' + it.url + ' ' + it.title).toLowerCase() %>">
+      <td class="lst-ck"><input type="checkbox" data-pick aria-label="Select <%= it.name %>"></td>
+      <% if (kind !== 'pages') { %><td><% if (it.code) { %><span class="code"><%= it.code %></span><% } else { %><span class="muted">—</span><% } %></td><% } %>
+      <td><div class="lst-name">
+        <% if (it.img) { %><img class="thumb" src="<%= it.img %>" alt="" loading="lazy"><% } %>
+        <div><a href="/admin/<%= kind %>/<%= it.id %>"><b><%= it.name %></b></a>
+          <% if (it.added) { %> <span class="tag tag-n">New</span><% } %><% if (it.hidden) { %> <span class="tag">Hidden from Google</span><% } %>
+          <div><a href="<%= it.url %>" target="_blank" rel="noopener" class="url"><%= it.url %> ↗</a></div></div>
+      </div></td>
+      <% if (kind === 'tours') { %><td class="muted"><%= it.info %></td><% } %>
+      <td><span class="dot <%= it.seo %>"></span><span class="muted"><%= { good: 'Good', ok: 'OK', bad: 'Fix' }[it.seo] %></span></td>
+      <td class="muted"><%= it.savedAt ? new Date(it.savedAt).toLocaleString('en-GB', { day: 'numeric', month: 'long', year: '2-digit' }) : 'Original' %></td>
+      <td class="acts"><a class="btn btn-s btn-p" href="/admin/<%= kind %>/<%= it.id %>">Edit</a><button class="btn btn-s" type="button" data-copy="<%= it.id %>" data-name="<%= it.name %>">Copy</button><button class="btn btn-s btn-d" type="button" data-del="<%= it.id %>" data-name="<%= it.name %>">Delete</button></td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+</div>
+<script>window.LIST = { kind: <%- JSON.stringify(kind) %>, one: <%- JSON.stringify(k.one) %> };</script>
+<%- include('_bottom', { scripts: ['/admin-assets/list.js?v=3'] }) %>

@@ -1,0 +1,27 @@
+<%- include('_top', { pageTitle: 'Enquiries' }) %>
+<%
+  const HIDE = ['_i', '_read', 'name', 'email', 'receivedAt'];
+  const label = k => k.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]/g, ' ').replace(/^./, c => c.toUpperCase());
+%>
+<div class="ad-top">
+  <div><h1>Enquiries</h1><p><%= items.length %> enquir<%= items.length === 1 ? 'y' : 'ies' %> sent from the website forms, newest first.</p></div>
+  <a class="btn" href="/admin/enquiries.csv">Download as Excel (CSV)</a>
+</div>
+<div class="enq">
+  <% if (!items.length) { %><div class="card"><p class="hint" style="margin:0">No enquiries yet.</p></div><% } %>
+  <% items.forEach(e => { %>
+  <div class="card<%= e._read ? '' : ' new' %>" data-enq="<%= e._i %>">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div><h3><%= e.name %> <% if (!e._read) { %><span class="tag tag-g">New</span><% } %></h3>
+        <div class="url"><a href="mailto:<%= e.email %>"><%= e.email %></a> · <%= new Date(e.receivedAt).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }) %></div></div>
+      <div><button class="btn btn-s" type="button" data-read="<%= e._read ? 0 : 1 %>"><%= e._read ? 'Mark as new' : 'Mark as read' %></button> <button class="btn btn-s btn-d" type="button" data-del>Delete</button></div>
+    </div>
+    <dl>
+      <% Object.entries(e).filter(([k, v]) => !HIDE.includes(k) && v !== '' && v != null).forEach(([k, v]) => { %>
+      <dt><%= label(k) %></dt><dd><%= Array.isArray(v) ? v.join(', ') : v %></dd>
+      <% }) %>
+    </dl>
+  </div>
+  <% }) %>
+</div>
+<%- include('_bottom', { scripts: ['/admin-assets/enquiries.js?v=1'] }) %>

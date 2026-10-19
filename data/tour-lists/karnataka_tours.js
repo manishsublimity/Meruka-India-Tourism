@@ -41,7 +41,7 @@ module.exports = {
         { name: "Astonishing Karnataka Tour", href: site.link("/Astonishing-Karnataka-Tour.html"), route: "Bangalore - Srirangapatna - Mysore - Ooty - Coonoor - Ooty - Kodaikanal - Coimbatore", duration: "09 Nights - 10 Days" },
         { name: "Karnataka Spiritual, Wildlife & Nature Tour", href: site.link("karnataka_wildlife_nature_tour.html"), route: "Bangalore - Puttaparthi - Srirangapatnam - Mysore - Halebid - Belur - Hassan - Coorg - Nagarhole - Bandipur - Ooty - Coonoor - Ooty - Bangalore", duration: "14 Nights - 15 Days" },
         { name: "Karnataka Heritage, Culture and Beach Tour", href: site.link("karnataka_travel_tour_packages.html"), route: "Bangalore - Puttaparthi - Srirangapatnam - Mysore - Halebid - Belur - Hassan - Udupi - Sringeri - Chitradurga - Hospet - Hampi - Hospet - Aihole - Pattadakal - Badami - Gokarna - Goa", duration: "18 Nights - 19 Days" },
-        { name: "Splendid Karnataka with Goa Beaches Tour", href: site.link("south_india_karantaka_tour.html"), route: "Bangalore - Srirangapatna - Mysore - Nagarhole - Coorg - Halebid - Belur - Hassan - Shravanabelagola - Hospet - Hampi - Hospet - Aihole - Pattadakal - Badami - Gokarna - Goa - Mumbai", duration: "21 Nights - 22 Days" }
+        { name: "Splendid Karnataka with Goa Beaches Tour", href: site.link("south_india_karnataka_tour.html"), route: "Bangalore - Srirangapatna - Mysore - Nagarhole - Coorg - Halebid - Belur - Hassan - Shravanabelagola - Hospet - Hampi - Hospet - Aihole - Pattadakal - Badami - Gokarna - Goa - Mumbai", duration: "21 Nights - 22 Days" }
       ]
     }
   ],

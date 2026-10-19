@@ -1,0 +1,36 @@
+<%- include('_top', { pageTitle: 'Google & SEO check' }) %>
+<%
+  const n = l => rows.filter(r => r.level === l).length;
+%>
+<div class="ad-top">
+  <div><h1>Google & SEO check</h1>
+    <p class="lead">How each page will look in Google. A good <b>Google title</b> (30–60 characters) and <b>description</b> (120–160 characters) that say what the page offers bring more people to your website.</p></div>
+  <a class="btn" href="/admin/settings/seo">Google settings (Search Console, Analytics, redirects)</a>
+</div>
+
+<div class="card" style="margin-bottom:16px">
+  <div class="legend" style="font-size:14px"><span><i class="dot good"></i><b><%= n('good') %></b> good</span><span><i class="dot ok"></i><b><%= n('ok') %></b> could be better</span><span><i class="dot bad"></i><b><%= n('bad') %></b> need attention</span><span>· <%= rows.length %> pages in all</span></div>
+  <p class="hint">Already set up for Google on every page: the sitemap (<a href="/sitemap.xml" target="_blank">/sitemap.xml</a>), robots.txt, share pictures for WhatsApp / Facebook, and structured data for tours, FAQs and breadcrumbs.</p>
+</div>
+
+<div class="bar">
+  <input class="in" type="search" placeholder="Search pages…" data-q>
+  <select class="in" style="max-width:220px" data-lv><option value="">All pages</option><option value="bad">Need attention</option><option value="ok">Could be better</option><option value="good">Good</option></select>
+  <span class="muted" data-count></span>
+</div>
+<table class="tbl">
+  <thead><tr><th></th><th>Page & how it shows in Google</th><th>What to improve</th><th></th></tr></thead>
+  <tbody>
+    <% rows.sort((a, b) => ({ bad: 0, ok: 1, good: 2 })[a.level] - ({ bad: 0, ok: 1, good: 2 })[b.level]).forEach(r => { %>
+    <tr data-row data-lv="<%= r.level %>" data-s="<%= (r.name + ' ' + r.url + ' ' + r.title + ' ' + r.section).toLowerCase() %>">
+      <td style="width:24px"><span class="dot <%= r.level %>"></span></td>
+      <td><div class="muted"><%= r.section %> · <%= r.url %></div>
+        <div style="color:#1A0DAB;font-size:15.5px;font-family:Arial,sans-serif"><%= r.title || '(no Google title)' %></div>
+        <div class="muted" style="max-width:640px"><%= r.description ? r.description.slice(0, 170) : '(no Google description)' %></div></td>
+      <td style="min-width:250px;max-width:320px"><% if (!r.issues.length) { %><span class="muted">Nothing — well done</span><% } else { %><ul style="margin:0;padding-left:18px;font-size:13px"><% r.issues.forEach(i => { %><li><%= i %></li><% }) %></ul><% } %></td>
+      <td class="acts"><a class="btn btn-s btn-p" href="<%= r.edit %>">Improve</a></td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+<%- include('_bottom', { scripts: ['/admin-assets/seo.js?v=1'] }) %>

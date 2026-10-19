@@ -37,7 +37,7 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Glorious Sun Temple with Sunderban Tour", href: site.link("west_bengal_orrissa_tours.html"), route: "Kolkata - GangaSagar - Sunderban - Kolkata - Bhubaneswar - Dhauli - Konark - Puri - Raghurajpur Village - Bhitarkanika - Ratnagiri - Bhubaneswar", duration: "12 Nights - 13 Days" },
+        { name: "Glorious Sun Temple with Sundarban Tour", href: site.link("west_bengal_orissa_tours.html"), route: "Kolkata - GangaSagar - Sunderban - Kolkata - Bhubaneswar - Dhauli - Konark - Puri - Raghurajpur Village - Bhitarkanika - Ratnagiri - Bhubaneswar", duration: "12 Nights - 13 Days" },
         { name: "Sun Temple with Sikkim Tour", href: site.link("west_india_sikkim_tours.html"), route: "Bhubaneswar - Dhauli - Konark - Puri - Chilika Lake - Bhubaneswar - Kolkata - Kalimpong - Pelling - Gangtok - Tsongo - Darjeeling - Bagdogra - Kolkata", duration: "14 Nights - 15 Days" }
       ]
     }

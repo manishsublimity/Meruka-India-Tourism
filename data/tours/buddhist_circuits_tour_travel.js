@@ -19,7 +19,7 @@ module.exports = {
   breadcrumb: [
     { label: "Home", href: site.link("index.htm") },
     { label: "India Tour Packages", href: site.link("itineraries.htm") },
-    { label: "Buddhist Circuit Tours", href: site.link("buddhist_pilgirmage_tour.html") },
+    { label: "Buddhist Circuit Tours", href: site.link("buddhist_pilgrimage_tour.html") },
     { label: "West India Buddhist and Culture Tour" }
   ],
   heading: "West India Buddhist and Culture Tour",

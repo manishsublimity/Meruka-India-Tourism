@@ -45,7 +45,7 @@ module.exports = {
       tours: [
         { name: "Scenic Himachal Tour", href: site.link("Scenic-Himachal-Tour.html"), route: "Delhi - Chandigarh - Shimla - Kullu - Manali - Parwanoo - Delhi", duration: "09 Nights - 10 Days" },
         { name: "The Alluring Himachal Tour", href: site.link("himachal_tours_packages.html"), route: "Delhi - Shimla - Kullu - Manali - Parwanoo - Delhi", duration: "09 Nights - 10 Days" },
-        { name: "Golden Triangle, Pilgrim and Hill Stations Tour", href: site.link("goldentriangle_pilgrim_hillsstations_tours.html"), route: "Delhi - Sikandra - Agra - Fathepur Sikri - Jaipur - Neemrana - Delhi - Haridwar - Rishikesh - Haridwar - Dehradun - Mussoorie - Chandigarh - Shimla - Kullu - Manali - Kullu - Delhi", duration: "17 Nights - 18 Days" },
+        { name: "Golden Triangle, Pilgrim and Hill Stations Tour", href: site.link("goldentriangle_pilgrim_hills_stations_tours.html"), route: "Delhi - Sikandra - Agra - Fathepur Sikri - Jaipur - Neemrana - Delhi - Haridwar - Rishikesh - Haridwar - Dehradun - Mussoorie - Chandigarh - Shimla - Kullu - Manali - Kullu - Delhi", duration: "17 Nights - 18 Days" },
         { name: "Golden Triangle & Himachal Highlands Tour", href: site.link("/Golden-Triangle-Himachal-Tour.html"), route: "Delhi - Sikandra - Agra - Fathepur Sikri - Ranthambhor - Jaipur - Neemrana - Delhi - Chandigarh - Kasauli - Shimla - Manali - Dharamshala - Dalhousie - Amritsar - Delhi", duration: "24 Nights - 25 Days" }
       ]
     }

@@ -20,9 +20,9 @@ module.exports = {
     { label: "Home", href: site.link("index.htm") },
     { label: "India Tour Packages", href: site.link("itineraries.htm") },
     { label: "Rajasthan - Kerala Tours", href: site.link("rajasthan_kerala_tours.html") },
-    { label: "Golden Triangle & Scenic Kerala Tour" }
+    { label: "Golden Triangle & Scenic Kerala Tours" }
   ],
-  heading: "Golden Triangle & Scenic Kerala Tour",
+  heading: "Golden Triangle & Scenic Kerala Tours",
   route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum",
   duration: "16 Nights · 17 Days",
 
@@ -1339,5 +1339,5 @@ module.exports = {
   ],
 
   // The original's button goes to /enquiry.aspx#Golden Triangle &amp; Scenic Kerala Tour; here it opens the enquiry form.
-  enquire: { label: "Enquire Now", href: '/contactus?tour=' + encodeURIComponent("Golden Triangle & Scenic Kerala Tour") + '#enquiry' }
+  enquire: { label: "Enquire Now", href: '/contactus?tour=' + encodeURIComponent("Golden Triangle & Scenic Kerala Tours") + '#enquiry' }
 };

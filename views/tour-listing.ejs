@@ -66,6 +66,8 @@
     </div>
     <button type="button" class="tp2-intro-more" aria-controls="tp2-intro" aria-expanded="false" hidden>Read more <span aria-hidden="true">↓</span></button>
     <% } %>
+    <%# (19 Oct 2026, client) one line above the tours: every package is private %>
+    <p class="pvt-strip"><%- pvt() %><span>Every tour below is private: only you and your own group, never shared with other travellers.</span></p>
     <div class="tp2-grid">
       <div class="tp2-list">
         <p class="tp2-status is-hidden" data-tp2-count data-total="<%= ROWS.length %>"></p>
@@ -76,7 +78,8 @@
           <div class="tp2-top" data-tp2-toggle>
             <span class="tp2-img"><img src="<%= g.img %>" alt="" loading="<%= gi < 3 ? 'eager' : 'lazy' %>"></span>
             <span class="tp2-info">
-              <h3 class="tp2-title"><%= g.title %></h3>
+              <% const gc = tourCode(g.href); %><h3 class="tp2-title"><% if (gc) { %><span class="tcode"><%= gc %></span> <% } %><%= g.title %></h3>
+              <%- pvt('pvt-sm') %>
               <% if (g.desc || g.line) { %><span class="tp2-line"><%= g.desc || g.line %></span><% } %>
             </span>
             <span class="tp2-price">
@@ -91,7 +94,7 @@
             <div class="tp2-row" data-tp2-row data-price="<%= t.price || '' %>" data-nights="<%= t.nights || '' %>" data-region="<%= t.regions.join(' ') %>" data-interest="<%= t.interests.join(' ') %>" data-search="<%= (t.name + ' ' + t.route + ' ' + g.title).toLowerCase() %>">
               <% if (single) { const rp = rowPhoto(t); if (rp) { %><a class="tp2-row-img" href="<%= t.href || '#' %>" tabindex="-1" aria-hidden="true"><img src="<%= rp %>" alt="" loading="lazy"></a><% } } %>
               <div class="tp2-row-main">
-                <% if (t.href) { %><a class="tp2-row-name" href="<%= t.href %>"><%= t.name %></a><% } else { %><span class="tp2-row-name"><%= t.name %></span><% } %>
+                <% if (t.href) { %><a class="tp2-row-name" href="<%= t.href %>"><% const rc = tourCode(t.href); if (rc) { %><span class="tcode"><%= rc %></span> <% } %><%= t.name %><%- pvtIcon %></a><% } else { %><span class="tp2-row-name"><%= t.name %></span><% } %>
                 <% if (t.route) { %><span class="tp2-row-route"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span title="<%= t.route %>"><%= t.route %></span></span><% } %>
               </div>
               <% if (t.duration) { %><span class="tp2-row-days"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/></svg><%= t.duration.replace(/\s*[-–]\s*/, ' / ') %></span><% } %>

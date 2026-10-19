@@ -1,0 +1,8 @@
+<%- include('_top', { pageTitle: 'Photos' }) %>
+<div class="ad-top">
+  <div><h1>Photos</h1><p>Upload photos here, then pick them in any page. Click a photo to copy its address.</p></div>
+</div>
+<div class="drop" data-page-drop>Drop images here, or <label style="color:var(--blue);font-weight:700;cursor:pointer">choose files<input type="file" accept="image/*" hidden multiple data-page-file></label> — WebP, JPG, PNG up to 10 MB each</div>
+<div class="tabs" data-page-tabs style="margin-top:18px"></div>
+<div class="media-grid" data-page-grid></div>
+<%- include('_bottom', { scripts: ['/admin-assets/media-page.js?v=1'] }) %>

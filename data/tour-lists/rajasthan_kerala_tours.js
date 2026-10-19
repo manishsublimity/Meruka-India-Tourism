@@ -51,7 +51,7 @@ module.exports = {
       title: "",
       href: '',
       tours: [
-        { name: "Golden Triangle & Scenic Kerala Tour", href: site.link("golden_triangle_kerala_tours.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "16 Nights - 17 Days" },
+        { name: "Golden Triangle & Scenic Kerala Tours", href: site.link("golden_triangle_kerala_tours.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "16 Nights - 17 Days" },
         { name: "Golden Triangle, Goa & Kerala Tour", href: site.link("/Golden-Triangle-Goa-Kerala-Tour.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Mumbai - Goa - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "19 Nights - 20 Days" },
         { name: "Rajasthan Legacy & Scenic Kerala Tour", href: site.link("rajasthan_kerala_backwater_packages.html"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Pushkar - Jodhpur - Ranakpur - Udaipur - Mumbai - Cochin - Munnar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "20 Nights - 21 Days" },
         { name: "Rajasthan Culture and Scenic Kerala Tour", href: site.link("rajasthan_Kerala_Tour.htm"), route: "Delhi - Sikandra - Agra - Fatehpur Sikri - Jaipur - Ajmer - Pushkar - Chittorgarh - Udaipur - Ranakpur - Jodhpur - Manvar - Jaisalmer - Pokhran - Bikaner - Mandawa - Delhi - Cochin - Munnar - Periyar - Alleppey - Kovalam - Kanyakumari - Trivandrum", duration: "24 Nights - 25 Days" }

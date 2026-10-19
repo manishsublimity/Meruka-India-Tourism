@@ -1,0 +1,23 @@
+<%- include('_top', { pageTitle: title }) %>
+<div class="ed-head">
+  <div>
+    <div class="url"><a href="<%= mode === 'single' ? '/admin' : '/admin/' + kind %>">← <%= mode === 'single' ? 'Start here' : kinds[kind].label %></a></div>
+    <h1 data-title><%= title %></h1>
+  </div>
+  <div class="acts">
+    <span class="save-state" data-state>No changes yet</span>
+    <% if (url) { %><a class="btn" href="<%= url %>" target="_blank" rel="noopener">View page ↗</a><% } %>
+    <button class="btn btn-g" type="button" data-save>Publish</button>
+  </div>
+</div>
+<% if (mode === 'single' && singles[id] && singles[id].help) { %><div class="pageinfo">💡 <span><%= singles[id].help %></span></div><% } %>
+
+<div class="etabs" data-tabs></div>
+<div data-form><div class="card"><p class="hint">Loading…</p></div></div>
+
+<div class="card" style="margin-top:22px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <p class="hint" style="margin:0">Tip: <b>Ctrl + S</b> saves. To make text <b>bold</b>, select it and press the <b>B Bold</b> button.</p>
+  <button class="btn btn-s btn-d" type="button" data-revert>Undo all my edits on this <%= mode === 'single' ? 'section' : 'page' %></button>
+</div>
+<script>window.EDIT = { mode: <%- JSON.stringify(mode) %>, kind: <%- JSON.stringify(kind) %>, id: <%- JSON.stringify(id) %>, url: <%- JSON.stringify(url || '') %> };</script>
+<%- include('_bottom', { scripts: ['/admin-assets/editor.js?v=3'] }) %>

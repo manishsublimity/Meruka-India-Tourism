@@ -62,7 +62,7 @@
       e.preventDefault();
       var f = form.elements, err = $('#plan-err');
       postEnquiry({
-        source: location.pathname === '/plan-my-trip' ? 'plan-my-trip' : 'home', name: f.name.value, email: f.email.value, country: f.country.value, date: f.date.value,
+        source: location.pathname === '/plan-my-trip' ? 'plan-my-trip' : location.pathname === '/contactus' ? 'contact' : 'home', name: f.name.value, email: f.email.value, country: f.country.value, date: f.date.value,
         travellers: f.travellers.value, duration: f.duration.value, hotel: star, message: f.message.value
       }).then(function (r) {
         if (!r.ok) { err.textContent = r.error; err.classList.remove('is-hidden'); return; }

@@ -38,14 +38,14 @@
     <%# (16 Oct 2026, client's pick U) no "Showing 9 of 72" line; an editorial card — a big gold quote mark, the guest's
         words large in the serif, then the guest (initials, name, details) and the tour they took; more reviews load
         by themselves as the visitor scrolls %>
-    <div class="tm-grid tm2 tm3" id="tm-grid">
+    <%# (18 Oct 2026, client) two rows of four to start, then "View more reviews"; no picture or initials %>
+    <div class="tm-grid tm2 tm3 tm-four" id="tm-grid">
       <% all.forEach((t, i) => { %>
-      <figure class="tm-card<%= i >= 9 ? ' is-hidden' : '' %>" data-g="<%= groupsOf(t).join(' ') %>" data-search="<%= (t.name + ' ' + t.details.join(' ') + ' ' + t.tour + ' ' + t.route).toLowerCase() %>">
+      <figure class="tm-card<%= i >= 8 ? ' is-hidden' : '' %>" data-g="<%= groupsOf(t).join(' ') %>" data-search="<%= (t.name + ' ' + t.details.join(' ') + ' ' + t.tour + ' ' + t.route).toLowerCase() %>">
         <span class="tm-mark" aria-hidden="true">“</span>
         <blockquote class="tm-quote" id="tm-q-<%= i %>"><%= t.quote %></blockquote>
         <button type="button" class="tm-more" aria-expanded="false" aria-controls="tm-q-<%= i %>" hidden>Read more</button>
         <figcaption class="tm-who">
-          <span class="tm-av"><%= t.initials %></span>
           <span class="tm-meta"><b><%= t.name %></b><small><%= t.details.concat([t.tour]).filter(Boolean).join(' · ') %></small></span>
         </figcaption>
       </figure>
@@ -53,7 +53,7 @@
     </div>
 
     <div class="tm-empty is-hidden" id="tm-empty">No reviews match your search. <button type="button" id="tm-reset">Show all</button></div>
-    <div class="tm-foot"><button type="button" class="tm-load" id="tm-load">Show more reviews <span>↓</span></button></div>
+    <div class="tm-foot"><button type="button" class="tm-load" id="tm-load">View more reviews <span>↓</span></button></div>
   </div>
 </section>
 

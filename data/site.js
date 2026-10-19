@@ -40,7 +40,20 @@ const ALIASES = {
   'tours/south-india-panorama-tour': 'itin_south_panorama.htm',
   'tours/vision-of-india-tour': 'itin_vision_tour.htm',
   'atonishing-karnataka-tour': 'Astonishing-Karnataka-Tour.html',          // misspelt link on the original
-  'fair_festivals_markar_sakranti_north_india': 'Fairs-Festivals.htm'      // 404 on the original
+  'fair_festivals_markar_sakranti_north_india': 'Fairs-Festivals.htm',     // 404 on the original
+  // (19 Oct 2026, the client's tour code list) misspelt addresses renamed; the old ones redirect here
+  'buddhist_pilgirmage_tour': 'buddhist_pilgrimage_tour.html',
+  'uttarkhand_widllife_pilgrimage_tours': 'uttarakhand_wildlife_pilgrimage_tours.html',
+  'goldentriangle_pilgrim_hillsstations_tours': 'goldentriangle_pilgrim_hills_stations_tours.html',
+  'north_east_widllife_tribal_tour': 'north_east_wildlife_tribal_tour.html',
+  'north_east_india_widlife_tours': 'north_east_india_wildlife_tours.html',
+  'west_bengal_orrissa_tours': 'west_bengal_orissa_tours.html',
+  'tour_north_india_rajasthan_hertiage': 'tour_north_india_rajasthan_heritage.html',
+  'south_india_karantaka_tour': 'south_india_karnataka_tour.html',
+  'south_india_temples_spritual_tours': 'south_india_temples_spiritual_tours.html',
+  'travel-rajasthan-india-hertiage-widllife-tours': 'travel-rajasthan-India-heritage-wildlife-tours.html',
+  'south_india_fair_festvial_tours': 'south_india_fair_festival_tours.html',
+  'north_east_india_fair_festvial_tours': 'north_east_india_fair_festival_tours.html'
 };
 
 // Local address for an original link (relative file name, /file, or a full india-tourism.net URL).
@@ -92,6 +105,12 @@ const localFor = pathname => {
   return target && target !== pathname ? target : null;
 };
 
+// An extension-less address that was renamed (an alias pointing at a different page), else null
+const renamedFor = pathname => {
+  const key = baseOf(decodeURIComponent(pathname).replace(/^\/+/, ''));
+  return ALIASES[key] && !BY_BASE[key] ? (BY_BASE[baseOf(ALIASES[key])] || null) : null;
+};
+
 const NAV = [['Home', 'index.htm'], ['About Us', 'aboutus.htm'], ['India Tours', 'itineraries.htm'], ['Testimonials', 'testimonials.htm'], ['Contact Us', 'contactus.htm']];
 
 module.exports = {
@@ -101,6 +120,7 @@ module.exports = {
   IMG,
   rewriteHtml,
   localFor,
+  renamedFor,
 
   // `active` is the highlighted item. When it is the current page (`self`), its link jumps to the top.
   nav: (active, self = true) => NAV.map(([label, file]) => ({ label, href: label === active && self ? '#top' : link(file), active: label === active })),

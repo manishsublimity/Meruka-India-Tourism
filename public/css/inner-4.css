@@ -2696,3 +2696,103 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 @media (max-width:639.98px){ #mk-frame#mk-frame.in4{--title-gap:22px} }
 #mk-frame#mk-frame.in4 .ph2-head .abx-hero-sub{margin-bottom:0 !important}
 #mk-frame#mk-frame.in4 > section.td2-intro .td2-desc{margin-top:12px !important}   /* tour pages: the description follows the title closely */
+
+/* Sitemap page (18 Oct 2026) */
+#mk-frame.in4 .smap-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+#mk-frame.in4 .smap-h{margin:0 0 8px;padding-bottom:6px;border-bottom:2px solid var(--mk-gold);font-family:var(--mk-font-head);font-size:17px;font-weight:600;color:var(--mk-blue-d)}
+#mk-frame.in4 .smap-col ul{list-style:none;margin:0 0 22px;padding:0}
+#mk-frame.in4 .smap-col li a{display:block;padding:4px 0;font-size:14px;color:var(--mk-text);text-decoration:none}
+#mk-frame.in4 .smap-col li a:hover{color:var(--mk-blue);text-decoration:underline}
+@media (max-width:1023.98px){ #mk-frame.in4 .smap-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:559.98px){ #mk-frame.in4 .smap-grid{grid-template-columns:1fr} }
+/* (18 Oct 2026, client) inner-page banner the same size as on the original site (1349 × 298 picture, full width)
+   with a sleek full-width blue line under it */
+#mk-frame.in4 .ph2-media{height:auto !important;aspect-ratio:1349 / 298;border-bottom:5px solid var(--mk-blue)}
+@media (max-width:639.98px){ #mk-frame.in4 .ph2-media{aspect-ratio:auto;height:120px !important} }
+/* (18 Oct 2026, client) inner-page titles in the same weight and size as the home page's headings */
+#mk-frame#mk-frame.in4 .abx-h1{font-family:'Bricolage Grotesque',system-ui,sans-serif !important;font-size:clamp(32px,3.4cqw,50px) !important;font-weight:600 !important;line-height:1.04 !important;letter-spacing:-.035em !important}
+/* "Most Popular Tours" as a slim band with one button (18 Oct 2026, client) */
+#mk-frame.in4 .pop-band-in{display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;padding:20px 26px;background:var(--mk-blue-d);border-top:3px solid var(--mk-gold);border-radius:5px}
+#mk-frame.in4 .pop-band-t{margin:0;font-family:var(--mk-font-head);font-size:clamp(20px,1.9cqw,26px);font-weight:600;letter-spacing:-.02em;color:#fff}
+#mk-frame.in4 .pop-band-t em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:var(--mk-gold)}
+#mk-frame.in4 .pop-band-t span{display:block;margin-top:2px;font-family:var(--mk-font-body);font-size:14px;font-weight:500;letter-spacing:0;color:rgba(255,255,255,.8)}
+/* Contact us (18 Oct 2026, client): head office left, other offices right, the small Plan Your Trip form, one band */
+#mk-frame.in4 .ct2-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:22px;align-items:start}
+#mk-frame.in4 .ct2-hq{padding:22px 24px;background:#fff;border:1px solid var(--mk-line);border-top:3px solid var(--mk-gold);border-radius:5px;box-shadow:0 1px 3px rgba(20,30,50,.06)}
+#mk-frame.in4 .ct2-city{margin:0 0 10px;font-family:var(--mk-font-body);font-size:20px;font-weight:400;color:var(--mk-ink)}
+#mk-frame.in4 .ct2-hq address{display:flex;flex-direction:column;gap:3px;font-style:normal;font-size:15.5px;line-height:1.6;color:var(--mk-text)}
+#mk-frame.in4 .ct2-hq address b{color:var(--mk-blue-d);font-weight:700}
+#mk-frame.in4 .ct2-hq a,#mk-frame.in4 .ct2-off a{color:var(--mk-blue);text-decoration:none}
+#mk-frame.in4 .ct2-hq a:hover,#mk-frame.in4 .ct2-off a:hover{text-decoration:underline}
+#mk-frame.in4 .ct2-others{padding:22px 24px;background:#fff;border:1px solid var(--mk-line);border-top:3px solid var(--mk-blue);border-radius:5px;box-shadow:0 1px 3px rgba(20,30,50,.06)}
+#mk-frame#mk-frame.in4 .ct2-h{margin:0 0 12px;font-family:var(--mk-font-head);font-size:20px;font-weight:600;color:var(--mk-ink)}
+#mk-frame.in4 .ct2-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+#mk-frame.in4 .ct2-off{padding:12px 14px;border-radius:5px;background:#F5F8FC}
+#mk-frame.in4 .ct2-off p{margin:0 0 3px;font-size:13.5px;line-height:1.55;color:var(--mk-text)}
+#mk-frame.in4 .ct2-oc{font-weight:700;color:var(--mk-blue-d) !important;font-size:15px !important}
+/* the home page's small form, its heading 20% smaller here */
+#mk-frame#mk-frame.ux.v3.h4.in4 .ct2-plan .pz-h{font-size:calc(clamp(32px,3.4cqw,50px) * .8) !important}
+@media (max-width:860px){ #mk-frame.in4 .ct2-grid{grid-template-columns:1fr} }
+#mk-frame.in4 .td2-pfrom{grid-column:1 / -1}
+#mk-frame.in4 .td2-pfrom b{color:var(--mk-blue-d)}
+/* (18 Oct 2026, client) number of tours per sector and per category in India Tour Packages */
+#mk-frame.in4 .ex-pk-n{display:block;margin-top:2px;font-family:var(--mk-font-body);font-size:12.5px;font-weight:700;letter-spacing:0;color:var(--mk-muted)}
+#mk-frame.in4 .ex-pk-c{margin-left:auto;margin-right:8px;font-size:12.5px;font-weight:700;color:var(--mk-muted)}
+/* (18 Oct 2026, client) Guest Reviews: four in a row (two rows to start) */
+#mk-frame#mk-frame.in4 .tm-grid.tm-four{grid-template-columns:repeat(4,minmax(0,1fr)) !important}
+#mk-frame.in4 .tm-four .tm-card{padding:22px 20px 18px !important}
+#mk-frame.v3.in4 .tm-four .tm-card .tm-quote{-webkit-line-clamp:5}
+@media (max-width:1100px){ #mk-frame#mk-frame.in4 .tm-grid.tm-four{grid-template-columns:repeat(2,minmax(0,1fr)) !important} }
+@media (max-width:639.98px){ #mk-frame#mk-frame.in4 .tm-grid.tm-four{grid-template-columns:1fr !important} }
+
+/* India Tour Packages (18 Oct 2026, the client's layout): sectors | categories | Plan My Trip */
+#mk-frame.in4 .ex-tabs{display:grid;grid-template-columns:280px minmax(0,1fr) 290px;gap:16px;align-items:stretch}
+#mk-frame.in4 .ex-rail{display:flex;flex-direction:column;gap:2px;padding:6px;background:#fff;border:1px solid var(--mk-line);border-top:3px solid var(--mk-blue);border-radius:5px;box-shadow:0 1px 3px rgba(20,30,50,.06)}
+#mk-frame.in4 .ex-rail-h{display:flex;justify-content:space-between;padding:8px 12px 6px;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mk-muted);border-bottom:1px solid var(--mk-line);margin-bottom:4px}
+#mk-frame.in4 .ex-sec{flex:1;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;border:0;border-left:3px solid transparent;border-radius:5px;background:none;font:inherit;font-size:15px;font-weight:600;color:var(--mk-ink);text-align:left;cursor:pointer;transition:background .12s}
+#mk-frame.in4 .ex-sec:hover{background:#F3F6FA}
+#mk-frame.in4 .ex-sec[aria-selected="true"]{background:#EEF4FA;border-left-color:var(--mk-gold);color:var(--mk-blue);font-weight:800}
+#mk-frame.in4 .ex-sec:focus-visible{outline:3px solid var(--mk-blue);outline-offset:-2px}
+#mk-frame.in4 .ex-n{min-width:28px;padding:1px 8px;border-radius:20px;background:#F0F3F7;font-size:12px;font-weight:700;color:var(--mk-muted);text-align:center}
+#mk-frame.in4 .ex-sec[aria-selected="true"] .ex-n{background:var(--mk-blue);color:#fff}
+#mk-frame.in4 .ex-panel{padding:16px 24px 8px;background:#fff;border:1px solid var(--mk-line);border-top:3px solid var(--mk-gold);border-radius:5px;box-shadow:0 1px 3px rgba(20,30,50,.06)}
+#mk-frame.in4 .ex-panel[hidden]{display:none}
+#mk-frame.in4 .ex-ph{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:10px;border-bottom:1px solid var(--mk-line)}
+#mk-frame.in4 .ex-ph h3{margin:0;font-family:var(--mk-font-head);font-size:22px;font-weight:600;color:var(--mk-ink)}
+#mk-frame.in4 .ex-ph span{font-size:13.5px;font-weight:600;color:var(--mk-muted)}
+#mk-frame.in4 .ex-cats{list-style:none;margin:0;padding:0}
+#mk-frame.in4 .ex-cats li{border-bottom:1px solid var(--mk-line)}
+#mk-frame.in4 .ex-cats li:last-child{border-bottom:0}
+#mk-frame.in4 .ex-cats a{display:flex;align-items:center;gap:12px;padding:12px 2px;color:var(--mk-ink);text-decoration:none;font-size:15.5px;font-weight:600;transition:color .12s}
+#mk-frame.in4 .ex-cats a span{flex:1}
+#mk-frame.in4 .ex-cats a small{font-size:13px;font-weight:600;color:var(--mk-muted)}
+#mk-frame.in4 .ex-cats a::after{content:"\2192";color:#B3BCC9;transition:color .12s,transform .12s}
+#mk-frame.in4 .ex-cats a:hover,#mk-frame.in4 .ex-cats a.on{color:var(--mk-blue)}
+#mk-frame.in4 .ex-cats a:hover::after,#mk-frame.in4 .ex-cats a.on::after{color:var(--mk-gold);transform:translateX(3px)}
+#mk-frame.in4 .ex-cta{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:24px 22px;background:#4A6F97;color:#fff;border-radius:5px;border-top:3px solid var(--mk-gold)}
+#mk-frame.in4 .ex-cta::after{content:"";position:absolute;right:-36px;bottom:-36px;width:130px;height:130px;border:16px solid rgba(255,255,255,.1);border-radius:50%}
+#mk-frame#mk-frame.in4 .ex-cta h3{margin:0;font-family:var(--mk-font-head);font-size:20px;font-weight:700;line-height:1.25;color:#fff !important}
+#mk-frame.in4 .ex-cta p{margin:0;font-size:14px;line-height:1.55;color:rgba(255,255,255,.92)}
+#mk-frame.in4 .ex-cta .ph-btn{position:relative;z-index:1;align-self:flex-start}
+@media (max-width:1100px){
+  #mk-frame.in4 .ex-tabs{grid-template-columns:250px minmax(0,1fr)}
+  #mk-frame.in4 .ex-cta{grid-column:1 / -1;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:16px 22px}
+}
+@media (max-width:760px){
+  #mk-frame.in4 .ex-tabs{display:flex;flex-direction:column}
+  #mk-frame.in4 .ex-rail{flex-direction:row;overflow-x:auto;border-top-width:1px}
+  #mk-frame.in4 .ex-rail-h{display:none}
+  #mk-frame.in4 .ex-sec{flex:none;white-space:nowrap;border-left:0;border-bottom:3px solid transparent}
+  #mk-frame.in4 .ex-sec[aria-selected="true"]{border-bottom-color:var(--mk-gold)}
+  #mk-frame.in4 .ex-panel{padding:14px 16px 6px}
+}
+/* (18 Oct 2026, client) the Tour Pricing Details box under the itinerary, full width of the main column */
+#mk-frame.in4 .td2-pmain{margin-top:8px}
+#mk-frame.in4 .td2-pmain .pr-card{position:static}
+#mk-frame.in4 .td2-pmain .td2-pfrom{margin:0 0 12px;padding:10px 14px;background:#FFF8E6;border-left:3px solid var(--mk-gold);border-radius:0;font-size:15px;line-height:1.55;color:var(--mk-ink)}
+#mk-frame.in4 .td2-pmain .td2-pfrom b{color:var(--mk-blue-d)}
+#mk-frame#mk-frame.in4 .td2-pmain .pr-tiers{display:grid;grid-template-columns:1fr !important;gap:8px}
+#mk-frame#mk-frame.in4 .td2-pmain .pr-tier{grid-column:auto !important}
+#mk-frame.in4 .td2-pmain .td2-pinc ul{columns:2;column-gap:28px}
+#mk-frame#mk-frame.in4 .td2-pmain .pr-cta{display:inline-flex;width:auto;padding-left:28px;padding-right:28px}
+@media (max-width:767.98px){ #mk-frame#mk-frame.in4 .td2-pmain .pr-tiers{grid-template-columns:1fr} #mk-frame.in4 .td2-pmain .td2-pinc ul{columns:1} }
