@@ -1915,7 +1915,7 @@ font[style*="vertical-align: inherit"]{background:none !important;box-shadow:non
    the same space above and below (18px), side padding clear of the 30px arrow cuts */
 @media (min-width:1000px){
   #mk-frame#mk-frame#mk-frame.h4 .c6-parts > .c6-part{display:flex !important;flex-direction:column;justify-content:center !important;padding:18px 26px 18px 44px !important}
-  #mk-frame#mk-frame#mk-frame.h4 .c6-parts > .c6-part.c6-price{padding:18px 40px 18px 26px !important;align-items:flex-start}
+  #mk-frame#mk-frame#mk-frame.h4 .c6-parts > .c6-part.c6-price{padding:18px 40px 18px 26px !important;align-items:flex-start; gap:0px;}
   #mk-frame#mk-frame#mk-frame.h4 .c6-parts > .c6-part.c6-acts{padding:18px 22px 18px 44px !important}
   #mk-frame#mk-frame#mk-frame.h4 .c6-parts > .c6-part:not(.c6-price):not(.c6-acts){padding-right:40px !important}
   #mk-frame#mk-frame.h4 .c6-list{margin:0 !important}
