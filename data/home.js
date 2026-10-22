@@ -74,7 +74,8 @@ module.exports = {
   to,
   allToursHref: link('itineraries.htm'),
   mostBookedHref: link('golden_triangle_packages.html'),
-  langs: ['English', 'Français', 'Deutsch', 'Español', 'Italiano', '한국어'],
+  // (21 Oct 2026, client: at least 10 foreign languages) shown in the header; the page is translated by Google Translate
+  langs: ['English', 'Français', 'Deutsch', 'Español', 'Italiano', 'Nederlands', 'Português', 'Русский', '中文', '日本語', '한국어'],
 
   pkgMenuCols: [
     { title: 'Most Requested', items: ['Golden Triangle tours', 'Exotic Rajasthan tours', 'Rajasthan & North India', 'Kerala backwaters', 'South & North India', 'Incredible India'] },
@@ -179,7 +180,7 @@ module.exports = {
 
   footerCols: [
     { title: 'Tour packages', items: ['Golden Triangle', 'Exotic Rajasthan', 'Rajasthan North India', 'Kerala backwaters', 'South India', 'Group tours (7+)'] },
-    { title: 'Destinations', items: ['North India', 'South India', 'East India', 'West India', 'Rajasthan', 'Leh & Ladakh'] },
+    { title: 'Destinations', items: ['North India', 'South India', 'East India', 'West India'] },   // 21 Oct 2026: the four regions only
     { title: 'Travel guide', items: ['Best time to visit', 'Fairs & festivals', 'Cuisine', 'Visa information', 'Wildlife & parks', "Traveller's guide"] },
     { title: 'Company', items: ['Why Meruka India', 'Guest reviews', 'FAQs', 'Booking policy', 'Contact us', 'Sitemap'] }   // 18 Oct 2026: How we work out, Sitemap in
   ],

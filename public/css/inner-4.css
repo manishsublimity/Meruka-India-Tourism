@@ -2796,3 +2796,417 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 #mk-frame.in4 .td2-pmain .td2-pinc ul{columns:2;column-gap:28px}
 #mk-frame#mk-frame.in4 .td2-pmain .pr-cta{display:inline-flex;width:auto;padding-left:28px;padding-right:28px}
 @media (max-width:767.98px){ #mk-frame#mk-frame.in4 .td2-pmain .pr-tiers{grid-template-columns:1fr} #mk-frame.in4 .td2-pmain .td2-pinc ul{columns:1} }
+
+/* (21 Oct 2026, client) /itineraries category cards in Anshuman's layout */
+/* /itineraries category card (18 Oct 2026, the client's layout): photo left; name, nights, description; a hairline,
+   then "From USD 510 per person" and a gold "View N packages" button; the tours open in a soft panel below */
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-card{background:#fff;border:1px solid var(--mk-line);border-radius:5px !important;box-shadow:0 1px 3px rgba(20,30,50,.10);overflow:hidden;margin-bottom:14px}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main{display:grid !important;grid-template-columns:240px minmax(0,1fr) !important;min-height:0 !important;cursor:default;padding:0 !important;background:#fff}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main .tp2-img{position:relative;height:auto !important;min-height:150px !important}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main .tp2-img img{position:absolute;inset:0;width:100%;height:100% !important;object-fit:cover}
+#mk-frame.in4 .tpc-body{display:flex;flex-direction:column;padding:14px 20px 0;min-width:0}
+#mk-frame#mk-frame.in4 .tpc-body .tp2-title{margin:0 0 3px;font-family:var(--mk-font-head) !important;font-size:21px;font-weight:600;line-height:1.25;color:var(--mk-ink)}
+#mk-frame.in4 .tpc-nights{display:flex;align-items:center;gap:6px;margin:0 0 6px;font-size:13px;font-weight:700;color:var(--mk-blue)}
+#mk-frame.in4 .tpc-nights svg{width:13px;height:13px;flex:none;color:var(--mk-gold)}
+#mk-frame#mk-frame.in4 .tpc-body .tp2-line{display:block;margin:0;font-size:14.5px;line-height:1.55;color:var(--mk-text);-webkit-line-clamp:unset}
+#mk-frame.in4 .tpc-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding:10px 0 12px;border-top:1px solid var(--mk-line);position:relative;top:10px}
+#mk-frame.in4 .tpc-foot{top:0;margin-top:10px}
+#mk-frame.in4 .tpc-price{display:flex;align-items:baseline;gap:6px;margin:0;color:var(--mk-muted);font-size:13px}
+#mk-frame.in4 .tpc-price strong{font-family:var(--mk-font-body);font-size:22px;font-weight:800;color:var(--mk-blue);letter-spacing:-.01em}
+#mk-frame#mk-frame.in4 .tpc-toggle{display:inline-flex !important;align-items:center;gap:6px;width:auto !important;height:38px !important;padding:0 14px !important;border:0;border-radius:5px !important;background:var(--mk-gold) !important;color:var(--mk-blue-d) !important;font:inherit;font-size:14px;font-weight:800;cursor:pointer;transition:background .15s}
+#mk-frame#mk-frame.in4 .tpc-toggle:hover{background:#F0A800 !important}
+#mk-frame.in4 .tpc-toggle svg{width:15px;height:15px;transition:transform .25s}
+#mk-frame.in4 .tpc-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+/* the tours under a category card */
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-rows{padding:2px 20px 6px !important;background:#F5F7FA !important;border-top:1px solid var(--mk-line)}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row{display:grid !important;grid-template-columns:minmax(0,1fr) auto auto auto !important;gap:16px !important;align-items:center;margin:0 !important;padding:10px 0 !important;background:none !important;border:0 !important;border-bottom:1px solid var(--mk-line) !important;border-radius:0 !important;box-shadow:none !important}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row::before{display:none}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row-name{font-size:15px !important;font-weight:700}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row-route{font-size:12.5px;margin-top:2px}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row-days{height:auto;padding:0;background:none;font-size:12.5px;color:var(--mk-muted)}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row-price{font-size:15px;white-space:nowrap}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row-price small,#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row-price em{display:none}
+#mk-frame#mk-frame.ux.v3.h4.in4 .tp2:not(.tp2-one) .tp2-row-go{height:auto;padding:0;background:none;color:var(--mk-blue);font-size:13.5px;font-weight:700;box-shadow:none}
+#mk-frame#mk-frame.ux.v3.h4.in4 .tp2:not(.tp2-one) .tp2-row-go:hover{background:none;color:var(--mk-blue-d);text-decoration:underline}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-all{margin:8px 0 6px}
+@media (max-width:700px){
+  #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main{grid-template-columns:1fr !important}
+  #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main .tp2-img{min-height:150px !important}
+  #mk-frame.in4 .tpc-body{padding:12px 14px 0}
+  #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row{grid-template-columns:minmax(0,1fr) auto !important;gap:6px 12px !important}
+  #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row-main{grid-column:1 / -1}
+  #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-rows{padding:2px 14px 6px !important}
+}
+/* (21 Oct 2026) Contact us: the Plan Your Trip form on the same blue panel as on the home page, so its white text shows */
+#mk-frame#mk-frame.ux.v3.h4.in4 #plan.pz.ct2-plan{background:#336699 !important;padding-top:40px !important;padding-bottom:42px !important;margin-top:24px !important}
+/* (21 Oct 2026, client) inner-page banner: a white gap as tall as the blue line between the picture and the line */
+#mk-frame.in4 .ph2-media{border-bottom:0 !important;box-shadow:0 5px 0 #fff,0 10px 0 var(--mk-blue);margin-bottom:10px}
+#mk-frame.in4 .tp2-one .tp2-grid{display:grid}
+/* (21 Oct 2026, client) category pages now have the filters on the right: each tour row in two lines —
+   name + route, then the nights; the price above the "View Tour" button */
+@media (min-width:768px){
+  #mk-frame#mk-frame.in4 .tp2-one .tp2-row{grid-template-columns:140px minmax(0,1fr) auto !important;grid-template-rows:auto auto;column-gap:18px !important;row-gap:6px !important;align-items:center;padding:0 18px 0 0 !important}
+  #mk-frame#mk-frame.in4 .tp2-one .tp2-row-img{grid-row:1 / span 2;grid-column:1}
+  #mk-frame#mk-frame.in4 .tp2-one .tp2-row-main{grid-column:2;grid-row:1;padding:14px 0 0}
+  #mk-frame#mk-frame.in4 .tp2-one .tp2-row-days{grid-column:2;grid-row:2;justify-self:start;align-self:start;margin-bottom:14px}
+  #mk-frame#mk-frame.in4 .tp2-one .tp2-row-price{grid-column:3;grid-row:1;align-self:end;text-align:right;padding-top:14px}
+  #mk-frame#mk-frame.in4 .tp2-one .tp2-row-go{grid-column:3;grid-row:2;align-self:start;margin-bottom:14px}
+  #mk-frame#mk-frame.in4 .tp2-one .tp2-row-route span{white-space:normal;overflow:visible;-webkit-line-clamp:unset;display:inline}
+}
+@media (min-width:768px){ #mk-frame#mk-frame.in4 .tp2-one .tp2-row{height:auto !important;min-height:120px !important} }
+/* ===== Explore India (21 Oct 2026, client's reference): regions 2 × 2 + When to come + guide chips ===== */
+#mk-frame.in4 .exr-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:14px;align-items:start}
+#mk-frame.in4 .exr-regions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#mk-frame.in4 .exr-card{position:relative;height:228px;overflow:hidden;border-radius:5px;background:#123F6D}
+#mk-frame.in4 .exr-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+#mk-frame.in4 .exr-card:hover img{transform:scale(1.05)}
+#mk-frame.in4 .exr-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(6,18,42,.88) 0%,rgba(6,18,42,.45) 32%,rgba(6,18,42,0) 58%);pointer-events:none}
+#mk-frame.in4 .exr-arrow{position:absolute;top:12px;right:12px;z-index:2;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#fff;color:#123F6D;pointer-events:none}
+#mk-frame.in4 .exr-arrow svg{width:14px;height:14px}
+#mk-frame.in4 .exr-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:0 16px 14px;color:#fff}
+#mk-frame#mk-frame.in4 .exr-name{display:block;font-family:var(--mk-font-head) !important;font-size:23px;font-weight:700;line-height:1.15;color:#fff !important;text-decoration:none}
+#mk-frame.in4 .exr-name::before{content:"";position:absolute;inset:-400px 0 0;z-index:1}
+#mk-frame.in4 .exr-kick{display:block;margin-top:3px;font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#FFB81C}
+#mk-frame.in4 .exr-cities{margin:3px 0 0;font-size:13px;color:rgba(255,255,255,.92);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#mk-frame.in4 .exr-side{display:flex;flex-direction:column;gap:10px}
+#mk-frame.in4 .exr-season{display:flex;align-items:stretch;overflow:hidden;border-radius:5px;background:#123F6D;border-top:3px solid #FFB81C;color:#fff;text-decoration:none}
+#mk-frame.in4 .exr-season img{width:96px;flex:none;object-fit:cover}
+#mk-frame.in4 .exr-season > span{display:flex;flex-direction:column;gap:2px;padding:10px 14px}
+#mk-frame.in4 .exr-season small{align-self:flex-start;padding:2px 8px;border-radius:5px;background:#FFB81C;color:#123F6D;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+#mk-frame.in4 .exr-season b{font-family:var(--mk-font-head);font-size:19px;font-weight:700;line-height:1.2}
+#mk-frame.in4 .exr-season em{font-style:normal;font-size:13px;color:rgba(255,255,255,.85)}
+#mk-frame.in4 .exr-guide{background:#fff;border:1px solid var(--mk-line);border-top:3px solid var(--mk-blue);border-radius:5px;overflow:hidden}
+#mk-frame.in4 .exr-grow{padding:10px 16px 12px;border-bottom:1px solid var(--mk-line)}
+#mk-frame#mk-frame.in4 .exr-gt{margin:0 0 7px;font-family:var(--mk-font-head) !important;font-size:16px;font-weight:600;color:var(--mk-ink)}
+#mk-frame.in4 .exr-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+#mk-frame.in4 .exr-chips a{padding:3px 10px;border-radius:20px;background:#EEF4FA;color:var(--mk-blue);font-size:12.5px;font-weight:600;text-decoration:none;transition:background .15s,color .15s}
+#mk-frame.in4 .exr-chips a:hover{background:var(--mk-blue);color:#fff}
+#mk-frame.in4 .exr-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0;padding:9px 16px;background:#F5F8FC;font-size:13px;color:var(--mk-muted)}
+#mk-frame.in4 .exr-foot a{font-weight:800;color:var(--mk-blue);text-decoration:none}
+#mk-frame.in4 .exr-foot a:hover{text-decoration:underline}
+@media (max-width:1023.98px){ #mk-frame.in4 .exr-grid{grid-template-columns:1fr} }
+@media (max-width:559.98px){ #mk-frame.in4 .exr-regions{grid-template-columns:1fr} #mk-frame.in4 .exr-card{height:200px} }
+/* (21 Oct 2026, client) About us only: no blue line under the banner */
+#mk-frame.in4.pg-about .ph2-media{box-shadow:none !important;margin-bottom:0 !important;border-bottom:0 !important}
+/* (21 Oct 2026, client) Explore India: both columns the same height; "When to come" with the photo fading into blue */
+#mk-frame.in4 .exr-grid{align-items:stretch}
+#mk-frame.in4 .exr-regions{grid-template-rows:1fr 1fr}
+#mk-frame.in4 .exr-card{height:auto;min-height:210px}
+#mk-frame.in4 .exr-side .exr-guide{flex:1;display:flex;flex-direction:column}
+#mk-frame.in4 .exr-guide .exr-foot{margin-top:auto}
+#mk-frame.in4 .exr-season{position:relative;background:#16437A;border-top:3px solid #FFB81C}
+#mk-frame.in4 .exr-season img{width:130px;-webkit-mask-image:linear-gradient(90deg,#000 45%,transparent 100%);mask-image:linear-gradient(90deg,#000 45%,transparent 100%)}
+#mk-frame.in4 .exr-season > span{padding:12px 16px 12px 4px;justify-content:center}
+@media (max-width:559.98px){ #mk-frame.in4 .exr-regions{grid-template-rows:none} #mk-frame.in4 .exr-card{min-height:200px} }
+/* (21 Oct 2026, client) "View N packages" in the site's usual blue button colours, like "View Tour" */
+#mk-frame#mk-frame.in4 .tpc-toggle{background:var(--mk-blue) !important;color:#fff !important}
+#mk-frame#mk-frame.in4 .tpc-toggle:hover{background:var(--mk-blue-d) !important}
+
+/* ===== Tour page in the reference layout (21 Oct 2026, meruka-india-testing.netlify.app/itin_2) ===== */
+#mk-frame.it2{--i2-ink:#1f2a37;--i2-muted:#5b6575;--i2-line:#cbced4;--i2-panel:#f5f7fa;--i2-brand:#336699;--i2-navy:#16427a;--i2-accent:#fbb721;--i2-text:#3d4757;background:#fff !important}
+#mk-frame.it2 .ph2-media{box-shadow:none !important;margin-bottom:0 !important;border-bottom:0 !important}
+#mk-frame.it2 .it2-in,#mk-frame.it2 .it2-wrap{max-width:1360px;margin:0 auto;padding:0 20px}
+#mk-frame.it2 .it2-wrap{padding-bottom:40px}
+#mk-frame.it2 .it2-hd svg,#mk-frame.it2 .it2-wrap svg{display:block}
+/* the breadcrumb in a thin blue strip under the banner, a white gap above it */
+#mk-frame.it2 .it2-bline{margin-top:5.5px;background:var(--i2-brand)}
+#mk-frame#mk-frame.it2 .it2-crumbs{display:flex;flex-wrap:wrap;gap:4px 8px;margin:0;padding:4px 0 5px;list-style:none;font-size:13px;line-height:1.3;font-weight:500;color:#fff}
+#mk-frame.it2 .it2-crumbs li{margin:0;padding:0;list-style:none}
+#mk-frame.it2 .it2-crumbs li+li::before{content:"\203A";margin-right:7px;color:rgba(255,255,255,.65)}
+#mk-frame#mk-frame.it2 .it2-crumbs a{color:#fff;opacity:.92;text-decoration:none}
+#mk-frame#mk-frame.it2 .it2-crumbs a:hover{opacity:1;text-decoration:underline}
+#mk-frame.it2 .it2-crumbs [aria-current]{font-weight:800}
+/* full-width heading */
+#mk-frame.it2 .it2-hd{margin:22px 0}
+#mk-frame.it2 .it2-tt{display:flex;align-items:flex-end;flex-wrap:wrap;gap:6px 18px;margin-bottom:10px}
+#mk-frame#mk-frame.it2 .it2-tt h1{margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif !important;font-size:42px;font-weight:700;letter-spacing:-.02em;line-height:1.1;color:var(--i2-ink)}
+#mk-frame#mk-frame.it2 .it2-tt h1 em{font-family:'Instrument Serif',Georgia,serif !important;font-weight:400;font-style:italic;font-size:1.08em;color:var(--i2-brand);letter-spacing:0}
+#mk-frame.it2 .it2-pvt{display:inline-flex;align-items:center;margin-bottom:3px;padding:5px 86px 5px 12px;border-radius:4px 0 0 4px;color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-shadow:0 1px 1px rgba(0,0,0,.28);background:linear-gradient(90deg,#e99a00 0%,#f5a800 calc(100% - 86px),rgba(251,183,33,.82) calc(100% - 70px),rgba(251,183,33,.58) calc(100% - 52px),rgba(251,183,33,.32) calc(100% - 34px),rgba(251,183,33,.12) calc(100% - 17px),rgba(251,183,33,0) 100%)}
+#mk-frame.it2 .it2-code{margin-bottom:4px;font-size:13px;font-weight:600;color:var(--i2-muted)}
+#mk-frame.it2 .it2-code b{color:var(--i2-navy);font-weight:800}
+#mk-frame#mk-frame.it2 .it2-ds{margin:0 0 14px;max-width:1040px;font-size:15.5px;line-height:1.7;color:var(--i2-text);text-align:justify;text-wrap:pretty}
+#mk-frame.it2 .it2-rt{display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.6;color:var(--i2-ink)}
+#mk-frame.it2 .it2-rt svg{width:16px;height:16px;color:var(--i2-brand);flex:none;margin-top:4px}
+#mk-frame.it2 .it2-rt b{color:var(--i2-navy);font-weight:800}
+#mk-frame.it2 .it2-rt i{font-style:normal;color:var(--i2-accent);font-weight:800;margin:0 3px}
+#mk-frame.it2 .it2-fx{display:flex;align-items:center;gap:10px 28px;flex-wrap:wrap;margin-top:16px;padding:12px 0;border-top:1px solid var(--i2-line);border-bottom:1px solid var(--i2-line)}
+#mk-frame.it2 .it2-f{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:14.5px;font-weight:800;color:var(--i2-brand)}
+#mk-frame.it2 .it2-f span{display:inline-flex;align-items:center;gap:7px}
+#mk-frame.it2 .it2-f span+span{border-left:1px solid var(--i2-line);padding-left:22px}
+#mk-frame.it2 .it2-f svg{width:15px;height:15px;color:var(--i2-accent)}
+#mk-frame.it2 .it2-pr{display:inline-flex;align-items:baseline;gap:6px;padding-left:28px;border-left:1px solid var(--i2-line);color:var(--i2-muted);font-size:15px;white-space:nowrap}
+#mk-frame.it2 .it2-pr strong{font-size:22px;font-weight:800;letter-spacing:-.01em;color:var(--i2-navy)}
+/* layout */
+#mk-frame.it2 .it2-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:32px;align-items:start}
+/* day boxes */
+#mk-frame.it2 .it2-day{margin-bottom:14px;padding:16px 20px 14px;background:#fff;border:1.5px solid var(--i2-line);border-radius:10px;box-shadow:0 1px 10px rgba(20,30,50,.07)}
+#mk-frame.it2 .it2-dh{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin-bottom:10px}
+#mk-frame.it2 .it2-badge{padding:5px 11px;border-radius:7px;background:var(--i2-navy);color:#fff;font-size:13px;font-weight:800;white-space:nowrap}
+#mk-frame#mk-frame.it2 .it2-dh h3{margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif !important;font-size:18px;font-weight:700;color:var(--i2-ink)}
+#mk-frame.it2 .it2-dist{font-size:13.5px;font-weight:600;color:var(--i2-brand)}
+#mk-frame.it2 .it2-db{display:flow-root;font-size:15px;line-height:1.7;color:var(--i2-text);text-align:justify;hyphens:manual;text-wrap:pretty}
+#mk-frame#mk-frame.it2 .it2-db p{margin:0 0 8px;font-size:15px;line-height:1.7;color:var(--i2-text)}
+#mk-frame.it2 .it2-db p:last-child{margin-bottom:0}
+#mk-frame.it2 .it2-db strong{color:var(--i2-navy);font-weight:700}
+#mk-frame.it2 .it2-pic{float:left;width:200px;height:140px;margin:3px 18px 6px 0;border-radius:8px;object-fit:cover}
+#mk-frame.it2 .it2-pic.r{float:right;margin:3px 0 6px 18px}
+#mk-frame#mk-frame.it2 .it2-note{clear:both;margin:10px 0 0;padding:9px 13px;background:#eef4fa;border:1px solid #d3e0ee;border-radius:7px;font-size:13.5px;color:#2f4a6b;text-align:left}
+/* one box under the days: price bar, tables, includes | excludes, notes */
+#mk-frame.it2 .it2-info{padding:4px 22px;background:#fff;border:1.5px solid var(--i2-line);border-radius:10px;box-shadow:0 1px 10px rgba(20,30,50,.07);scroll-margin-top:90px}
+#mk-frame.it2 .it2-sec{padding:18px 0;border-bottom:1px solid var(--i2-line)}
+#mk-frame.it2 .it2-sec:last-child{border-bottom:0}
+#mk-frame#mk-frame.it2 .it2-sec h3{margin:0 0 12px;font-family:'Bricolage Grotesque',system-ui,sans-serif !important;font-size:18px;font-weight:700;color:var(--i2-ink)}
+#mk-frame#mk-frame.it2 .it2-sec > p{margin:0 0 12px;font-size:14px;line-height:1.6;color:var(--i2-text);text-align:justify}
+#mk-frame.it2 .it2-sec > p:last-child{margin-bottom:0}
+#mk-frame.it2 .it2-pg{display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;align-items:center}
+#mk-frame.it2 .it2-pl{--g:38,90,150;padding:16px 110px 16px 20px;border-radius:8px 0 0 8px;color:#fff;background:linear-gradient(90deg,rgb(var(--g)) 0%,rgb(var(--g)) calc(100% - 110px),rgba(var(--g),.82) calc(100% - 90px),rgba(var(--g),.58) calc(100% - 66px),rgba(var(--g),.32) calc(100% - 42px),rgba(var(--g),.12) calc(100% - 20px),rgba(var(--g),0) 100%)}
+#mk-frame.it2 .it2-pl small{display:block;margin-bottom:2px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.92}
+#mk-frame.it2 .it2-pl strong{font-size:32px;font-weight:800;line-height:1.1;letter-spacing:-.02em;color:#fff}
+#mk-frame.it2 .it2-pl span{font-size:14px;font-weight:700;color:#fff}
+#mk-frame#mk-frame.it2 .it2-pin{display:flex;align-items:flex-start;gap:11px;margin:0;font-size:16.5px;line-height:1.6;font-weight:600;color:var(--i2-text)}
+#mk-frame.it2 .it2-pin b{color:var(--i2-navy);font-weight:800}
+#mk-frame.it2 .it2-two{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+#mk-frame#mk-frame.it2 .it2-list{display:grid;gap:9px;margin:0;padding:0;list-style:none}
+#mk-frame#mk-frame.it2 .it2-list li{display:flex;gap:9px;margin:0;padding:0;font-size:14px;line-height:1.55;color:var(--i2-text);list-style:none}
+#mk-frame.it2 .it2-list li::before{display:none}
+#mk-frame.it2 .it2-list svg{width:16px;height:16px;flex:none;margin-top:3px}
+#mk-frame.it2 .it2-yes svg{color:var(--i2-brand)}
+#mk-frame.it2 .it2-no svg{color:#c0564b}
+/* sidebar */
+#mk-frame.it2 .it2-side{display:flex;flex-direction:column;gap:16px}
+#mk-frame.it2 .it2-price{padding:18px 18px 14px;background:#fff;border:2px solid var(--i2-accent);border-radius:12px;box-shadow:0 2px 8px rgba(20,30,50,.06)}
+#mk-frame.it2 .it2-ph{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+#mk-frame.it2 .it2-ico{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:8px;background:#eef4fa;color:var(--i2-brand)}
+#mk-frame.it2 .it2-ico svg{width:17px;height:17px}
+#mk-frame#mk-frame.it2 .it2-ph h4{margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif !important;font-size:17px;font-weight:700;color:var(--i2-ink)}
+#mk-frame#mk-frame.it2 .it2-small{margin:0 0 12px;font-size:12px;line-height:1.55;color:var(--i2-muted)}
+#mk-frame.it2 .it2-total{margin-bottom:14px;padding:12px 14px;background:var(--i2-panel);border:1px solid var(--i2-line);border-radius:8px}
+#mk-frame.it2 .it2-stars{min-height:16px;font-size:12px;letter-spacing:2px;color:var(--i2-accent)}
+#mk-frame#mk-frame.it2 .it2-amt{margin:2px 0 0;font-size:23px;font-weight:800;letter-spacing:-.01em;color:var(--i2-navy)}
+#mk-frame#mk-frame.it2 .it2-per{margin:2px 0 0;font-size:12.5px;color:var(--i2-muted)}
+#mk-frame#mk-frame.it2 .it2-lab{margin:0 0 7px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--i2-brand)}
+#mk-frame.it2 .it2-hotels{display:grid;gap:6px;margin-bottom:14px}
+#mk-frame#mk-frame.it2 .it2-hotel{appearance:none;display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;height:auto;padding:8px 12px;border:1px solid #cfd9e6;border-radius:8px;background:#fff;color:var(--i2-ink);font:inherit;text-align:left;cursor:pointer;transition:background .12s,border-color .12s}
+#mk-frame.it2 .it2-hotel:hover{border-color:var(--i2-brand)}
+#mk-frame.it2 .it2-hotel:focus-visible,#mk-frame.it2 .it2-btn:focus-visible{outline:3px solid var(--i2-accent);outline-offset:2px}
+#mk-frame.it2 .it2-hotel strong{display:block;font-size:13px;font-weight:800}
+#mk-frame.it2 .it2-hotel small{font-size:11.5px;color:var(--i2-muted)}
+#mk-frame.it2 .it2-hotel > span{font-size:12px;font-weight:800;white-space:nowrap}
+#mk-frame#mk-frame.it2 .it2-hotel[aria-pressed="true"]{background:var(--i2-navy);border-color:var(--i2-navy);color:#fff}
+#mk-frame.it2 .it2-hotel[aria-pressed="true"] small{color:#cfe0f3}
+#mk-frame#mk-frame.it2 .it2-other{margin:0 0 14px;padding:0;list-style:none;font-size:12.5px;line-height:1.5;color:var(--i2-text)}
+#mk-frame#mk-frame.it2 .it2-inc{display:grid;gap:6px;margin:0 0 14px;padding:0;list-style:none}
+#mk-frame#mk-frame.it2 .it2-inc li{display:flex;gap:8px;margin:0;padding:0;font-size:12.5px;line-height:1.45;color:var(--i2-text);list-style:none}
+#mk-frame.it2 .it2-inc li::before{display:none}
+#mk-frame.it2 .it2-inc svg{width:15px;height:15px;flex:none;margin-top:1px;color:var(--i2-brand)}
+#mk-frame#mk-frame.it2 .it2-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:11px;border-radius:7px;background:var(--i2-accent);color:#1f2a37;font-size:14.5px;font-weight:800;text-decoration:none;transition:background .15s}
+#mk-frame#mk-frame.it2 .it2-btn:hover{background:#f2a900}
+#mk-frame#mk-frame.it2 .it2-fine{margin:9px 0 0;text-align:center;font-size:11.5px;line-height:1.5;color:var(--i2-muted)}
+#mk-frame.it2 .it2-more{padding:12px 6px 8px;background:#fff;border:1px solid var(--i2-line);border-top:3px solid var(--i2-brand);border-radius:12px;box-shadow:0 1px 3px rgba(20,30,50,.06)}
+#mk-frame#mk-frame.it2 .it2-more h4{margin:0 0 6px;padding:0 10px;font-family:'Bricolage Grotesque',system-ui,sans-serif !important;font-size:15px;font-weight:700;line-height:1.3;color:var(--i2-ink)}
+#mk-frame#mk-frame.it2 .it2-more a.t{display:block;padding:8px 10px;border-left:3px solid transparent;border-radius:6px;color:var(--i2-ink);font-size:13.5px;font-weight:600;line-height:1.35;text-decoration:none}
+#mk-frame.it2 .it2-more a.t small{display:block;margin-top:2px;font-size:11.5px;font-weight:500;color:var(--i2-muted)}
+#mk-frame#mk-frame.it2 .it2-more a.t:hover{background:#f3f6fa;color:var(--i2-brand)}
+#mk-frame#mk-frame.it2 .it2-more a.t.on{background:#eef4fa;border-left-color:var(--i2-accent);color:var(--i2-brand);font-weight:800}
+#mk-frame#mk-frame.it2 .it2-more a.all{display:block;margin:6px 10px 2px;font-size:13px;font-weight:800;color:var(--i2-brand);text-decoration:none}
+#mk-frame.it2 .it2-more a.all:hover{text-decoration:underline}
+#mk-frame.it2 .it2-ask{padding:6px 16px;background:var(--i2-panel);border:1px solid var(--i2-line);border-radius:12px}
+#mk-frame#mk-frame.it2 .it2-ask h5{margin:10px 0 6px;font-family:'Bricolage Grotesque',system-ui,sans-serif !important;font-size:14.5px;font-weight:700;color:var(--i2-ink)}
+#mk-frame#mk-frame.it2 .it2-ask a{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--i2-line);color:var(--i2-navy);font-size:13.5px;font-weight:600;text-decoration:none}
+#mk-frame#mk-frame.it2 .it2-ask a:first-of-type{border-top:0}
+#mk-frame#mk-frame.it2 .it2-ask a:hover{color:var(--i2-brand)}
+#mk-frame.it2 .it2-ask .it2-ico{width:28px;height:28px;background:#fff;border:1px solid var(--i2-line)}
+#mk-frame.it2 .it2-ask .it2-ico svg{width:14px;height:14px}
+#mk-frame.it2 .it2-ask .go{margin-left:auto;color:#9aa5b5}
+@media (max-width:1000px){ #mk-frame.it2 .it2-layout{grid-template-columns:1fr} }
+@media (max-width:640px){
+  #mk-frame.it2 .it2-pg{grid-template-columns:1fr;gap:12px}
+  #mk-frame#mk-frame.it2 .it2-tt h1{font-size:30px}
+  #mk-frame.it2 .it2-fx{flex-direction:column;align-items:flex-start}
+  #mk-frame.it2 .it2-pr{padding-left:0;border-left:0}
+  #mk-frame.it2 .it2-day{padding:14px 14px 12px}
+  #mk-frame.it2 .it2-info{padding:2px 16px}
+  #mk-frame.it2 .it2-two{grid-template-columns:1fr;gap:22px}
+  #mk-frame.it2 .it2-pic,#mk-frame.it2 .it2-pic.r{float:none;width:100%;height:150px;margin:0 0 10px}
+}
+#mk-frame#mk-frame.it2 > .it2-bline{margin:5.5px 0 0 !important;padding:0 !important}
+#mk-frame#mk-frame.it2 > .it2-hd{margin:22px 0 !important;padding:0 !important}
+#mk-frame#mk-frame.it2 > .it2-wrap{padding-top:0 !important;margin-top:0 !important}
+#mk-frame#mk-frame#mk-frame.it2 > div.it2-bline{margin:5.5px 0 0 !important;padding:0 !important}
+#mk-frame#mk-frame#mk-frame.it2 > header.it2-hd{margin:22px 0 !important;padding:0 !important}
+#mk-frame#mk-frame#mk-frame.it2 > div.it2-wrap{margin-top:0 !important;padding-top:0 !important;max-width:1360px !important}
+
+/* (21 Oct 2026, client's reference image) tour page, version B: the banner with the usual white gap and blue line;
+   the breadcrumb above the layout; the heading as a card at the top of the days column, with the home page's
+   "Private tour · No sharing" line under the title; the price box beside it */
+#mk-frame#mk-frame.it2 .ph2-media{box-shadow:0 5px 0 #fff,0 10px 0 var(--mk-blue) !important;margin-bottom:10px !important}
+#mk-frame#mk-frame#mk-frame.it2 > div.it2-cb{margin:0 !important;padding:16px 0 12px !important}
+#mk-frame#mk-frame.it2 .it2-cb .it2-crumbs{padding:0;font-size:12.5px;font-weight:500;color:var(--i2-muted)}
+#mk-frame#mk-frame.it2 .it2-cb .it2-crumbs li+li::before{color:#9aa5b5}
+#mk-frame#mk-frame.it2 .it2-cb .it2-crumbs a{color:var(--i2-muted);opacity:1}
+#mk-frame#mk-frame.it2 .it2-cb .it2-crumbs a:hover{color:var(--i2-brand)}
+#mk-frame#mk-frame.it2 .it2-cb .it2-crumbs [aria-current]{color:var(--i2-ink);font-weight:700}
+#mk-frame#mk-frame.it2 .it2-hd.it2-card{margin:0 0 14px;padding:22px 24px 16px;background:linear-gradient(180deg,#fff,#f4f8fd);border:1.5px solid var(--i2-line);border-radius:10px;box-shadow:0 1px 10px rgba(20,30,50,.07)}
+#mk-frame#mk-frame.it2 .it2-card .it2-tt{margin-bottom:8px}
+#mk-frame#mk-frame.it2 .it2-card .it2-tt h1{font-size:36px}
+#mk-frame#mk-frame.it2 .it2-card .pvt-line{margin:0 0 12px;font-size:14px}
+#mk-frame#mk-frame.it2 .it2-card .pvt-line-ic{width:22px;height:22px}
+#mk-frame#mk-frame.it2 .it2-card .pvt-line-ic svg{width:11px;height:11px}
+#mk-frame#mk-frame.it2 .it2-card .it2-ds{max-width:none;font-size:15px}
+#mk-frame#mk-frame.it2 .it2-card .it2-fx{margin-top:14px;padding:10px 0 0;border-bottom:0}
+@media (max-width:640px){ #mk-frame#mk-frame.it2 .it2-hd.it2-card{padding:18px 16px 14px} #mk-frame#mk-frame.it2 .it2-card .it2-tt h1{font-size:28px} }
+#mk-frame#mk-frame.it2 .it2-rt{flex-wrap:nowrap !important;flex-direction:row !important} #mk-frame#mk-frame.it2 .it2-rt > div{min-width:0;flex:1}
+
+/* ===== (21 Oct 2026, client) tour page on the global design system: the site's colour tokens, 5px corners, the
+   site's borders, shadows, buttons and hover effects; the facts line as a blue gradient bar ===== */
+#mk-frame.ux.v3.h4.it2{--i2-ink:var(--mk-ink);--i2-muted:var(--mk-muted);--i2-line:var(--mk-line);--i2-panel:var(--mk-soft);--i2-brand:var(--mk-blue);--i2-navy:var(--mk-blue-d);--i2-accent:var(--mk-gold);--i2-text:var(--mk-text)}
+/* corners: 5px everywhere, as on the rest of the site */
+#mk-frame#mk-frame.it2 :is(.it2-hd.it2-card,.it2-day,.it2-badge,.it2-pic,.it2-note,.it2-info,.it2-price,.it2-ico,.it2-total,.it2-hotel,.it2-btn,.it2-more,.it2-more a.t,.it2-ask,.it2-fx){border-radius:var(--mk-radius) !important}
+#mk-frame#mk-frame.it2 .it2-pl{border-radius:var(--mk-radius) 0 0 var(--mk-radius) !important}
+#mk-frame#mk-frame.it2 .it2-crumbs{font-family:var(--mk-font-body) !important}
+/* boxes: the site's card border and shadow */
+#mk-frame#mk-frame.it2 :is(.it2-hd.it2-card,.it2-day,.it2-info){border:1px solid var(--mk-line);box-shadow:0 1px 3px rgba(20,30,50,.06),0 10px 24px rgba(20,30,50,.05)}
+#mk-frame#mk-frame.it2 .it2-hd.it2-card{background:linear-gradient(180deg,#fff,var(--mk-soft))}
+#mk-frame#mk-frame.it2 .it2-day{transition:border-color var(--mk-ease),box-shadow var(--mk-ease)}
+#mk-frame#mk-frame.it2 .it2-day:hover{border-color:#C9D6EA;box-shadow:0 2px 6px rgba(20,30,50,.07),0 14px 30px rgba(20,30,50,.08)}
+#mk-frame#mk-frame.it2 .it2-sec,#mk-frame#mk-frame.it2 .it2-f span+span{border-color:var(--mk-line)}
+/* text: the site's headings, body and colours */
+#mk-frame#mk-frame.it2 :is(.it2-dh h3,.it2-sec h3,.it2-ph h4,.it2-more h4,.it2-ask h5){font-family:var(--mk-font-head) !important;font-weight:600;color:var(--mk-ink)}
+#mk-frame#mk-frame.it2 .it2-tt h1{font-weight:600;letter-spacing:-.035em;color:var(--mk-ink)}
+#mk-frame#mk-frame.it2 :is(.it2-ds,.it2-db,.it2-db p,.it2-sec > p,.it2-list li,.it2-inc li,.it2-pin){font-family:var(--mk-font-body) !important;color:var(--mk-text)}
+#mk-frame#mk-frame.it2 .it2-db strong,#mk-frame#mk-frame.it2 .it2-pin b{color:var(--mk-blue-d)}
+#mk-frame#mk-frame.it2 .it2-badge{background:var(--mk-blue-d)}
+#mk-frame#mk-frame.it2 .it2-note{background:var(--mk-soft);border-color:var(--mk-line);color:var(--mk-blue-d)}
+#mk-frame#mk-frame.it2 .it2-list.it2-no svg{color:#C0564B}
+/* the facts line: a blue bar fading out at the right, white text, gold icons */
+#mk-frame#mk-frame#mk-frame.it2 .it2-card .it2-fx{margin-top:16px;padding:11px 120px 11px 16px;border:0 !important;background:linear-gradient(90deg,#2B5D94 0%,#2B5D94 calc(100% - 140px),rgba(43,93,148,.75) calc(100% - 100px),rgba(43,93,148,.4) calc(100% - 55px),rgba(43,93,148,0) 100%);color:#fff}
+#mk-frame#mk-frame.it2 .it2-card .it2-f{color:#fff}
+#mk-frame#mk-frame.it2 .it2-card .it2-f svg{color:var(--mk-gold)}
+#mk-frame#mk-frame.it2 .it2-card .it2-f span+span{border-left-color:rgba(255,255,255,.35)}
+#mk-frame#mk-frame.it2 .it2-card .it2-pr{border-left-color:rgba(255,255,255,.35);color:#fff}
+#mk-frame#mk-frame.it2 .it2-card .it2-pr strong{color:#fff}
+@media (max-width:640px){ #mk-frame#mk-frame#mk-frame.it2 .it2-card .it2-fx{padding:12px 40px 12px 14px;gap:8px} }
+/* sidebar: gold-framed price box, the site's buttons and hovers */
+#mk-frame#mk-frame.it2 .it2-price{border:2px solid var(--mk-gold)}
+#mk-frame#mk-frame.it2 .it2-ico{background:var(--mk-soft);color:var(--mk-blue)}
+#mk-frame#mk-frame.it2 .it2-total{background:var(--mk-soft);border-color:var(--mk-line)}
+#mk-frame#mk-frame.it2 .it2-hotel{border:1.5px solid var(--mk-line);transition:background-color var(--mk-ease),border-color var(--mk-ease),color var(--mk-ease)}
+#mk-frame#mk-frame.it2 .it2-hotel:hover{border-color:var(--mk-blue)}
+#mk-frame#mk-frame.it2 .it2-hotel[aria-pressed="true"]{background:var(--mk-blue-d);border-color:var(--mk-blue-d)}
+#mk-frame#mk-frame.it2 a.it2-btn{display:flex;width:100%;height:var(--mk-btn-h);padding:0 18px}
+#mk-frame#mk-frame.it2 .it2-more{border-color:var(--mk-line);border-top:3px solid var(--mk-blue)}
+#mk-frame#mk-frame.it2 .it2-more a.t{transition:background-color var(--mk-ease),color var(--mk-ease)}
+#mk-frame#mk-frame.it2 .it2-more a.t.on{background:var(--mk-soft);border-left-color:var(--mk-gold);color:var(--mk-blue)}
+#mk-frame#mk-frame.it2 .it2-ask{background:var(--mk-soft);border-color:var(--mk-line)}
+#mk-frame#mk-frame.it2 .it2-ask a{border-top-color:var(--mk-line);transition:color var(--mk-ease)}
+#mk-frame#mk-frame#mk-frame.it2 .it2-card .it2-fx{gap:8px 18px;padding-right:70px;flex-wrap:nowrap}
+#mk-frame#mk-frame.it2 .it2-card .it2-f{gap:16px;flex-wrap:nowrap;white-space:nowrap}
+#mk-frame#mk-frame.it2 .it2-card .it2-f span+span{padding-left:16px}
+#mk-frame#mk-frame.it2 .it2-card .it2-pr{padding-left:18px}
+@media (max-width:1180px){ #mk-frame#mk-frame#mk-frame.it2 .it2-card .it2-fx{flex-wrap:wrap} #mk-frame#mk-frame.it2 .it2-card .it2-f{flex-wrap:wrap} }
+@media (max-width:640px){ #mk-frame#mk-frame.it2 .it2-card .it2-f{white-space:normal} #mk-frame#mk-frame.it2 .it2-card .it2-pr{padding-left:0} }
+/* Search results (21 Oct 2026) */
+#mk-frame.in4 .srch-bar{display:flex;gap:10px;max-width:720px;margin:0 0 18px}
+#mk-frame.in4 .srch-in{flex:1;min-width:0;height:var(--mk-btn-h);padding:0 16px;border:1.5px solid var(--mk-line);border-radius:var(--mk-radius) !important;font:500 15px var(--mk-font-body);color:var(--mk-ink);outline:0}
+#mk-frame.in4 .srch-in:focus{border-color:var(--mk-blue);box-shadow:0 0 0 3px rgba(51,102,153,.18)}
+#mk-frame.in4 .srch-count{margin:0 0 18px;color:var(--mk-text)}
+#mk-frame.in4 .srch-none{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:22px;background:var(--mk-soft);border:1px solid var(--mk-line);border-radius:var(--mk-radius)}
+#mk-frame.in4 .srch-group{margin-bottom:28px}
+#mk-frame#mk-frame.in4 .srch-h{margin:0 0 10px;font-family:var(--mk-font-head) !important;font-size:22px;font-weight:600;color:var(--mk-ink)}
+#mk-frame.in4 .srch-h small{font-family:var(--mk-font-body);font-size:13px;font-weight:700;color:var(--mk-muted)}
+#mk-frame#mk-frame.in4 .srch-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0;padding:0;list-style:none}
+#mk-frame#mk-frame.in4 .srch-row{margin:0;padding:12px 16px;background:#fff;border:1px solid var(--mk-line);border-radius:var(--mk-radius);transition:border-color var(--mk-ease),box-shadow var(--mk-ease);list-style:none}
+#mk-frame.in4 .srch-row::before{display:none}
+#mk-frame.in4 .srch-row:hover{border-color:#C9D6EA;box-shadow:0 8px 20px rgba(20,30,50,.07)}
+#mk-frame#mk-frame.in4 .srch-name{font-family:var(--mk-font-head) !important;font-size:16px;font-weight:600;color:var(--mk-blue-d);text-decoration:none}
+#mk-frame.in4 .srch-name:hover{color:var(--mk-blue)}
+#mk-frame#mk-frame.in4 .srch-route{margin:4px 0 0;font-size:13px;line-height:1.5;color:var(--mk-muted)}
+#mk-frame.in4 .srch-dur{display:inline-block;margin-top:6px;font-size:12.5px;font-weight:700;color:var(--mk-blue)}
+@media (max-width:760px){ #mk-frame#mk-frame.in4 .srch-list{grid-template-columns:1fr} }
+#mk-frame#mk-frame.it2 .it2-morenote{margin:8px 10px 4px;font-size:12px;line-height:1.5;color:var(--mk-muted)}
+
+/* (21 Oct 2026, client) Explore India, more compact: shorter region cards, a slimmer "When to come" band, tighter
+   guide rows and chips — no empty space */
+#mk-frame#mk-frame.in4 .exr-card{min-height:150px}
+#mk-frame#mk-frame.in4 .exr-name{font-size:21px}
+#mk-frame#mk-frame.in4 .exr-season img{width:110px}
+#mk-frame#mk-frame.in4 .exr-season > span{padding:9px 14px 9px 4px}
+#mk-frame#mk-frame.in4 .exr-season b{font-size:17px}
+#mk-frame#mk-frame.in4 .exr-grow{padding:8px 14px 9px}
+#mk-frame#mk-frame.in4 .exr-gt{margin:0 0 5px;font-size:15px}
+#mk-frame#mk-frame.in4 .exr-chips{gap:5px}
+#mk-frame#mk-frame.in4 .exr-chips a{padding:2px 9px;font-size:12px}
+#mk-frame#mk-frame.in4 .exr-foot{padding:7px 14px}
+#mk-frame#mk-frame.in4 .exr-side{gap:8px}
+/* (21 Oct 2026, client) the same space under every heading as on the home page (heading → its text: 12px) */
+#mk-frame#mk-frame.in4{--title-gap:12px}
+@media (max-width:639.98px){ #mk-frame#mk-frame.in4{--title-gap:12px} }
+#mk-frame#mk-frame.ux.v3.h4 .h4-head .h4-h2 + .h4-base{margin-top:12px !important}
+#mk-frame#mk-frame.ux.v3.h4 .h4-head .h4-base + .pvt-line{margin-top:12px !important}
+/* (21 Oct 2026, client) About us: the stats band exactly as on the home page (no extra top padding) */
+#mk-frame#mk-frame#mk-frame.in4 > section.h8-stats{padding:0 !important;margin:0 !important}
+/* (21 Oct 2026, client) tour lists: darker text for routes and descriptions */
+#mk-frame#mk-frame.in4 .tp2-row-route,#mk-frame#mk-frame.in4 .tp2-one .tp2-row-route{color:var(--mk-text) !important}
+#mk-frame#mk-frame.in4 .tpc-body .tp2-line{color:var(--mk-ink) !important}
+#mk-frame#mk-frame.in4 .tp2-one .tp2-sum-n{color:var(--mk-text)}
+/* ===== (21 Oct 2026, client) one section gap for the whole site: every section has half the gap above and below,
+   so any two sections are exactly one gap apart (56px; 40px on phones) — home and inner pages alike, and the last
+   section keeps the same space above the footer ===== */
+#mk-frame#mk-frame.ux.v3.h4{--h4-sp:28px;--sec-half:28px}
+@media (max-width:639.98px){ #mk-frame#mk-frame.ux.v3.h4{--h4-sp:20px;--sec-half:20px} }
+#mk-frame#mk-frame.in4 > :is(section,div):not(.ph2):not(.abx-hero):not(.h8-stats){padding-top:var(--sec-half) !important;padding-bottom:var(--sec-half) !important}
+#mk-frame#mk-frame.in4 > section.ph2 + :is(section,div):not(.ph2):not(.abx-hero):not(.h8-stats):not(.td2-intro):not(.x){padding-bottom:var(--sec-half) !important}
+#mk-frame#mk-frame.ux.v3.h4 :is(#packages,.dz.dz-a,#popular,#own-tour,#destinations,#guide,#reviews,#why,#faq){padding-top:var(--sec-half) !important;padding-bottom:var(--sec-half) !important}
+#mk-frame#mk-frame.ux.v3.h4 #plan.pz{padding-top:calc(var(--sec-half) + 8px) !important;padding-bottom:calc(var(--sec-half) + 8px) !important}
+#mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 > :is(section,div):is(#reviews,.az-end):not(.ph2){padding-top:var(--sec-half) !important;padding-bottom:var(--sec-half) !important}
+#mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 > #plan.pz{padding-top:calc(var(--sec-half) + 8px) !important;padding-bottom:calc(var(--sec-half) + 8px) !important;margin-top:0 !important}
+#mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 > .az-end{margin-top:0 !important}
+#mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 > footer.sf{margin-top:0 !important}
+/* (21 Oct 2026, client) the band across the full width: the blue reaches both edges, the text and button stay in line
+   with the page */
+#mk-frame#mk-frame#mk-frame.in4 > section.pop-band.pop-full{padding:0 !important;margin:var(--sec-half) 0 !important;background:var(--mk-blue-d);border-top:3px solid var(--mk-gold)}
+#mk-frame#mk-frame.in4 .pop-full .pop-band-in{padding:20px 0;background:none;border:0;border-radius:0 !important}
+#mk-frame#mk-frame.in4 .pop-full .pop-band-t{color:#fff}
+/* (21 Oct 2026, client) /itineraries category card: the price row with the same space above and below, no extra gap */
+#mk-frame#mk-frame#mk-frame.in4 .tpc-foot{margin-top:12px !important;padding:12px 0 !important;align-items:center !important;top:0 !important}
+#mk-frame#mk-frame#mk-frame.in4 .tpc-foot > *{margin-top:0 !important;margin-bottom:0 !important}
+/* (21 Oct 2026, client) Explore India: "When to come" as tall as its text (the photo fills that height, no empty
+   bands); 5px corners on every part, as in the other sections */
+#mk-frame#mk-frame.in4 .exr-season{position:relative;min-height:0;padding-left:110px}
+#mk-frame#mk-frame.in4 .exr-season img{position:absolute;left:0;top:0;bottom:0;width:110px;height:100% !important;object-fit:cover}
+#mk-frame#mk-frame.in4 .exr-season > span{padding:12px 16px 12px 6px !important}
+#mk-frame#mk-frame#mk-frame.in4 :is(.exr-card,.exr-season,.exr-guide,.exr-chips a,.exr-arrow,.exr-season small){border-radius:var(--mk-radius) !important}
+#mk-frame#mk-frame#mk-frame.in4 > section.pop-band.pop-full{background:var(--mk-blue-d) !important}
+#mk-frame#mk-frame#mk-frame.in4 .pop-full .pop-band-in{padding:22px 0 !important;background:none !important;border:0 !important}
+/* (21 Oct 2026, client) region pages: the text column and the side column end on the same line — both stretch to the
+   taller one; the links to the other regions sit at the foot of the text, the side's last card grows */
+#mk-frame#mk-frame.in4 .ar.az .ar-wrap.ar-has-aside2{align-items:stretch}
+#mk-frame#mk-frame.in4 .ar-has-aside2 > .ar-body{display:flex;flex-direction:column}
+#mk-frame#mk-frame.in4 .ar-has-aside2 .ar-aside2{position:static !important;display:flex;flex-direction:column}
+#mk-frame#mk-frame.in4 .ar-has-aside2 .ar-aside2 > .ar-a2-card:last-child{flex:1}
+#mk-frame#mk-frame.in4 .rg-others{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:auto;padding-top:16px;border-top:1px solid var(--mk-line)}
+#mk-frame#mk-frame.in4 .rg-others > span{font-size:14px;font-weight:700;color:var(--mk-ink);margin-right:4px}
+#mk-frame#mk-frame.in4 .rg-others a{display:inline-flex;align-items:center;gap:6px;height:var(--mk-btn-h-sm);padding:0 16px;border:1.5px solid var(--mk-blue);border-radius:var(--mk-radius) !important;color:var(--mk-blue);font-size:14px;font-weight:800;text-decoration:none;transition:background-color var(--mk-ease),color var(--mk-ease)}
+#mk-frame#mk-frame.in4 .rg-others a:hover{background:var(--mk-blue);color:#fff}
+/* (21 Oct 2026, client) tour page: the route wraps at any arrow (no empty space at line ends); the price in the blue bar
+   on three lines — Starts from / USD 1,360 / per person */
+#mk-frame#mk-frame.it2 .it2-rt i{margin:0 !important}
+#mk-frame#mk-frame#mk-frame.it2 .it2-card .it2-pr{display:flex !important;flex-direction:column;align-items:flex-start;gap:0;line-height:1.15;white-space:nowrap}
+#mk-frame#mk-frame.it2 .it2-card .it2-pr small{font-size:12px;font-weight:600;color:rgba(255,255,255,.85)}
+#mk-frame#mk-frame.it2 .it2-card .it2-pr strong{font-size:21px;line-height:1.15}
+#mk-frame#mk-frame.it2 .it2-card .it2-pr span{font-size:12px;color:rgba(255,255,255,.85)}
+/* (21 Oct 2026, client) region pages: the text full width, "At a glance" under it as one card with the facts in a row */
+#mk-frame#mk-frame.in4 .ar-region .ar-wrap{display:block !important}
+#mk-frame#mk-frame.in4 .ar-region .ar-body{max-width:none !important;width:100%}
+#mk-frame#mk-frame.in4 .rg-glance{margin-top:20px;padding:18px 22px;background:#fff;border:1px solid var(--mk-line);border-radius:var(--mk-radius) !important;box-shadow:0 1px 3px rgba(20,30,50,.05)}
+#mk-frame#mk-frame.in4 .rg-glance .ar-a2-h{margin:0 0 12px}
+#mk-frame#mk-frame.in4 .rg-glance .dx-facts{display:grid !important;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 22px}
+#mk-frame#mk-frame.in4 .rg-glance .dx-fact{margin:0 !important;padding:0 !important;border:0 !important}
+@media (max-width:999.98px){ #mk-frame#mk-frame.in4 .rg-glance .dx-facts{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:559.98px){ #mk-frame#mk-frame.in4 .rg-glance .dx-facts{grid-template-columns:1fr} }
+/* (21 Oct 2026, client) the "Best Tours Packages of India" band heading in the same style as section headings such as
+   "Explore India" — Bricolage, the last words in the italic serif — in white and gold on the blue */
+#mk-frame#mk-frame#mk-frame.in4 .pop-full .pop-band-t{font-family:'Bricolage Grotesque',system-ui,sans-serif !important;font-size:clamp(28px,3cqw,44px) !important;font-weight:600 !important;line-height:1.08;letter-spacing:-.035em;color:#fff !important}
+#mk-frame#mk-frame#mk-frame.in4 .pop-full .pop-band-t em{font-family:'Instrument Serif',Georgia,serif !important;font-style:italic;font-weight:400;letter-spacing:0;color:var(--mk-gold) !important}
+#mk-frame#mk-frame#mk-frame.in4 .pop-full .pop-band-t span{margin-top:6px;font-family:var(--mk-font-body) !important;font-size:15px !important;font-weight:500;letter-spacing:0;color:rgba(255,255,255,.85) !important}
+#mk-frame#mk-frame#mk-frame.in4 .pop-full .pop-band-in{padding:28px 0 !important}

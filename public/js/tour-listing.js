@@ -22,6 +22,8 @@
   function setOpen(g, open) {
     g.classList.toggle('open', open);
     var b = g.querySelector('.tp2-chev'); if (b) b.setAttribute('aria-expanded', open);
+    // the category card's button says what it does (18 Oct 2026)
+    var l = g.querySelector('.tpc-label'); if (l) { var n = +l.dataset.n; l.textContent = open ? 'Hide packages' : 'View ' + n + ' package' + (n === 1 ? '' : 's'); }
   }
   groups.forEach(function (g) {
     var tg = g.querySelector('[data-tp2-toggle]'); if (!tg) return;   // a one-category page has no card header

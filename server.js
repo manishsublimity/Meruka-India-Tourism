@@ -67,6 +67,11 @@ function buildSite() {
   app.locals.tourCode = require('./data/tour-codes').codeFor;
   const PVT_ICON = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 1.5 3 4.3v4.9c0 4.3 3 8 7 9.3 4-1.3 7-5 7-9.3V4.3L10 1.5zm3.4 6.2a.9.9 0 0 0-1.3-1.2L9 9.6 7.9 8.5a.9.9 0 1 0-1.3 1.3l1.8 1.8a.9.9 0 0 0 1.3 0l3.7-3.9z" clip-rule="evenodd"/></svg>';
   app.locals.pvtIcon = '<span class="pvt-ic" title="Private tour – no sharing" role="img" aria-label="Private tour, no sharing">' + PVT_ICON + '</span>';
+  // (21 Oct 2026, client) the one-line version under a section heading: a lock in a gold circle, the words, a fading gold rule
+  // the tour pages: the full line with the lock
+  app.locals.pvtLineFull = '<p class="pvt-line"><span class="pvt-line-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 0 1 6 0v3z"/></svg></span><span>Private tour · No sharing · Your own car with driver</span><i aria-hidden="true"></i></p>';
+  // (21 Oct 2026, client) everywhere else the short form under a heading: "Private Tours · No Sharing" and a fading gold rule
+  app.locals.pvtLine = '<p class="pvt-line pvt-short"><span>Private Tours · No Sharing</span><i aria-hidden="true"></i></p>';
   app.locals.pvt = (cls = '') => '<span class="pvt' + (cls ? ' ' + cls : '') + '">' + PVT_ICON + '<span>Private Tour <i aria-hidden="true">–</i> No Sharing</span></span>';
   // A tour's own main photo (the first picture on its page), for the rows of the category pages (16 Oct 2026)
   const TOUR_PAGES = {};
@@ -198,6 +203,23 @@ function buildSite() {
     const pages = read('articles').map(m => ({ name: plain(m.heading || m.title), href: m.url })).sort(byName);
     res.render('sitemap', { ...inner4(), title: 'Sitemap — Meruka India Tourism', tours, pages, d: { nav: site.nav('', false), footCols: site.footCols() },
       meta: { description: 'Every page of the Meruka India Tourism website: tour packages by region, all tour itineraries, and the India travel guide.', canonical: '/sitemap' } });
+  });
+  // (21 Oct 2026, client) site-wide search from the home page: tours, tour categories and destination / guide pages.
+  // Every word must appear in the name, the route or the Google title; names that match score higher.
+  router.get('/search', (req, res) => {
+    const q = String(req.query.q || '').trim().slice(0, 80);
+    const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+    const plain = s => String(s || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+    const read = dir => fs.readdirSync(path.join(__dirname, 'data', dir)).filter(f => f.endsWith('.js')).map(f => require('./data/' + dir + '/' + f)).filter(m => m.url && !m.noindex);
+    const find = (dir, kind) => read(dir).map(m => {
+      const name = plain(m.heading || m.title), hay = (name + ' ' + plain(m.route) + ' ' + plain(m.title) + ' ' + plain(m.keywords) + ' ' + app.locals.tourCode(m.url)).toLowerCase();
+      if (!words.length || !words.every(w => hay.includes(w))) return null;
+      return { kind, name, href: m.url, route: plain(m.route), duration: plain(m.duration), code: app.locals.tourCode(m.url),
+        img: dir === 'tours' ? app.locals.tourPhoto(m.url) : '', score: words.filter(w => name.toLowerCase().includes(w)).length };
+    }).filter(Boolean).sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+    const groups = [['Tours', find('tours', 'tour')], ['Tour packages by region', find('tour-lists', 'list')], ['Destinations & travel guide', find('articles', 'page')]];
+    res.render('search', { ...inner4(), title: (q ? q + ' — ' : '') + 'Search — Meruka India Tourism', q, groups, total: groups.reduce((n, g) => n + g[1].length, 0),
+      d: { nav: site.nav('', false), footCols: site.footCols() }, meta: { description: 'Search the tours, tour packages and travel guide of Meruka India Tourism.', canonical: '/search', robots: 'noindex' } });
   });
   router.get('/plan-my-trip', (req, res) => res.render('plan', { ...inner4(), title: 'Plan My Trip — Meruka India Tourism', H: home, q: req.query,
     d: { nav: site.nav('', false), footCols: site.footCols() },

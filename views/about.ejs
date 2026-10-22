@@ -5,7 +5,7 @@
   const icon = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
 %>
 <div style="width:100%;overflow-x:clip;background:#fff">
-<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#fff">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %> pg-about" style="container-type:inline-size;width:100%;background:#fff">
 
 <%- include('partials/page-header', { nav: d.nav, enquireHref: enquire }) %>
 
@@ -69,39 +69,7 @@
 </section>
 
 <!-- 4) Testimonials: the same section as on the home page -->
-<section id="reviews" class="rm r1">
-  <% const r1All = T.all, r1Row = r1All.slice(0, 16); %>
-  <div class="rm-wrap rv3-head">
-    <div class="rv3-intro">
-      <h2 class="h4-h2">Guest <em>Reviews</em></h2>
-      <p class="h4-base">Stories You’ll Tell Forever.</p>
-    </div>
-    <%- include('partials/review-proof', { all: r1All }) %>
-  </div>
-
-  <div class="rm-rows" aria-label="Guest testimonials">
-    <div class="rm-row">
-      <div class="rm-track r1-track">
-        <% [0, 1].forEach(copy => { r1Row.forEach(t => { %>
-        <figure class="rm-card r1-card"<%- copy ? ' aria-hidden="true"' : '' %>>
-          <span class="r1-tour"><%= t.tour %></span>
-          <blockquote class="rm-quote"><%= t.quote %></blockquote>
-          <figcaption class="rm-who">
-            <span class="rm-av"><%= t.initials %></span>
-            <span class="rm-meta"><b><%= t.name %></b><small><%= t.country %></small></span>
-          </figcaption>
-        </figure>
-        <% }) }) %>
-      </div>
-    </div>
-  </div>
-
-  <p class="rm-wrap rv3-hope">“Hope to see your reviews here.”</p>
-  <div class="rm-wrap rm-foot">
-    <button type="button" class="rm-pause" aria-pressed="false"><span class="rm-pause-ic" aria-hidden="true"></span><span class="rm-pause-t">Pause</span></button>
-    <a href="<%= T.href %>" class="rm-all">Read all guest reviews <span>→</span></a>
-  </div>
-</section>
+<%- include('partials/home-reviews', { RV: T }) %>
 
 <%# (18 Oct 2026, client) About us keeps three sections only — About us, Why to Choose Us, Guest Reviews; the tour
     packages, popular tours and travel-guide blocks are not shown here %>

@@ -71,11 +71,11 @@
     <div class="mh-actions">
       <div class="mh-lang">
           <button type="button" class="mh-lang-btn" data-mh-lang aria-haspopup="true" aria-expanded="false" aria-label="Language">
-            <span class="mh-flag"></span><span class="mh-lang-cur" data-mh-lang-cur><%= menu.langs[0] %></span>
+            <span class="mh-flag" role="img" aria-label="India"></span><span class="mh-lang-cur" data-mh-lang-cur translate="no"><%= menu.langs[0] %></span>
             <svg class="mh-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="mh-lang-menu is-hidden" data-mh-lang-menu>
-            <% menu.langs.forEach(l => { %><button type="button" data-mh-lang-pick="<%= l %>"><%= l %></button><% }) %>
+            <% menu.langs.forEach(l => { %><button type="button" data-mh-lang-pick="<%= l %>" translate="no"><%= l %></button><% }) %>
           </div>
       </div>
       <a href="/plan-my-trip" class="mh-plan">Plan My Trip</a>

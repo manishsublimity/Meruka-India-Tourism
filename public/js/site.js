@@ -75,8 +75,25 @@
     window.addEventListener('resize', function () { if (window.innerWidth >= 1100) setMenu(false); });
     langBtn.addEventListener('click', function (e) { e.stopPropagation(); var open = langMenu.classList.toggle('is-hidden') === false; langBtn.setAttribute('aria-expanded', open); });
     Array.prototype.forEach.call(langMenu.querySelectorAll('[data-mh-lang-pick]'), function (b) {
-      b.addEventListener('click', function () { langCur.textContent = b.dataset.mhLangPick; langMenu.classList.add('is-hidden'); langBtn.setAttribute('aria-expanded', false); });
+      b.addEventListener('click', function () {
+        langCur.textContent = b.dataset.mhLangPick; langMenu.classList.add('is-hidden'); langBtn.setAttribute('aria-expanded', false);
+        // (21 Oct 2026) translate the site with Google Translate: its cookie says which language, then the page reloads
+        var code = LANG_CODES[b.dataset.mhLangPick] || 'en', host = location.hostname.replace(/^www\./, '');
+        var val = code === 'en' ? '' : '/en/' + code, exp = code === 'en' ? '; expires=Thu, 01 Jan 1970 00:00:00 GMT' : '';
+        document.cookie = 'googtrans=' + val + '; path=/' + exp;
+        if (host.indexOf('.') > -1) document.cookie = 'googtrans=' + val + '; path=/; domain=.' + host + exp;
+        location.reload();
+      });
     });
+    // the language in use (from Google Translate's cookie) on the button, and the translator loaded only then
+    var LANG_CODES = { 'English': 'en', 'Français': 'fr', 'Deutsch': 'de', 'Español': 'es', 'Italiano': 'it', 'Nederlands': 'nl', 'Português': 'pt', 'Русский': 'ru', '中文': 'zh-CN', '日本語': 'ja', '한국어': 'ko' };
+    var gt = (document.cookie.match(/(?:^|; )googtrans=\/en\/([^;]+)/) || [])[1];
+    if (gt) {
+      Object.keys(LANG_CODES).forEach(function (k) { if (LANG_CODES[k] === gt) langCur.textContent = k; });
+      var holder = document.createElement('div'); holder.id = 'google_translate_element'; holder.style.display = 'none'; document.body.appendChild(holder);
+      window.googleTranslateElementInit = function () { new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'google_translate_element'); };
+      var sc = document.createElement('script'); sc.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; sc.async = true; document.head.appendChild(sc);
+    }
     document.addEventListener('click', function (e) { if (!langMenu.contains(e.target)) { langMenu.classList.add('is-hidden'); langBtn.setAttribute('aria-expanded', false); } });
     var onScroll = function () { h.classList.toggle('scrolled', window.scrollY > 8); };
     window.addEventListener('scroll', onScroll, { passive: true }); onScroll();

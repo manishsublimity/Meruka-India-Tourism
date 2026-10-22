@@ -1,0 +1,42 @@
+<%- include('partials/head') %>
+<%# Search (21 Oct 2026, client): the home page's search box looks through the tours, the tour packages and the
+    destination / guide pages; results in the site's tour-row style %>
+<div style="width:100%;overflow-x:clip;background:#fff">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#fff">
+
+<%- include('partials/page-header', { nav: d.nav, enquireHref: '/plan-my-trip' }) %>
+<%- include('partials/photo-hero', { title: 'Search', img: '/images/india-tours-main.webp', alt: 'India tours' }) %>
+
+<section class="srch">
+  <div class="ex-wrap">
+    <form class="srch-bar" role="search" action="/search" method="get">
+      <input class="srch-in" type="search" name="q" value="<%= q %>" placeholder="Search tours, places, monuments…" aria-label="Search">
+      <button type="submit" class="ph-btn ph-btn-gold">Search <span aria-hidden="true">→</span></button>
+    </form>
+    <% if (q) { %><p class="srch-count"><b><%= total %></b> result<%= total === 1 ? '' : 's' %> for “<%= q %>”</p><% } %>
+    <% if (q && !total) { %>
+    <div class="srch-none"><p>Nothing matched. Try a place (Jaipur, Kerala), a sight (Taj Mahal) or a tour code (GT-1) — or tell us what you have in mind.</p><a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip <span aria-hidden="true">→</span></a></div>
+    <% } %>
+    <% groups.forEach(([title, items]) => { if (!items.length) return; %>
+    <div class="srch-group">
+      <h2 class="srch-h"><%= title %> <small><%= items.length %></small></h2>
+      <ul class="srch-list">
+        <% items.slice(0, 60).forEach(it => { %>
+        <li class="srch-row">
+          <a href="<%= it.href %>" class="srch-name"><%= it.name %></a><% if (it.code) { %> <span class="tcode">Tour Code: <%= it.code %></span><% } %>
+          <% if (it.route) { %><p class="srch-route"><%= it.route %></p><% } %>
+          <% if (it.duration) { %><span class="srch-dur"><%= it.duration.replace(/\s*[-–]\s*/, ' / ') %></span><% } %>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+    <% }) %>
+  </div>
+</section>
+
+<%- include('partials/page-footer', { footCols: d.footCols, enquireHref: '/plan-my-trip' }) %>
+
+</div>
+</div>
+</body>
+</html>
