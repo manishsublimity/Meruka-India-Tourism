@@ -56,7 +56,7 @@
 <section id="top" class="h8" data-hero aria-roledescription="carousel" aria-label="Destinations">
   <div class="h8-slides">
     <% hxSlides.forEach((s, i) => { %>
-    <figure class="h8-slide<%= i === 0 ? ' on' : '' %><%= s.flip ? ' flip' : '' %>" data-slide aria-hidden="<%= i !== 0 %>" data-place="<%= s.place %>" data-region="<%= s.region %>" data-href="<%= s.href %>">
+    <figure class="h8-slide<%= i === 0 ? ' on' : '' %>" data-slide aria-hidden="<%= i !== 0 %>" data-place="<%= s.place %>" data-region="<%= s.region %>" data-href="<%= s.href %>">
       <img src="<%= s.src %>" alt="<%= s.alt %>" style="object-position:<%= s.pos %>"<%= i ? ' loading="lazy"' : ' fetchpriority="high"' %>>
     </figure>
     <% }) %>

@@ -2801,10 +2801,11 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 /* /itineraries category card (18 Oct 2026, the client's layout): photo left; name, nights, description; a hairline,
    then "From USD 510 per person" and a gold "View N packages" button; the tours open in a soft panel below */
 #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-card{background:#fff;border:1px solid var(--mk-line);border-radius:5px !important;box-shadow:0 1px 3px rgba(20,30,50,.10);overflow:hidden;margin-bottom:14px}
-#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main{display:grid !important;grid-template-columns:240px minmax(0,1fr) !important;min-height:0 !important;cursor:default;padding:0 !important;background:#fff}
-#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main .tp2-img{position:relative;height:auto !important;min-height:150px !important}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main{display:grid !important;grid-template-columns:240px minmax(0,1fr) !important;min-height:164px !important;cursor:default;padding:0 !important;background:#fff}
+#mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main .tp2-img{position:relative;height:auto !important;min-height:164px !important}
 #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main .tp2-img img{position:absolute;inset:0;width:100%;height:100% !important;object-fit:cover}
-#mk-frame.in4 .tpc-body{display:flex;flex-direction:column;padding:14px 20px 0;min-width:0}
+#mk-frame#mk-frame.in4 #incredible-india-tours .tpc-main .tp2-img img{object-position:0% 50%}
+#mk-frame.in4 .tpc-body{display:flex;flex-direction:column;padding:14px 20px 12px;min-width:0}
 #mk-frame#mk-frame.in4 .tpc-body .tp2-title{margin:0 0 3px;font-family:var(--mk-font-head) !important;font-size:21px;font-weight:600;line-height:1.25;color:var(--mk-ink)}
 #mk-frame.in4 .tpc-nights{display:flex;align-items:center;gap:6px;margin:0 0 6px;font-size:13px;font-weight:700;color:var(--mk-blue)}
 #mk-frame.in4 .tpc-nights svg{width:13px;height:13px;flex:none;color:var(--mk-gold)}
@@ -2830,9 +2831,9 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 #mk-frame#mk-frame.ux.v3.h4.in4 .tp2:not(.tp2-one) .tp2-row-go:hover{background:none;color:var(--mk-blue-d);text-decoration:underline}
 #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-all{margin:8px 0 6px}
 @media (max-width:700px){
-  #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main{grid-template-columns:1fr !important}
+  #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main{grid-template-columns:1fr !important;min-height:0 !important}
   #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tpc-main .tp2-img{min-height:150px !important}
-  #mk-frame.in4 .tpc-body{padding:12px 14px 0}
+  #mk-frame.in4 .tpc-body{padding:12px 14px}
   #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row{grid-template-columns:minmax(0,1fr) auto !important;gap:6px 12px !important}
   #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-row-main{grid-column:1 / -1}
   #mk-frame#mk-frame.in4 .tp2:not(.tp2-one) .tp2-rows{padding:2px 14px 6px !important}
@@ -3050,7 +3051,7 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 #mk-frame#mk-frame.it2 .it2-card .it2-tt{margin-bottom:8px}
 #mk-frame#mk-frame.it2 .it2-card .it2-tt h1{font-size:36px}
 #mk-frame#mk-frame.it2 .it2-card .pvt-line{margin:0 0 12px;font-size:14px}
-#mk-frame#mk-frame.it2 .it2-card .pvt-line-ic{width:22px;height:22px}
+#mk-frame#mk-frame.it2 .it2-card .pvt-line-ic{width:22px;height:22px;border-radius: 4px !important;}
 #mk-frame#mk-frame.it2 .it2-card .pvt-line-ic svg{width:11px;height:11px}
 #mk-frame#mk-frame.it2 .it2-card .it2-ds{max-width:none;font-size:15px}
 #mk-frame#mk-frame.it2 .it2-card .it2-fx{margin-top:14px;padding:10px 0 0;border-bottom:0}
@@ -3079,7 +3080,7 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 #mk-frame#mk-frame.it2 .it2-note{background:var(--mk-soft);border-color:var(--mk-line);color:var(--mk-blue-d)}
 #mk-frame#mk-frame.it2 .it2-list.it2-no svg{color:#C0564B}
 /* the facts line: a blue bar fading out at the right, white text, gold icons */
-#mk-frame#mk-frame#mk-frame.it2 .it2-card .it2-fx{margin-top:16px;padding:11px 120px 11px 16px;border:0 !important;background:linear-gradient(90deg,#2B5D94 0%,#2B5D94 calc(100% - 140px),rgba(43,93,148,.75) calc(100% - 100px),rgba(43,93,148,.4) calc(100% - 55px),rgba(43,93,148,0) 100%);color:#fff}
+#mk-frame#mk-frame#mk-frame.it2 .it2-card .it2-fx{margin-top:16px;padding:7px 120px 7px 11px;border:0 !important;background:linear-gradient(90deg,#2B5D94 0%,#2B5D94 calc(100% - 140px),rgba(43,93,148,.75) calc(100% - 100px),rgba(43,93,148,.4) calc(100% - 55px),rgba(43,93,148,0) 100%);color:#fff}
 #mk-frame#mk-frame.it2 .it2-card .it2-f{color:#fff}
 #mk-frame#mk-frame.it2 .it2-card .it2-f svg{color:var(--mk-gold)}
 #mk-frame#mk-frame.it2 .it2-card .it2-f span+span{border-left-color:rgba(255,255,255,.35)}
@@ -3168,7 +3169,7 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 #mk-frame#mk-frame.in4 .pop-full .pop-band-in{padding:20px 0;background:none;border:0;border-radius:0 !important}
 #mk-frame#mk-frame.in4 .pop-full .pop-band-t{color:#fff}
 /* (21 Oct 2026, client) /itineraries category card: the price row with the same space above and below, no extra gap */
-#mk-frame#mk-frame#mk-frame.in4 .tpc-foot{margin-top:12px !important;padding:12px 0 !important;align-items:center !important;top:0 !important}
+#mk-frame#mk-frame#mk-frame.in4 .tpc-foot{margin-top:auto !important;padding:0 !important;border-top:0 !important;align-items:center !important;top:0 !important}
 #mk-frame#mk-frame#mk-frame.in4 .tpc-foot > *{margin-top:0 !important;margin-bottom:0 !important}
 /* (21 Oct 2026, client) Explore India: "When to come" as tall as its text (the photo fills that height, no empty
    bands); 5px corners on every part, as in the other sections */
@@ -3210,3 +3211,7 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 #mk-frame#mk-frame#mk-frame.in4 .pop-full .pop-band-t em{font-family:'Instrument Serif',Georgia,serif !important;font-style:italic;font-weight:400;letter-spacing:0;color:var(--mk-gold) !important}
 #mk-frame#mk-frame#mk-frame.in4 .pop-full .pop-band-t span{margin-top:6px;font-family:var(--mk-font-body) !important;font-size:15px !important;font-weight:500;letter-spacing:0;color:rgba(255,255,255,.85) !important}
 #mk-frame#mk-frame#mk-frame.in4 .pop-full .pop-band-in{padding:28px 0 !important}
+/* Give package-detail hero photos enough height to show the main architecture. */
+#mk-frame.td2.it2 .ph2-media{height:clamp(260px,30cqw,520px) !important;aspect-ratio:auto !important}
+#mk-frame.td2.it2 .ph2-media .abx-hero-img{object-position:center top !important}
+@media (max-width:639.98px){ #mk-frame.td2.it2 .ph2-media{height:200px !important} }
