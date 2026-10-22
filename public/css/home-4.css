@@ -1469,9 +1469,10 @@
 #mk-frame.h4 .h4-bn img[src*="red-fort-hd"]{object-position:45% 50% !important}
 #mk-frame.h4 .h4-bn img[src*="gadisar-lake-hd"]{object-position:0% 50% !important}
 #mk-frame.h4 .h4-bn img[src*="kerala-houseboat-dusk"]{object-position:30% 50% !important}
-#mk-frame.h4 .h4-bn img[src*="mysore-palace-lit"],#mk-frame.h4 .h4-bn img[src*="delhi-lotus-temple"]{object-position:50% 50% !important}
+#mk-frame.h4 .h4-bn img[src*="mysore-palace-lit"]{object-position:48% 50% !important}
+#mk-frame.h4 .h4-bn img[src*="delhi-lotus-temple"]{object-position:50% 50% !important}
 /* South India tile: the palace raised into the middle (above the title), a little larger */
-#mk-frame.h4 .h4-bn img[src*="mysore-palace-lit"]{top:-22% !important;height:122% !important}
+#mk-frame.h4 .h4-bn img[src*="mysore-palace-lit"]{top:-14% !important;height:122% !important}
 
 /* finder: the same space at both ends of the blue bar (28px), so the reset button sits in as far as the first field */
 @media (min-width:900px){ #mk-frame.v3.h4 .tf4-go{margin-right:20px} }
@@ -1940,3 +1941,4 @@ font[style*="vertical-align: inherit"]{background:none !important;box-shadow:non
 #mk-frame#mk-frame#mk-frame .rv-tour{justify-self:start;max-width:100%}
 #mk-frame#mk-frame#mk-frame .rv-guest{justify-self:end;width:100%;align-items:flex-end}
 #mk-frame#mk-frame#mk-frame .rv-guest b{white-space:normal;overflow-wrap:break-word}
+#mk-frame#mk-frame.h4 .g2-season img[src*="guide-main"]{object-position:0% 58% !important}

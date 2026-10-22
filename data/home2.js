@@ -200,7 +200,11 @@ const GROUP_DESC = {
 };
 const { photoCandidates } = require('./photos');
 // hand-picked where the keyword match is weak
-const GROUP_IMG = { 'Tamil Nadu Tours': '/photos/brihadeshwara-temple.webp', 'Incredible India Tours': '/photos/india-main.webp' };
+const GROUP_IMG = {
+  'Indian Golden Triangle Tours': '/photos/taj-mahal-wide.webp',
+  'Tamil Nadu Tours': '/photos/brihadeshwara-temple.webp',
+  'Incredible India Tours': '/photos/india-main.webp'
+};
 module.exports.listingFor = list => {
   const cat = url => CATS.find(c => c[0] === url);
   const used = new Set();
