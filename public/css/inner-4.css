@@ -2845,7 +2845,7 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 /* (21 Oct 2026, client) category pages now have the filters on the right: each tour row in two lines —
    name + route, then the nights; the price above the "View Tour" button */
 @media (min-width:768px){
-  #mk-frame#mk-frame.in4 .tp2-one .tp2-row{grid-template-columns:140px minmax(0,1fr) auto !important;grid-template-rows:auto auto;column-gap:18px !important;row-gap:6px !important;align-items:center;padding:0 18px 0 0 !important}
+  #mk-frame#mk-frame.in4 .tp2-one .tp2-row{grid-template-columns:180px minmax(0,1fr) auto !important;grid-template-rows:auto auto;column-gap:18px !important;row-gap:6px !important;align-items:center;padding:0 18px 0 0 !important}
   #mk-frame#mk-frame.in4 .tp2-one .tp2-row-img{grid-row:1 / span 2;grid-column:1}
   #mk-frame#mk-frame.in4 .tp2-one .tp2-row-main{grid-column:2;grid-row:1;padding:14px 0 0}
   #mk-frame#mk-frame.in4 .tp2-one .tp2-row-days{grid-column:2;grid-row:2;justify-self:start;align-self:start;margin-bottom:14px}
@@ -3191,7 +3191,7 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 /* (21 Oct 2026, client) tour page: the route wraps at any arrow (no empty space at line ends); the price in the blue bar
    on three lines — Starts from / USD 1,360 / per person */
 #mk-frame#mk-frame.it2 .it2-rt i{margin:0 !important}
-#mk-frame#mk-frame#mk-frame.it2 .it2-card .it2-pr{display:flex !important;flex-direction:column;align-items:flex-start;gap:0;line-height:1.15;white-space:nowrap}
+#mk-frame#mk-frame#mk-frame.it2 .it2-card .it2-pr{display:flex !important;align-items:center;line-height:1.15;white-space:nowrap}
 #mk-frame#mk-frame.it2 .it2-card .it2-pr small{font-size:12px;font-weight:600;color:rgba(255,255,255,.85)}
 #mk-frame#mk-frame.it2 .it2-card .it2-pr strong{font-size:21px;line-height:1.15}
 #mk-frame#mk-frame.it2 .it2-card .it2-pr span{font-size:12px;color:rgba(255,255,255,.85)}

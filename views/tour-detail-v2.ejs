@@ -210,7 +210,7 @@
       <section class="it2-info" id="pricing">
         <% if (it2Sel && it2Sel.totalLo) { %>
         <div class="it2-sec it2-pg">
-          <div class="it2-pl"><small>Starts from</small><div><strong><%= tdUsd(it2Sel.totalLo) %></strong> <span>per person</span></div></div>
+          <div class="it2-pl"><small>Starts from</small><div><strong><%= tdUsd(it2Sel.totalLo) %></strong></div><span>per person</span></div>
           <div class="it2-pd"><p class="it2-pin"><span>The price quote includes a <b>private tour</b> with <b><%= it2Hotel(it2Sel) || '3-Star' %> hotels</b>, a <b>private car with driver</b>, and other services as mentioned below.</span></p></div>
         </div>
         <% } else if (pricing.title) { %>
