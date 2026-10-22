@@ -1,0 +1,32 @@
+<%# Guest Reviews (21 Oct 2026): the same section on the home page and About us. RV = the testimonials data. %>
+<section id="reviews" class="rm r1">
+  <%# (21 Oct 2026, client) only the reviews that fill five or six lines on a card, so every card is the same size %>
+  <% const r1All = RV.all, r1Row = r1All.filter(t => t.quote.length >= 236 && t.quote.length <= 272); %>
+  <div class="rm-wrap rv3-head">
+    <div class="rv3-intro">
+      <h2 class="h4-h2">Guest <em>Reviews</em></h2>
+      <p class="h4-base">Stories You’ll Tell Forever.</p>
+    </div>
+    <%- include('review-proof', { all: r1All }) %>
+  </div>
+
+  <div class="rm-rows" aria-label="Guest testimonials">
+    <div class="rm-row">
+      <div class="rm-track r1-track">
+        <% [0, 1].forEach(copy => { r1Row.forEach(t => { %>
+        <%# the Guest Reviews page's card: the words between small inverted commas, a line, then the guest on the right %>
+        <figure class="rm-card r1-card r6-card"<%- copy ? ' aria-hidden="true"' : '' %>>
+          <blockquote class="rm-quote r6-q"><%= t.quote %></blockquote>
+          <figcaption class="rv-foot"><% if (t.tour) { %><span class="rv-tour"><%= t.tour %></span><% } %><span class="rv-guest"><b><%= t.name %></b><% if (t.country) { %><small><%= t.country %></small><% } %></span></figcaption>
+        </figure>
+        <% }) }) %>
+      </div>
+    </div>
+  </div>
+
+  <p class="rm-wrap rv3-hope">“Hope to see your reviews here.”</p>
+  <div class="rm-wrap rm-foot">
+    <button type="button" class="rm-pause" aria-pressed="false"><span class="rm-pause-ic" aria-hidden="true"></span><span class="rm-pause-t">Pause</span></button>
+    <a href="<%= RV.href %>" class="rm-all">Read all guest reviews <span>→</span></a>
+  </div>
+</section>

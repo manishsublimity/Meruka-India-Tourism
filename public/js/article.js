@@ -41,7 +41,7 @@
     var nav = document.createElement('nav');
     nav.className = 'ar-jump';
     nav.setAttribute('aria-label', 'Places on this page');
-    nav.innerHTML = '<div class="ar-places-head"><p class="ar-places-h">Places to <em>explore</em></p><span class="ar-jump-t">' + items.length + ' places</span></div>';
+    nav.innerHTML = '<div class="ar-places-head"><p class="ar-places-h">Places to <em>explore</em></p></div>';
     items.forEach(function (li) {
       var name = ($$(':scope > a', li)[1] || {}).textContent || '';
       name = name.trim(); if (!name) return;
@@ -69,7 +69,9 @@
       var wrapIn = document.createElement('div'); wrapIn.className = 'az-wrap';
       wrapIn.appendChild(nav); wrapIn.appendChild(ul); sec.appendChild(wrapIn);
       content.parentNode.insertBefore(sec, content.nextSibling);
-      var arWrap = document.getElementById('ar-wrap');
+      // (21 Oct 2026, client) region pages: no side column any more — the text runs full width, "At a glance" sits under it,
+      // and the places are only in the section below (no "Places to explore" card on the right)
+      var arWrap = null;
       if (arWrap) {
         var cta = document.querySelector('.az-end .az-acts');
         // the sidebar may already hold the region's "At a glance" card (rendered by the page); the places and

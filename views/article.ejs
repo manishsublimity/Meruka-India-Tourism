@@ -56,7 +56,7 @@
 <section id="content" class="ar az <%= facts.length ? 'az-b ar-region' : isDest ? 'az-a ar-dest' : 'az-a' %>">
   <div class="az-wrap">
   <%# (15 Oct 2026) no "Discover …" / "Travel guide" heading here: the page title sits right above, under the banner %>
-  <div class="ar-wrap<%= facts.length ? ' ar-has-aside2' : '' %>" id="ar-wrap">
+  <div class="ar-wrap" id="ar-wrap">
     <aside class="ar-side is-hidden" id="ar-side">
       <div class="ar-toc-box">
         <span class="ar-toc-label">On this page</span>
@@ -68,10 +68,9 @@
       <%# (16 Oct 2026) a broken "<div" left at the end by the import, and empty paragraphs / blocks left at the end of the text, are
           dropped (they only added space) %>
       <div class="prose"><%- rewriteHtml(body).replace(/<div\s*$/i, '').replace(/(<\/p>)\s*<\/a>\s*<\/p>\s*$/i, '$1').replace(/(\s*<(p|div)\b[^>]*>(\s|&nbsp;|<br\s*\/?>)*<\/\2>)+\s*$/i, '') %></div>
-    </article>
-    <% if (facts.length) { %>
-    <aside class="ar-aside2 rg-aside">
-      <div class="ar-a2-card dx-qf rg-qf">
+      <% if (facts.length) { %>
+      <%# (21 Oct 2026, client) region pages: "At a glance" under the text, full width, in the site's card style %>
+      <div class="ar-a2-card dx-qf rg-qf rg-glance">
         <p class="ar-a2-h">At a <em>glance</em></p>
         <div class="dx-facts">
           <% facts.forEach(f => { const list = chips(f.value); %>
@@ -79,8 +78,8 @@
           <% }) %>
         </div>
       </div>
-    </aside>
-    <% } %>
+      <% } %>
+    </article>
   </div>
   </div>
 </section>
@@ -109,18 +108,7 @@
 </section>
 <% } %>
 
-<% if (facts.length || isDest) { %>
-<section class="az az-a az-end">
-  <div class="az-wrap az-cta">
-    <span class="az-no az-no-c"><%= d.heading %></span>
-    <p class="az-cta-lead">Tell us which places you'd like to see — <em>we'll draw the route.</em></p>
-    <div class="az-acts">
-      <a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip <span>→</span></a>
-      <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="az-btn-line">WhatsApp us <span>→</span></a>
-    </div>
-  </div>
-</section>
-<% } %>
+<%# (21 Oct 2026, client) the "Tell us which places you'd like to see" band is removed from every page %>
 
 <%- include('partials/popular-tours', { current: d.url }) %>
 

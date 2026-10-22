@@ -52,7 +52,7 @@
   };
 %>
 <div style="width:100%;overflow-x:clip;background:#F4F7FB">
-<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %> td2" style="container-type:inline-size;width:100%;background:#F4F7FB">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %> td2 it2" style="container-type:inline-size;width:100%;background:#F4F7FB">
 
 <%- include('partials/page-header', { nav: d.nav, enquireHref: d.enquire.href }) %>
 
@@ -149,146 +149,154 @@
     if (t.length <= 440) { tdDesc = t; break; }
   }
 %>
-<% // (16 Oct 2026) the top: the same banner as every inner page (the tour's main photo, breadcrumb and title under it),
-   // then the description, the route, and the nights / stops
-   const topPics = [heroImg]; %>
-<%- include('partials/photo-hero', { title: d.heading, img: heroImg, alt: d.heroAlt || d.heading, crumbs: d.breadcrumb }) %>
-<section id="top" class="td2-top td2-intro">
-  <div class="tp-wrap">
-    <%# (19 Oct 2026, client) the tour code and "Private Tour – No Sharing" with the tour's name %>
-    <div class="td2-tags"><% const tc = tourCode(d.url); if (tc) { %><span class="tcode">Tour Code <b><%= tc %></b></span><% } %><%- pvt() %></div>
-    <p class="td2-desc"><%= tdDesc %></p>
-    <%# (16 Oct 2026, client's pick P) the facts as pills, a thin line, then the route %>
-    <ul class="td2-pills">
-      <li><%- I.clock %><%= tdNights %> Nights / <%= tdDays %> Days</li>
-      <li><%- I.pin %><%= stops.length %> stops</li>
-      <li class="td2-pill-g"><%= stops[0] %> to <%= stops[stops.length - 1] %></li>
-    </ul>
-    <p class="td2-proute"><b>Route:</b> <% stops.forEach((s, j) => { %><%= s %><% if (j < stops.length - 1) { %> <i aria-hidden="true">→</i> <% } %><% }) %></p>
+<% const topPics = [heroImg]; %>
+<%# (21 Oct 2026, client) the tour page in the reference layout (meruka-india-testing.netlify.app/itin_2, its default
+    options): the banner; the breadcrumb in a thin blue strip under it; a full-width heading with the gold
+    "Private Tours – No Sharing" tag, the description, the route and a facts line; then the days in boxes with one box
+    of pricing, includes / excludes and notes under them, and the price box, the category's tours and the contact box
+    on the right. %>
+<%
+  const it2Sym = {
+    clock: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 5.5V10l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    pin: '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 18s6-5.2 6-9.5a6 6 0 10-12 0C4 12.8 10 18 10 18z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="10" cy="8.5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+    tag: '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10.5V4a1 1 0 011-1h6.5l7 7-7.5 7.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="7" cy="7" r="1.3" fill="currentColor"/></svg>',
+    check: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="currentColor"/><path d="M6.5 10.2l2.5 2.5 4.5-5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    cross: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="currentColor"/><path d="M7 7l6 6M13 7l-6 6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',
+    info: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 9v5M10 6.2v.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    phone: '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3h3l1.5 4-2 1.2a9 9 0 004.3 4.3L13 10.5l4 1.5v3a2 2 0 01-2 2A12 12 0 013 5a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+    mail: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 6l7 5 7-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+    doc: '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2.5h6l4 4v11H5z M11 2.5v4h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>'
+  };
+  const it2Sel = priced.find(t => t.stars === 3) || priced[0];
+  const it2Hotel = t => t ? t.label.replace(/:$/, '').replace(/\s*hotels?$/i, '') : '';
+  const it2Code = tourCode(d.url);
+  const it2Other = tiers.filter(t => !t.priced);
+  const it2Real = stops.filter(x => !/home\s*town/i.test(x));
+  // (21 Oct 2026, client) the last day, when it ends with a flight: the title says "… - Hometown by Air" and the
+  // separate one-line subheading ("Delhi - Hometown by Air") is not shown
+  const it2Sub = para => para && para.length === 1 && para[0].bold && para[0].text.length < 70 && /home\s*town|by air|departure/i.test(para[0].text);
+  const it2Txt = day => (day.paras || []).map(p => p.map(x => x.text).join('')).join(' ');
+  // how the guest leaves on the last day: by air (airport / flight), by train (railway station / train) or by bus
+  const it2Mode = day => { const t = it2Txt(day); return /airport|flight|by air/i.test(t) ? 'Air' : /railway|train/i.test(t) ? 'Train' : /bus/i.test(t) ? 'Bus' : ''; };
+  const it2Title = (day, i) => { const m = i === d.days.length - 1 && !/home\s*town/i.test(day.title) ? it2Mode(day) : ''; return m ? day.title + ' - Hometown by ' + m : day.title; };
+%>
+<%- include('partials/photo-hero', { title: d.heading, img: heroImg, alt: d.heroAlt || d.heading, part: 'media' }) %>
+<div class="it2-cb"><div class="it2-in"><nav aria-label="Breadcrumb"><ol class="it2-crumbs"><% d.breadcrumb.forEach((c, i) => { const last = i === d.breadcrumb.length - 1; %><li<%- last ? ' aria-current="page"' : '' %>><% if (c.href && !last) { %><a href="<%= c.href %>"><%= c.label %></a><% } else { %><%= c.label %><% } %></li><% }) %></ol></nav></div></div>
+
+
+<div class="it2-wrap">
+  <div class="it2-layout">
+    <main class="it2-main">
+      <header id="top" class="it2-hd it2-card">
+  <div class="it2-tt"><h1><%= words.join(' ') %> <em><%= lastWord %></em></h1></div>
+  <%- pvtLineFull %>
+  <p class="it2-ds"><%= tdDesc %></p>
+  <div class="it2-rt"><%- it2Sym.pin %><div><b>Route:</b> <% stops.forEach((s, j) => { %><%= s %><% if (j < stops.length - 1) { %> <i aria-hidden="true">→</i> <% } %><% }) %></div></div>
+  <div class="it2-fx">
+    <div class="it2-f"><span><%- it2Sym.clock %><%= tdNights %> Nights / <%= tdDays %> Days</span><span><%- it2Sym.pin %><%= it2Real.length %> Stops</span><% if (it2Code) { %><span class="it2-fcode">Tour Code: <%= it2Code %></span><% } %></div>
+    <% if (tdFrom) { %><div class="it2-pr"><small>Starts from</small><strong><%= tdUsd(tdFrom) %></strong><span>per person</span></div><% } %>
   </div>
-</section>
+</header>
+      <% let it2Side = 0; d.days.forEach((day, i) => { const ph = dayPhotos[i]; const flip = ph && (it2Side++ % 2 === 1); %>
+      <section class="it2-day">
+        <div class="it2-dh"><span class="it2-badge"><%= day.day %></span><h3><%= it2Title(day, i) %></h3><% if (day.eta) { %><span class="it2-dist"><%= day.eta %></span><% } %></div>
+        <div class="it2-db"><% if (ph) { %><img class="it2-pic<%= flip ? ' r' : '' %>" src="<%= ph %>" alt="" loading="lazy"><% } %>
+          <% (day.paras || [day.body]).forEach((para, k) => { if (isInfo(para, k) || (i === d.days.length - 1 && k === 0 && it2Sub(para))) return; %><p><%- rs(para, '') %></p><% }) %>
+          <% if (day.note) { %><p class="it2-note"><%- rs(day.note, '') %></p><% } %>
+        </div>
+      </section>
+      <% }) %>
 
-<%# (15 Oct 2026) the section jump bar (Itinerary · Pricing · Includes …) is removed at the client's request %>
-
-<div class="tp-body td2-body">
-  <div class="tp-main">
-
-    <section id="itinerary" class="tp-sec td2-sec">
-      <ol class="td2-days">
-        <%# (16 Oct 2026) each day as in the client's itinerary documents: "01 Day: Arrival Delhi" underlined on one line,
-            the photo on the left with the text running beside it — no card, no badge %>
-        <% let tdSide = 0; d.days.forEach((day, i) => { const [num, ...rest] = day.day.split(' '); const ph = dayPhotos[i]; const flip = ph && (tdSide++ % 2 === 1);   /* photos take turns: left, right, left… */ %>
-        <li class="td2-day td2-doc<%= ph ? '' : ' td2-noimg' %><%= flip ? ' td2-doc-r' : '' %>">
-          <div class="td2-dhead">
-            <h3 class="td2-dt"><span class="td2-dn"><%= num %> <%= rest.join(' ') || 'Day' %></span> <%= day.title %></h3>
-            <% if (day.eta) { %><span class="td2-eta"><%- I.clock %><%= day.eta %></span><% } %>
-          </div>
-          <% if (ph) { %><figure class="td2-dfig"><img src="<%= ph %>" alt="" loading="lazy"></figure><% } %>
-          <% (day.paras || [day.body]).forEach((para, k) => { if (isInfo(para, k)) return; %><p class="td2-p"><%- rs(para, 'color:#336699;font-weight:700') %></p><% }) %>
-          <% if (day.note) { %><p class="td2-note"><%- rs(day.note, 'font-weight:800') %></p><% } %>
-        </li>
+      <section class="it2-info" id="pricing">
+        <% if (it2Sel && it2Sel.totalLo) { %>
+        <div class="it2-sec it2-pg">
+          <div class="it2-pl"><small>Starts from</small><div><strong><%= tdUsd(it2Sel.totalLo) %></strong> <span>per person</span></div></div>
+          <div class="it2-pd"><p class="it2-pin"><span>The price quote includes a <b>private tour</b> with <b><%= it2Hotel(it2Sel) || '3-Star' %> hotels</b>, a <b>private car with driver</b>, and other services as mentioned below.</span></p></div>
+        </div>
+        <% } else if (pricing.title) { %>
+        <div class="it2-sec"><h3><%= pricing.title %></h3><% if (pricing.text) { %><p><%= pricing.text %></p><% } %><% if (it2Other.length) { %><ul class="it2-list it2-yes"><% it2Other.forEach(t => { %><li><%- it2Sym.info %><span><b><%= it2Hotel(t) || 'Price' %>:</b> <%= t.rest %></span></li><% }) %></ul><% } %></div>
+        <% } %>
+        <% [['hotels', d.hotels], ['flights', d.flights]].forEach(([key, tb]) => { if (!tb) return; %>
+        <div class="it2-sec" id="<%= key %>">
+          <h3><%= tb.title %></h3>
+          <% if (tb.text) { %><p><%= tb.text %></p><% } %>
+          <div class="tt-scroll"><table class="tt-table">
+            <thead><tr><% tb.columns.forEach(c => { %><th scope="col"><%= c %></th><% }) %></tr></thead>
+            <tbody><% tb.rows.forEach(r => { %><tr><% r.forEach((cell, ci) => { %><td data-label="<%= tb.columns[ci] %>"><%= cell %></td><% }) %></tr><% }) %></tbody>
+          </table></div>
+          <% if (tb.note) { %><p><%= tb.note %></p><% } %>
+        </div>
         <% }) %>
-      </ol>
-    </section>
-
-    <%# (18 Oct 2026, client) Tour Pricing Details under the itinerary, not on the right side %>
-    <section id="pricing" class="tp-sec td2-sec td2-pmain">
-    <div class="pr-card td2-price" data-pricing>
-      <div class="pr-head">
-        <span class="pr-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>
-        <h3 class="pr-title"><%= pricing.title %></h3>
-      </div>
-      <% const td3 = priced.find(t => t.stars === 3) || priced[0]; if (td3 && td3.totalLo) { %><p class="td2-pfrom"><b><%= tdUsd(td3.totalLo) %> per person</b> with <%= (td3.label || '3-Star').replace(/:$/, '').replace(/\s*hotels?$/i, '') %> hotel accommodation and services as mentioned below.</p><% } %>
-      <% if (pricing.text) { %><p class="td2-pintro"><%= pricing.text %></p><% } %>
-      <% const sel = priced.find(t => t.stars === 3) || priced[0] || tiers[0]; const hotelOf = t => t ? t.label.replace(/:$/, '') : ''; %>
-      <% if (priced.length) { %>
-      <div class="pr-display" aria-live="polite">
-        <div class="pr-stars<%= sel.stars ? '' : ' is-hidden' %>" data-stars><%= '★'.repeat(sel.stars) %><span><%= '★'.repeat(Math.max(0, 5 - sel.stars)) %></span></div>
-        <div class="pr-price" data-price><%= sel.total %></div>
-        <div class="pr-unit" data-unit><%= tdUnit %></div>
-        <p class="pvt-note"><%- pvt() %><span>Only you and your own group, never shared with other travellers.</span></p>
-        <div class="pr-bar is-hidden" data-bar><div class="pr-track"><span class="pr-fill" data-fill></span></div></div>
-      </div>
-      <p class="td2-pick">Choose your hotels</p>
-      <div class="pr-tiers td2-tiers" role="radiogroup" aria-label="Hotel category">
-        <% priced.forEach(t => { %>
-        <button type="button" role="radio" class="pr-tier<%= t === sel ? ' on' : '' %>" aria-checked="<%= t === sel %>"
-          data-label="<%= hotelOf(t) %>" data-stars="<%= t.stars %>" data-range="<%= t.total %>" data-unit="<%= tdUnit %>" data-priced="false" data-left="0" data-width="0">
-          <strong><%= hotelOf(t) %> hotels</strong>
-          <span class="td2-tier-total"><%= t.total %></span>
-          <span class="td2-tier-day"><%= t.perDay %></span>
-        </button>
+        <% if (incl || excl) { %>
+        <div class="it2-sec it2-two">
+          <% if (incl) { %><div id="inclusions"><h3><%= incl.title %></h3><ul class="it2-list it2-yes"><% incl.items.forEach(it => { %><li><%- it2Sym.check %><span><%= it.map(x => x.text).join('') %></span></li><% }) %></ul></div><% } %>
+          <% if (excl) { %><div id="excludes"><h3><%= excl.title %></h3><ul class="it2-list it2-no"><% excl.items.forEach(it => { %><li><%- it2Sym.cross %><span><%= it.map(x => x.text).join('') %></span></li><% }) %></ul></div><% } %>
+        </div>
+        <% } %>
+        <% notes.forEach((nb, ni) => { %>
+        <div class="it2-sec" id="note-<%= ni %>">
+          <h3><%= nb.title %></h3>
+          <ul class="it2-list it2-yes"><% nb.items.forEach(it => { %><li><%- it2Sym.info %><span><%= it.map(x => x.text).join('') %></span></li><% }) %></ul>
+        </div>
         <% }) %>
-      </div>
-      <% } %>
-      <% const tdOther = tiers.filter(t => !t.priced); if (tdOther.length) { %>
-      <ul class="td2-other"><% tdOther.forEach(t => { %><li><strong><%= hotelOf(t) || 'Price' %></strong><span><%= t.rest %></span></li><% }) %></ul>
-      <% } %>
-      <% if (!pricing.text) { %><p class="pr-note td2-pnote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg><span>Per person, two sharing a double room. Your final quote depends on hotels, dates and group size.</span></p><% } %>
-      <div class="td2-pinc">
-        <p class="td2-pinc-t">Price includes</p>
-        <ul>
-          <% ['Hotel accommodation on twin sharing basis', 'Air-conditioned car with driver throughout sightseeing', 'Transport service right from arrival until final departure'].forEach(x => { %><li><%= x %></li><% }) %>
+      </section>
+    </main>
+
+    <aside class="it2-side">
+      <div class="it2-price" data-it2-price>
+        <div class="it2-ph"><span class="it2-ico"><%- it2Sym.tag %></span><h4><%= pricing.title || 'Tour Pricing Details' %></h4></div>
+        <% if (pricing.text) { %><p class="it2-small"><%= pricing.text %></p><% } %>
+        <% if (priced.length) { %>
+        <div class="it2-total"><div class="it2-stars" data-it2-stars><%= '★'.repeat(it2Sel.stars) %></div><p class="it2-amt" data-it2-amt><%= it2Sel.total %></p><p class="it2-per"><%= tdUnit %></p></div>
+        <p class="it2-lab">Choose your hotels</p>
+        <div class="it2-hotels">
+          <% priced.forEach(t => { %>
+          <button type="button" class="it2-hotel" aria-pressed="<%= t === it2Sel %>" data-total="<%= t.total %>" data-stars="<%= t.stars %>" data-hotel="<%= it2Hotel(t) %>"><div><strong><%= it2Hotel(t) %> hotels</strong><small><%= t.perDay %></small></div><span><%= t.total %></span></button>
+          <% }) %>
+        </div>
+        <% } %>
+        <% if (it2Other.length && priced.length) { %><ul class="it2-other"><% it2Other.forEach(t => { %><li><b><%= it2Hotel(t) || 'Price' %>:</b> <%= t.rest %></li><% }) %></ul><% } %>
+        <p class="it2-lab">Price includes</p>
+        <ul class="it2-inc">
+          <li><%- it2Sym.check %><span>Hotel accommodation on twin sharing basis</span></li>
+          <li><%- it2Sym.check %><span>Air-conditioned car with driver throughout sightseeing</span></li>
+          <li><%- it2Sym.check %><span>Transport service from arrival until final departure</span></li>
         </ul>
+        <a class="it2-btn ph-btn ph-btn-gold" data-it2-cta data-base="<%= d.enquire.href %>" href="<%= it2Sel ? withHotel(d.enquire.href, it2Hotel(it2Sel)) : d.enquire.href %>"><%= d.enquire.label %> <span aria-hidden="true">→</span></a>
+        <p class="it2-fine">The above quote may vary 10–15% according to travel period, season, festivals, etc.</p>
       </div>
-      <a class="pr-cta" data-cta data-base="<%= d.enquire.href %>" href="<%= priced.length ? withHotel(d.enquire.href, hotelOf(sel)) : d.enquire.href %>"><%= d.enquire.label %> <span>→</span></a>
-      <p class="td2-pvary">The above quote may vary 10–15% according to travel period, season, festivals, etc.</p>
-    </div>
-    </section>
 
-    <section id="details" class="tp-sec td2-sec td2-lists td2-three">
-      <% [['hotels', d.hotels], ['flights', d.flights]].forEach(([key, tb]) => { if (!tb) return; %>
-      <div class="td2-list td2-table" id="<%= key %>">
-        <h3 class="td2-lt"><%= tb.title %></h3>
-        <% if (tb.text) { %><p class="td2-ttext"><%= tb.text %></p><% } %>
-        <div class="tt-scroll"><table class="tt-table">
-          <thead><tr><% tb.columns.forEach(c => { %><th scope="col"><%= c %></th><% }) %></tr></thead>
-          <tbody><% tb.rows.forEach(r => { %><tr><% r.forEach((cell, ci) => { %><td data-label="<%= tb.columns[ci] %>"><%= cell %></td><% }) %></tr><% }) %></tbody>
-        </table></div>
-        <% if (tb.note) { %><p class="td2-ttext"><%= tb.note %></p><% } %>
-      </div>
-      <% }) %>
-      <% if (incl) { %>
-      <div class="td2-list td2-in" id="inclusions">
-        <h3 class="td2-lt"><%= incl.title %></h3>
-        <ul><% incl.items.forEach(it => { %><li><%- rs(it, 'font-weight:700') %></li><% }) %></ul>
-      </div>
+      <% if (tdCat && tdCat.tours.length > 1) { %>
+      <nav class="it2-more" aria-label="More <%= tdCat.title %>">
+        <h4>More <%= tdCat.title %></h4>
+        <% tdCat.tours.slice(0, 8).forEach((t, i) => { const on = i === tdCat.index; %><a class="t<%= on ? ' on' : '' %>" href="<%= t.href %>"<%- on ? ' aria-current="page"' : '' %>><%= t.name %><small><%= String(t.duration || '').replace(/\s*[-–]\s*/, ' / ') %></small></a><% }) %>
+        <p class="it2-morenote">*Starting price per person for the whole tour, two people sharing a room in 3-star hotels.</p>
+      </nav>
       <% } %>
-      <% if (excl) { %>
-      <div class="td2-list td2-ex" id="excludes">
-        <h3 class="td2-lt"><%= excl.title %></h3>
-        <ul><% excl.items.forEach(it => { %><li><%- rs(it, 'font-weight:700') %></li><% }) %></ul>
+
+      <div class="it2-ask">
+        <h5>Questions about this tour?</h5>
+        <a href="<%= tel %>"><span class="it2-ico"><%- it2Sym.phone %></span><%= hq.phones[0] %></a>
+        <a href="mailto:<%= hq.email %>"><span class="it2-ico"><%- it2Sym.mail %></span><%= hq.email %></a>
+        <a href="/#faq"><span class="it2-ico"><%- it2Sym.doc %></span>Booking &amp; cancellation policy<span class="go" aria-hidden="true">→</span></a>
       </div>
-      <% } %>
-      <% notes.forEach((nb, ni) => { %>
-      <div class="td2-list td2-notes" id="note-<%= ni %>">
-        <h3 class="td2-lt"><%= nb.title %></h3>
-        <ul><% nb.items.forEach(it => { %><li><%- rs(it, 'font-weight:700') %></li><% }) %></ul>
-      </div>
-      <% }) %>
-    </section>
+    </aside>
   </div>
-
-  <aside class="tp-side td2-side">
-    <div class="tp-help">
-      <b>Questions about this tour?</b>
-      <a href="<%= tel %>"><%- I.phone %><%= hq.phones[0] %></a>
-      <a href="mailto:<%= hq.email %>"><%- I.mail %><%= hq.email %></a>
-      <a href="/#faq" class="td2-policy-l"><%- ico('<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>') %>Booking &amp; cancellation policy <span aria-hidden="true">→</span></a>
-    </div>
-    <% if (tdCat && tdCat.tours.length > 1) { %>
-    <nav class="td2-cat" id="category-tours" aria-label="More <%= tdCat.title %>">
-      <p class="td2-cat-t">More <%= tdCat.title %></p>
-      <ul>
-        <% tdCat.tours.slice(0, 8).forEach((t, i) => { const on = i === tdCat.index; %>
-        <li><a href="<%= t.href %>"<%- on ? ' class="on" aria-current="page"' : '' %>><span><%= t.name %></span><small><%= String(t.duration || '').replace(/\s*[-–]\s*/, ' / ') %></small></a></li>
-        <% }) %>
-      </ul>
-      <a href="<%= tdCat.url %>" class="td2-cat-all">All <%= tdCat.tours.length %> <%= tdCat.title %> <span aria-hidden="true">→</span></a>
-    </nav>
-    <% } %>
-  </aside>
 </div>
+<script>
+(function () {   // the hotel buttons change the price, the stars, the first "Price includes" line and the enquiry link
+  var box = document.querySelector('[data-it2-price]'); if (!box) return;
+  var hs = box.querySelectorAll('.it2-hotel'), amt = box.querySelector('[data-it2-amt]'), st = box.querySelector('[data-it2-stars]'),
+      inc = box.querySelector('[data-it2-inc]'), cta = box.querySelector('[data-it2-cta]');
+  hs.forEach(function (b) { b.addEventListener('click', function () {
+    hs.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    if (amt) amt.textContent = b.dataset.total;
+    if (st) st.textContent = '★★★★★'.slice(0, +b.dataset.stars);
+    if (inc) inc.textContent = b.dataset.hotel;
+    if (cta) { var base = cta.dataset.base, h = encodeURIComponent(b.dataset.hotel); cta.href = base.replace(/(#|$)/, function (m) { return (base.indexOf('?') > -1 ? '&' : '?') + 'hotel=' + h + m; }); }
+  }); });
+})();
+</script>
 
 <% if (tdFrom) { %>
 <div class="tp-mbar">
@@ -299,7 +307,7 @@
 
 <% const catCrumb = d.breadcrumb[d.breadcrumb.length - 2] || {}; %>
 <%# (16 Oct 2026) Most Popular Tours in place of Related Tours: this tour's category is already listed in the sidebar %>
-<%- include('partials/popular-tours', { current: d.url, avoid: dayPhotos.filter(Boolean).concat([d.heroSrc], topPics), note: false }) %>
+<%# (21 Oct 2026, client) no "Best Tours Packages of India" band on the tour pages %>
 
 
 <%- include('partials/explore-india', { current: catCrumb.href, skipRegions: true, skipGuide: true }) %>

@@ -31,13 +31,13 @@
   // Hero slides: photo, place name, region line, and the tour list it opens
   // Main pictures in the client's order (6 Oct 2026): monuments, wildlife, festivals, mountains, desert, houseboat
   const hxSlides = [
-    { src: '/photos/hero-taj-mahal.webp', alt: 'The Taj Mahal at sunset across the Yamuna, Agra', place: 'Taj Mahal, Agra', region: 'Golden Triangle', href: '/india-golden-triangle-tour', pos: '50% 45%' },
-    { src: '/photos/hero-desert-camel.webp', alt: 'Camel safari on the sand dunes, Jaisalmer', place: 'Sand dunes, Jaisalmer', region: 'Desert', href: '/rajasthan-tours', pos: '50% 55%', flip: true },
-    { src: '/photos/hero-tigers.webp', alt: 'Two Bengal tigers in the forest', place: 'Tiger safari', region: 'Wildlife', href: '/wildlife_tour', pos: '70% 40%' },
-    { src: '/photos/hero-holi.webp', alt: 'Holi, the festival of colours', place: 'Holi festival', region: 'Fairs & Festivals', href: '/india_fair_festival_travelplan', pos: '50% 40%' },
+    { src: '/photos/hero-taj-mahal.webp', alt: 'The Taj Mahal at sunset across the Yamuna, Agra', place: 'Taj Mahal, Agra', region: 'Golden Triangle', href: '/india-golden-triangle-tour', pos: '50% 30%' },
+    { src: '/photos/hero-desert-camel.webp', alt: 'Camel safari on the sand dunes, Jaisalmer', place: 'Sand dunes, Jaisalmer', region: 'Desert', href: '/rajasthan-tours', pos: '50% 22%', flip: true },
+    { src: '/photos/hero-tigers.webp', alt: 'Two Bengal tigers in the forest', place: 'Tiger safari', region: 'Wildlife', href: '/wildlife_tour', pos: '70% 32%' },
+    { src: '/photos/hero-holi.webp', alt: 'Holi, the festival of colours', place: 'Holi festival', region: 'Fairs & Festivals', href: '/india_fair_festival_travelplan', pos: '50% 18%' },
     { src: '/photos/hero-ladakh.webp', alt: 'Mountains reflected in a high lake, Ladakh', place: 'Ladakh', region: 'Mountains', href: '/leh_ladakh_tours', pos: '50% 50%' },
-    { src: '/photos/hero-hawa-mahal.webp', alt: 'Hawa Mahal, the Palace of Winds, Jaipur', place: 'Hawa Mahal, Jaipur', region: 'Rajasthan', href: '/rajasthan-tours', pos: '50% 40%', flip: true },
-    { src: '/photos/hero-houseboat.webp', alt: 'A houseboat on the Kerala backwaters', place: 'Kerala Backwaters', region: 'Kerala', href: '/southindia_kerala_tours', pos: '50% 50%' }
+    { src: '/photos/hero-hawa-mahal.webp', alt: 'Hawa Mahal, the Palace of Winds, Jaipur', place: 'Hawa Mahal, Jaipur', region: 'Rajasthan', href: '/rajasthan-tours', pos: '50% 22%', flip: true },
+    { src: '/photos/hero-houseboat.webp', alt: 'A houseboat on the Kerala backwaters', place: 'Kerala Backwaters', region: 'Kerala', href: '/southindia_kerala_tours', pos: '50% 28%' }
   ];
   // "06 Nights - 07 Days" -> "6N / 7D"
   // "06 Nights - 07 Days" -> "6 Nights / 7 Days" (shown with the tour's name)
@@ -86,7 +86,7 @@
 </section>
 
 <section class="sb" aria-label="Plan my trip and search tours">
-  <form class="sb-in" role="search" action="/itineraries" method="get">
+  <form class="sb-in" role="search" action="/search" method="get">
     <label class="sb-field">
       <span class="sr-only">Search tours</span>
       <input type="search" name="q" placeholder="Search itineraries, destinations, monuments, etc…" autocomplete="off">
@@ -108,6 +108,7 @@
       <div>
         <h2 class="h4-h2">Best Tour Packages <em>in The Industry</em></h2>
         <p class="h4-base">Offering Various Tour Packages in Each Sector.</p>
+        <%- pvtLine %>
       </div>
       <a href="/itineraries" class="h4-all">View all packages <span>→</span></a>
     </div>
@@ -123,7 +124,6 @@
         <a href="<%= c.url %>" class="bn-hit" tabindex="-1" aria-hidden="true"></a>
         <div class="bn-body">
           
-          <%- pvt('pvt-sm pvt-on') %>
           <h3 class="bn-title"><a href="<%= c.url %>" class="bn-link"><%= c.title %></a></h3>
           <div class="bn-foot">
             <%# (18 Oct 2026, client) the starting price per person for the whole tour %>
@@ -142,7 +142,7 @@
   <div class="b-wrap dz-in">
     <div class="dz-main">
       <span class="dz-eyebrow">Seasonal offer</span>
-      <p class="dz-t"><b class="dz-pct-sr">10%</b> discount on the tour packages booked from April to August!</p>
+      <p class="dz-t"><b class="dz-pct-sr">10%</b> discount on the tour packages booked from April to September!</p>
     </div>
     <div class="dz-stub">
       <b class="dz-pct" aria-hidden="true">10%</b>
@@ -157,6 +157,7 @@
       <div>
         <h2 class="h4-h2">Most Popular Tours <em>of India</em></h2>
         <p class="h4-base">From Thar Desert of Rajasthan to Backwaters of Kerala.</p>
+        <%- pvtLine %>
       </div>
       <a href="/itineraries" class="h4-all">View all packages <span aria-hidden="true">→</span></a>
     </div>
@@ -175,6 +176,17 @@
             <option value="">Pick a tour category first</option>
           </select>
         </label>
+        <%# (21 Oct 2026, client) tour length in days; the counts come from the tours themselves %>
+        <% const tfDays = H2.finder.flatMap(g => g.tours).map(t => +((String(t.duration || '').match(/(\d+)\s*Days?/i) || [])[1] || 0));
+           const TF_DAYS = [['1-7', 'Up to 7 days'], ['8-10', '8 – 10 days'], ['11-14', '11 – 14 days'], ['15-21', '15 – 21 days'], ['22-30', '22 – 30 days'], ['31-45', '31 – 45 days'], ['46-999', '45+ days']]
+             .map(([r, l]) => { const [a, b] = r.split('-').map(Number); return [r, l, tfDays.filter(x => x >= a && x <= b).length]; }); %>
+        <label class="tf4-seg">
+          <span class="tf4-l">Search by Days</span>
+          <select id="tf-days">
+            <option value="">Any number of days</option>
+            <% TF_DAYS.forEach(([r, l, n]) => { %><option value="<%= r %>"<%= n ? '' : ' disabled' %>><%= l %> (<%= n %>)</option><% }) %>
+          </select>
+        </label>
         <label class="tf4-seg tf4-q">
           <span class="tf4-l">Search by Destinations</span>
           <input id="tf-q" type="search" placeholder="e.g. Jaipur, Kerala, Ladakh" autocomplete="off">
@@ -185,20 +197,19 @@
       </div>
     </form>
 
-    <p class="tf-status" id="tf-status" aria-live="polite">Our 6 most popular tours</p>
+    <p class="tf-status" id="tf-status" aria-live="polite"></p>
     <% // four stops along the route: start, two in between, end (repeats dropped)
        const ptStops = r => { const u = String(r || '').split(/\s+[-–]\s+/).map(x => x.trim()).filter((x, i, arr) => x && arr.indexOf(x) === i);
          if (u.length <= 4) return u; const n = u.length - 1; return [u[0], u[Math.round(n / 3)], u[Math.round(2 * n / 3)], u[n]]; }; %>
     <% const pqStops = r => String(r || '').split(/\s+[-–]\s+/).map(x => x.trim()).filter((x, i, arr) => x && arr.indexOf(x) === i);
        const pqNights = v => { const m = String(v || '').match(/(\d+)\s*Nights?/i); return m ? +m[1] : 0; }; %>
     <div class="pq-grid" id="tf-grid" data-wa="<%= footer.wa %>" data-card="pq">
-      <% H2.popular.slice(0, 6).forEach(t => { const st = pqStops(t.route), n = pqNights(t.duration); %>
+      <% H2.popular.slice(0, 8).forEach(t => { const st = pqStops(t.route), n = pqNights(t.duration); %>
       <article class="pq-card">
         <a href="<%= t.href %>" class="pq-img" tabindex="-1" aria-hidden="true">
           <img src="<%= t.img %>" alt="" loading="lazy"<%- /taj-mahal/.test(t.img) ? ' class="pq-zoom"' : '' %>>
         </a>
         <div class="pq-mid">
-          <%- pvt('pvt-sm pvt-on') %>
           <h3 class="pq-name"><a href="<%= t.href %>"><%= t.name %></a></h3>
           <% if (t.duration) { %><p class="pq-nd"><%= longDur(t.duration) %></p><% } %>
           <p class="pq-stops"><svg class="pq-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><% st.forEach((x, i) => { %><span<%- i >= 3 ? ' class="pq-more-x" hidden' : '' %>><%= x %></span><% }) %><button type="button" class="pq-more" data-pq-more aria-expanded="false"<%- st.length > 3 ? '' : ' hidden' %>>+<%= Math.max(st.length - 3, 0) %> more</button></p>
@@ -335,39 +346,7 @@
   </div>
 </section>
 
-<section id="reviews" class="rm r1">
-  <% const r1All = d.testimonials.all, r1Row = r1All.slice(0, 16); %>
-  <div class="rm-wrap rv3-head">
-    <div class="rv3-intro">
-      <h2 class="h4-h2">Guest <em>Reviews</em></h2>
-      <p class="h4-base">Stories You’ll Tell Forever.</p>
-    </div>
-    <%- include('partials/review-proof', { all: r1All }) %>
-  </div>
-
-  <div class="rm-rows" aria-label="Guest testimonials">
-    <div class="rm-row">
-      <div class="rm-track r1-track">
-        <% [0, 1].forEach(copy => { r1Row.forEach(t => { %>
-        <figure class="rm-card r1-card"<%- copy ? ' aria-hidden="true"' : '' %>>
-          <span class="r1-tour"><%= t.tour %></span>
-          <blockquote class="rm-quote"><%= t.quote %></blockquote>
-          <figcaption class="rm-who">
-            <span class="rm-av"><%= t.initials %></span>
-            <span class="rm-meta"><b><%= t.name %></b><small><%= t.country %></small></span>
-          </figcaption>
-        </figure>
-        <% }) }) %>
-      </div>
-    </div>
-  </div>
-
-  <p class="rm-wrap rv3-hope">“Hope to see your reviews here.”</p>
-  <div class="rm-wrap rm-foot">
-    <button type="button" class="rm-pause" aria-pressed="false"><span class="rm-pause-ic" aria-hidden="true"></span><span class="rm-pause-t">Pause</span></button>
-    <a href="<%= d.testimonials.href %>" class="rm-all">Read all guest reviews <span>→</span></a>
-  </div>
-</section>
+<%- include('partials/home-reviews', { RV: d.testimonials }) %>
 
 <section id="why" class="wn">
   <div class="b-wrap wn-grid">

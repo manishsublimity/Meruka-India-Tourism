@@ -1,7 +1,8 @@
 <%- include('partials/head') %>
 <%
   const enquire = '/contactus#enquiry';
-  const all = T.all;
+  // (21 Oct 2026, client) the longest reviews first, then the shorter ones; one-line reviews last
+  const all = T.all.slice().sort((a, b) => b.quote.length - a.quote.length);
   // Filter groups by the tour each guest took (keywords in the tour name)
   const GROUPS = [
     ['golden-triangle', 'Golden Triangle', /golden triangle/i],
@@ -42,11 +43,10 @@
     <div class="tm-grid tm2 tm3 tm-four" id="tm-grid">
       <% all.forEach((t, i) => { %>
       <figure class="tm-card<%= i >= 8 ? ' is-hidden' : '' %>" data-g="<%= groupsOf(t).join(' ') %>" data-search="<%= (t.name + ' ' + t.details.join(' ') + ' ' + t.tour + ' ' + t.route).toLowerCase() %>">
-        <span class="tm-mark" aria-hidden="true">“</span>
         <blockquote class="tm-quote" id="tm-q-<%= i %>"><%= t.quote %></blockquote>
         <button type="button" class="tm-more" aria-expanded="false" aria-controls="tm-q-<%= i %>" hidden>Read more</button>
         <figcaption class="tm-who">
-          <span class="tm-meta"><b><%= t.name %></b><small><%= t.details.concat([t.tour]).filter(Boolean).join(' · ') %></small></span>
+          <span class="rv-foot"><% if (t.tour) { %><span class="rv-tour"><%= t.tour %></span><% } %><span class="rv-guest"><b><%= t.name %></b><% if (t.details.length) { %><small><%= t.details.join(', ') %></small><% } %></span></span>
         </figcaption>
       </figure>
       <% }) %>
@@ -57,17 +57,6 @@
   </div>
 </section>
 
-<% if (T.closing) { %>
-<section class="az az-a az-end">
-  <div class="az-wrap az-cta">
-    <blockquote class="az-cta-quote">&ldquo;<%= T.closing %>&rdquo;</blockquote>
-    <div class="az-acts">
-      <a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip <span>→</span></a>
-      <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="az-btn-line">WhatsApp us <span>→</span></a>
-    </div>
-  </div>
-</section>
-<% } %>
 
 <%- include('partials/explore-india', { current: '/testimonials', skipRegions: true, skipGuide: true }) %>
 

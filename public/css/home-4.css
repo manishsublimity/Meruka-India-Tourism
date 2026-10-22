@@ -1730,3 +1730,213 @@
   #mk-frame#mk-frame.h4 .h8-in{padding-left:96px !important;padding-bottom:32px !important}
   #mk-frame#mk-frame.ux.v3.h4 .h8-title{font-size:clamp(40px,4.4cqw,60px) !important}
 }
+/* (21 Oct 2026, client) the hero 10% taller and the Best Tour Packages pictures 15% taller, pictures fully in view */
+@media (min-width:900px){
+  #mk-frame.h4 .h8,#mk-frame.h4 .h8-in{height:calc((100cqw * 528 / 1356 - 72px) * .77) !important;min-height:286px !important}
+}
+@media (max-width:899.98px){ #mk-frame.h4 .h8{height:254px !important} }
+#mk-frame.h4 .bn-four .bn-card{aspect-ratio:1 / 1.15 !important}
+#mk-frame.h4 .h4-bn .bn-four .bn-shade{background:linear-gradient(to top,rgba(8,22,50,.88) 0%,rgba(8,22,50,.45) 24%,rgba(8,22,50,0) 44%) !important}
+#mk-frame.h4 .h4-bn .bn-four img{object-position:50% 40%}
+/* /itineraries category card: the private tag and codes */
+#mk-frame .pvt.pvt-out{margin:6px 0 6px}
+#mk-frame.in4 .tpc-foot{flex-wrap:wrap}
+#mk-frame .tp2-title .tcode{margin-right:4px;font-size:11.5px}
+#mk-frame .tp2-row-name .tcode{margin-right:2px;padding:1px 6px;font-size:11px}
+/* (21 Oct 2026, client) /itineraries: "Private Tour – No Sharing" once per place, as plain text; cleaner code chips */
+#mk-frame .pvt-strip{gap:10px;padding:11px 16px;font-size:15px;font-weight:500}
+#mk-frame .pvt-strip b{font-weight:800;color:#123F6D}
+#mk-frame .pvt-strip .pvt-ic{margin:0;color:#336699}
+#mk-frame .pvt-strip .pvt-ic svg{width:18px;height:18px}
+#mk-frame.in4 .tpc-nights{display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px}
+#mk-frame.in4 .tpc-n,#mk-frame.in4 .tpc-pvt{display:inline-flex;align-items:center;gap:6px}
+#mk-frame.in4 .tpc-pvt{color:#123F6D}
+#mk-frame.in4 .tpc-pvt .pvt-ic{margin:0}
+#mk-frame.in4 .tpc-pvt .pvt-ic svg{width:14px;height:14px;color:#336699}
+#mk-frame .tcode{border:0;background:#EAF1F9;color:#123F6D;padding:3px 7px;font-size:11px;letter-spacing:.06em}
+#mk-frame .tp2-title .tcode{vertical-align:3px;margin-right:6px}
+#mk-frame .pvt-strip{flex-wrap:nowrap;align-items:flex-start} #mk-frame .pvt-strip .pvt-ic{flex:none;margin-top:2px} #mk-frame .pvt-strip > span:not(.pvt-ic){min-width:0}
+
+/* ===== (21 Oct 2026, client) home: slimmer stats strip; "Private tour · No sharing · Your own car & driver" line
+   under the Best Tour Packages and Most Popular Tours headings (no tags on the cards); smaller footer logo ===== */
+#mk-frame.h4 .h8-stats-in > div{padding-top:15px !important;padding-bottom:15px !important}
+#mk-frame .pvt-line{display:flex;align-items:center;gap:10px;margin:12px 0 0;font:700 15px/1.3 'Manrope',sans-serif;color:#123F6D}
+#mk-frame .pvt-line-ic{display:grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%;background:#FFB81C;color:#fff}
+#mk-frame .pvt-line-ic svg{width:13px;height:13px}
+#mk-frame .pvt-line i{flex:0 1 120px;height:3px;border-radius:3px;background:linear-gradient(90deg,#FFB81C,rgba(255,184,28,0))}
+@media (max-width:559.98px){ #mk-frame .pvt-line{font-size:13.5px} #mk-frame .pvt-line i{display:none} }
+#mk-frame.v3.h4 .sf .sf-logo-mark.mlogo{width:52px}
+#mk-frame.h4 .sf-logo-name{font-size:15px}
+/* the finder with four fields (sector, tour, days, destination) */
+#mk-frame.v3.h4 .tf4-bar{grid-template-columns:repeat(4,minmax(0,1fr)) auto}
+@media (max-width:899.98px){
+  #mk-frame.v3.h4 .tf4-bar{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto}
+  #mk-frame.v3.h4 .tf4-seg:nth-child(2){grid-column:2}
+  #mk-frame.v3.h4 .tf4-seg:nth-child(3){grid-column:1}
+  #mk-frame.v3.h4 .tf4-q{grid-column:2 / span 2}
+  #mk-frame.v3.h4 .tf4-go{grid-column:3;grid-row:1}
+}
+@media (max-width:559.98px){
+  #mk-frame.v3.h4 .tf4-bar{grid-template-columns:minmax(0,1fr) auto}
+  #mk-frame.v3.h4 .tf4-seg:nth-child(1),#mk-frame.v3.h4 .tf4-seg:nth-child(2),#mk-frame.v3.h4 .tf4-seg:nth-child(3){grid-column:1 / -1}
+  #mk-frame.v3.h4 .tf4-q{grid-column:1}
+  #mk-frame.v3.h4 .tf4-go{grid-column:2;grid-row:auto}
+}
+/* Most Popular Tours: four cards in a row */
+#mk-frame.h4 #tf-grid.pq-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+@media (max-width:1099.98px){ #mk-frame.h4 #tf-grid.pq-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:639.98px){ #mk-frame.h4 #tf-grid.pq-grid{grid-template-columns:minmax(0,1fr)} }
+#mk-frame .pvt-line span:not(.pvt-line-ic){white-space:nowrap}
+@media (max-width:559.98px){ #mk-frame .pvt-line span:not(.pvt-line-ic){white-space:normal} }
+/* four popular cards in a row: price on the left, the buttons beside it on the same line (21 Oct 2026, client) */
+@media (min-width:1100px){
+  #mk-frame#mk-frame.h4 #tf-grid .pq-cost{display:flex;flex-direction:row;align-items:flex-end;justify-content:space-between;gap:10px}
+  #mk-frame#mk-frame.h4 #tf-grid .pq-price b{white-space:nowrap;font-size:21px;display:block}
+  #mk-frame#mk-frame.h4 #tf-grid .pq-btns{display:flex;gap:6px;flex:none}
+  #mk-frame#mk-frame.h4 #tf-grid .pq-view{padding-left:12px;padding-right:12px}
+}
+#mk-frame.h4 .pq-img{height:180px}
+/* (21 Oct 2026, client) "Chalk out your own private tour" strip: no empty space under the lists, no circle in the
+   price panel; each list sits in the middle of its panel, a little tighter */
+#mk-frame.h4 .c6-price::after{display:none !important}
+@media (min-width:1000px){
+  #mk-frame.h4 .c6-part{justify-content:center;padding:20px 22px !important}
+  #mk-frame.h4 .c6-list{margin:0}
+  #mk-frame.h4 .c6-list li{margin-bottom:6px}
+  #mk-frame.h4 .c6-list li:last-child{margin-bottom:0}
+}
+/* (21 Oct 2026, client) India Travel Guide: a more compact section — shorter pictures, tighter link rows */
+#mk-frame#mk-frame.h4 .g2-card-img{height:130px}
+#mk-frame#mk-frame.h4 .g2-card li a{padding-top:3px;padding-bottom:3px}
+/* (21 Oct 2026, client) price strip: more breathing room; WhatsApp and Email side by side under "Tell Us Your Plan" */
+#mk-frame.h4 .c6-acts .c3-actions{display:grid !important;grid-template-columns:1fr 1fr;gap:10px}
+#mk-frame.h4 .c6-acts .c3-actions .c3-gold{grid-column:1 / -1}
+#mk-frame.h4 .c6-acts .c3-btn{padding-left:10px !important;padding-right:10px !important}
+@media (min-width:1000px){
+  #mk-frame#mk-frame.h4 .c6-part{padding:24px 26px !important}
+  #mk-frame#mk-frame.h4 .c6-part.c6-acts{padding:20px 22px !important}
+  #mk-frame.h4 .c6-list li{margin-bottom:9px}
+}
+/* India Travel Guide: pictures 10% taller, more room between the links */
+#mk-frame#mk-frame.h4 .g2-card-img{height:143px}
+#mk-frame#mk-frame.h4 .g2-card li a{padding-top:5px;padding-bottom:5px}
+/* (21 Oct 2026, client) home Guest Reviews cards in the Guest Reviews page's style: no big quote mark or tour tag on
+   top, the words between small gold inverted commas, a hairline, the guest's name and country on the right */
+#mk-frame#mk-frame.h4 #reviews .r6-card{display:flex !important;flex-direction:column;gap:14px;height:auto !important;min-height:0 !important;padding:22px 24px 18px !important;background:#fff !important;border:1px solid #E3E9F2 !important;border-radius:5px !important;box-shadow:0 1px 3px rgba(20,30,50,.06),0 10px 24px rgba(20,30,50,.06) !important}
+#mk-frame#mk-frame.h4 #reviews .r6-card::before,#mk-frame#mk-frame.h4 #reviews .r6-card::after{display:none !important}
+#mk-frame#mk-frame.v3.h4 #reviews .r6-q{margin:0;font-family:'Manrope',system-ui,sans-serif !important;font-style:normal !important;font-size:15.5px !important;line-height:1.65 !important;color:#33445E !important;display:block !important;-webkit-line-clamp:unset !important;overflow:visible !important}
+#mk-frame#mk-frame.h4 #reviews .r6-q::before{content:"\201C";margin-right:2px;color:#FFB81C;font-weight:800}
+#mk-frame#mk-frame.h4 #reviews .r6-q::after{content:"\201D";margin-left:2px;color:#FFB81C;font-weight:800}
+#mk-frame.h4 #reviews .r6-who{display:flex;flex-direction:column;align-items:flex-end;text-align:right;gap:2px;margin-top:auto;padding-top:12px;border-top:1px solid #EEF2F7}
+#mk-frame.h4 #reviews .r6-who b{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:600;color:#123F6D}
+#mk-frame.h4 #reviews .r6-who small{font-size:12.5px;color:#7A879B}
+/* (21 Oct 2026, client) "Tour Code: GT" after the name */
+#mk-frame .tp2-title .tcode,#mk-frame .tp2-row-name .tcode{margin:0 0 0 8px;padding:2px 7px;font-size:11px;font-weight:700;letter-spacing:.02em;vertical-align:3px}
+#mk-frame .tp2-row-name .tcode{vertical-align:2px}
+@media (min-width:1100px){
+  #mk-frame#mk-frame.h4 #tf-grid .pq-price{flex:none}
+  #mk-frame#mk-frame.h4 #tf-grid .pq-btns{flex:1 1 auto;min-width:0;justify-content:flex-end}
+  #mk-frame#mk-frame.h4 #tf-grid .pq-view{flex:0 1 auto;min-width:0;padding-left:10px !important;padding-right:10px !important;font-size:13px !important;white-space:nowrap}
+  #mk-frame#mk-frame.h4 #tf-grid .pq-wa{flex:none}
+}
+@media (min-width:1100px) and (max-width:1399.98px){ #mk-frame#mk-frame.h4 #tf-grid .pq-price b{font-size:18px} #mk-frame#mk-frame.h4 #tf-grid .pq-view{padding-left:8px !important;padding-right:8px !important;font-size:12.5px !important} #mk-frame#mk-frame.h4 #tf-grid .pq-btns{gap:5px} }
+#mk-frame .tp2-wrap > .pvt-line{margin:0 0 16px}
+#mk-frame .tf-status:empty{display:none}
+/* (21 Oct 2026, client) a proper Indian flag in the header; Google Translate's own bar hidden */
+#mk-frame .mh-flag{width:22px;height:15px;background:url(/images/flag-in.svg) center / cover no-repeat !important;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+body > .skiptranslate,iframe.goog-te-banner-frame,.goog-te-banner-frame{display:none !important}
+body{top:0 !important}
+#goog-gt-tt,.goog-te-balloon-frame{display:none !important}
+font[style*="vertical-align: inherit"]{background:none !important;box-shadow:none !important}
+/* (21 Oct 2026, client) hero search: no border around the field, so the gold search button sits flush, as tall as the other buttons */
+#mk-frame#mk-frame.ux.v3.h4 .sb-field{border:0 !important;padding-right:0 !important}
+#mk-frame#mk-frame.ux.v3.h4 .sb-field .sb-go{height:var(--mk-btn-h) !important;margin:0 !important;border:0 !important;align-self:stretch}
+/* (21 Oct 2026, client) popular cards: the same space above and below the price row */
+#mk-frame#mk-frame#mk-frame.h4 #tf-grid .pq-cost{padding:16px 20px !important;margin-top:auto;align-items:center !important}
+/* (21 Oct 2026, client) reviews: the tour the guest took, highlighted under the name and city / country */
+#mk-frame .tm-tour{display:block;margin-top:3px;font-style:normal;font-size:12.5px;font-weight:700;color:var(--mk-blue,#336699)}
+#mk-frame .tm-meta small{display:block}
+/* (21 Oct 2026, client) FAQs: 12px 20px inside each question */
+#mk-frame#mk-frame.ux.v3.h4 #faq .fq-q{padding:12px 20px !important;min-height:0 !important}
+/* (21 Oct 2026, client) the hotel chips in the Plan Your Trip form: the chosen one shows (blue, white text) */
+#mk-frame#mk-frame.h4 .pz-stars .star{cursor:pointer;transition:background-color var(--mk-ease,.25s),color var(--mk-ease,.25s)}
+#mk-frame#mk-frame.h4 .pz-stars .star[aria-pressed="true"]{background:#336699 !important;color:#fff !important}
+/* (21 Oct 2026, client) Plan Your Trip: the email field wide enough to show a whole address */
+@media (min-width:1100px){ #mk-frame#mk-frame.h4 .pz-row{grid-template-columns:minmax(0,1fr) minmax(0,1.7fr) minmax(0,1fr) minmax(0,1fr) minmax(0,.9fr) minmax(0,.9fr) !important} }
+/* ===== (21 Oct 2026, client) one section gap for the whole site (see inner-4.css): half the gap above and below
+   every home section, so any two sections are exactly one gap apart ===== */
+#mk-frame#mk-frame.ux.v3.h4{--h4-sp:28px;--sec-half:28px}
+@media (max-width:639.98px){ #mk-frame#mk-frame.ux.v3.h4{--h4-sp:20px;--sec-half:20px} }
+#mk-frame#mk-frame#mk-frame.ux.v3.h4 :is(#packages,.dz.dz-a,#popular,#own-tour,#destinations,#guide,#reviews,#why,#faq){padding-top:var(--sec-half) !important;padding-bottom:var(--sec-half) !important;margin-top:0 !important;margin-bottom:0 !important}
+#mk-frame#mk-frame#mk-frame.ux.v3.h4 #plan.pz{padding-top:calc(var(--sec-half) + 8px) !important;padding-bottom:calc(var(--sec-half) + 8px) !important}
+/* (21 Oct 2026) the offer line with "April to September" fits: a size smaller, wraps if it must */
+#mk-frame#mk-frame.ux.v3.h4 .dz.dz-a .dz-t{overflow:visible !important;text-overflow:clip !important}
+#mk-frame#mk-frame.ux.v3.h4 .dz.dz-a .dz-t{font-size:20px}
+/* (21 Oct 2026, client) popular cards: "Starts from" and the price as one block, centred against the buttons, with
+   less space above and below */
+#mk-frame#mk-frame#mk-frame.h4 #tf-grid .pq-cost{padding:12px 18px !important;align-items:center !important}
+#mk-frame#mk-frame#mk-frame.h4 #tf-grid .pq-price{position:static !important;display:flex !important;flex-direction:column;justify-content:center;gap:2px}
+#mk-frame#mk-frame#mk-frame.h4 #tf-grid .pq-price small{position:static !important;top:auto !important;margin:0 !important;line-height:1.2}
+#mk-frame#mk-frame#mk-frame.h4 #tf-grid .pq-price b{line-height:1.1}
+/* (21 Oct 2026, client's pick A) review cards: no gold inverted commas; a footer row with the tour as a chip on the
+   left and the guest's name and country on the right — home and Guest Reviews page alike */
+#mk-frame#mk-frame .r6-q::before,#mk-frame#mk-frame .r6-q::after,#mk-frame#mk-frame .tm-quote::before,#mk-frame#mk-frame .tm-quote::after{content:none !important;display:none !important}
+#mk-frame#mk-frame .tm-mark{display:none !important}
+#mk-frame .rv-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;margin-top:auto;padding-top:12px;border-top:1px solid #EEF2F7}
+#mk-frame .rv-tour{flex:0 1 auto;max-width:55%;padding:5px 9px;border-radius:5px;background:#EEF4FA;color:#336699;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;line-height:1.35}
+#mk-frame .rv-guest{display:flex;flex-direction:column;align-items:flex-end;gap:1px;margin-left:auto;text-align:right;min-width:0}
+#mk-frame#mk-frame .rv-guest b{font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:600;line-height:1.25;color:#123F6D}
+#mk-frame#mk-frame .rv-guest small{display:block;font-size:12.5px;line-height:1.4;color:#7A879B}
+#mk-frame#mk-frame .tm-who:has(.rv-foot){display:block !important;margin-top:auto !important;padding:0 !important;border:0 !important}
+/* (21 Oct 2026, client) the short private line under section headings: "Private Tours · No Sharing" + a gold rule */
+#mk-frame .pvt-line.pvt-short{gap:12px;font-size:13.5px;font-weight:700;color:#123F6D}
+#mk-frame .pvt-line.pvt-short i{flex:0 1 110px}
+/* one heading format for every section (the home "Best Tour Packages" head): the heading, its line right under it,
+   then the private line */
+#mk-frame#mk-frame#mk-frame.ux.v3.h4 .h4-head .h4-h2{margin:0 !important}
+#mk-frame#mk-frame#mk-frame.ux.v3.h4 .h4-head .h4-h2 + .h4-base{margin-top:4px !important}
+#mk-frame#mk-frame#mk-frame.ux.v3.h4 .h4-head .h4-base + .pvt-line{margin-top:8px !important}
+/* "Chalk Out Your Own Private Tour": its line beside the heading, in the italic accent */
+#mk-frame#mk-frame.ux.v3.h4 .c6-head > div{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px}
+#mk-frame#mk-frame.ux.v3.h4 .c6-head .c6-base{margin:0 !important;font-family:'Instrument Serif',Georgia,serif !important;font-style:italic;font-size:clamp(18px,1.6cqw,22px);color:#336699}
+/* review footer: the guest on one line, the tour chip takes the rest of the row (two lines at most) */
+#mk-frame#mk-frame .rv-guest{flex:none;max-width:60%}
+#mk-frame#mk-frame .rv-guest b{white-space:nowrap}
+#mk-frame#mk-frame .rv-tour{flex:1 1 auto;max-width:none;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#mk-frame#mk-frame #reviews .r6-card .rv-foot{margin-top:auto}
+/* (21 Oct 2026, client) review footer without overlaps: a two-column grid — the tour chip on the left gets what is left
+   (at least 96px, two lines at most), the guest's name and country on the right wrap if they must */
+#mk-frame#mk-frame .rv-foot{display:grid !important;grid-template-columns:minmax(96px,1fr) minmax(0,max-content);align-items:center;column-gap:12px}
+#mk-frame#mk-frame .rv-tour{max-width:100%;min-width:0;justify-self:start}
+#mk-frame#mk-frame .rv-guest{max-width:none;min-width:0;margin-left:0}
+#mk-frame#mk-frame .rv-guest b{white-space:normal;overflow-wrap:anywhere}
+#mk-frame#mk-frame .rv-tour{display:block !important;-webkit-line-clamp:unset !important;overflow:visible !important}
+/* (21 Oct 2026, client's reference) "Chalk Out Your Own Private Tour" strip: every panel's content in the middle,
+   the same space above and below (18px), side padding clear of the 30px arrow cuts */
+@media (min-width:1000px){
+  #mk-frame#mk-frame#mk-frame.h4 .c6-parts > .c6-part{display:flex !important;flex-direction:column;justify-content:center !important;padding:18px 26px 18px 44px !important}
+  #mk-frame#mk-frame#mk-frame.h4 .c6-parts > .c6-part.c6-price{padding:18px 40px 18px 26px !important;align-items:flex-start}
+  #mk-frame#mk-frame#mk-frame.h4 .c6-parts > .c6-part.c6-acts{padding:18px 22px 18px 44px !important}
+  #mk-frame#mk-frame#mk-frame.h4 .c6-parts > .c6-part:not(.c6-price):not(.c6-acts){padding-right:40px !important}
+  #mk-frame#mk-frame.h4 .c6-list{margin:0 !important}
+  #mk-frame#mk-frame.h4 .c6-list li{margin:0 0 6px !important}
+  #mk-frame#mk-frame.h4 .c6-list li:last-child{margin-bottom:0 !important}
+}
+@media (min-width:1000px) and (max-width:1279.98px){
+  #mk-frame#mk-frame#mk-frame.h4 .c6-acts .c3-actions{grid-template-columns:1fr !important}
+  #mk-frame#mk-frame#mk-frame.h4 .c6-parts > .c6-part.c6-price{padding:18px 36px 18px 20px !important}
+  #mk-frame#mk-frame#mk-frame.h4 .c6-price .c6-amt b{font-size:46px !important}
+  #mk-frame#mk-frame#mk-frame.h4 .c6-price p{font-size:14px !important}
+  #mk-frame#mk-frame#mk-frame.h4 .c6-parts > .c6-part{padding-left:40px !important}
+}
+/* review footer: the name gets its full width first (one line when it fits), the tour chip wraps instead; all home
+   review footers the same height so the cards line up with no empty space */
+#mk-frame#mk-frame#mk-frame .rv-foot{grid-template-columns:minmax(96px,1fr) auto}
+#mk-frame#mk-frame#mk-frame .rv-guest b{overflow-wrap:normal}
+#mk-frame#mk-frame#mk-frame #reviews .r6-card .rv-foot{min-height:72px}
+/* (21 Oct 2026, client) review footer split 50 / 50: the tour chip in the left half, the guest in the right half;
+   anything longer wraps onto the next line inside its own half — on every page with reviews */
+#mk-frame#mk-frame#mk-frame .rv-foot{grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;column-gap:14px}
+#mk-frame#mk-frame#mk-frame .rv-tour{justify-self:start;max-width:100%}
+#mk-frame#mk-frame#mk-frame .rv-guest{justify-self:end;width:100%;align-items:flex-end}
+#mk-frame#mk-frame#mk-frame .rv-guest b{white-space:normal;overflow-wrap:break-word}

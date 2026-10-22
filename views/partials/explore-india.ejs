@@ -7,59 +7,7 @@
   const exExt = h => /^https?:/.test(h) ? ' target="_blank" rel="noopener"' : '';
   const exTotal = tourNav.groups.reduce((n, g) => n + g.cats.length, 0);
 %>
-<!-- India Tour Packages: every category, in the original's groups -->
-<section class="ex-pk" id="tour-packages" aria-label="India tour packages">
-  <div class="ex-wrap">
-    <div class="h4-head">
-      <div>
-        <h2 class="h4-h2">India Tour <em>Packages</em></h2>
-        <p class="h4-base"><%= exTotal %> kinds of tour, from Rajasthan's forts to Kerala's backwaters — pick one and see every itinerary.</p>
-      </div>
-      <a href="/itineraries" class="h4-all">View all packages <span aria-hidden="true">→</span></a>
-    </div>
-    <%# (18 Oct 2026, the client's layout) sectors on the left with their number of tours; the chosen sector's
-        categories in the middle; "Can't find the right tour?" on the right. Every panel is in the page; the buttons
-        only change which one shows. %>
-    <% const exTC = explore.tourCounts || { cat: {}, sector: {} };
-       const exStart = Math.max(0, tourNav.groups.findIndex(g => g.cats.some(c => c.href.toLowerCase() === exHere))); %>
-    <div class="ex-tabs" data-ex-tabs>
-      <div class="ex-rail" role="tablist" aria-label="Sectors">
-        <div class="ex-rail-h" aria-hidden="true"><span>Sectors</span><span>No. of Tours</span></div>
-        <% tourNav.groups.forEach((g, gi) => { %>
-        <button type="button" class="ex-sec" role="tab" id="ex-tab-<%= gi %>" aria-controls="ex-panel-<%= gi %>" aria-selected="<%= gi === exStart %>" tabindex="<%= gi === exStart ? 0 : -1 %>"><span><%= g.title %></span><span class="ex-n"><%= exTC.sector[g.title] || 0 %></span></button>
-        <% }) %>
-      </div>
-      <% tourNav.groups.forEach((g, gi) => { %>
-      <section class="ex-panel" role="tabpanel" id="ex-panel-<%= gi %>" aria-labelledby="ex-tab-<%= gi %>"<%= gi === exStart ? '' : ' hidden' %>>
-        <div class="ex-ph"><h3><%= g.title %></h3><span><%= exTC.sector[g.title] || 0 %> tours in <%= g.cats.length %> categor<%= g.cats.length === 1 ? 'y' : 'ies' %></span></div>
-        <ul class="ex-cats">
-          <% g.cats.forEach(c => { const on = c.href.toLowerCase() === exHere; const n = exTC.cat[c.href] || 0; %>
-          <li><a href="<%= c.href %>"<%- on ? ' class="on" aria-current="page"' : '' %>><span><%= c.name %></span><small><%= n %> tour<%= n === 1 ? '' : 's' %></small></a></li>
-          <% }) %>
-        </ul>
-      </section>
-      <% }) %>
-      <aside class="ex-cta">
-        <h3>Can't find the right tour?</h3>
-        <p>Tell us the places, dates and hotels you like — we'll draw a private tour around them.</p>
-        <a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip <span aria-hidden="true">→</span></a>
-      </aside>
-    </div>
-    <script>
-    (function () {   // sector buttons: show that sector's categories (arrow keys move between sectors)
-      var box = document.currentScript.previousElementSibling, tabs = [].slice.call(box.querySelectorAll('[role="tab"]'));
-      function pick(t, focus) {
-        tabs.forEach(function (x) { var on = x === t; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1; document.getElementById(x.getAttribute('aria-controls')).hidden = !on; });
-        if (focus) t.focus();
-      }
-      tabs.forEach(function (t, i) {
-        t.addEventListener('click', function () { pick(t); });
-        t.addEventListener('keydown', function (e) { var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (d) { e.preventDefault(); pick(tabs[(i + d + tabs.length) % tabs.length], true); } });
-      });
-    })();
-    </script>
-  </div>
-</section>
+<%# (21 Oct 2026, client) the "India Tour Packages" sectors block is removed from the inner pages %>
 
 <% if (typeof skipRegions === 'undefined' || !skipRegions || typeof skipGuide === 'undefined' || !skipGuide) {
   const [gTrav, gAttr, gTools] = explore.guideCols; %>
@@ -74,60 +22,38 @@
       </div>
       <a href="/travelers_guide" class="h4-all">Open the full guide <span aria-hidden="true">→</span></a>
     </div>
-    <div class="bxh-grid">
-      <div class="bxh-stage">
-        <% explore.regions.forEach((r, ri) => { %>
-        <div class="bxh-slide<%= ri ? '' : ' on' %>" data-bxh-slide="<%= ri %>"<%- ri ? ' aria-hidden="true"' : '' %>>
+    <%# (21 Oct 2026, client's reference) the four regions as photo cards, two by two; beside them "When to come" and the
+        travel guide as rows of small link chips %>
+    <div class="exr-grid">
+      <div class="exr-regions">
+        <% explore.regions.forEach(r => { %>
+        <div class="exr-card">
           <img src="<%= r.img %>" alt="" loading="lazy">
-          <div class="bxh-copy">
-            <span class="bxh-k"><%= r.kicker %></span>
-            <a href="<%= r.href %>" class="bxh-n"><%= r.name %></a>
-            <p class="bxh-cities"><span>Popular cities:</span> <% r.cities.slice(0, 6).forEach((c, ci) => { %><a href="<%= c[1] %>"><%= c[0] %></a><% if (ci < Math.min(r.cities.length, 6) - 1) { %> · <% } %><% }) %></p>
-            <a href="<%= r.href %>" class="ph-btn ph-btn-gold bxh-go">Explore <%= r.name %> <span aria-hidden="true">→</span></a>
+          <span class="exr-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          <div class="exr-body">
+            <a href="<%= r.href %>" class="exr-name"><%= r.name %></a>
+            <span class="exr-kick"><%= r.kicker %></span>
+            <p class="exr-cities"><%= r.cities.slice(0, 6).map(c => c[0]).join(' · ') %></p>
           </div>
         </div>
         <% }) %>
-        <div class="bxh-tabs" role="group" aria-label="Choose a region">
-          <% explore.regions.forEach((r, ri) => { %><button type="button" class="bxh-tab<%= ri ? '' : ' on' %>" data-bxh-tab="<%= ri %>" aria-pressed="<%= !ri %>"><%= r.name %></button><% }) %>
-        </div>
       </div>
-      <div class="bxh-side">
-        <a href="<%= menu.to('Weather & Best Season', 'guide') %>" class="bxh-season">
+      <div class="exr-side">
+        <a href="<%= menu.to('Weather & Best Season', 'guide') %>" class="exr-season">
           <img src="/photos/guide-main.webp" alt="" loading="lazy">
           <span><small>When to come</small><b>The Country for All Seasons</b><em>September to March is the best time.</em></span>
         </a>
-        <%# (16 Oct 2026, client's pick K) the guide: one card, its three groups as rows — an icon, the title, the links %>
-        <%
-          const gIco = ['<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
-                        '<path d="M4 21h16M6 21V10M18 21V10M12 3 3 8h18zM10 21v-6h4v6"/>',
-                        '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>'];
-        %>
-        <div class="ex-pk-card bxh-guide">
-          <% [gTrav, gAttr, gTools].forEach((g, gi) => { if (!g) return; %>
-          <div class="bxh-grow">
-            <span class="bxh-gic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><%- gIco[gi] %></svg></span>
-            <div class="bxh-gbody">
-              <p class="bxh-gt"><%= g.title %></p>
-              <p class="bxh-gl"><% g.items.forEach((it, ii) => { const h = menu.to(it, 'guide'); %><a href="<%= h %>"<%- exExt(h) %>><%= it %></a><% if (ii < g.items.length - 1) { %> <i aria-hidden="true">·</i> <% } %><% }) %></p>
-            </div>
+        <div class="exr-guide">
+          <% [gTrav, gAttr, gTools].forEach(g => { if (!g) return; %>
+          <div class="exr-grow">
+            <p class="exr-gt"><%= g.title %></p>
+            <p class="exr-chips"><% g.items.forEach(it => { const h = menu.to(it, 'guide'); %><a href="<%= h %>"<%- exExt(h) %>><%= it %></a><% }) %></p>
           </div>
           <% }) %>
+          <p class="exr-foot"><span>Not sure where to start?</span><a href="/plan-my-trip">Talk to us <span aria-hidden="true">→</span></a></p>
         </div>
       </div>
     </div>
   </div>
-  <script>
-  (function () {   // region buttons change the photo
-    var sec = document.currentScript.closest('section');
-    var slides = sec.querySelectorAll('[data-bxh-slide]'), tabs = sec.querySelectorAll('[data-bxh-tab]');
-    tabs.forEach(function (t) {
-      t.addEventListener('click', function () {
-        var i = t.getAttribute('data-bxh-tab');
-        slides.forEach(function (s) { var on = s.getAttribute('data-bxh-slide') === i; s.classList.toggle('on', on); if (on) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true'); });
-        tabs.forEach(function (x) { var on = x === t; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
-      });
-    });
-  })();
-  </script>
 </section>
 <% } %>

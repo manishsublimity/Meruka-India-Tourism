@@ -55,8 +55,10 @@
     var stars = $$('.star'), star = '';
     // the chip drawn in its "on" style is the one chosen at the start (4-star)
     stars.forEach(function (s) { if (s.getAttribute('style') === s.dataset.on || s.getAttribute('aria-pressed') === 'true') star = s.dataset.star; });
+    // (21 Oct 2026) the chosen chip is marked with aria-pressed, which the CSS shows
+    stars.forEach(function (s) { s.setAttribute('aria-pressed', String(s.dataset.star === star)); });
     stars.forEach(function (s) {
-      s.addEventListener('click', function () { star = s.dataset.star; stars.forEach(function (x) { setOn(x, x === s); }); });
+      s.addEventListener('click', function () { star = s.dataset.star; stars.forEach(function (x) { setOn(x, x === s); x.setAttribute('aria-pressed', String(x === s)); }); });
     });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -101,8 +103,9 @@
 (function () {
   // Tour finder: 1) India Tours category → 2) a tour in it → 3) search; the packages show below.
   var data = window.TOUR_FINDER, grid = $('#tf-grid'); if (!data || !grid) return;
-  var cat = $('#tf-cat'), tour = $('#tf-tour'), q = $('#tf-q'), status = $('#tf-status'), empty = $('#tf-empty');
-  var popular = grid.innerHTML, LIMIT = 9;
+  var cat = $('#tf-cat'), tour = $('#tf-tour'), q = $('#tf-q'), days = $('#tf-days'), status = $('#tf-status'), empty = $('#tf-empty');
+  var popular = grid.innerHTML, LIMIT = 8;
+  var daysOf = function (t) { var m = String(t.duration || '').match(/(\d+)\s*Days?/i); return m ? +m[1] : 0; };
   var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var longDur = function (v) { var m = String(v || '').match(/(\d+)\s*Nights?\s*[-–]\s*(\d+)\s*Days?/i); return m ? (+m[1]) + ' Nights / ' + (+m[2]) + ' Days' : (v || ''); };
   var shortDur = function (v) { var m = String(v || '').match(/(\d+)\s*Nights?\s*[-–]\s*(\d+)\s*Days?/i); return m ? (+m[1]) + 'N / ' + (+m[2]) + 'D' : (v || ''); };
@@ -139,15 +142,17 @@
   }
   function render() {
     var ci = cat.value, ti = tour.value, words = q.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    if (ci === '' && !words.length) {                       // nothing chosen: the popular tours
+    var dr = days && days.value ? days.value.split('-').map(Number) : null;
+    if (ci === '' && !words.length && !dr) {                       // nothing chosen: the popular tours
       grid.innerHTML = popular; empty.classList.add('is-hidden');
-      status.textContent = 'Our 6 most popular tours';
+      status.textContent = '';
       return;
     }
     var groups = ci === '' ? data : [data[+ci]], out = [];
     groups.forEach(function (g) {
       g.tours.forEach(function (t, k) {
         if (ci !== '' && ti !== '' && +ti !== k) return;
+        if (dr) { var dd = daysOf(t); if (dd < dr[0] || dd > dr[1]) return; }
         var hay = (t.name + ' ' + t.route + ' ' + g.title).toLowerCase();
         if (words.every(function (w) { return hay.indexOf(w) > -1; })) out.push(card(t, g));
       });
@@ -167,7 +172,8 @@
   });
   tour.addEventListener('change', render);
   q.addEventListener('input', render);
-  function reset() { cat.value = ''; q.value = ''; cat.dispatchEvent(new Event('change')); }
+  if (days) days.addEventListener('change', render);
+  function reset() { cat.value = ''; q.value = ''; if (days) days.value = ''; cat.dispatchEvent(new Event('change')); }
   $('#tf-reset').addEventListener('click', reset);
   $('#tf-clear').addEventListener('click', reset);
 })();
@@ -388,4 +394,27 @@
     if (!f.elements.nights.value) f.elements.nights.disabled = true;
   });
   window.addEventListener('pageshow', function () { f.elements.q.disabled = false; f.elements.nights.disabled = false; });
+})();
+
+(function () {
+  // (21 Oct 2026, client) the seasonal offer line fills the band's width on every screen, on one line (18–34px)
+  var t = document.querySelector('.dz-a .dz-t'); if (!t) return;
+  function fit() {
+    var box = t.parentElement, cs = getComputedStyle(box);
+    var avail = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    t.style.setProperty('max-width', 'none', 'important');
+    t.style.setProperty('white-space', 'nowrap', 'important');
+    t.style.setProperty('display', 'inline-block');
+    t.style.setProperty('font-size', '20px', 'important');
+    var rg = document.createRange(); rg.selectNodeContents(t);
+    var w = rg.getBoundingClientRect().width || 1;   // the text itself, not its box (the box has a set width)
+    var size = Math.max(18, Math.min(48, Math.floor(20 * avail / w * 0.995)));
+    t.style.setProperty('font-size', size + 'px', 'important');
+    t.style.removeProperty('display');
+    if (size === 18) t.style.setProperty('white-space', 'normal', 'important');
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  window.addEventListener('load', fit);
 })();
