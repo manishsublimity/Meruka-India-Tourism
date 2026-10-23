@@ -52,7 +52,7 @@ const TARGETS = {
   'India Tourism': 'index.htm', 'South India Tours': 'south_india_tour.html', 'North India Tours': '/north_india_tour', 'Sitemap': '/sitemap',
   // Footer
   'Golden Triangle': 'india-golden-triangle-tour.html', 'Exotic Rajasthan': 'rajasthan-tours.html',
-  'Rajasthan North India': 'rajasthan_north_india_tours.html', 'Group tours (7+)': '/plan-my-trip',
+  'Rajasthan North India': 'rajasthan_north_india_tours.html', 'Group tours (7+)': '/plan-my-trip', 'All Tours': '/itineraries',
   'Best time to visit': 'weather.htm', 'Wildlife & parks': 'wildlife.htm', "Traveller's guide": 'travelers_guide.htm',
   'Why Meruka India': 'aboutus.htm', 'How we work': '#process', 'Guest reviews': '#reviews', 'FAQs': '#faq',
   'Booking policy': '#faq', 'Contact us': 'contactus.htm',
@@ -178,11 +178,13 @@ module.exports = {
     { q: 'How and when do we pay?', a: 'By international bank transfer, with card payments returning shortly. A deposit confirms hotels; the balance is due before or on arrival — only after you approve the full itinerary and quote.' }
   ],
 
+  // (23 Oct 2026, client) the footer's four columns as before, each pointing to main pages; each item is [label, link]
   footerCols: [
-    { title: 'Tour packages', items: ['Golden Triangle', 'Exotic Rajasthan', 'Rajasthan North India', 'Kerala backwaters', 'South India', 'Group tours (7+)'] },
-    { title: 'Destinations', items: ['North India', 'South India', 'East India', 'West India'] },   // 21 Oct 2026: the four regions only
-    { title: 'Travel guide', items: ['Best time to visit', 'Fairs & festivals', 'Cuisine', 'Visa information', 'Wildlife & parks', "Traveller's guide"] },
-    { title: 'Company', items: ['Why Meruka India', 'Guest reviews', 'FAQs', 'Booking policy', 'Contact us', 'Sitemap'] }   // 18 Oct 2026: How we work out, Sitemap in
+    { title: 'Tour Packages', items: [['All Tour Packages', '/itineraries'], ['Golden Triangle Tours', '/india-golden-triangle-tour'], ['Rajasthan Tours', '/rajasthan-tours'], ['Kerala Tours', '/southindia_kerala_tours'], ['South India Tours', '/south_india_tour'], ['Incredible India Tours', '/incredible_india_tours']] },
+    { title: 'Destinations', items: [['North India', '/north_india_tour'], ['South India', '/south_india_tours_tourism'], ['East India', '/east_india_tour_tourism'], ['West India', '/west_india_tour_tourism']] },
+    // "Travel Tips" is the Traveller's Guide page (its tips); "Important Links" as in the old site's footer
+    { title: 'Travel Guide', items: [['India Travel Guide', '/guide'], ['Travel Tips', '/travelers_guide'], ['Best Time to Visit', '/weather'], ['Fairs & Festivals', '/Fairs-Festivals'], ['Visa Information', '/visa_information'], ['Important Links', '/important_links']] },
+    { title: 'Company', items: [['About Us', '/aboutus'], ['Guest Reviews', '/testimonials'], ['FAQs', '/#faq'], ['Contact Us', '/contactus'], ['Plan My Trip', '/plan-my-trip'], ['Sitemap', '/sitemap']] }
   ],
   seoLinks: ['India tour packages', 'India travel agency', 'Indian tour operators', 'India holiday packages', 'Golden Triangle tour', 'Rajasthan tour packages', 'Kerala backwaters tours', 'Kerala tour operators', 'Private tours India', 'India tour plan', 'India Tour Itineraries', 'India Tourism', 'South India Tours', 'North India Tours'],
   socials: ['f', 'in', 'ig', 'yt']

@@ -1942,3 +1942,48 @@ font[style*="vertical-align: inherit"]{background:none !important;box-shadow:non
 #mk-frame#mk-frame#mk-frame .rv-guest{justify-self:end;width:100%;align-items:flex-end}
 #mk-frame#mk-frame#mk-frame .rv-guest b{white-space:normal;overflow-wrap:break-word}
 #mk-frame#mk-frame.h4 .g2-season img[src*="guide-main"]{object-position:0% 58% !important}
+/* (23 Oct 2026) codes kept out of Google Translate sit in a <b>; same weight as the chip */
+#mk-frame .tcode b,#mk-frame .it2-fcode b{font-weight:inherit}
+
+/* (23 Oct 2026, client doc 22 Oct, I-a) Home banner the same size as the old site (india-tourism.net):
+   the photo keeps its 1349 x 525 shape, so it grows and shrinks with the screen, never taller than 450px */
+#mk-frame#mk-frame.h4 .h8,#mk-frame#mk-frame.h4 .h8-in{height:min(450px,calc(100cqw * 525 / 1349)) !important;min-height:0 !important}
+@media (max-width:899.98px){
+  /* the text keeps its place at the foot of the picture, as before (only the banner height changed) */
+  #mk-frame#mk-frame.h4 .h8-in{height:auto !important}
+  #mk-frame#mk-frame.ux.v3.h4 .h8-title{font-size:clamp(24px,6.6vw,44px) !important;line-height:1.05 !important}
+  #mk-frame#mk-frame.h4 .h4-nav{width:32px !important;height:32px !important}
+}
+/* (I-b) the band under the banner a little slimmer: smaller yellow figures, less padding */
+#mk-frame#mk-frame.h4 .h8-stats b{font-size:24px !important;line-height:1.1 !important}
+#mk-frame#mk-frame.h4 .h8-stats b.h8-ic svg{width:22px !important;height:22px !important}
+#mk-frame#mk-frame.h4 .h8-stats-in > div{padding-top:10px !important;padding-bottom:10px !important;gap:8px !important}
+#mk-frame#mk-frame.h4 .h8-stats span{font-size:13px !important}
+@media (max-width:899.98px){
+  #mk-frame#mk-frame.h4 .h8-stats b{font-size:19px !important}
+  #mk-frame#mk-frame.h4 .h8-stats-in > div{padding-top:7px !important;padding-bottom:7px !important}
+  #mk-frame#mk-frame.h4 .h8-stats span{font-size:12px !important}
+}
+@media (max-width:899.98px){
+  /* figure and words side by side on phones, so the band is three short rows */
+  #mk-frame#mk-frame.h4 .h8-stats-in > div{flex-direction:row !important;align-items:center !important;justify-content:flex-start !important}
+}
+
+/* (23 Oct 2026) the language list holds every Google Translate language: a scrolling list, the English name in small */
+#mk-frame .mh-lang-menu{max-height:min(420px,70vh);overflow-y:auto;overscroll-behavior:contain;min-width:230px}
+#mk-frame .mh-lang-menu button small{margin-left:4px;font-size:12px;font-weight:500;color:var(--mk-muted,#7A879B)}
+#mk-frame .mh-lang-menu button[aria-current="true"]{background:#EEF3FB;color:#336699;font-weight:700}
+
+/* (23 Oct 2026, client doc) long text in justified format: article / guide / destination text, the tour days and intro,
+   About Us, FAQ answers and intros; the last line of each paragraph stays left (no stretched words), short lines are unchanged */
+#mk-frame :is(.prose p, .prose li, .it2-db p, .it2-ds, .tp2-intro p, .abx-text, .wn-intro, .faq-a, .az-lead, .ar-places-sec li > p, .rg-glance p){text-align:justify;text-justify:inter-word}
+
+/* (23 Oct 2026, client) a plain banner: no zoom on the photos (flipped photos stay flipped), only a simple fade between them */
+#mk-frame#mk-frame.h4 .h8-slide img,#mk-frame#mk-frame.h4 .h8-slide.on img{transform:none !important;transition:none !important}
+#mk-frame#mk-frame.h4 .h8-slide.flip img,#mk-frame#mk-frame.h4 .h8-slide.flip.on img{transform:scaleX(-1) !important}
+#mk-frame#mk-frame.h4 .h8-title,#mk-frame#mk-frame.h4 .h8-title.swap{animation:none !important;transition:none !important;opacity:1 !important;transform:none !important}
+
+/* (23 Oct 2026, client) a slimmer header: 64px (56px on phones); the old site is 70 / 64 */
+#mk-frame#mk-frame .mh-bar{height:64px !important;min-height:0 !important}
+@media (max-width:899.98px){ #mk-frame#mk-frame .mh-bar{height:56px !important} }
+

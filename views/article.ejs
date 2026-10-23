@@ -13,7 +13,7 @@
   }
   if (facts.length < 2) { facts.length = 0; body = d.html; }
   // a "Read More" link at the end of a paragraph becomes the site's blue outline button
-  body = body.replace(/<a ([^>]*)>\s*Read More\s*<\/a>(\s*<\/p>)/gi, '<a class="ar-more" $1>Read More <span aria-hidden="true">→</span></a>$2');
+  body = body.replace(/<a ([^>]*)>\s*Read More\s*<\/a>(\s*<\/p>)/gi, '<a class="ar-more" $1>Read More</a>$2');
   // loose text between paragraphs on some originals (Goa) becomes a paragraph of its own
   body = body.replace(/<\/p>\s*([^<\s][^<]*?)\s*(?=<p[\s>]|<h[1-6][\s>])/g, '</p><p>$1</p>');
   const chips = v => !/</.test(v) ? v.split(/\s*,\s*/).filter(Boolean) : null;
@@ -61,7 +61,7 @@
       <div class="ar-toc-box">
         <span class="ar-toc-label">On this page</span>
         <nav id="ar-toc" aria-label="On this page"></nav>
-        <a href="<%= enquire %>" class="ar-cta">Plan a trip <span>→</span></a>
+        <a href="<%= enquire %>" class="ar-cta">Plan a trip</a>
       </div>
     </aside>
     <article class="ar-body">
@@ -89,7 +89,7 @@
   <div class="az-wrap">
     <div class="az-head h4-head">
       <div><h2 class="h4-h2">Tours that include <em><%= place %></em></h2></div>
-      <a href="/itineraries" class="h4-all">View all tours <span>→</span></a>
+      <a href="/itineraries" class="h4-all">View all tours</a>
     </div>
     <div class="tc-grid dx-tc-grid">
       <% tours.forEach((t, i) => { const rp = t.route ? t.route.split(/\s+([-–])\s+/) : []; const stops = rp.filter((x, j) => j % 2 === 0); %>
@@ -99,7 +99,7 @@
           <% if (t.duration) { %><span class="tc-dur"><%= t.duration %></span><% } %>
           <h3 class="tc-name"><%= t.name %></h3>
           <% if (stops.length) { %><span class="tc-route"><% stops.slice(0, 6).forEach((st, j) => { %><span><%= st %></span><% if (j < Math.min(stops.length, 6) - 1) { %><i>-</i><% } %><% }) %><% if (stops.length > 6) { %><i>…</i><% } %></span><% } %>
-          <span class="tc-go">View itinerary <b>→</b></span>
+          <span class="tc-go">View itinerary</span>
         </span>
       </a>
       <% }) %>
@@ -110,7 +110,8 @@
 
 <%# (21 Oct 2026, client) the "Tell us which places you'd like to see" band is removed from every page %>
 
-<%- include('partials/popular-tours', { current: d.url }) %>
+<%# (23 Oct 2026, client doc III) no blue band on the Travel Guide pages; it stays on the region and destination pages %>
+<% if (facts.length || isDest) { %><%- include('partials/popular-tours', { current: d.url }) %><% } %>
 
 <%- include('partials/explore-india', { current: d.url }) %>
 

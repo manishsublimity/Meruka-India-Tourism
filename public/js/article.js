@@ -69,6 +69,44 @@
       var wrapIn = document.createElement('div'); wrapIn.className = 'az-wrap';
       wrapIn.appendChild(nav); wrapIn.appendChild(ul); sec.appendChild(wrapIn);
       content.parentNode.insertBefore(sec, content.nextSibling);
+      // (23 Oct 2026, client) South and West India: the places as a slider (one row, arrows, swipe on phones)
+      if (/^\/(south_india_tours_tourism|west_india_tour_tourism)\/?$/i.test(location.pathname)) {
+        sec.classList.add('ar-slider');
+        var arrow = function (dir, label, d) { return '<button type="button" class="ar-sl-btn" data-sl="' + dir + '" aria-label="' + label + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg></button>'; };
+        var slNav = document.createElement('div'); slNav.className = 'ar-sl-nav';
+        slNav.innerHTML = arrow(-1, 'Previous places', 'm15 5-7 7 7 7') + arrow(1, 'Next places', 'm9 5 7 7-7 7');
+        nav.querySelector('.ar-places-head').appendChild(slNav);
+        var step = function () { var li = $(':scope > li', ul); return li ? li.getBoundingClientRect().width + parseFloat(getComputedStyle(ul).columnGap || 0) : ul.clientWidth; };
+        var syncArrows = function () {
+          var max = ul.scrollWidth - ul.clientWidth - 2;
+          $$('[data-sl]', slNav).forEach(function (b) { b.disabled = b.dataset.sl < 0 ? ul.scrollLeft <= 2 : ul.scrollLeft >= max; });
+          slNav.hidden = max <= 0;
+        };
+        $$('[data-sl]', slNav).forEach(function (b) { b.addEventListener('click', function () { ul.scrollBy({ left: b.dataset.sl * step(), behavior: 'smooth' }); }); });
+        ul.addEventListener('scroll', syncArrows, { passive: true });
+        window.addEventListener('resize', syncArrows);
+        syncArrows();
+      } else {
+        // (23 Oct 2026, client) a last row that is not full is filled with cards the same size as the places:
+        // "Plan your trip" first, then "Tour packages" — only as many as the row has room for at this width
+        var wa = (document.querySelector('a[href*="wa.me/"]') || {}).href || 'https://wa.me/919920363777';
+        var fillers = [
+          '<li class="ar-fill ar-fill-plan"><p class="ar-fill-k">Plan your trip</p><p class="ar-fill-h">Your own route, your own car</p>'
+            + '<p class="ar-fill-p">Tell us the places you would like to see — a planner replies within one working day with a route and a price.</p>'
+            + '<span class="ar-fill-acts"><a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip</a><a href="' + wa + '" target="_blank" rel="noopener" class="ph-btn ph-btn-line">WhatsApp</a></span></li>',
+          '<li class="ar-fill ar-fill-tours"><img src="/photos/india-main.webp" alt="" loading="lazy"><p class="ar-fill-k">Tour packages</p><p class="ar-fill-h">Private tours across India</p>'
+            + '<span class="ar-fill-acts"><a href="/itineraries" class="ph-btn ph-btn-gold">View Tours</a></span></li>'
+        ].map(function (html) { var t = document.createElement('template'); t.innerHTML = html; return t.content.firstChild; });
+        var fillRow = function () {
+          fillers.forEach(function (f) { if (f.parentNode) f.parentNode.removeChild(f); });
+          var first = $(':scope > li', ul); if (!first) return;
+          var cols = Math.max(1, Math.round(ul.clientWidth / first.getBoundingClientRect().width));
+          var gap = (cols - items.length % cols) % cols;
+          fillers.slice(0, cols > 1 ? gap : 0).forEach(function (f) { ul.appendChild(f); });
+        };
+        fillRow();
+        var fillT; window.addEventListener('resize', function () { clearTimeout(fillT); fillT = setTimeout(fillRow, 150); });
+      }
       // (21 Oct 2026, client) region pages: no side column any more — the text runs full width, "At a glance" sits under it,
       // and the places are only in the section below (no "Places to explore" card on the right)
       var arWrap = null;
@@ -275,7 +313,7 @@
     } else if (type === 'plan') {
       box = el('div', 'dx-plan');
       body.forEach(function (p) { box.appendChild(p.cloneNode(true)); });
-      box.appendChild(el('div', 'dx-acts', '<a href="/plan-my-trip" class="dx-btn dx-btn-gold">Plan My Trip <span>→</span></a><a href="/contactus#enquiry" class="dx-btn dx-btn-line">Enquire Now <span>→</span></a>'));
+      box.appendChild(el('div', 'dx-acts', '<a href="/plan-my-trip" class="dx-btn dx-btn-gold">Plan My Trip</a><a href="/contactus#enquiry" class="dx-btn dx-btn-line">Enquire Now</a>'));
     }
     body.forEach(function (p) { p.remove(); });
     h.parentNode.insertBefore(box, h.nextSibling);
@@ -293,7 +331,7 @@
     $$('a', cta).forEach(function (a) {
       var b = el('a', 'dx-btn ' + (/ph-btn-gold/.test(a.className) ? 'dx-btn-gold' : 'dx-btn-line'));
       b.href = a.getAttribute('href'); if (a.target) { b.target = a.target; b.rel = 'noopener'; }
-      b.textContent = clean(a.textContent.replace(/→/g, '')) + ' '; b.appendChild(el('span', null, '→'));
+      b.textContent = clean(a.textContent.replace(/→/g, ''));   // (23 Oct 2026) no arrow after the label
       pc.querySelector('.dx-acts').appendChild(b);
     });
     side.appendChild(pc);

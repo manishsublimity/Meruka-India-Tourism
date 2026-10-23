@@ -3,6 +3,8 @@
   var head = document.querySelector('[data-h4-head]'); if (!head) return;
   // Client (6 Oct 2026): one headline on every picture
   var HEADS = ['One Country<br><span class="h4-l2">Many Worlds...</span>'];
+  // (23 Oct 2026) one headline: it stays as it is, no fade on each photo
+  if (HEADS.length < 2) return;
   var slides = [].slice.call(document.querySelectorAll('[data-slide]')), last = 0;
   function sync() {
     var i = slides.findIndex(function (s) { return s.classList.contains('on'); });

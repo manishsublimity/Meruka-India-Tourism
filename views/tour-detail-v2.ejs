@@ -193,7 +193,7 @@
   <p class="it2-ds"><%= tdDesc %></p>
   <div class="it2-rt"><%- it2Sym.pin %><div><b>Route:</b> <% stops.forEach((s, j) => { %><%= s %><% if (j < stops.length - 1) { %> <i aria-hidden="true">→</i> <% } %><% }) %></div></div>
   <div class="it2-fx">
-    <div class="it2-f"><span><%- it2Sym.clock %><%= tdNights %> Nights / <%= tdDays %> Days</span><span><%- it2Sym.pin %><%= it2Real.length %> Stops</span><% if (it2Code) { %><span class="it2-fcode">Tour Code: <%= it2Code %></span><% } %></div>
+    <div class="it2-f"><span><%- it2Sym.clock %><%= tdNights %> Nights / <%= tdDays %> Days</span><span><%- it2Sym.pin %><%= it2Real.length %> Stops</span><% if (it2Code) { %><span class="it2-fcode">Tour Code: <b class="notranslate" translate="no"><%= it2Code %></b></span><% } %></div>
     <% if (tdFrom) { %><div class="it2-pr"><small>Starts from</small><strong><%= tdUsd(tdFrom) %></strong><span>per person</span></div><% } %>
   </div>
 </header>
@@ -262,7 +262,7 @@
           <li><%- it2Sym.check %><span>Air-conditioned car with driver throughout sightseeing</span></li>
           <li><%- it2Sym.check %><span>Transport service from arrival until final departure</span></li>
         </ul>
-        <a class="it2-btn ph-btn ph-btn-gold" data-it2-cta data-base="<%= d.enquire.href %>" href="<%= it2Sel ? withHotel(d.enquire.href, it2Hotel(it2Sel)) : d.enquire.href %>"><%= d.enquire.label %> <span aria-hidden="true">→</span></a>
+        <a class="it2-btn ph-btn ph-btn-gold" data-it2-cta data-base="<%= d.enquire.href %>" href="<%= it2Sel ? withHotel(d.enquire.href, it2Hotel(it2Sel)) : d.enquire.href %>"><%= d.enquire.label %></a>
         <p class="it2-fine">The above quote may vary 10–15% according to travel period, season, festivals, etc.</p>
       </div>
 
@@ -278,7 +278,7 @@
         <h5>Questions about this tour?</h5>
         <a href="<%= tel %>"><span class="it2-ico"><%- it2Sym.phone %></span><%= hq.phones[0] %></a>
         <a href="mailto:<%= hq.email %>"><span class="it2-ico"><%- it2Sym.mail %></span><%= hq.email %></a>
-        <a href="/#faq"><span class="it2-ico"><%- it2Sym.doc %></span>Booking &amp; cancellation policy<span class="go" aria-hidden="true">→</span></a>
+        <a href="/#faq"><span class="it2-ico"><%- it2Sym.doc %></span>Booking &amp; cancellation policy</a>
       </div>
     </aside>
   </div>
@@ -301,7 +301,7 @@
 <% if (tdFrom) { %>
 <div class="tp-mbar">
   <div class="tp-mbar-p"><small>From</small><b><%= tdUsd(tdFrom) %></b><span>per person · Private, no sharing</span></div>
-  <a href="<%= d.enquire.href %>" class="tp-mbar-go"><%= d.enquire.label %> <span>→</span></a>
+  <a href="<%= d.enquire.href %>" class="tp-mbar-go"><%= d.enquire.label %></a>
 </div>
 <% } %>
 

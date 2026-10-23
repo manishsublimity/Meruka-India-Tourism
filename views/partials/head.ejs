@@ -3,6 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<%# (23 Oct 2026) Google Translate: when a language other than English is picked (googtrans cookie), the
+    translator loads here in the head and the page stays hidden until it has been translated, so the English
+    text never flashes on the next page; shown anyway after 6s if Google is slow; a small spinner meanwhile %>
+<style>html.gt-wait body{opacity:0 !important}html.gt-show body{transition:opacity .15s ease}
+html.gt-wait::after{content:"";position:fixed;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border:3px solid #D6E2EF;border-top-color:#336699;border-radius:50%;animation:gt-spin .8s linear infinite;z-index:2147483647}
+@keyframes gt-spin{to{transform:rotate(360deg)}}
+/* (23 Oct 2026, client doc) page text and photos not easy to copy; form fields work as usual */
+#mk-frame{-webkit-user-select:none;user-select:none}
+#mk-frame :is(input,textarea,select,[contenteditable]){-webkit-user-select:text;user-select:text}
+#mk-frame img{-webkit-user-drag:none;-webkit-touch-callout:none}</style>
+<script>
+(function () {
+  var lang = (document.cookie.match(/(?:^|; )googtrans=\/en\/([^;]+)/) || [])[1];
+  if (!lang) return;
+  var html = document.documentElement, done = false, quiet;
+  html.classList.add('gt-wait');
+  function show() { if (done) return; done = true; html.classList.add('gt-show'); html.classList.remove('gt-wait'); }
+  setTimeout(show, 6000);
+  // Google marks <html> as translated, then fills the text in batches (each translated bit wrapped in <font>):
+  // show a moment after the page's main heading is translated (the first batch covers the top of the page)
+  var watch = new MutationObserver(function () {
+    if (quiet || !/translated-/.test(html.className)) return;
+    var head = document.querySelector('#mk-frame h1') || document.querySelector('#mk-frame h2');
+    if (head && !head.querySelector('font')) return;
+    watch.disconnect(); quiet = setTimeout(show, 100);
+  });
+  watch.observe(html, { attributes: true, childList: true, characterData: true, subtree: true });
+  window.googleTranslateElementInit = function () {
+    var start = function () {
+      var holder = document.createElement('div'); holder.id = 'google_translate_element'; holder.style.display = 'none'; document.body.appendChild(holder);
+      new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'google_translate_element');
+    };
+    if (document.readyState !== 'loading') start(); else document.addEventListener('DOMContentLoaded', start);
+  };
+  var sc = document.createElement('script'); sc.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; sc.async = true;
+  document.head.appendChild(sc);
+})();
+</script>
+<link rel="preconnect" href="https://translate.googleapis.com" crossorigin>
 <%
   // Google settings from the admin panel (data/seo-settings.js): verification codes, Analytics, the share picture,
   // and a page's own "hide from Google" switch and share picture (16 Oct 2026)

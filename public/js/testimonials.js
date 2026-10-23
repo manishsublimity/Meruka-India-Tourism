@@ -1,58 +1,55 @@
 (function () {
-  // Testimonials: filter by tour group, search, "Show more", and "Read more" on long quotes.
-  var cards = $$('.tm-card'), chips = $$('.tm-chip'), input = $('#tm-q');
-  // (18 Oct 2026, client) two rows of four to start, then eight more per click on "View more reviews"
-  var FIRST = window.matchMedia('(max-width: 767.98px)').matches ? 4 : 8, PAGE = 8, limit = FIRST, group = '', q = '', more = true;   // phones: four to start
+  // Guest Reviews (23 Oct 2026, client's reference reviews-4): six cards to start, six more per "View more reviews";
+  // a review longer than six lines shows "… View more" on its sixth line (one short seventh line is shown in full instead)
+  var grid = $('#rv4-grid'); if (!grid) return;
+  var cards = $$('.rv4-card', grid), loadBtn = $('#rv4-load'), PAGE = 6;
 
-  function render() {
-    var matches = cards.filter(function (c) {
-      var inGroup = !group || (' ' + c.dataset.g + ' ').indexOf(' ' + group + ' ') > -1;
-      return inGroup && (!q || c.dataset.search.indexOf(q) > -1);
-    });
-    cards.forEach(function (c) { c.classList.add('is-hidden'); });
-    matches.slice(0, limit).forEach(function (c) { c.classList.remove('is-hidden'); });
-    if ($('#tm-shown')) $('#tm-shown').textContent = Math.min(limit, matches.length);   // (no "Showing 9 of 72" line since 16 Oct 2026)
-    if ($('#tm-total')) $('#tm-total').textContent = matches.length;
-    $('#tm-load').classList.toggle('is-hidden', matches.length <= limit);
-    more = matches.length > limit;
-    $('#tm-empty').classList.toggle('is-hidden', matches.length > 0);
-    checkMore();
+  function fit(c) {
+    if (c.hidden || c.classList.contains('open')) return;
+    var tw = $('.rv4-tw', c), tx = $('.rv4-tx', c), btn = $('.rv4-vm', c);
+    tw.classList.remove('full');
+    tx.style.display = 'block';   // measure the whole text without the six-line cut
+    var rg = document.createRange(); rg.selectNodeContents(tx);
+    var lines = [].filter.call(rg.getClientRects(), function (r) { return r.width > 1; }), over = lines.length > 6;
+    if (lines.length === 7 && lines[6].width < tx.clientWidth * 0.4) { tw.classList.add('full'); over = false; }
+    tx.style.display = '';
+    btn.hidden = !over;
   }
-  chips.forEach(function (b) {
-    b.addEventListener('click', function () {
-      group = b.dataset.g; limit = FIRST;
-      chips.forEach(function (x) { var on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
-      render();
-    });
-  });
-  if (input) input.addEventListener('input', function () { q = input.value.trim().toLowerCase(); limit = FIRST; render(); });   // (no search box since 16 Oct 2026)
-  $('#tm-load').addEventListener('click', function () { limit += PAGE; render(); });
-  $('#tm-reset').addEventListener('click', function () {
-    q = ''; if (input) input.value = ''; group = ''; limit = FIRST;
-    chips.forEach(function (x, i) { x.classList.toggle('on', i === 0); x.setAttribute('aria-pressed', i === 0); });
-    render();
-  });
+  function fitAll() { cards.forEach(fit); }
 
-  if (FIRST !== 8) render();   // phones start with fewer than the page shows
-
-  // "Read more" only where the quote is actually cut off
-  function checkMore() {
-    cards.forEach(function (c) {
-      if (c.classList.contains('is-hidden') || c.classList.contains('open')) return;
-      var qEl = $('.tm-quote', c);
-      $('.tm-more', c).hidden = qEl.scrollHeight <= qEl.clientHeight + 2;
-    });
-  }
   cards.forEach(function (c) {
-    var b = $('.tm-more', c);
-    b.addEventListener('click', function () {
+    var btn = $('.rv4-vm', c);
+    btn.addEventListener('click', function () {
+      // the card beside it in the row keeps its height (no empty stretched card next to an opened review)
+      cards.forEach(function (o) {
+        if (o === c || o.hidden || o.offsetTop !== c.offsetTop) return;
+        if (!c.classList.contains('open')) { o.style.height = o.offsetHeight + 'px'; o.style.alignSelf = 'start'; }
+        else if (!o.classList.contains('open')) { o.style.height = ''; o.style.alignSelf = ''; }
+      });
       var open = c.classList.toggle('open');
-      b.setAttribute('aria-expanded', open);
-      b.textContent = open ? 'Show less' : 'Read more';
+      btn.textContent = open ? 'View less' : '… View more';
+      btn.setAttribute('aria-expanded', String(open));
     });
   });
-  window.addEventListener('resize', checkMore);
-  render();
 
-  // (18 Oct 2026, client) no loading on scroll: a "View more reviews" button
+  // (23 Oct 2026, client) the button always shows: "View more reviews" until every review is open, then "Show fewer
+  // reviews" (back to the first six)
+  if (loadBtn) loadBtn.addEventListener('click', function () {
+    if (!cards.some(function (c) { return c.hidden; })) {
+      cards.forEach(function (c, i) { c.hidden = i >= PAGE; });
+      loadBtn.textContent = 'View more reviews';
+      grid.scrollIntoView({ block: 'start' });
+      return;
+    }
+    var next = cards.filter(function (c) { return c.hidden; }).slice(0, PAGE);
+    next.forEach(function (c) { c.hidden = false; });
+    fitAll();
+    // keyboard users land on the first new review
+    if (next[0]) { next[0].setAttribute('tabindex', '-1'); next[0].focus({ preventScroll: true }); }
+    if (!cards.some(function (c) { return c.hidden; })) loadBtn.textContent = 'Show fewer reviews';
+  });
+
+  window.addEventListener('resize', fitAll);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+  fitAll();
 })();

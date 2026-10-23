@@ -20,7 +20,7 @@
   if (placeSet.size) stats.push(stat('<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>', placeSet.size, 'Places'));
   if (titled.length > 1) stats.push(stat('<path d="M4 6h16M4 12h16M4 18h10"/>', titled.length, 'Categories'));
   const facts = '<div class="ph-stats">' + stats.join('') + '</div>'
-    + '<div class="ph-actions"><a href="#tour-options" class="ph-btn ph-btn-gold">Browse tours <span>↓</span></a><a href="' + enquire + '" class="ph-btn ph-btn-line">Enquire now <span>→</span></a></div>';
+    + '<div class="ph-actions"><a href="#tour-options" class="ph-btn ph-btn-gold">Browse tours <span>↓</span></a><a href="' + enquire + '" class="ph-btn ph-btn-line">Enquire now</a></div>';
   let n = 0;
 %>
 <div style="width:100%;overflow-x:clip;background:#F4F7FB">
@@ -83,7 +83,7 @@
           <div class="tp2-top tpc-main">
             <span class="tp2-img"><img src="<%= g.img %>" alt="" loading="<%= gi < 3 ? 'eager' : 'lazy' %>"></span>
             <div class="tpc-body">
-              <% const gc = tourCode(g.href); %><h3 class="tp2-title"><%= g.title %><% if (gc) { %> <span class="tcode">Tour Code: <%= gc %></span><% } %></h3>
+              <% const gc = tourCode(g.href); %><h3 class="tp2-title"><%= g.title %><% if (gc) { %> <span class="tcode">Tour Code: <b class="notranslate" translate="no"><%= gc %></b></span><% } %></h3>
               <p class="tpc-nights"><% if (g.nights) { %><span class="tpc-n"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="M10 5.5V10l3 2"/></svg><%= g.nights[0] === g.nights[1] ? g.nights[0] + ' Nights' : 'From ' + g.nights[0] + ' to ' + g.nights[1] + ' Nights' %></span><% } %></p>
               <% if (g.desc || g.line) { %><p class="tp2-line"><%= g.desc || g.line %></p><% } %>
               <div class="tpc-foot">
@@ -98,15 +98,15 @@
             <div class="tp2-row" data-tp2-row data-price="<%= t.price || '' %>" data-nights="<%= t.nights || '' %>" data-region="<%= t.regions.join(' ') %>" data-interest="<%= t.interests.join(' ') %>" data-search="<%= (t.name + ' ' + t.route + ' ' + g.title).toLowerCase() %>">
               <% if (single) { const rp = rowPhoto(t); if (rp) { %><a class="tp2-row-img" href="<%= t.href || '#' %>" tabindex="-1" aria-hidden="true"><img src="<%= rp %>" alt="" loading="lazy"></a><% } } %>
               <div class="tp2-row-main">
-                <% const rc = tourCode(t.href); %><% if (t.href) { %><a class="tp2-row-name" href="<%= t.href %>"><%= t.name %><% if (rc) { %> <span class="tcode">Tour Code: <%= rc %></span><% } %></a><% } else { %><span class="tp2-row-name"><%= t.name %></span><% } %>
+                <% const rc = tourCode(t.href); %><% if (t.href) { %><a class="tp2-row-name" href="<%= t.href %>"><%= t.name %><% if (rc) { %> <span class="tcode">Tour Code: <b class="notranslate" translate="no"><%= rc %></b></span><% } %></a><% } else { %><span class="tp2-row-name"><%= t.name %></span><% } %>
                 <% if (t.route) { %><span class="tp2-row-route"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span title="<%= t.route %>"><%= t.route %></span></span><% } %>
               </div>
               <% if (t.duration) { %><span class="tp2-row-days"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/></svg><%= t.duration.replace(/\s*[-–]\s*/, ' / ') %></span><% } %>
               <span class="tp2-row-price"><% if (t.price) { %><small>From</small><%= usd(t.price) %><em>per person</em><% } else { %><small>Price</small>On request<% } %></span>
-              <% if (t.href) { %><a class="tp2-row-go" href="<%= t.href %>">View Tour <span>→</span></a><% } %>
+              <% if (t.href) { %><a class="tp2-row-go" href="<%= t.href %>">View Tour</a><% } %>
             </div>
             <% }) %>
-            <% if (g.href && g.href !== d.url) { %><a class="tp2-all" href="<%= g.href %>">All <%= g.title %> <span>→</span></a><% } %>
+            <% if (g.href && g.href !== d.url) { %><a class="tp2-all" href="<%= g.href %>">All <%= g.title %></a><% } %>
           </div>
         </article>
         <% }) %>
@@ -142,7 +142,7 @@
           </form>
           <div class="tp2-enq">
             <p>Can't find the right tour? We'll plan one around you.</p>
-            <a href="<%= enquire %>" class="ph-btn ph-btn-gold">Enquire Now <span>→</span></a>
+            <a href="<%= enquire %>" class="ph-btn ph-btn-gold">Enquire Now</a>
           </div>
         </details>
       </aside>

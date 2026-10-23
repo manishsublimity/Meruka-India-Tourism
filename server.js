@@ -14,6 +14,16 @@ const ENQUIRY_FILE = path.join(__dirname, 'data', 'enquiries.json');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+// (23 Oct 2026, client doc: safety of the website) browser security headers on every response
+app.disable('x-powered-by');
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
+  if (req.secure || req.headers['x-forwarded-proto'] === 'https') res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  next();
+});
 app.use(express.static(path.join(__dirname, 'public')));
 // SEO / AIO / GEO: every page knows its own absolute origin, for canonical, Open Graph and JSON-LD
 app.use((req, res, next) => { res.locals.base = req.protocol + '://' + req.get('host'); next(); });
@@ -65,6 +75,7 @@ function buildSite() {
   app.locals.tourNav = require('./data/tour-nav');
   // (19 Oct 2026, client) tour codes (GT, GT-1 …) and the "Private Tour – No Sharing" badge shown with every tour name and price
   app.locals.tourCode = require('./data/tour-codes').codeFor;
+  app.locals.enquiryOptions = require('./data/enquiry-options');   // the Plan My Trip form's choices (23 Oct 2026)
   const PVT_ICON = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 1.5 3 4.3v4.9c0 4.3 3 8 7 9.3 4-1.3 7-5 7-9.3V4.3L10 1.5zm3.4 6.2a.9.9 0 0 0-1.3-1.2L9 9.6 7.9 8.5a.9.9 0 1 0-1.3 1.3l1.8 1.8a.9.9 0 0 0 1.3 0l3.7-3.9z" clip-rule="evenodd"/></svg>';
   app.locals.pvtIcon = '<span class="pvt-ic" title="Private tour – no sharing" role="img" aria-label="Private tour, no sharing">' + PVT_ICON + '</span>';
   // (21 Oct 2026, client) the one-line version under a section heading: a lock in a gold circle, the words, a fading gold rule
@@ -76,6 +87,13 @@ function buildSite() {
   // A tour's own main photo (the first picture on its page), for the rows of the category pages (16 Oct 2026)
   const TOUR_PAGES = {};
   fs.readdirSync(path.join(__dirname, 'data', 'tours')).filter(f => f.endsWith('.js')).forEach(f => { const t = require('./data/tours/' + f); TOUR_PAGES[t.url.toLowerCase()] = t; });
+  // (23 Oct 2026) every tour with its code, in the client's code order (GT-1, GT-2 … ER-1 …), for the Plan My Trip form
+  app.locals.tourCodeOptions = (() => {
+    const order = [...new Set(Object.values(require('./data/tour-codes').CODES).map(c => c.split(/[-\s]/)[0]))];
+    const rank = c => { const [a, n] = c.split('-'); return order.indexOf(a) * 1000 + (parseInt(n, 10) || 0); };
+    return Object.values(TOUR_PAGES).map(t => ({ code: app.locals.tourCode(t.url), name: String(t.heading || '').replace(/<[^>]+>/g, '').trim() }))
+      .filter(t => t.code && t.code.includes('-')).sort((a, b) => rank(a.code) - rank(b.code));
+  })();
   app.locals.tourPhoto = url => { const t = TOUR_PAGES[String(url || '').toLowerCase()]; return t ? (t.photo || app.locals.photoFor([t.heading, t.url, t.route])) : ''; };
   app.locals.explore = (() => {
     const H2 = require('./data/home2');
@@ -98,7 +116,7 @@ function buildSite() {
     };
   })();
   // The header's Destinations / Tour Packages dropdowns appear on every page
-  app.locals.menu = { pkgCols: home.pkgMenuCols, destCols: home.destMenuCols, to: home.to, mostBookedHref: home.mostBookedHref, langs: home.langs };
+  app.locals.menu = { pkgCols: home.pkgMenuCols, destCols: home.destMenuCols, to: home.to, mostBookedHref: home.mostBookedHref, langs: require('./data/languages') };
   // ...and so does the one footer (partials/site-footer), with the head office details from the contact page
   app.locals.footer = { cols: home.footerCols, seo: home.seoLinks, hq: contact.offices[0], testimonialsHref: home.testimonials.href,
     // WhatsApp chat link: the head office's first number
@@ -195,6 +213,21 @@ function buildSite() {
   router.get('/aboutus', (req, res) => res.render('about', { ...inner4(), totalTours: require('./data/home2').totalTours, T: home.testimonials, title: 'About us — Meruka India Tourism', d: about, meta: { description: 'Meruka India Tourism has looked after overseas travellers inside India since 2001: private, hand-routed tours with our own ground teams across the country.', canonical: '/aboutus' } }));
   // Plan My Trip (15 Oct 2026): every "Plan My Trip" button opens this page; ?tour=<name> fills in the message
   // Sitemap (18 Oct 2026, footer → Company): every page of the website, for visitors
+  // (23 Oct 2026, client doc) India Travel Guide hub, after Anshuman's reference layout; "Open the full guide" leads here.
+  // Each region's tours show this site's own length and whole-tour "from" price (per-day rate × nights).
+  router.get('/guide', (req, res) => {
+    const G = require('./data/guide-hub');
+    const byHref = {};
+    require('./data/home2').finder.forEach(g => g.tours.forEach(t => { if (t.href) byHref[t.href.toLowerCase()] = t; }));
+    const nightsOf = s => +(String(s || '').match(/(\d+)\s*Nights?/i) || [])[1] || 0;
+    const regions = G.regions.map(r => Object.assign({}, r, { tours: r.tours.map(t => {
+      const own = byHref[t.href.toLowerCase()] || {}, duration = own.duration || t.duration, n = nightsOf(duration);
+      return Object.assign({}, t, { duration: duration.replace(/\s*[-–·]\s*/, ' / '), price: own.from && n ? own.from * n : null });
+    }) }));
+    res.render('guide', { ...inner4(), title: 'India Travel Guide — Meruka India Tourism', G: Object.assign({}, G, { regions }),
+      d: { nav: site.nav('', false), footCols: site.footCols() },
+      meta: { description: 'India travel guide: travellers\' guide, attractions and travel tools, essentials at a glance, the best season for each region, festivals, sights and tour packages for North, South, East and West India.', canonical: '/guide' } });
+  });
   router.get('/sitemap', (req, res) => {
     const read = dir => fs.readdirSync(path.join(__dirname, 'data', dir)).filter(f => f.endsWith('.js')).map(f => require('./data/' + dir + '/' + f)).filter(m => m.url && !m.noindex);
     const plain = s => String(s || '').replace(/<[^>]+>/g, '').trim();
@@ -253,7 +286,15 @@ function buildSite() {
 
   const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
   router.post('/api/enquiry', (req, res) => {
-    const b = req.body || {};
+    // (23 Oct 2026) spam guard: at most 8 enquiries from one address in 10 minutes
+    const now = Date.now(), hits = (enquiryHits.get(req.ip) || []).filter(t => now - t < 10 * 60 * 1000);
+    if (hits.length >= 8) return res.status(429).json({ ok: false, error: 'Too many enquiries just now. Please try again in a few minutes, or write to us by email.' });
+    hits.push(now); enquiryHits.set(req.ip, hits);
+    // only plain text fields with sensible names and lengths are kept
+    const b = {};
+    Object.entries(req.body || {}).slice(0, 40).forEach(([k, v]) => {
+      if (/^[A-Za-z][A-Za-z0-9_]{0,40}$/.test(k) && k[0] !== '_' && (typeof v === 'string' || typeof v === 'number')) b[k] = String(v).slice(0, 4000);
+    });
     const name = String(b.name || '').trim();
     const email = String(b.email || '').trim();
     if (!name || !EMAIL_RE.test(email)) {
@@ -274,6 +315,7 @@ function buildSite() {
   return router;
 }
 
+const enquiryHits = new Map();   // ip → recent enquiry times (spam guard)
 let siteRouter = buildSite();
 require('./lib/cms/store').events.on('change', () => {
   try { siteRouter = buildSite(); } catch (e) { console.error('[cms] could not rebuild the site after a change:', e); }

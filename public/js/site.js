@@ -63,6 +63,13 @@
     fallback(); done();
   };
 
+  // (23 Oct 2026, client doc) content protection: no copying of page text, no right-click / dragging of photos;
+  // typing and copy-paste inside form fields work as usual
+  var inField = function (t) { return t && t.closest && t.closest('input, textarea, select, [contenteditable]'); };
+  ['copy', 'cut'].forEach(function (ev) { document.addEventListener(ev, function (e) { if (!inField(e.target)) e.preventDefault(); }); });
+  document.addEventListener('contextmenu', function (e) { if (e.target.closest && e.target.closest('img, picture, figure')) e.preventDefault(); });
+  document.addEventListener('dragstart', function (e) { if (e.target.tagName === 'IMG') e.preventDefault(); });
+
   // Site header (every page): mobile menu, language picker, shadow once scrolled
   document.addEventListener('DOMContentLoaded', function () {
     var h = document.getElementById('site-header');
@@ -78,22 +85,17 @@
       b.addEventListener('click', function () {
         langCur.textContent = b.dataset.mhLangPick; langMenu.classList.add('is-hidden'); langBtn.setAttribute('aria-expanded', false);
         // (21 Oct 2026) translate the site with Google Translate: its cookie says which language, then the page reloads
-        var code = LANG_CODES[b.dataset.mhLangPick] || 'en', host = location.hostname.replace(/^www\./, '');
+        var code = b.dataset.code || 'en', host = location.hostname.replace(/^www\./, '');
         var val = code === 'en' ? '' : '/en/' + code, exp = code === 'en' ? '; expires=Thu, 01 Jan 1970 00:00:00 GMT' : '';
         document.cookie = 'googtrans=' + val + '; path=/' + exp;
         if (host.indexOf('.') > -1) document.cookie = 'googtrans=' + val + '; path=/; domain=.' + host + exp;
         location.reload();
       });
     });
-    // the language in use (from Google Translate's cookie) on the button, and the translator loaded only then
-    var LANG_CODES = { 'English': 'en', 'Français': 'fr', 'Deutsch': 'de', 'Español': 'es', 'Italiano': 'it', 'Nederlands': 'nl', 'Português': 'pt', 'Русский': 'ru', '中文': 'zh-CN', '日本語': 'ja', '한국어': 'ko' };
+    // the language in use (from Google Translate's cookie) on the button; the translator itself loads in the head (partials/head.ejs)
     var gt = (document.cookie.match(/(?:^|; )googtrans=\/en\/([^;]+)/) || [])[1];
-    if (gt) {
-      Object.keys(LANG_CODES).forEach(function (k) { if (LANG_CODES[k] === gt) langCur.textContent = k; });
-      var holder = document.createElement('div'); holder.id = 'google_translate_element'; holder.style.display = 'none'; document.body.appendChild(holder);
-      window.googleTranslateElementInit = function () { new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'google_translate_element'); };
-      var sc = document.createElement('script'); sc.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; sc.async = true; document.head.appendChild(sc);
-    }
+    var gtBtn = gt && langMenu.querySelector('[data-code="' + gt + '"]');
+    if (gtBtn) { langCur.textContent = gtBtn.dataset.mhLangPick; gtBtn.setAttribute('aria-current', 'true'); }
     document.addEventListener('click', function (e) { if (!langMenu.contains(e.target)) { langMenu.classList.add('is-hidden'); langBtn.setAttribute('aria-expanded', false); } });
     var onScroll = function () { h.classList.toggle('scrolled', window.scrollY > 8); };
     window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
