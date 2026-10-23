@@ -3,11 +3,15 @@
   // on-page anchors like "#plan" are made absolute so they work from any page.
   const F = footer;
   const abs = h => (h && h[0] === '#') ? '/' + h : h;
-  const fHref = (label, col) => label === 'Guest reviews' ? F.testimonialsHref : abs(menu.to(label, col === 'Travel guide' ? 'guide' : ''));
+  // an item is [label, link] (23 Oct 2026: main pages only); a plain label is still looked up as before
+  const fLabel = i => Array.isArray(i) ? i[0] : i;
+  const fHref = (i, col) => Array.isArray(i) ? i[1] : i === 'Guest reviews' ? F.testimonialsHref : abs(menu.to(i, col === 'Travel guide' ? 'guide' : ''));
   // Company column also carries any original footer link not already in the footer (e.g. Important Links)
   const shown = new Set(F.cols.flatMap(c => c.items.map(i => fHref(i, c.title))));
   const extra = (F.legacy || []).filter(l => !shown.has(l.href));
   const tel = p => 'tel:' + p.replace(/[^0-9+]/g, '');
+  // (23 Oct 2026, client doc) headings and links in Upper and Lower Case: "Tour Packages", "Travel Guide"
+  const tc = s => String(s).replace(/(^|[\s(])([a-z])/g, (m, a, b) => a + b.toUpperCase()).replace(/(\s)(And|Of|The|To|In|For)(?=\s)/g, (m, a, w) => a + w.toLowerCase());
   const SV = d => '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + d + '</svg>';
   const SOC = {
     Facebook: SV('<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8z"/>'),
@@ -23,7 +27,7 @@
     <div class="sf-brand">
       <a href="/" class="sf-logo" aria-label="Meruka India Tourism — home">
         <span class="mlogo sf-logo-mark" aria-hidden="true"></span>
-        <span class="sf-logo-name">MERUKA INDIA TOURISM SERVICE</span>
+        <span class="sf-logo-name notranslate" translate="no">MERUKA INDIA TOURISM SERVICE</span>
       </a>
       <p class="sf-about">Inbound travel agency for overseas visitors. Private tours, 3–5 star hotels, a dedicated car and driver from arrival to departure.</p>
       <% const S = F.social || []; if (S.length) { %>
@@ -35,9 +39,9 @@
       <% } %>
     </div>
     <% F.cols.forEach(c => { %>
-    <nav class="sf-col" aria-label="<%= c.title %>">
-      <span class="sf-col-t"><%= c.title %></span>
-      <% c.items.forEach(i => { %><a href="<%= fHref(i, c.title) %>"><%= i %></a><% }) %>
+    <nav class="sf-col" aria-label="<%= tc(c.title) %>">
+      <span class="sf-col-t"><%= tc(c.title) %></span>
+      <% c.items.forEach(i => { %><a href="<%= fHref(i, c.title) %>"><%= tc(fLabel(i)) %></a><% }) %>
     </nav>
     <% }) %>
   </div>

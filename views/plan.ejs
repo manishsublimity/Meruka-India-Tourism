@@ -7,7 +7,9 @@
   const enquire = '/plan-my-trip';
   const tel = 'tel:' + footer.hq.phones[0].replace(/[^0-9+]/g, '');
   const ico = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
-  const prefill = q.tour ? 'I would like to know more about the ' + String(q.tour).slice(0, 120) + '.' : '';
+  const tourName = q.tour ? String(q.tour).slice(0, 120) : '';
+  const tourPick = tourName ? tourCodeOptions.find(t => t.name.toLowerCase() === tourName.toLowerCase()) : null;
+  const prefill = tourName ? (tourPick ? 'Tour Code: ' + tourPick.code + ' (' + tourPick.name + ') — ' : '') + 'I would like to know more about the ' + tourName + '.' : '';
   // hotel chips: the chosen one is drawn with data-on (set again by the script on click)
   const chipOff = 'border:1.5px solid var(--mk-line);background:#fff;color:var(--mk-text)';
   const chipOn = 'border:1.5px solid var(--mk-blue);background:var(--mk-blue);color:#fff';
@@ -36,26 +38,31 @@
       </div>
 
       <form id="plan-form" class="pm-body" novalidate>
+        <%# (23 Oct 2026, client) the fields and choices of the original site's form (helpmetours.aspx), from
+            data/enquiry-options.js. (23 Oct 2026, client) only what a planner needs is required (*): name, email, country and the message %>
+        <% const O = enquiryOptions, opt = (list, first) => (first ? '<option value="">' + first + '</option>' : '') + list.map(v => '<option value="' + v.replace(/"/g, '&quot;') + '">' + v.replace(/</g, '&lt;') + '</option>').join(''); %>
         <div class="pm-fields">
-          <label class="pm-f"><span>Full name <i aria-hidden="true">*</i></span><input name="name" class="pm-in" placeholder="Your name" autocomplete="name" required></label>
-          <label class="pm-f"><span>Email address <i aria-hidden="true">*</i></span><input name="email" type="email" class="pm-in" placeholder="name@example.com" autocomplete="email" required></label>
-          <label class="pm-f"><span>Country</span><select name="country" class="pm-in"><% H.countries.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %></select></label>
-          <label class="pm-f"><span>Arrival date</span><input name="date" type="date" class="pm-in"></label>
-          <label class="pm-f"><span>Travellers</span><select name="travellers" class="pm-in"><% H.paxOpts.forEach(c => { %><option value="<%= c %>"><%= c %></option><% }) %></select></label>
-          <label class="pm-f"><span>Duration</span><select name="duration" class="pm-in"><% H.filters.days.opts.forEach(c => { %><option value="<%= c %>"<%= c === H.filters.days.value ? ' selected' : '' %>><%= c %></option><% }) %></select></label>
+          <label class="pm-f pm-f-name"><span>Name <i aria-hidden="true">*</i></span>
+            <span class="pm-pair pm-pair-title"><select name="title" class="pm-in" aria-label="Title"><%- opt(O.titles) %></select><input name="name" class="pm-in" placeholder="Your full name" autocomplete="name" required></span></label>
+          <label class="pm-f"><span>Email Id <i aria-hidden="true">*</i></span><input name="email" type="email" class="pm-in" placeholder="name@example.com" autocomplete="email" required></label>
+          <label class="pm-f"><span>Country <i aria-hidden="true">*</i></span><select name="country" class="pm-in" required><%- opt(O.countries, 'Select Country') %></select></label>
+          <div class="pm-f"><span>Travel Period</span>
+            <span class="pm-pair"><select name="travelMonth" class="pm-in" aria-label="Month"><%- opt(O.months, 'Month') %></select><select name="travelYear" class="pm-in" aria-label="Year"><%- opt(O.years, 'Year') %></select></span></div>
+          <label class="pm-f"><span>No. of Days for the Trip</span><select name="days" class="pm-in"><%- opt(O.days, 'Select') %></select></label>
+          <div class="pm-f"><span>No. of People Traveling</span>
+            <span class="pm-pair"><select name="adults" class="pm-in" aria-label="Adults"><%- opt(O.adults, 'Adults') %></select><select name="children" class="pm-in" aria-label="Children (over 5 years)"><%- opt(O.children, 'Children (over 5 years)') %></select></span></div>
+          <label class="pm-f"><span>Hotel Budget (per day in USD)</span><select name="hotelBudget" class="pm-in"><%- opt(O.hotelBudget, 'Select') %></select></label>
+          <label class="pm-f"><span>Hotel Category</span><select name="hotelCategory" class="pm-in"><%- opt(O.hotelCategory, 'Select') %></select></label>
         </div>
 
-        <fieldset class="pm-f pm-hotels">
-          <legend>Hotels</legend>
-          <div class="pv-stars pm-chips">
-            <% H.starChips.forEach(x => { const on = x === H.defaultStar; %><button type="button" class="star pm-chip" data-star="<%= x %>" data-on="<%= chipOn %>" data-off="<%= chipOff %>" style="<%= on ? chipOn : chipOff %>" aria-pressed="<%= on %>"><%= x %></button><% }) %>
-          </div>
-        </fieldset>
+        <%# (23 Oct 2026, client) the tour code is written in the message itself (no separate box); from a tour page the
+            message starts with that tour's code and name %>
+        <label class="pm-f pm-msg"><span>Preferred Destinations / Required Services / Tour Code <i aria-hidden="true">*</i></span><textarea name="message" rows="5" class="pm-in" placeholder="The places you'd like to see, the services you need and a tour code if you have one — e.g. GT-1 plus the Kerala backwaters, a guide in Jaipur." required><%= prefill %></textarea>
+          <small class="pm-hint">Each tour page shows its code under the title.</small></label>
 
-        <label class="pm-f pm-msg"><span>Your trip</span><textarea name="message" rows="4" class="pm-in" placeholder="Places you'd like to see, a tour code, the pace you like — e.g. IGT-551 plus the Kerala backwaters, slow pace."><%= prefill %></textarea></label>
-
+        <p class="pm-req"><i aria-hidden="true">*</i> Please Fill Mandatory Field.</p>
         <div id="plan-err" class="is-hidden pm-err" role="alert"></div>
-        <button type="submit" class="pv-submit pm-go">Send My Enquiry <span aria-hidden="true">→</span></button>
+        <button type="submit" class="pv-submit pm-go">Send My Enquiry</button>
         <p class="pm-note">By sending this you agree that a Meruka planner may contact you about your trip.</p>
       </form>
     </div>

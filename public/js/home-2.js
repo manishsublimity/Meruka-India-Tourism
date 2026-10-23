@@ -63,10 +63,14 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var f = form.elements, err = $('#plan-err');
-      postEnquiry({
-        source: location.pathname === '/plan-my-trip' ? 'plan-my-trip' : location.pathname === '/contactus' ? 'contact' : 'home', name: f.name.value, email: f.email.value, country: f.country.value, date: f.date.value,
-        travellers: f.travellers.value, duration: f.duration.value, hotel: star, message: f.message.value
-      }).then(function (r) {
+      // (23 Oct 2026) every field of the form is sent (the Plan My Trip page has the original site's fields);
+      // required ones must be filled first
+      var missing = $$('[required]', form).filter(function (el) { return !String(el.value || '').trim(); });
+      if (missing.length) { err.textContent = '* Please Fill Mandatory Field.'; err.classList.remove('is-hidden'); missing[0].focus(); return; }
+      var data = { source: location.pathname === '/plan-my-trip' ? 'plan-my-trip' : location.pathname === '/contactus' ? 'contact' : 'home' };
+      Array.prototype.forEach.call(form.elements, function (el) { if (el.name && el.type !== 'submit' && String(el.value || '').trim()) data[el.name] = el.value.trim(); });
+      if (star) data.hotel = star;
+      postEnquiry(data).then(function (r) {
         if (!r.ok) { err.textContent = r.error; err.classList.remove('is-hidden'); return; }
         err.classList.add('is-hidden');
         form.classList.add('is-hidden');
@@ -161,7 +165,7 @@
     empty.classList.toggle('is-hidden', out.length > 0);
     var where = ci === '' ? 'all India tours' : data[+ci].title;
     status.innerHTML = '<b>' + out.length + '</b> package' + (out.length === 1 ? '' : 's') + ' in ' + esc(where) +
-      (out.length > LIMIT ? ' — showing the first ' + LIMIT + '. <a href="/itineraries' + (words.length ? '?q=' + encodeURIComponent(q.value.trim()) : '') + '">See all →</a>' : '');
+      (out.length > LIMIT ? ' — showing the first ' + LIMIT + '. <a href="/itineraries' + (words.length ? '?q=' + encodeURIComponent(q.value.trim()) : '') + '">See all</a>' : '');
   }
   cat.addEventListener('change', function () {
     var g = data[+cat.value];

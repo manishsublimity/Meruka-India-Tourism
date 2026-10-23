@@ -34,7 +34,7 @@
         <div class="pz-row2">
           <div class="pz-stars"><span class="pz-l">Hotel</span><div class="pv-stars">               <% d.starChips.forEach(x => { %>               <button type="button" class="star" data-star="<%= x %>" data-on="<%= starOn %>" data-off="<%= starOff %>" style="<%= x === d.defaultStar ? starOn : starOff %>"><%= x %></button>               <% }) %>             </div></div>
           <label class="pz-msg"><span class="sr-only">Your trip</span><textarea name="message" rows="1" class="pv-in pv-ta" placeholder="Destinations or tour code in mind — e.g. IGT-551 plus the Kerala backwaters, slow pace."><%= pfMsg %></textarea></label>
-          <button type="submit" class="pv-submit pz-go">Send My Enquiry <span aria-hidden="true">→</span></button>
+          <button type="submit" class="pv-submit pz-go">Send My Enquiry</button>
         </div>
         <div id="plan-err" class="is-hidden pl-err"></div>
       </form>

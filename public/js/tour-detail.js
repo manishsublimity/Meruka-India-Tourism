@@ -75,7 +75,7 @@
     var full = li.querySelector('.td3-dfull'), b = li.querySelector('[data-td3-more]');
     full.hidden = !open; li.classList.toggle('open', open);
     b.setAttribute('aria-expanded', open);
-    b.innerHTML = open ? 'Hide Details <span aria-hidden="true">↑</span>' : 'View Details <span aria-hidden="true">→</span>';
+    b.innerHTML = open ? 'Hide Details <span aria-hidden="true">↑</span>' : 'View Details';
   }
   $$('[data-td3-day]', root).forEach(function (li) {
     li.querySelector('[data-td3-more]').addEventListener('click', function () { openDay(li, li.querySelector('.td3-dfull').hidden); });
@@ -83,7 +83,7 @@
   if (allBtn) allBtn.addEventListener('click', function () {
     var on = root.classList.toggle('td3-showall');
     allBtn.setAttribute('aria-pressed', on);
-    allBtn.innerHTML = on ? 'Show Less <span aria-hidden="true">↑</span>' : 'View Complete Itinerary <span aria-hidden="true">→</span>';
+    allBtn.innerHTML = on ? 'Show Less <span aria-hidden="true">↑</span>' : 'View Complete Itinerary';
     $$('[data-td3-day]', root).forEach(function (li) { openDay(li, on); });
     if (!on) root.scrollIntoView({ block: 'start' });
   });

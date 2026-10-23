@@ -1,0 +1,198 @@
+<%- include('partials/head') %>
+<%# India Travel Guide hub (23 Oct 2026, client doc + Anshuman's reference /guide): the three guide groups, essentials at a
+    glance, the seasons, the four regions (festivals, sights, states, tours) and travel tips — on the site's global design %>
+<%
+  const usd = n => 'USD ' + Number(n).toLocaleString('en-US');
+  const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  const link = (href, inner, cls) => href ? `<a href="${href}"${cls ? ` class="${cls}"` : ''}>${inner}</a>` : `<span${cls ? ` class="${cls}"` : ''}>${inner}</span>`;
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+%>
+<div style="width:100%;overflow-x:clip;background:#fff">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#fff">
+
+<%- include('partials/page-header', { nav: d.nav, enquireHref: '/plan-my-trip' }) %>
+<%- include('partials/photo-hero', { title: 'India Travel Guide', img: '/images/travel-guideline.webp', alt: 'India travel guide' }) %>
+
+<!-- 1. The three guide groups: a photo and every topic with a one-line summary -->
+<section class="gd-sec gd-topics">
+  <div class="ex-wrap">
+    <%# (23 Oct 2026, client) no second heading here: the page title sits right above, under the banner %>
+    <div class="gd-groups">
+      <% G.topics.forEach(g => { %>
+      <div class="gd-group">
+        <div class="gd-ph"><img src="<%= g.img %>" alt="" loading="lazy"></div>
+        <div class="gd-gbody">
+          <h3 class="gd-h3"><%= g.title %></h3>
+          <ul class="gd-list">
+            <% g.items.forEach(it => { %>
+            <li><a href="<%= it.href %>"><span><b><%= it.name %></b><small><%= it.line %></small></span><%- arrow %></a></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Essentials at a glance -->
+<section class="gd-sec gd-tint gd-glance">
+  <div class="ex-wrap">
+    <div class="h4-head"><div>
+      <h2 class="h4-h2">Useful Information <em>at a glance</em></h2>
+      <p class="h4-base">Useful essentials to know before you travel.</p>
+    </div></div>
+    <div class="gd-facts">
+      <% G.glance.forEach(f => { %>
+      <div class="gd-card">
+        <h3 class="gd-h3"><%= f.title %></h3>
+        <dl>
+          <% f.rows.forEach(([k, v, url]) => { %>
+          <div><dt><%= k %></dt><dd><%= v %><% if (url) { %> · <a href="<%= url %>" target="_blank" rel="noopener">Apply ↗</a><% } %></dd></div>
+          <% }) %>
+        </dl>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Seasons -->
+<section class="gd-sec gd-seasons">
+  <div class="ex-wrap">
+    <div class="h4-head"><div>
+      <h2 class="h4-h2">The Country for <em>All Seasons</em></h2>
+      <p class="h4-base">A Country for Every Season.</p>
+    </div></div>
+    <div class="gd-scards">
+      <% G.seasons.forEach(s => { %>
+      <div class="gd-card gd-season<%= s.tag === 'Most popular' ? ' is-best' : '' %>">
+        <h3 class="gd-h3"><%= s.name %><% if (s.tag) { %> <span class="gd-tag"><%= s.tag %></span><% } %></h3>
+        <p class="gd-dates"><%= s.dates %></p>
+        <p class="gd-p"><%= s.line %></p>
+        <dl class="gd-wx"><% s.weather.forEach(([r, t]) => { %><div><dt><%= r %></dt><dd><%= t %></dd></div><% }) %></dl>
+        <p class="gd-lab">Best for</p>
+        <p class="gd-chips"><% s.bestFor.forEach(p => { %><span><%= p %></span><% }) %></p>
+        <a href="/plan-my-trip" class="gd-more">Plan a <%= s.name.toLowerCase() %> trip</a>
+      </div>
+      <% }) %>
+    </div>
+    <div class="gd-know">
+      <% G.goodToKnow.forEach(([t, x]) => { %><div><b><%= t %></b><span><%= x %></span></div><% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Regions: a tab per region (photo buttons), then its festivals, sights, states and tours -->
+<section class="gd-sec gd-tint gd-regions">
+  <div class="ex-wrap">
+    <div class="h4-head"><div>
+      <h2 class="h4-h2">Explore India by <em>Region</em></h2>
+      <p class="h4-base">One Country, Many Worlds.</p>
+    </div></div>
+    <div class="gd-tabs" role="tablist" aria-label="Regions">
+      <% G.regions.forEach((r, i) => { %>
+      <button type="button" role="tab" id="gd-tab-<%= i %>" aria-controls="gd-panel-<%= i %>" aria-selected="<%= i === 0 %>" data-gd-tab="<%= i %>">
+        <img src="<%= r.img %>" alt="" loading="lazy"><span><%= r.name %></span>
+      </button>
+      <% }) %>
+    </div>
+    <% G.regions.forEach((r, i) => { %>
+    <div class="gd-panel" role="tabpanel" id="gd-panel-<%= i %>" aria-labelledby="gd-tab-<%= i %>"<%= i ? ' hidden' : '' %>>
+      <div class="gd-pcols">
+        <div class="gd-card">
+          <h3 class="gd-h3"><%- link(r.href, esc(r.name)) %></h3>
+          <p class="gd-tagline"><%= r.tagline %></p>
+          <p class="gd-best">Best time to visit: <b><%= r.bestTime %></b></p>
+          <p class="gd-p"><%= r.weather %></p>
+          <p class="gd-lab">Festivals · dates move yearly</p>
+          <ul class="gd-fest"><% r.festivals.forEach(([w, n]) => { %><li><b><%= w %></b><span><%= n %></span></li><% }) %></ul>
+          <a href="/Fairs-Festivals" class="gd-more">Full festival calendar</a>
+        </div>
+        <div class="gd-card">
+          <p class="gd-lab">Must-see sights &amp; places</p>
+          <ul class="gd-sights"><% r.sights.forEach(s => { %><li><%- link(s.href, `<b>${esc(s.name)}</b><small>${esc(s.place)}</small>`) %></li><% }) %></ul>
+        </div>
+        <div class="gd-card">
+          <p class="gd-lab">Top states &amp; cities</p>
+          <ul class="gd-states">
+            <% r.states.forEach(s => { %>
+            <li>
+              <p class="gd-st"><%- link(s.href, `<b>${esc(s.name)}</b>`) %><span><%= s.line %></span></p>
+              <% if (s.cities.length) { %><p class="gd-chips"><% s.cities.forEach(c => { %><%- link(c.href, esc(c.name)) %><% }) %></p><% } %>
+            </li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+      <div class="gd-tours-h">
+        <h3 class="gd-h3">Best <em><%= r.name %></em> tour packages</h3>
+        <small>Prices are per person</small>
+      </div>
+      <div class="gd-tours">
+        <% r.tours.forEach(t => { %>
+        <a href="<%= t.href %>" class="gd-tour">
+          <span><b><%= t.name %></b><small><%= t.duration %></small></span>
+          <% if (t.price) { %><span class="gd-price"><small>from</small><b><%= usd(t.price) %></b></span><% } %>
+        </a>
+        <% }) %>
+        <a href="<%= r.href %>" class="gd-tour gd-tour-all"><span><b>View more <%= r.name %> tours</b></span><span class="gd-go">All tours</span></a>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</section>
+
+<!-- 5. Travel tips (all on the Traveller's Guide page) -->
+<section class="gd-sec gd-tips">
+  <div class="ex-wrap">
+    <div class="h4-head"><div>
+      <h2 class="h4-h2">Travel <em>Tips</em></h2>
+      <p class="h4-base">Travel Smart</p>
+    </div></div>
+    <div class="gd-tipgrid">
+      <% const tipTotal = G.tips.reduce((n, t) => n + t.items.length, 0); %>
+      <% G.tips.forEach(t => { const more = t.items.length - 5; %>
+      <a href="/travelers_guide" class="gd-card gd-tip">
+        <h3 class="gd-h3"><%= t.title %></h3>
+        <small><%= t.items.length %> tips</small>
+        <p class="gd-chips"><% t.items.slice(0, 5).forEach(k => { %><span><%= k %></span><% }) %><% if (more > 0) { %><span class="gd-more-chip">+<%= more %> more</span><% } %></p>
+      </a>
+      <% }) %>
+      <a href="/travelers_guide" class="gd-card gd-tip gd-tip-all">
+        <h3 class="gd-h3">All <%= tipTotal %> travel tips</h3>
+        <p class="gd-p">Money, health, getting around and temple manners, all on one page.</p>
+        <b>Read the tips</b>
+      </a>
+    </div>
+  </div>
+</section>
+
+<%# (23 Oct 2026, client) no closing "Still have a question?" band %>
+
+<%- include('partials/page-footer', { footCols: d.footCols, enquireHref: '/plan-my-trip' }) %>
+
+</div>
+</div>
+<script>
+// region tabs: click (or arrow keys) shows that region's panel
+(function () {
+  var tabs = [].slice.call(document.querySelectorAll('[data-gd-tab]'));
+  var pick = function (i, focus) {
+    tabs.forEach(function (t, j) {
+      t.setAttribute('aria-selected', String(i === j)); t.tabIndex = i === j ? 0 : -1;
+      document.getElementById('gd-panel-' + j).hidden = i !== j;
+    });
+    if (focus) tabs[i].focus();
+  };
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { pick(i); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); pick((i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length, true); }
+    });
+  });
+  pick(0);
+})();
+</script>
+</body>
+</html>

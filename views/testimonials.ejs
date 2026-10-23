@@ -1,20 +1,10 @@
 <%- include('partials/head') %>
 <%
   const enquire = '/contactus#enquiry';
-  // (21 Oct 2026, client) the longest reviews first, then the shorter ones; one-line reviews last
-  const all = T.all.slice().sort((a, b) => b.quote.length - a.quote.length);
-  // Filter groups by the tour each guest took (keywords in the tour name)
-  const GROUPS = [
-    ['golden-triangle', 'Golden Triangle', /golden triangle/i],
-    ['rajasthan', 'Rajasthan', /rajasthan|jaisalmer|udaipur|jaipur/i],
-    ['south', 'South India & Kerala', /south|kerala|karnataka|tamil|goa/i],
-    ['north', 'North India & Himalaya', /north|himachal|ladakh|leh|kashmir|uttar|sikkim|darjeeling|east|arunachal/i],
-    ['spiritual', 'Religious & Buddhist', /religious|pilgrim|buddh|temple|spiritual|yoga/i]
-  ];
-  const groupsOf = t => GROUPS.filter(g => g[2].test(t.tour)).map(g => g[0]);
-  const counts = Object.fromEntries(GROUPS.map(g => [g[0], all.filter(t => g[2].test(t.tour)).length]));
-  const extra = '<div class="ph-facts"><span><b>' + all.length + '</b> guest reviews</span></div>'
-    + '<div class="ph-actions"><a href="#reviews" class="ph-btn ph-btn-gold">Read the reviews <span>↓</span></a><a href="' + enquire + '" class="ph-btn ph-btn-line">Plan your trip <span>→</span></a></div>';
+  // (23 Oct 2026, client's reference reviews-4) reviews of about 5-6 lines (320-460 characters) first, longest first;
+  // then the others, longest first
+  const LO = 320, HI = 460, byLen = (a, b) => b.quote.length - a.quote.length, fits = t => t.quote.length >= LO && t.quote.length <= HI;
+  const all = T.all.filter(fits).sort(byLen).concat(T.all.filter(t => !fits(t)).sort(byLen));
 %>
 <div style="width:100%;overflow-x:clip;background:#F4F7FB">
 <div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#F4F7FB">
@@ -33,27 +23,20 @@
   </div>
 </section>
 
-<section id="reviews" class="tm az az-b">
+<%# (23 Oct 2026, client's reference reviews-4, on the site's own design) two cards in a row, the same card as the home
+    page reviews: the review (six lines, then "… View more"), and at the foot the tour (left) and the guest (right). Six to start, six more per
+    "View more reviews". Every review is in the page itself (for search engines); the script only shows and hides. %>
+<section id="reviews" class="rv4">
   <div class="az-wrap">
-    <%# (16 Oct 2026) the heading, the tour filter and the search are removed at the client's request: the reviews start here %>
-    <%# (16 Oct 2026, client's pick U) no "Showing 9 of 72" line; an editorial card — a big gold quote mark, the guest's
-        words large in the serif, then the guest (initials, name, details) and the tour they took; more reviews load
-        by themselves as the visitor scrolls %>
-    <%# (18 Oct 2026, client) two rows of four to start, then "View more reviews"; no picture or initials %>
-    <div class="tm-grid tm2 tm3 tm-four" id="tm-grid">
+    <div class="rv4-grid" id="rv4-grid">
       <% all.forEach((t, i) => { %>
-      <figure class="tm-card<%= i >= 8 ? ' is-hidden' : '' %>" data-g="<%= groupsOf(t).join(' ') %>" data-search="<%= (t.name + ' ' + t.details.join(' ') + ' ' + t.tour + ' ' + t.route).toLowerCase() %>">
-        <blockquote class="tm-quote" id="tm-q-<%= i %>"><%= t.quote %></blockquote>
-        <button type="button" class="tm-more" aria-expanded="false" aria-controls="tm-q-<%= i %>" hidden>Read more</button>
-        <figcaption class="tm-who">
-          <span class="rv-foot"><% if (t.tour) { %><span class="rv-tour"><%= t.tour %></span><% } %><span class="rv-guest"><b><%= t.name %></b><% if (t.details.length) { %><small><%= t.details.join(', ') %></small><% } %></span></span>
-        </figcaption>
-      </figure>
+      <article class="rv4-card"<%= i >= 6 ? ' hidden' : '' %>>
+        <div class="rv4-tw"><p class="rv4-tx" id="rv4-q-<%= i %>"><%= t.quote %></p><button type="button" class="rv4-vm" aria-expanded="false" aria-controls="rv4-q-<%= i %>" hidden>… View more</button></div>
+        <footer class="rv-foot"><% if (t.tour) { %><span class="rv-tour"><%= t.tour %></span><% } %><span class="rv-guest"><b><%= t.name %></b><% if (t.details.length) { %><small><%= t.details.join(', ') %></small><% } %></span></footer>
+      </article>
       <% }) %>
     </div>
-
-    <div class="tm-empty is-hidden" id="tm-empty">No reviews match your search. <button type="button" id="tm-reset">Show all</button></div>
-    <div class="tm-foot"><button type="button" class="tm-load" id="tm-load">View more reviews <span>↓</span></button></div>
+    <div class="rv4-more"<%= all.length <= 6 ? ' hidden' : '' %>><button type="button" class="ph-btn rv4-load" id="rv4-load">View more reviews</button></div>
   </div>
 </section>
 
