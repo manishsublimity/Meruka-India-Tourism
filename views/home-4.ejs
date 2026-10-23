@@ -318,7 +318,7 @@
         <h2 class="h4-h2">India <em>Travel Guide</em></h2>
         <p class="h4-base">Travel with peace of mind — everything we are asked before a first trip, answered plainly.</p>
       </div>
-      <a href="/guide" class="h4-all">Open the full guide</a>
+      <a href="/guide" class="h4-all">View Travel Guide</a>
     </div>
 
     <div class="g2-grid">
@@ -341,6 +341,14 @@
           <li><a href="<%= h %>"<%- ext(h) %>><span><%= it %></span></a></li>
           <% }) %>
         </ul>
+        <%# (23 Oct 2026, client) Travel Tools has fewer links than the other two cards: a few quick facts fill its foot %>
+        <% if (/tools/i.test(g.title)) { %>
+        <dl class="g2-facts">
+          <div><dt>Calling code</dt><dd>+91</dd></div>
+          <div><dt>Emergency</dt><dd>112</dd></div>
+          <div><dt>Currency</dt><dd>Indian Rupee (₹)</dd></div>
+        </dl>
+        <% } %>
       </div>
       <% }) %>
     </div>

@@ -60,6 +60,17 @@
     stars.forEach(function (s) {
       s.addEventListener('click', function () { star = s.dataset.star; stars.forEach(function (x) { setOn(x, x === s); x.setAttribute('aria-pressed', String(x === s)); }); });
     });
+    // (23 Oct 2026) the security code (Plan My Trip): a picture from the server, a new one on request or after a wrong try
+    var cap = $('[data-captcha]', form);
+    function newCode() {
+      if (!cap) return;
+      cap.querySelector('input[name="captcha"]').value = '';
+      fetch('/api/captcha', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (c) {
+        $('[data-captcha-img]', cap).innerHTML = c.svg;
+        $('[data-captcha-token]', cap).value = c.token;
+      });
+    }
+    if (cap) { newCode(); $('[data-captcha-new]', cap).addEventListener('click', newCode); }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var f = form.elements, err = $('#plan-err');
@@ -71,7 +82,11 @@
       Array.prototype.forEach.call(form.elements, function (el) { if (el.name && el.type !== 'submit' && String(el.value || '').trim()) data[el.name] = el.value.trim(); });
       if (star) data.hotel = star;
       postEnquiry(data).then(function (r) {
-        if (!r.ok) { err.textContent = r.error; err.classList.remove('is-hidden'); return; }
+        if (!r.ok) {
+          err.textContent = r.error; err.classList.remove('is-hidden');
+          if (r.captcha && cap) { newCode(); cap.querySelector('input[name="captcha"]').focus(); }
+          return;
+        }
         err.classList.add('is-hidden');
         form.classList.add('is-hidden');
         $('#plan-sent').classList.remove('is-hidden');

@@ -3448,3 +3448,92 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 #mk-frame#mk-frame.in4 .ar-places-sec ul.ar-ph > li.ar-fill-plan{padding-top:20px !important}
 /* the filler cards never set the row height: they take the height of the place cards beside them */
 #mk-frame#mk-frame.in4 .ar-places-sec ul.ar-ph > li.ar-fill{contain:size;overflow:hidden}
+
+/* (23 Oct 2026, client) the "View Tour" button on the tour rows a little lower */
+#mk-frame#mk-frame.ux.v3.h4.in4 .tp2-row-go{height:34px !important;padding:0 14px;font-size:13.5px !important}
+/* (23 Oct 2026, client) Plan My Trip: the "Your trip details" bar in blue, edge to edge across the top of the card */
+#mk-frame#mk-frame.in4 .pm-card{--pm-pad:clamp(20px,2.2cqw,30px);padding-top:0;overflow:hidden}
+#mk-frame#mk-frame.in4 .pm-card-head{margin:0 calc(-1 * var(--pm-pad)) 22px;padding:16px var(--pm-pad);background:linear-gradient(135deg,#336699 0%,#123F6D 100%);border-bottom:0}
+#mk-frame#mk-frame.v3.in4 .pm-card-t{color:#fff !important}
+#mk-frame#mk-frame.in4 .pm-trust li{color:rgba(255,255,255,.92)}
+/* (23 Oct 2026) Plan My Trip security code: picture, "new code" button and the box, in one row */
+#mk-frame.in4 .pm-cap{margin-top:16px}
+#mk-frame.in4 .pm-cap-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+#mk-frame#mk-frame.in4 .pm-cap-img{display:inline-flex;width:150px;height:var(--mk-btn-h);border:1px solid var(--mk-field-line);border-radius:var(--mk-radius) !important;overflow:hidden;background:#F3F7FB}
+#mk-frame.in4 .pm-cap-img svg{display:block;width:100%;height:100%}
+#mk-frame#mk-frame.in4 .pm-cap-new{display:inline-flex;align-items:center;justify-content:center;width:var(--mk-btn-h);height:var(--mk-btn-h);padding:0;border:1.5px solid var(--mk-blue);border-radius:var(--mk-radius) !important;background:#fff;color:var(--mk-blue);cursor:pointer;transition:background-color var(--mk-ease),color var(--mk-ease)}
+#mk-frame#mk-frame.in4 .pm-cap-new:hover{background:var(--mk-blue);color:#fff}
+#mk-frame.in4 .pm-cap-new svg{width:18px;height:18px}
+#mk-frame#mk-frame.in4 .pm-cap-in{flex:1 1 160px;max-width:220px;letter-spacing:.18em;text-transform:uppercase}
+#mk-frame#mk-frame.in4 .pm-cap-in::placeholder{letter-spacing:0;text-transform:none}
+
+/* (23 Oct 2026, client) India Travel Guide page: clearer borders and soft shadows on the boxes, as in the reference */
+#mk-frame#mk-frame.in4 :is(.gd-card,.gd-group,.gd-tour,.gd-tip){border:1.5px solid #CBD3DE;box-shadow:0 2px 10px rgba(20,30,50,.07)}
+#mk-frame#mk-frame.in4 .gd-know > div{border:1px solid #D5DDE8;box-shadow:0 1px 6px rgba(20,30,50,.05)}
+#mk-frame#mk-frame.in4 .gd-sights li > *{border-color:#DCE3EC}
+#mk-frame#mk-frame.in4 .gd-season.is-best{border-color:var(--mk-gold)}
+#mk-frame#mk-frame.in4 :is(.gd-tour,.gd-tip):hover{border-color:var(--mk-blue)}
+/* the season cards' "Plan a … trip" links (and the festival calendar link) read as links: underlined */
+#mk-frame#mk-frame.in4 .gd-more{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px}
+#mk-frame#mk-frame.in4 .gd-more:hover{text-decoration-color:var(--mk-gold)}
+/* (23 Oct 2026, client) Guest Reviews: stronger shadows on the review cards */
+#mk-frame#mk-frame.in4 .rv4-card{border-color:#D5DDE8;box-shadow:0 2px 6px rgba(20,40,70,.10),0 12px 28px rgba(20,40,70,.14)}
+
+/* ===== (23 Oct 2026, client) "The Country for All Seasons" on /guide: the reference design (meruka-india-testing/guide) —
+   a coloured top rule and a soft tint per season, the name in the accent face, the dates on a small chip, gradient badges,
+   the weather by region, "Best for" chips and the "Good to know" notes in one ruled box ===== */
+#mk-frame#mk-frame.in4 .gd-scards{gap:14px}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season{position:relative;padding:16px 18px 15px;border:1px solid #D7DEE8;border-top:4px solid #9BB8D3;border-radius:var(--mk-radius) !important;background:linear-gradient(180deg,#F8FBFF 0%,#fff 40%);box-shadow:0 3px 10px rgba(31,55,82,.06)}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season:nth-child(2){border-top-color:#E4B85B;background:linear-gradient(180deg,#FFFAF0 0%,#fff 40%)}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season:nth-child(3){border-top-color:#3C5E81;background:linear-gradient(180deg,#F1F6FB 0%,#fff 40%)}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season.is-best{border-color:#E7D39D;border-top-color:var(--mk-gold);background:linear-gradient(180deg,#FFF9E8 0%,#fff 43%);box-shadow:0 4px 13px rgba(137,105,30,.10)}
+#mk-frame#mk-frame.in4 .gd-season .gd-h3{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:0 0 6px;font-family:var(--mk-font-accent) !important;font-style:italic;font-weight:400;font-size:28px;line-height:1.15;letter-spacing:0;color:#264C73}
+#mk-frame#mk-frame#mk-frame.in4 .gd-tag{display:inline-flex;align-items:center;margin:0;padding:5px 9px;border:1px solid transparent;border-radius:4px !important;font:800 10px var(--mk-font-body);font-style:normal;letter-spacing:.055em;text-transform:uppercase;white-space:nowrap;vertical-align:baseline}
+#mk-frame#mk-frame#mk-frame.in4 .gd-tag-pop{color:#795400;border-color:#EFD28C;background:linear-gradient(105deg,#F8D778 0%,#FFF8E7 72%,#fff 100%)}
+#mk-frame#mk-frame#mk-frame.in4 .gd-tag-low{color:#224468;border-color:#B9CDE3;background:linear-gradient(105deg,#C3D6EA 0%,#EEF4FA 72%,#fff 100%)}
+#mk-frame#mk-frame.in4 .gd-season .gd-dates{display:table;width:max-content;max-width:100%;margin:0 0 10px;padding:4px 9px;border:1px solid #DCE4ED;border-radius:4px;background:rgba(255,255,255,.86);font-size:12px;font-weight:800;letter-spacing:.02em;color:#4C5B6D}
+#mk-frame#mk-frame.in4 .gd-season .gd-p{margin:0 0 10px;font-size:15.5px;line-height:1.5;color:#3D4757}
+#mk-frame#mk-frame.in4 .gd-season .gd-wx{margin:0 0 12px}
+#mk-frame#mk-frame.in4 .gd-season .gd-wx > div{grid-template-columns:52px minmax(0,1fr);gap:10px;padding:7px 0;border-top:1px solid rgba(31,55,82,.12);font-size:14.5px;line-height:1.45}
+#mk-frame#mk-frame.in4 .gd-season .gd-wx dt{font-size:14.5px;font-weight:800;color:#264C73}
+#mk-frame#mk-frame.in4 .gd-season .gd-wx dd{font-size:14.5px;color:#3D4757}
+#mk-frame#mk-frame.in4 .gd-season .gd-lab{margin:auto 0 7px;font-size:11px;font-weight:800;letter-spacing:.1em;color:#264C73}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season .gd-chips > *{min-height:0;padding:5px 9px;border:1px solid #DCE4ED;border-radius:4px !important;background:rgba(255,255,255,.78);font-size:12px;font-weight:600;line-height:1.3;color:#465568}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season.is-best .gd-chips > *{border-color:#EAD9A9;background:#FFFDF6}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season:nth-child(2) .gd-chips > *{border-color:#EADFC7;background:#FFFDFA}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season:nth-child(3) .gd-chips > *{border-color:#CFDCEC;background:#FAFCFE}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season .gd-more{align-self:flex-start;margin-top:10px;padding-top:0;font-size:14px;font-weight:800;color:#264C73}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season .gd-more:hover{color:var(--mk-blue)}
+/* Good to know: one ruled box, three columns */
+#mk-frame#mk-frame.in4 .gd-know{gap:0;margin-top:14px;border:1px solid #DBE4EE;border-radius:var(--mk-radius);background:#F6F9FC;overflow:hidden}
+#mk-frame#mk-frame#mk-frame.in4 .gd-know > div{padding:10px 16px;border:0;border-radius:0 !important;background:none;box-shadow:none;font-size:14.5px;line-height:1.5;color:#3D4757}
+#mk-frame#mk-frame#mk-frame.in4 .gd-know > div:nth-child(3n+2),#mk-frame#mk-frame#mk-frame.in4 .gd-know > div:nth-child(3n){border-left:1px solid #DBE4EE}
+#mk-frame#mk-frame#mk-frame.in4 .gd-know > div:nth-child(n+4){border-top:1px solid #DBE4EE}
+#mk-frame#mk-frame.in4 .gd-know b{margin-bottom:1px;font-size:12px;font-weight:800;letter-spacing:.08em;color:#264C73}
+@media (max-width:900px){
+  #mk-frame#mk-frame.in4 .gd-scards{grid-template-columns:minmax(0,1fr)}
+  #mk-frame#mk-frame#mk-frame.in4 .gd-season{padding:15px 16px}
+  #mk-frame#mk-frame.in4 .gd-season .gd-h3{font-size:26px}
+  #mk-frame#mk-frame.in4 .gd-season .gd-lab{margin-top:4px}
+  #mk-frame#mk-frame.in4 .gd-know{grid-template-columns:minmax(0,1fr)}
+  #mk-frame#mk-frame#mk-frame.in4 .gd-know > div:nth-child(n){border-left:0}
+  #mk-frame#mk-frame#mk-frame.in4 .gd-know > div:nth-child(n+2){border-top:1px solid #DBE4EE}
+}
+@media (min-width:900.02px) and (max-width:1099.98px){ #mk-frame#mk-frame.in4 .gd-scards{grid-template-columns:repeat(3,minmax(0,1fr))} #mk-frame#mk-frame.in4 .gd-know{grid-template-columns:repeat(3,minmax(0,1fr))} }
+/* (23 Oct 2026, client) the seasons section matches the reference in everything but the font family: its spacing, heading
+   sizes and colours, and the "Plan a … trip →" link (no underline until hovered) */
+#mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 > section.gd-seasons{padding-top:40px !important;padding-bottom:40px !important;background:#fff}
+#mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 .gd-seasons .h4-head{margin:0 0 18px !important;gap:12px}
+#mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 .gd-seasons .h4-h2{margin:0 !important;font-size:42px !important;font-weight:800 !important;letter-spacing:-.02em !important;line-height:1.15 !important;color:#2F353D !important}
+#mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 .gd-seasons .h4-h2 em{font-size:1.12em !important;font-weight:400 !important;letter-spacing:0 !important;color:#264C73 !important}
+#mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 .gd-seasons .h4-base{margin:4px 0 0 !important;font-size:18px !important;color:#5B6575 !important}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season .gd-sc-cta{text-decoration:none;gap:4px}
+#mk-frame#mk-frame#mk-frame.in4 .gd-season .gd-sc-cta:hover{color:#264C73;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+@media (max-width:900px){
+  #mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 > section.gd-seasons{padding-top:30px !important;padding-bottom:30px !important}
+  #mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 .gd-seasons .h4-h2{font-size:33px !important}
+}
+/* (23 Oct 2026, client's pick) guest reviews in Shantell Sans, a clear marker handwriting; the tour chip, the guest's name
+   and everything else stay in the site font */
+#mk-frame#mk-frame.in4 .rv4-tx{font-family:'Shantell Sans','Manrope',system-ui,sans-serif !important;font-size:15.5px;font-weight:400;line-height:1.7}
+#mk-frame#mk-frame.in4 .rv4-vm{font-family:'Shantell Sans','Manrope',system-ui,sans-serif !important;font-weight:500}

@@ -60,6 +60,16 @@
         <label class="pm-f pm-msg"><span>Preferred Destinations / Required Services / Tour Code <i aria-hidden="true">*</i></span><textarea name="message" rows="5" class="pm-in" placeholder="The places you'd like to see, the services you need and a tour code if you have one — e.g. GT-1 plus the Kerala backwaters, a guide in Jaipur." required><%= prefill %></textarea>
           <small class="pm-hint">Each tour page shows its code under the title.</small></label>
 
+        <%# (23 Oct 2026, client) a security code as on the old site's form (picture from /api/captcha, checked by the server) %>
+        <div class="pm-f pm-cap" data-captcha><span id="pm-cap-h">Security Code <i aria-hidden="true">*</i></span>
+          <span class="pm-cap-row">
+            <span class="pm-cap-img" data-captcha-img aria-live="polite"></span>
+            <button type="button" class="pm-cap-new" data-captcha-new aria-label="Show a new code" title="Show a new code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg></button>
+            <input name="captcha" class="pm-in pm-cap-in" aria-labelledby="pm-cap-h" placeholder="Type the code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="5" required>
+            <input type="hidden" name="captchaToken" data-captcha-token>
+          </span>
+        </div>
+
         <p class="pm-req"><i aria-hidden="true">*</i> Please Fill Mandatory Field.</p>
         <div id="plan-err" class="is-hidden pm-err" role="alert"></div>
         <button type="submit" class="pv-submit pm-go">Send My Enquiry</button>

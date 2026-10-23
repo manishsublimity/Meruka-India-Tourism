@@ -1987,3 +1987,25 @@ font[style*="vertical-align: inherit"]{background:none !important;box-shadow:non
 #mk-frame#mk-frame .mh-bar{height:64px !important;min-height:0 !important}
 @media (max-width:899.98px){ #mk-frame#mk-frame .mh-bar{height:56px !important} }
 
+/* (23 Oct 2026, client) "Chalk out your own private tour" strip: the buttons sit with the same space on the right as on
+   the left of the panel (after its arrow tip), and the two outline buttons fit the panel instead of running into its edge */
+@media (min-width:1280px){ #mk-frame#mk-frame#mk-frame.v3.h4 #own-tour .c6-parts > .c6-part.c6-acts{padding-right:14px !important} }
+#mk-frame#mk-frame.v3.h4 #own-tour .c6-acts .c3-actions{width:100%;column-gap:8px !important;grid-template-columns:minmax(0,auto) minmax(0,auto) !important;justify-content:stretch}
+#mk-frame#mk-frame.v3.h4 #own-tour .c6-acts .c3-line{padding-left:12px !important;padding-right:12px !important;min-width:0}
+
+/* (23 Oct 2026, client) India Travel Guide boxes: a clearer border and a soft shadow (as in the reference /guide) */
+#mk-frame#mk-frame.ux.v3.h4 :is(.g2-card,.g2-season){border:1.5px solid #CBD3DE !important;box-shadow:0 2px 10px rgba(20,30,50,.07) !important}
+#mk-frame#mk-frame.ux.v3.h4 .g2-card:hover{border-color:#9FB4CC !important;box-shadow:0 10px 24px rgba(20,30,50,.12) !important}
+/* Travel Tools: the quick facts sit at the foot of the card, filling the space under its shorter list */
+#mk-frame#mk-frame.h4 .g2-card{display:flex;flex-direction:column}
+#mk-frame.h4 .g2-facts{margin:auto 0 0;padding:10px 12px;background:var(--mk-soft);border:1px solid var(--mk-line);border-radius:var(--mk-radius)}
+#mk-frame.h4 .g2-facts div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;font-size:13px;line-height:1.4}
+#mk-frame.h4 .g2-facts div + div{border-top:1px solid var(--mk-line)}
+#mk-frame.h4 .g2-facts dt{color:var(--mk-muted)}
+#mk-frame.h4 .g2-facts dd{margin:0;font-weight:700;color:var(--mk-ink);text-align:right}
+/* (23 Oct 2026, client) Guest Reviews on the home and About pages: the same stronger shadow as the reviews page */
+#mk-frame#mk-frame.h4 #reviews .r6-card{border-color:#D5DDE8 !important;box-shadow:0 2px 6px rgba(20,40,70,.10),0 12px 28px rgba(20,40,70,.14) !important}
+/* the moving rows clip their overflow: room inside them so the card shadow shows in full, with the layout unchanged */
+#mk-frame#mk-frame.h4 #reviews .rm-row{padding-top:8px;padding-bottom:36px;margin-top:-8px;margin-bottom:-36px}
+/* (23 Oct 2026, client's pick) the home and About review cards in Shantell Sans as well */
+#mk-frame#mk-frame#mk-frame.v3.h4 #reviews .r6-q{font-family:'Shantell Sans','Manrope',system-ui,sans-serif !important;font-weight:400 !important;font-size:15px !important;line-height:1.7 !important}
