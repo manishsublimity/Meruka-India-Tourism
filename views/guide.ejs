@@ -67,13 +67,13 @@
     <div class="gd-scards">
       <% G.seasons.forEach(s => { %>
       <div class="gd-card gd-season<%= s.tag === 'Most popular' ? ' is-best' : '' %>">
-        <h3 class="gd-h3"><%= s.name %><% if (s.tag) { %> <span class="gd-tag"><%= s.tag %></span><% } %></h3>
+        <h3 class="gd-h3"><%= s.name %><% if (s.tag) { %> <span class="gd-tag<%= /popular/i.test(s.tag) ? ' gd-tag-pop' : ' gd-tag-low' %>"><%= s.tag %></span><% } %></h3>
         <p class="gd-dates"><%= s.dates %></p>
         <p class="gd-p"><%= s.line %></p>
         <dl class="gd-wx"><% s.weather.forEach(([r, t]) => { %><div><dt><%= r %></dt><dd><%= t %></dd></div><% }) %></dl>
         <p class="gd-lab">Best for</p>
         <p class="gd-chips"><% s.bestFor.forEach(p => { %><span><%= p %></span><% }) %></p>
-        <a href="/plan-my-trip" class="gd-more">Plan a <%= s.name.toLowerCase() %> trip</a>
+        <a href="/plan-my-trip" class="gd-more gd-sc-cta">Plan <%= /^[aeiou]/i.test(s.name) ? 'an' : 'a' %> <%= s.name.toLowerCase() %> trip <span aria-hidden="true">→</span></a>
       </div>
       <% }) %>
     </div>

@@ -88,14 +88,14 @@
         syncArrows();
       } else {
         // (23 Oct 2026, client) a last row that is not full is filled with cards the same size as the places:
-        // "Plan your trip" first, then "Tour packages" — only as many as the row has room for at this width
+        // "Tour packages" first, then "Plan your trip" — only as many as the row has room for at this width
         var wa = (document.querySelector('a[href*="wa.me/"]') || {}).href || 'https://wa.me/919920363777';
         var fillers = [
+          '<li class="ar-fill ar-fill-tours"><img src="/photos/india-main.webp" alt="" loading="lazy"><p class="ar-fill-k">Tour packages</p><p class="ar-fill-h">Private tours across India</p>'
+            + '<span class="ar-fill-acts"><a href="/itineraries" class="ph-btn ph-btn-gold">View Tours</a></span></li>',
           '<li class="ar-fill ar-fill-plan"><p class="ar-fill-k">Plan your trip</p><p class="ar-fill-h">Your own route, your own car</p>'
             + '<p class="ar-fill-p">Tell us the places you would like to see — a planner replies within one working day with a route and a price.</p>'
-            + '<span class="ar-fill-acts"><a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip</a><a href="' + wa + '" target="_blank" rel="noopener" class="ph-btn ph-btn-line">WhatsApp</a></span></li>',
-          '<li class="ar-fill ar-fill-tours"><img src="/photos/india-main.webp" alt="" loading="lazy"><p class="ar-fill-k">Tour packages</p><p class="ar-fill-h">Private tours across India</p>'
-            + '<span class="ar-fill-acts"><a href="/itineraries" class="ph-btn ph-btn-gold">View Tours</a></span></li>'
+            + '<span class="ar-fill-acts"><a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip</a><a href="' + wa + '" target="_blank" rel="noopener" class="ph-btn ph-btn-line">WhatsApp</a></span></li>'
         ].map(function (html) { var t = document.createElement('template'); t.innerHTML = html; return t.content.firstChild; });
         var fillRow = function () {
           fillers.forEach(function (f) { if (f.parentNode) f.parentNode.removeChild(f); });

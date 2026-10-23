@@ -208,8 +208,7 @@ function buildSite() {
     res.render('home-4', { title: 'Meruka India Tourism — One Country, Many Worlds' + (live ? '' : ' (copy 3)'), d: home, H2: H4, extraCss: '/css/home-4.css?v=' + Math.round(fs.statSync(path.join(__dirname, 'public/css/home-4.css')).mtimeMs), meta: live ? { description: HOME_DESC, canonical: '/' } : { description: HOME_DESC, canonical: '/', robots: 'noindex' } });
   };
   router.get('/', renderHome4(true));
-  // the design copy keeps working for further changes; it is the same page, not indexed
-  router.get('/home-4', renderHome4(false));
+  // (23 Oct 2026, client) the old /home-4 design copy is removed: the home page is the only copy
   router.get('/aboutus', (req, res) => res.render('about', { ...inner4(), totalTours: require('./data/home2').totalTours, T: home.testimonials, title: 'About us — Meruka India Tourism', d: about, meta: { description: 'Meruka India Tourism has looked after overseas travellers inside India since 2001: private, hand-routed tours with our own ground teams across the country.', canonical: '/aboutus' } }));
   // Plan My Trip (15 Oct 2026): every "Plan My Trip" button opens this page; ?tour=<name> fills in the message
   // Sitemap (18 Oct 2026, footer → Company): every page of the website, for visitors
@@ -285,6 +284,8 @@ function buildSite() {
   router.get('/api/guide', (req, res) => res.json(contact.guide));
 
   const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  // a new security code picture for the Plan My Trip form (never cached)
+  router.get('/api/captcha', (req, res) => { res.set('Cache-Control', 'no-store'); res.json(captcha.create()); });
   router.post('/api/enquiry', (req, res) => {
     // (23 Oct 2026) spam guard: at most 8 enquiries from one address in 10 minutes
     const now = Date.now(), hits = (enquiryHits.get(req.ip) || []).filter(t => now - t < 10 * 60 * 1000);
@@ -300,6 +301,11 @@ function buildSite() {
     if (!name || !EMAIL_RE.test(email)) {
       return res.status(400).json({ ok: false, error: 'Please enter your name and a valid email address.' });
     }
+    // (23 Oct 2026) the Plan My Trip form carries a security code (lib/captcha.js); it is checked, not stored
+    if (b.source === 'plan-my-trip' && !captcha.check(b.captcha, b.captchaToken)) {
+      return res.status(400).json({ ok: false, error: 'The security code does not match. Please type the new code shown.', captcha: true });
+    }
+    delete b.captcha; delete b.captchaToken;
     let list = [];
     try { list = JSON.parse(fs.readFileSync(ENQUIRY_FILE, 'utf8')); } catch (e) {}
     list.push(Object.assign({}, b, { name, email, receivedAt: new Date().toISOString() }));
@@ -315,6 +321,7 @@ function buildSite() {
   return router;
 }
 
+const captcha = require('./lib/captcha');
 const enquiryHits = new Map();   // ip → recent enquiry times (spam guard)
 let siteRouter = buildSite();
 require('./lib/cms/store').events.on('change', () => {

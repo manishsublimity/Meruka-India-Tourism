@@ -51,5 +51,7 @@
 
   window.addEventListener('resize', fitAll);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+  // (23 Oct 2026) the reviews' handwriting font may arrive after the page: count the lines again once it is there
+  if (document.fonts && document.fonts.load) document.fonts.load("15.5px 'Shantell Sans'").then(fitAll);
   fitAll();
 })();

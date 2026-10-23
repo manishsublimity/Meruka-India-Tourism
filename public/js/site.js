@@ -85,10 +85,17 @@
       b.addEventListener('click', function () {
         langCur.textContent = b.dataset.mhLangPick; langMenu.classList.add('is-hidden'); langBtn.setAttribute('aria-expanded', false);
         // (21 Oct 2026) translate the site with Google Translate: its cookie says which language, then the page reloads
-        var code = b.dataset.code || 'en', host = location.hostname.replace(/^www\./, '');
-        var val = code === 'en' ? '' : '/en/' + code, exp = code === 'en' ? '; expires=Thu, 01 Jan 1970 00:00:00 GMT' : '';
-        document.cookie = 'googtrans=' + val + '; path=/' + exp;
-        if (host.indexOf('.') > -1) document.cookie = 'googtrans=' + val + '; path=/; domain=.' + host + exp;
+        var code = b.dataset.code || 'en';
+        // (23 Oct 2026) Google also writes this cookie itself, on the site's own name and on its parent domains; an old copy
+        // left on any of them won the next time, so the new language did not show. Every copy is removed first.
+        var parts = location.hostname.split('.'), domains = [''];
+        for (var i = 0; i < parts.length - 1; i++) { var dmn = parts.slice(i).join('.'); domains.push('; domain=' + dmn, '; domain=.' + dmn); }
+        domains.forEach(function (d) { document.cookie = 'googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT' + d; });
+        if (code !== 'en') {
+          var host = location.hostname.replace(/^www\./, '');
+          document.cookie = 'googtrans=/en/' + code + '; path=/';
+          if (host.indexOf('.') > -1) document.cookie = 'googtrans=/en/' + code + '; path=/; domain=.' + host;
+        }
         location.reload();
       });
     });
