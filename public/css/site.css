@@ -2093,3 +2093,55 @@ select.pv-in{cursor:pointer}
 }
 /* hero on tablets/phones: height follows the photo + words (the fixed desktop height left an empty band) */
 @media (max-width:899.98px){ .h8{height:auto} }
+/* (27 Oct 2026, client) what guests wrote, in Candara (falls back to similar humanist fonts where Candara is missing) */
+#mk-frame#mk-frame#mk-frame#mk-frame :is(.rm-quote,.r6-q,.rv4-tx,.rv4-tw,.rv4-vm){font-family:Candara,'Calibri','Segoe UI','Optima',sans-serif !important}
+/* (27 Oct 2026, client) every drop-down on the website the same: one blue arrow 14px in from the right, no browser arrow */
+#mk-frame#mk-frame select:not([multiple]){-webkit-appearance:none !important;appearance:none !important;padding-right:40px !important;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23336699' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;background-repeat:no-repeat !important;background-position:right 14px center !important;background-size:16px 16px !important}
+#mk-frame#mk-frame select:not([multiple])::-ms-expand{display:none}
+#mk-frame#mk-frame select[name="title"]{min-width:98px;flex:0 0 98px}
+
+/* ---------- (27 Oct 2026, client video "Site-responsive") phones: like an app ---------- */
+.mb-nav{display:none}
+@media (max-width:767.98px){
+  #mk-frame#mk-frame .mb-nav{position:fixed;left:0;right:0;bottom:0;z-index:900;display:grid;grid-template-columns:repeat(5,1fr);align-items:end;height:calc(62px + env(safe-area-inset-bottom));padding:0 4px env(safe-area-inset-bottom);background:#fff;border-top:1px solid #E3E9F2;box-shadow:0 -6px 20px rgba(18,63,109,.10)}
+  #mk-frame .mb-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:62px;color:#5B6B82;font:700 11px/1.1 'Manrope',system-ui,sans-serif;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  #mk-frame .mb-nav a svg{width:22px;height:22px}
+  #mk-frame .mb-nav a[aria-current="page"]{color:#336699}
+  #mk-frame .mb-nav a[aria-current="page"] svg{stroke-width:2.4}
+  #mk-frame .mb-nav a:active{background:#F3F7FC}
+  #mk-frame .mb-nav .mb-go{position:relative}
+  #mk-frame .mb-nav .mb-go svg{box-sizing:content-box;width:22px;height:22px;margin-top:-22px;padding:12px;border-radius:50% !important;background:#FFB81C;color:#141B2B;stroke-width:2.6;box-shadow:0 6px 16px rgba(255,184,28,.45);border:4px solid #fff}
+  #mk-frame .mb-nav .mb-go span{color:#141B2B}
+  #mk-frame .mb-nav .mb-wa svg{color:#25D366}
+  /* the bar has WhatsApp: no floating button; room at the bottom of every page for the bar */
+  #mk-frame#mk-frame .wa-float{display:none !important}
+  #mk-frame#mk-frame{padding-bottom:calc(62px + env(safe-area-inset-bottom))}
+  .mk-adminbar{bottom:calc(74px + env(safe-area-inset-bottom)) !important}
+  /* a tour page has its own price bar at the bottom: no second bar there */
+  body:has(.tp-mbar) #mk-frame#mk-frame .mb-nav{display:none}
+  body:has(.tp-mbar) #mk-frame#mk-frame#mk-frame{padding-bottom:0}
+  /* text reads left to right on phones (no stretched gaps from justified lines) */
+  #mk-frame#mk-frame :is(p,li,.wn-intro,.fq-a,.fq-a p){text-align:left !important;hyphens:none}
+}
+/* (27 Oct 2026, client video) tablets: the footer's logo and words on the left, "Follow us" on the right of the same row */
+@media (min-width:640px) and (max-width:1099.98px){
+  #mk-frame#mk-frame .sf-brand{display:grid;grid-template-columns:minmax(0,1.4fr) auto;grid-template-areas:"logo social" "about social";align-items:center;column-gap:32px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.12)}
+  #mk-frame#mk-frame .sf-brand .sf-logo{grid-area:logo}
+  #mk-frame#mk-frame .sf-brand .sf-about{grid-area:about;max-width:520px}
+  #mk-frame#mk-frame .sf-brand .sf-social{grid-area:social;align-self:center;margin:0}
+}
+/* (27 Oct 2026, client video) header on phones: the name shrinks to fit, the language shows only its flag below 600px,
+   so the menu button never falls off the edge */
+@media (max-width:767.98px){
+  #mk-frame#mk-frame .mh-logo{min-width:0;flex:1 1 auto;overflow:hidden}
+  #mk-frame#mk-frame .mh-name{font-size:clamp(12px,3.5vw,19px) !important;white-space:nowrap;letter-spacing:.01em}
+  #mk-frame#mk-frame .mh-actions{flex:none}
+}
+@media (max-width:599.98px){
+  #mk-frame#mk-frame .mh-lang-cur,#mk-frame#mk-frame .mh-lang-btn .mh-chev{display:none}
+}
+/* FAQs: "How we work" steps get room — three across on wide screens, two on tablets, one on phones */
+#mk-frame#mk-frame .fq-steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:1099.98px){ #mk-frame#mk-frame .fq-steps{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:599.98px){ #mk-frame#mk-frame .fq-steps{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:399.98px){ #mk-frame#mk-frame .mh-logo{gap:6px} #mk-frame#mk-frame .mh-logo .mh-bird{width:34px !important;height:auto} #mk-frame#mk-frame .mh-name{font-size:12px !important} }

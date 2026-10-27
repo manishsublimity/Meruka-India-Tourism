@@ -17,8 +17,9 @@
 <header class="mh<%= typeof variant !== 'undefined' && variant === 'over' ? ' mh-over' : '' %>" id="site-header">
   <div class="mh-bar">
     <a href="/" class="mh-logo" aria-label="Meruka India Tourism — home">
+      <% if (typeof menu !== 'undefined' && menu.logo) { %><img class="mh-logo-img" src="<%= menu.logo %>" alt="Meruka India Tourism" style="height:44px;width:auto;display:block"><% } else { %>
       <span class="mh-bird mlogo" aria-hidden="true"></span>
-      <span class="mh-name notranslate" translate="no">MERUKA INDIA TOURISM</span>
+      <span class="mh-name notranslate" translate="no">MERUKA INDIA TOURISM</span><% } %>
     </a>
 
     <nav class="mh-nav" aria-label="Main">

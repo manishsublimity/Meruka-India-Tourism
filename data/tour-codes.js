@@ -167,6 +167,12 @@ const CODES = {
   "/north_east_india_fair_festival_tours": "FF-6"
 };
 
-const codeFor = url => CODES[String(url || '').split(/[?#]/)[0].toLowerCase()] || '';
+// (27 Oct 2026, client) codes given in the admin panel (a tour's editor → its code) are kept in data/cms/tour-codes.json
+const fs = require('fs'), path = require('path');
+const EXTRA = path.join(__dirname, 'cms', 'tour-codes.json');
+let extra = {}, extraAt = 0;
+const extras = () => { try { const t = fs.statSync(EXTRA).mtimeMs; if (t !== extraAt) { extra = JSON.parse(fs.readFileSync(EXTRA, 'utf8')); extraAt = t; } } catch (e) { extra = {}; extraAt = 0; } return extra; };
+const codeFor = url => { const k = String(url || '').split(/[?#]/)[0].toLowerCase(), x = extras(); return k in x ? x[k] : CODES[k] || ''; };
+const allCodes = () => Object.assign({}, CODES, extras());
 
-module.exports = { CODES, codeFor };
+module.exports = { CODES, codeFor, allCodes, EXTRA };

@@ -10,12 +10,14 @@
   <div><h1><%= title %></h1><p class="lead"><%= lead %></p></div>
   <div class="tr-acts"><input class="in lst-q" type="search" placeholder="Search a page…" data-tq><% if (mode !== 'tours') { %><button class="btn btn-g" type="button" data-add>+ Add <%= one %></button><% } %></div>
 </div>
-<% if (sections.length > 1) { %>
+<%# (27 Oct 2026, client) no tabs: the parts one under the other, each with its name %>
+<% if (false) { %>
 <div class="subtabs sec-tabs" data-sectabs><% sections.forEach((sct, i) => { %><button type="button" data-sec-i="<%= i %>"<%- i === 0 ? ' class="on"' : '' %>><%= sct.title %> <b><%= sct.rows.length + sct.rows.reduce((m, r) => m + r.kids.length + r.kids.reduce((k, c) => k + c.kids.length, 0), 0) + (sct.head ? 1 : 0) %></b></button><% }) %></div>
 <% } %>
 
-<% sections.forEach(sct => { %>
-<section class="tr-sec" data-sec<%- sections.indexOf(sct) ? ' hidden' : '' %>>
+<% sections.forEach(sct => { n = 0; %>
+<section class="tr-sec" data-sec data-title="<%= sct.title %>">
+  <% if (sections.length > 1) { %><h2 class="tr-sec-h" data-sec-h><%= sct.title %></h2><% } %>
   <div class="lst-wrap">
   <table class="tbl lst lst-clean">
     <thead><tr><th class="n">#</th><th>Page</th><th>Status</th><th>Last change</th><th class="acts-h">Actions</th></tr></thead>
@@ -47,4 +49,4 @@
 </section>
 <% }) %>
 <script>window.TREE = { mode: <%- JSON.stringify(mode) %>, one: <%- JSON.stringify(one) %>, sections: <%- JSON.stringify(sections.map(sct => ({ title: sct.title, guideSection: sct.guideSection || '', parents: sct.parents || [] }))) %> };</script>
-<%- include('_bottom', { scripts: ['/admin-assets/tree.js?v=4'] }) %>
+<%- include('_bottom', { scripts: ['/admin-assets/tree.js?v=6'] }) %>

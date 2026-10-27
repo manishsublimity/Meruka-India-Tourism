@@ -35,19 +35,28 @@
   // the "new" popup: a name; the web address is made from it (and can be changed)
   const create = async (from, fromName) => {
     const options = rows.filter(r => !r.dataset.text).map(r => { const a = r.querySelector('a[href^="/admin/"]'); return [a.getAttribute('href').split('/').pop(), a.textContent]; });
+    // (27 Oct 2026, client) a new tour starts empty and its categories are ticked here; "Copy" copies a tour as it is
+    const blank = L.kind === 'tours' && !from;
+    let cats = [];
+    if (blank) { try { cats = (await A.api('GET', '/admin/api/tour-categories/_new')).items || []; } catch (e) { cats = []; } }
+    const groups = [...new Set(cats.map(c => c.group))];
     const box = await A.dialog({
-      title: 'Add a new ' + L.one, ok: 'Create ' + L.one + ' as a draft',
+      title: fromName ? 'Copy “' + fromName + '”' : 'Add a new ' + L.one, ok: 'Create ' + L.one + ' as a draft',
       html: '<div class="f"><label class="lb">Name of the ' + L.one + '</label><input class="in" data-n placeholder="e.g. Rajasthan Desert & Forts Tour"></div>' +
-        '<div class="f"><label class="lb">Start from (its text and layout are copied, then you change them)</label><select class="in" data-f>' +
-        options.map(([id, n]) => '<option value="' + A.esc(id) + '"' + (id === from ? ' selected' : '') + '>' + A.esc(n) + '</option>').join('') + '</select></div>' +
-        '<p class="hint">It starts as a draft: visitors see it once it is published.</p>',
+        (blank ? (cats.length ? '<div class="f"><label class="lb">Show it in these categories</label><div class="nc-cats">' + groups.map(g => '<div class="nc-g"><h5>' + A.esc(g) + '</h5>' +
+            cats.filter(c => c.group === g).map(c => '<label><input type="checkbox" value="' + A.esc(c.id) + '"><span>' + A.esc(c.name) + '</span>' + (c.code ? '<i class="code-b">' + A.esc(c.code) + '</i>' : '') + '</label>').join('') + '</div>').join('') + '</div></div>' : '') :
+          '<div class="f"><label class="lb">Start from (its text and layout are copied, then you change them)</label><select class="in" data-f>' +
+          options.map(([id, n]) => '<option value="' + A.esc(id) + '"' + (id === from ? ' selected' : '') + '>' + A.esc(n) + '</option>').join('') + '</select></div>') +
+        '<p class="hint">' + (blank ? 'The tour starts empty, as a draft: fill in its days and prices, then publish it.' : 'It starts as a draft: visitors see it once it is published.') + '</p>',
       // (26 Oct 2026, client) no address box: the address is made from the name
       onOpen: box => { const n = box.querySelector('[data-n]'); if (fromName) n.value = fromName + ' (copy)'; },
       validate: box => !box.querySelector('[data-n]').value.trim() ? 'Please type a name.' : !A.slug(box.querySelector('[data-n]').value) ? 'Use letters or numbers in the name.' : ''
     });
     if (!box) return;
     try {
-      const j = await A.api('POST', '/admin/api/item/' + L.kind, { name: box.querySelector('[data-n]').value.trim(), slug: A.slug(box.querySelector('[data-n]').value), from: box.querySelector('[data-f]').value });
+      const fsel = box.querySelector('[data-f]');
+      const j = await A.api('POST', '/admin/api/item/' + L.kind, { name: box.querySelector('[data-n]').value.trim(), slug: A.slug(box.querySelector('[data-n]').value), from: fsel ? fsel.value : '',
+        blank, categories: [...box.querySelectorAll('.nc-cats input:checked')].map(x => x.value) });
       location.href = '/admin/' + L.kind + '/' + j.id;
     } catch (e) { A.toast(e.message, true); }
   };

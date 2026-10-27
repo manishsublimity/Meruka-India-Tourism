@@ -3533,10 +3533,10 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
   #mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 > section.gd-seasons{padding-top:30px !important;padding-bottom:30px !important}
   #mk-frame#mk-frame#mk-frame.ux.v3.h4.in4 .gd-seasons .h4-h2{font-size:33px !important}
 }
-/* (23 Oct 2026, client's pick) guest reviews in Shantell Sans, a clear marker handwriting; the tour chip, the guest's name
+/* (23 Oct 2026, client's pick) guest reviews (27 Oct 2026: Candara, was Shantell Sans); the tour chip, the guest's name
    and everything else stay in the site font */
-#mk-frame#mk-frame.in4 .rv4-tx{font-family:'Shantell Sans','Manrope',system-ui,sans-serif !important;font-size:15.5px;font-weight:400;line-height:1.7}
-#mk-frame#mk-frame.in4 .rv4-vm{font-family:'Shantell Sans','Manrope',system-ui,sans-serif !important;font-weight:500}
+#mk-frame#mk-frame.in4 .rv4-tx{font-family:Candara,'Calibri','Segoe UI','Optima',sans-serif !important;font-size:15.5px;font-weight:400;line-height:1.7}
+#mk-frame#mk-frame.in4 .rv4-vm{font-family:Candara,'Calibri','Segoe UI','Optima',sans-serif !important;font-weight:500}
 
 /* ===== Blog (23 Oct 2026): /blog and the posts — the site's cards, tokens and 5px corners ===== */
 #mk-frame.in4 .bl-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
@@ -3597,3 +3597,14 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 .bl-cats a:hover{border-color:#336699;color:#336699}
 .bl-cats a.on{background:#336699;border-color:#336699;color:#fff}
 .bl-cat{color:#336699;font-weight:800;text-decoration:none}
+/* (27 Oct 2026, client) the Plan My Trip form stands out: a blue outline */
+#mk-frame.in4 .pm-card{border:2px solid var(--mk-blue) !important;border-top:4px solid var(--mk-blue) !important;box-shadow:0 14px 34px rgba(51,102,153,.14)}
+/* (27 Oct 2026, client video) FAQs → "How we work": each step a roomy card — the number and when on one line,
+   the title under it, then the words at full width (no narrow column beside the number) */
+#mk-frame#mk-frame .fx-steps{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;counter-reset:none}
+#mk-frame#mk-frame .fx-steps li{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:16px;background:#F7FAFE;font-size:14px;line-height:1.55;color:#4E5B6E}
+#mk-frame#mk-frame .fx-steps li>span{width:34px;height:34px;border-radius:50% !important}
+#mk-frame#mk-frame .fx-steps b{font-size:15px;margin:2px 0 4px}
+@media (max-width:599.98px){ #mk-frame#mk-frame .fx-steps{grid-template-columns:minmax(0,1fr)} }
+/* (27 Oct 2026) the tour page column may shrink on the smallest phones (it pushed 7px off screen at 330px) */
+#mk-frame#mk-frame .it2-main,#mk-frame#mk-frame .it2-main>*{min-width:0;max-width:100%}

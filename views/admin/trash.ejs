@@ -1,16 +1,16 @@
 <%- include('_top', { pageTitle: 'Deleted items' }) %>
 <div class="ad-top">
-  <div><h1>Deleted items</h1><p>Tours, tour categories and pages you delete are kept here and can be put back on the website.</p></div>
+  <div><h1>Deleted items</h1><p>Tours, tour categories and pages you delete wait here: put them back on the website, or delete them for good.</p></div>
 </div>
 <% if (!items.length) { %><div class="card"><p class="hint" style="margin:0">Nothing has been deleted.</p></div><% } else { %>
 <table class="tbl">
-  <thead><tr><th>Item</th><th>Section</th><th>Deleted</th><th></th></tr></thead>
+  <thead><tr><th>Name</th><th>Section</th><th>Deleted on</th><th class="acts">Actions</th></tr></thead>
   <tbody>
     <% items.forEach(t => { %>
-    <tr><td><b>/<%= t.id %></b></td><td><%= kinds[t.kind].label %></td><td class="url"><%= t.at.slice(0, 10) %></td>
-      <td class="acts"><button class="btn btn-s" type="button" data-restore data-kind="<%= t.kind %>" data-bin="<%= t.bin %>">Put back</button></td></tr>
+    <tr><td><b><%= t.name %></b><br><small class="muted">/<%= t.id %></small></td><td><span class="pill pill-off"><%= kinds[t.kind].label %></span></td><td class="url"><%= new Date(t.at.slice(0, 10)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) %></td>
+      <td class="acts"><button class="btn btn-s" type="button" data-restore data-kind="<%= t.kind %>" data-bin="<%= t.bin %>">Put back</button> <button class="btn btn-s btn-d" type="button" data-purge data-name="<%= t.name %>" data-kind="<%= t.kind %>" data-bin="<%= t.bin %>">Delete for good</button></td></tr>
     <% }) %>
   </tbody>
 </table>
 <% } %>
-<%- include('_bottom', { scripts: ['/admin-assets/trash.js?v=2'] }) %>
+<%- include('_bottom', { scripts: ['/admin-assets/trash.js?v=3'] }) %>

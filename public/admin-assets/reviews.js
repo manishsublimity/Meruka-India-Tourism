@@ -15,14 +15,12 @@
       shown++;
       const tr = document.createElement('tr');
       tr.innerHTML = '<td class="n">' + (i + 1) + '</td><td><b></b><small class="url"></small></td><td class="rv-t"></td><td class="muted rv-q"></td><td class="acts">' +
-        (R.canPublish ? '<button type="button" class="btn btn-s" data-up title="Move up">↑</button><button type="button" class="btn btn-s" data-down title="Move down">↓</button><button type="button" class="btn btn-s btn-p" data-edit>Edit</button><button type="button" class="btn btn-s btn-d" data-del>Delete</button>' : '<span class="muted">View only</span>') + '</td>';
+        (R.canPublish ? '<button type="button" class="btn btn-s btn-p" data-edit>Edit</button><button type="button" class="btn btn-s btn-d" data-del>Delete</button>' : '<span class="muted">View only</span>') + '</td>';
       const c = tr.children;
       c[1].firstChild.textContent = r.name; c[1].lastChild.textContent = from(r); c[2].textContent = r.tour || ''; c[3].textContent = cut(r.quote, 110);
       if (R.canPublish) {
         tr.querySelector('[data-edit]').onclick = () => edit(i);
         tr.querySelector('[data-del]').onclick = async () => { if (!(await A.confirm('Delete the review by ' + r.name + '?', 'It is taken off the website. History keeps the earlier version.', 'Delete', true))) return; data.all.splice(i, 1); save('Review deleted'); };
-        tr.querySelector('[data-up]').onclick = () => { if (i > 0) { data.all.splice(i - 1, 0, data.all.splice(i, 1)[0]); save('Moved up'); } };
-        tr.querySelector('[data-down]').onclick = () => { if (i < data.all.length - 1) { data.all.splice(i + 1, 0, data.all.splice(i, 1)[0]); save('Moved down'); } };
       }
       body.appendChild(tr);
     });

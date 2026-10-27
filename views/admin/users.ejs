@@ -9,7 +9,7 @@
 </div>
 
 <div class="roles">
-  <% Object.entries(roles).forEach(([k, r]) => { %><div class="role"><b><%= r.label %></b><span><%= r.help %></span></div><% }) %>
+  <% Object.entries(roles).forEach(([k, r]) => { %><div class="role role-<%= k %>"><b><i aria-hidden="true"></i><%= r.label %></b><span><%= r.help %></span></div><% }) %>
 </div>
 
 <div class="lst-wrap">

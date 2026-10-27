@@ -180,7 +180,7 @@ module.exports = {
 
   // (23 Oct 2026, client) the footer's four columns as before, each pointing to main pages; each item is [label, link]
   footerCols: [
-    { title: 'Tour Packages', items: [['All Tour Packages', '/itineraries'], ['Golden Triangle Tours', '/india-golden-triangle-tour'], ['Rajasthan Tours', '/rajasthan-tours'], ['Kerala Tours', '/southindia_kerala_tours'], ['South India Tours', '/south_india_tour'], ['Incredible India Tours', '/incredible_india_tours']] },
+    { title: 'Tour Packages', items: [['Golden Triangle Tours', '/india-golden-triangle-tour'], ['Rajasthan Tours', '/rajasthan-tours'], ['Kerala Tours', '/southindia_kerala_tours'], ['South India Tours', '/south_india_tour'], ['Incredible India Tours', '/incredible_india_tours'], ['All Tour Packages', '/itineraries']] },
     { title: 'Destinations', items: [['North India', '/north_india_tour'], ['South India', '/south_india_tours_tourism'], ['East India', '/east_india_tour_tourism'], ['West India', '/west_india_tour_tourism']] },
     // "Travel Tips" is the Traveller's Guide page (its tips); "Important Links" as in the old site's footer
     { title: 'Travel Guide', items: [['India Travel Guide', '/guide'], ['Travel Tips', '/travelers_guide'], ['Best Time to Visit', '/weather'], ['Fairs & Festivals', '/Fairs-Festivals'], ['Visa Information', '/visa_information'], ['Important Links', '/important_links']] },
@@ -311,3 +311,5 @@ module.exports.popularSearches = [
   ['South India Tours','/south_india_tour'],
   ['North India Tours','/north_india_tour']
 ];
+// (27 Oct 2026, client) a logo picture chosen in the admin panel (Footer menu → Logo & about); empty: the drawn Meruka logo
+module.exports.siteLogo = '';
