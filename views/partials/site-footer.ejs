@@ -29,7 +29,7 @@
         <span class="mlogo sf-logo-mark" aria-hidden="true"></span>
         <span class="sf-logo-name notranslate" translate="no">MERUKA INDIA TOURISM SERVICE</span>
       </a>
-      <p class="sf-about">Inbound travel agency for overseas visitors. Private tours, 3–5 star hotels, a dedicated car and driver from arrival to departure.</p>
+      <p class="sf-about"><%= F.about || 'Inbound travel agency for overseas visitors. Private tours, 3–5 star hotels, a dedicated car and driver from arrival to departure.' %></p>
       <% const S = F.social || []; if (S.length) { %>
       <div class="sf-social"><span class="sf-seo-t">Follow us</span>
         <% S.forEach(x => { const ic = SOC[x.name] || ''; %>
@@ -48,7 +48,7 @@
 
   <div class="sf-wrap sf-seo">
     <span class="sf-seo-t">Popular searches</span>
-    <div class="sf-seo-list"><% F.seo.forEach(s => { %><a href="<%= abs(menu.to(s)) %>"><%= s %></a><% }) %></div>
+    <div class="sf-seo-list"><% F.seo.forEach(s => { const lbl = Array.isArray(s) ? s[0] : s, h = Array.isArray(s) ? s[1] : menu.to(s); if (!lbl) return; %><a href="<%= abs(h) %>"><%= lbl %></a><% }) %></div>
   </div>
 
   <div class="sf-bottom-band">

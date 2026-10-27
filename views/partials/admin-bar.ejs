@@ -1,0 +1,19 @@
+<%# (23 Oct 2026) "Edit this page": a small bar for someone signed in to the admin panel (like WordPress's admin bar).
+    It is never sent to visitors. res.locals.cmsBar is set in server.js: { name, edit, preview }. %>
+<% if (typeof cmsBar !== 'undefined' && cmsBar) { %>
+<style>
+.mk-adminbar{position:fixed;left:16px;bottom:16px;z-index:2147483000;display:flex;align-items:center;gap:6px;padding:6px;background:#123F6D;border-radius:8px;box-shadow:0 10px 30px rgba(10,25,45,.35);font:600 13px/1 'Manrope',system-ui,sans-serif}
+.mk-adminbar a,.mk-adminbar button{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:0;border-radius:6px;background:none;color:#fff;font:inherit;text-decoration:none;white-space:nowrap;cursor:pointer}
+.mk-adminbar a:hover,.mk-adminbar button:hover{background:rgba(255,255,255,.12)}
+.mk-adminbar .mk-ab-edit{background:#FFB81C;color:#141B2B}
+.mk-adminbar .mk-ab-edit:hover{background:#F2A200}
+.mk-adminbar[hidden]{display:none}
+.mk-preview-note{position:sticky;top:0;z-index:2147483001;padding:10px 16px;background:#FFB81C;color:#141B2B;font:700 14px/1.4 'Manrope',system-ui,sans-serif;text-align:center}
+</style>
+<% if (cmsBar.preview) { %><div class="mk-preview-note">Preview of your draft — visitors do not see this until it is published.</div><% } %>
+<nav class="mk-adminbar notranslate" translate="no" aria-label="Admin" data-mk-adminbar>
+  <a href="/admin" title="Open the admin panel">Admin</a>
+  <% if (cmsBar.edit) { %><a href="<%= cmsBar.edit %>" class="mk-ab-edit">Edit this page</a><% } %>
+  <button type="button" title="Hide this bar until the next page" aria-label="Hide the admin bar" onclick="this.parentNode.hidden=true">✕</button>
+</nav>
+<% } %>

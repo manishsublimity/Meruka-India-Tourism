@@ -1,0 +1,11 @@
+<%- include('_top', { pageTitle: 'Site settings' }) %>
+<%# (23 Oct 2026) the settings in one place; (26 Oct 2026, client video II) no duplicates: social media is part of the Footer
+    menu, the Google settings are in Google & SEO %>
+<div class="ad-top ad-head"><div><h1>Site settings</h1><p class="lead">Details used across the whole website.</p></div></div>
+<div class="tasks">
+  <a class="task" href="/admin/settings/contact"><i>☎</i><span><b>Contact details</b>Offices, phone numbers and email: the Contact page, the footer and WhatsApp.</span></a>
+  <a class="task" href="/admin/settings/plan"><i>✎</i><span><b>Enquiry form</b>The Plan My Trip form: its fields and the choices people pick.</span></a>
+  <a class="task" href="/admin/look"><i>◐</i><span><b>Look of the panel</b>Light or dark, and the panel’s colour.</span></a>
+  <% if (can('users')) { %><a class="task" href="/admin/users"><i>👥</i><span><b>Users and roles</b>Who can log in, and what they may change.</span></a><% } %>
+</div>
+<%- include('_bottom') %>

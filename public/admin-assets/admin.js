@@ -46,6 +46,41 @@
 
   A.esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
+  // ---- (23 Oct 2026, client) pages of a long list: 20 to a page. Rows a search or filter leaves out carry
+  // data-out="1"; the pager shows one page of the others and draws Previous / 1 2 3 … / Next under `after` ----
+  A.pager = function (rows, after, size) {
+    size = size || 20;
+    let page = 0;
+    const nav = document.createElement('nav');
+    nav.className = 'pager'; nav.setAttribute('aria-label', 'Pages');
+    after.insertAdjacentElement('afterend', nav);
+    const btn = (label, to, on, off) => '<button type="button" class="pg' + (on ? ' on' : '') + '"' + (off ? ' disabled' : ' data-to="' + to + '"') + (on ? ' aria-current="page"' : '') + '>' + label + '</button>';
+    const render = () => {
+      const live = rows.filter(r => r.isConnected && !r.dataset.out);
+      const pages = Math.max(1, Math.ceil(live.length / size));
+      if (page > pages - 1) page = pages - 1;
+      rows.forEach(r => { r.hidden = true; });
+      live.forEach((r, i) => { r.hidden = Math.floor(i / size) !== page; });
+      if (pages < 2) { nav.hidden = true; nav.innerHTML = ''; return; }
+      nav.hidden = false;
+      // the first, the last, and two either side of the current page; gaps shown as …
+      const nums = [];
+      for (let i = 0; i < pages; i++) if (i === 0 || i === pages - 1 || Math.abs(i - page) <= 2) nums.push(i);
+      let html = btn('Previous', page - 1, false, page === 0), last = -1;
+      nums.forEach(i => { if (i - last > 1) html += '<span class="pg-gap">…</span>'; html += btn(i + 1, i, i === page); last = i; });
+      html += btn('Next', page + 1, false, page === pages - 1);
+      html += '<span class="pg-info">Showing ' + (page * size + 1) + '–' + Math.min(live.length, (page + 1) * size) + ' of ' + live.length + '</span>';
+      nav.innerHTML = html;
+    };
+    nav.addEventListener('click', e => {
+      const b = e.target.closest('[data-to]'); if (!b) return;
+      page = +b.dataset.to; render();
+      after.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+    render();
+    return { update(toFirst) { if (toFirst) page = 0; render(); } };
+  };
+
   // ---- photos: upload and pick ----
   A.readFile = f => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = no; r.readAsDataURL(f); });
   A.upload = async function (files) {
@@ -101,4 +136,21 @@
     try { localStorage.setItem('mk-side', off ? 'off' : 'on'); } catch (e) {}
   };
   document.addEventListener('click', e => { if (phone() && ad.classList.contains('side-on') && !e.target.closest('.ad-side, [data-burger]')) ad.classList.remove('side-on'); });
+})();
+
+// (26 Oct 2026) the top bar's menus (+ New, notifications, your name): one open at a time, closed by a click elsewhere or Esc
+(function () {
+  const pops = [...document.querySelectorAll('[data-pop]')];
+  pops.forEach(p => p.addEventListener('toggle', () => { if (p.open) pops.forEach(o => { if (o !== p) o.open = false; }); }));
+  document.addEventListener('click', e => { pops.forEach(p => { if (p.open && !p.contains(e.target)) p.open = false; }); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') pops.forEach(p => { p.open = false; }); });
+})();
+
+// (26 Oct 2026) menu groups (Tours, Four Regions, Travel Guide, Footer menu): the arrow opens or closes the group
+(function () {
+  document.querySelectorAll('[data-tree]').forEach(t => {
+    const b = t.querySelector('.ad-tree-t'), k = 'mk-tree-' + t.dataset.tree;
+    try { if (!t.classList.contains('open') && localStorage.getItem(k) === '1') t.classList.add('open'); } catch (e) {}
+    b.onclick = () => { const o = t.classList.toggle('open'); b.setAttribute('aria-expanded', o); try { localStorage.setItem(k, o ? '1' : '0'); } catch (e) {} };
+  });
 })();

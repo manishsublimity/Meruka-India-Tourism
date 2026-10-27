@@ -78,11 +78,13 @@ function graph(base, page) {
 
 // All indexable URLs (the home-2 design copy is left out on purpose)
 function urls() {
-  const list = ['/', '/aboutus', '/contactus', '/testimonials', '/plan-my-trip', '/guide', '/sitemap'];
-  for (const dir of ['tour-lists', 'tours', 'articles']) {
+  const list = ['/', '/aboutus', '/contactus', '/testimonials', '/plan-my-trip', '/guide', '/faqs', '/blog', '/sitemap'];
+  for (const dir of ['tour-lists', 'tours', 'articles', 'posts']) {
+    if (!fs.existsSync(path.join(__dirname, dir))) continue;
     fs.readdirSync(path.join(__dirname, dir)).filter(f => f.endsWith('.js')).forEach(f => {
       const m = require('./' + dir + '/' + f), u = m.url;
-      if (u && !m.noindex && !list.includes(u)) list.push(u);   // pages hidden from Google (admin panel) stay out
+      // pages hidden from Google, and drafts not yet published (admin panel), stay out
+      if (u && !m.noindex && !m.unpublished && !list.includes(u)) list.push(u);
     });
   }
   return list;

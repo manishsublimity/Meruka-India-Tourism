@@ -1,0 +1,34 @@
+<%- include('_top', { pageTitle: 'Users' }) %>
+<%# (23 Oct 2026) the team: each person's own login and role; Owners only %>
+<div class="ad-top ad-head">
+  <div>
+    <h1>Users</h1>
+    <p class="lead">Give each person their own login. Pick a role, then tick exactly what they may do — like in WordPress. The menu shows each person only what they may use.</p>
+  </div>
+  <button class="btn btn-g" type="button" data-add-user>+ Add user</button>
+</div>
+
+<div class="roles">
+  <% Object.entries(roles).forEach(([k, r]) => { %><div class="role"><b><%= r.label %></b><span><%= r.help %></span></div><% }) %>
+</div>
+
+<div class="lst-wrap">
+<table class="tbl lst">
+  <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>What they can do</th><th>Status</th><th>Last login</th><th>Actions</th></tr></thead>
+  <tbody>
+    <% people.forEach(u => { %>
+    <tr data-user='<%- JSON.stringify(u).replace(/'/g, "&#39;") %>'>
+      <td><b><%= u.name %></b><% if (u.id === admin.id) { %> <span class="tag">You</span><% } %></td>
+      <td class="muted"><%= u.email %></td>
+      <td><span class="pill pill-role"><%= roles[u.role].label %></span><% if (u.custom) { %> <span class="tag">Own choice</span><% } %></td>
+      <td class="perm-cell"><% if (u.perms.length === perms.length) { %><span class="muted">Everything</span><% } else { %><% perms.filter(([k]) => u.perms.includes(k)).forEach(([k, t]) => { %><span class="perm-chip"><%= permShort[k] %></span><% }) %><% if (!u.perms.length) { %><span class="muted">Nothing yet</span><% } %><% } %></td>
+      <td><% if (u.active) { %><span class="pill pill-live">Active</span><% } else { %><span class="pill pill-off">Switched off</span><% } %></td>
+      <td class="muted"><%= u.env ? 'Main owner (.env)' : u.lastLogin ? new Date(u.lastLogin).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : 'Not yet' %></td>
+      <td class="acts"><% if (!u.env) { %><button class="btn btn-s btn-p" type="button" data-edit-user>Edit</button><% if (u.id !== admin.id) { %><button class="btn btn-s btn-d" type="button" data-del-user>Delete</button><% } %><% } else { %><span class="muted">Set on the server</span><% } %></td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+</div>
+<script>window.ROLES = <%- JSON.stringify(Object.fromEntries(Object.entries(roles).map(([k, r]) => [k, { label: r.label, can: r.can }]))) %>; window.PERMS = <%- JSON.stringify(perms) %>;</script>
+<%- include('_bottom', { scripts: ['/admin-assets/users.js?v=2'] }) %>

@@ -1,69 +1,75 @@
-<%- include('_top', { pageTitle: 'Start here' }) %>
+<%- include('_top', { pageTitle: 'Dashboard' }) %>
 <%
+  // (23 Oct 2026) the start page. (26 Oct 2026, client) redone so nothing stands empty: the numbers in one row, the enquiry
+  // chart beside the newest enquiries, three small charts in one row, then what waits and what changed — each card only
+  // as tall as what it holds
+  const hour = new Date().getHours();
+  const hello = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const first = String(admin.name || '').split(' ')[0];
+  const when = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); };
   const I = {
-    edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m14 6 4 4"/>',
-    plus: '<path d="M12 5v14M5 12h14"/>',
-    photo: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-8 8"/>',
-    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
-    phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
-    q: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.5V14M12 17h.01"/>',
-    star: '<path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>',
-    g: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>'
+    tours: '<path d="M4 18 9 6l4 8 3-5 4 9z"/>', cats: '<path d="M4 6h16M4 12h10M4 18h7"/>', pages: '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/>',
+    blog: '<path d="M4 20h4L19 9l-4-4L4 16z"/>', mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>', plus: '<path d="M12 5v14M5 12h14"/>'
   };
-  const ic = n => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I[n] + '</svg>';
-  const pct = n => Math.round(100 * n / Math.max(1, seoStats.total));
+  const ic = n => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I[n] + '</svg>';
+  const STATS = [
+    ['content', '/admin/tours', 'tours', counts.tours, 'Tours', 'Online and drafts'],
+    ['content', '/admin/lists', 'cats', counts.lists, 'Tour categories', 'Pages that list tours'],
+    ['content', '/admin/destinations', 'pages', counts.pages, 'Pages', 'Destinations and guide'],
+    ['enquiries', '/admin/enquiries', 'mail', newEnquiries, 'New enquiries', newEnquiries ? 'Waiting for a reply' : 'All answered']
+  ].filter(x => can(x[0]));
+  const ACTIONS = [['content', '/admin/tours#new', 'Add a tour'], ['content', '/admin/lists#new', 'Add a category'], ['enquiries', '/admin/enquiries', 'Enquiries']].filter(x => can(x[0]));
 %>
-<div class="ad-top">
-  <div>
-    <h1>Welcome 👋</h1>
-    <p class="lead">This is where you change your website. Pick what you want to do below — every change shows on the website as soon as you press <b>Save</b>.</p>
-  </div>
+<div class="dh">
+  <div><h1><%= hello %><%= first ? ', ' + first : '' %></h1><p class="lead">Signed in as <b><%= roles[admin.role].label %></b>.</p></div>
+  <div class="dh-acts"><% ACTIONS.forEach(([, href, t], i) => { %><a class="btn<%= i === 0 ? ' btn-p' : '' %>" href="<%= href %>"><%- i < 2 ? ic('plus') : '' %><%= t %></a><% }) %></div>
 </div>
 
-<div class="card">
-  <h2>How editing works</h2>
-  <div class="steps3">
-    <div><b>1</b>Choose a page from the menu on the left, or a task below.</div>
-    <div><b>2</b>Change the text or photos. Each box tells you what it is for.</div>
-    <div><b>3</b>Press <strong>Publish</strong> (top right). It is live at once. Made a mistake? "Undo all my edits" brings the original back.</div>
-  </div>
+<div class="ds">
+  <% STATS.forEach(([, href, icon, n, label, sub]) => { %>
+  <a class="ds-i<%= icon === 'mail' && n ? ' hot' : '' %>" href="<%= href %>"><i><%- ic(icon) %></i><span><b><%= n %></b><em><%= label %></em><small><%= sub %></small></span></a>
+  <% }) %>
 </div>
 
-<h2 style="margin-top:26px">What would you like to do?</h2>
-<div class="tasks">
-  <a class="task" href="/admin/tours"><i><%- ic('edit') %></i><span><b>Change a tour</b>Its days, price, photos and text.</span></a>
-  <a class="task gold" href="/admin/tours#new"><i><%- ic('plus') %></i><span><b>Add a new tour</b>Start from an existing tour and change it.</span></a>
-  <a class="task" href="/admin/lists"><i><%- ic('edit') %></i><span><b>Change a tour category</b>Rajasthan Tours, Kerala Tours… and which tours they show.</span></a>
-  <a class="task" href="/admin/media"><i><%- ic('photo') %></i><span><b>Upload photos</b>Then pick them on any page.</span></a>
-  <a class="task" href="/admin/settings/contact"><i><%- ic('phone') %></i><span><b>Change phone, email or address</b>Updates the footer, Contact page and WhatsApp.</span></a>
-  <a class="task" href="/admin/settings/home"><i><%- ic('q') %></i><span><b>Edit questions & answers</b>The FAQs on the home page.</span></a>
-  <a class="task" href="/admin/settings/reviews"><i><%- ic('star') %></i><span><b>Add a guest review</b>Shown on the Guest Reviews page.</span></a>
-  <a class="task" href="/admin/enquiries"><i><%- ic('mail') %></i><span><b>Read enquiries</b><%= unread ? unread + ' new — ' : '' %>Messages sent from the website.</span></a>
-  <a class="task" href="/admin/seo"><i><%- ic('g') %></i><span><b>Improve Google results</b>See which pages need a better Google title or description.</span></a>
-</div>
-
-<div class="grid4" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center"><h2>Google health</h2><a href="/admin/seo">See all pages →</a></div>
-    <div class="meter"><i style="width:<%= pct(seoStats.good) %>%;background:#2E9E62"></i><i style="width:<%= pct(seoStats.ok) %>%;background:#E3A008"></i><i style="width:<%= pct(seoStats.bad) %>%;background:#C8372D"></i></div>
-    <div class="legend"><span><i class="dot good"></i><%= seoStats.good %> good</span><span><i class="dot ok"></i><%= seoStats.ok %> could be better</span><span><i class="dot bad"></i><%= seoStats.bad %> need attention</span></div>
-    <p class="hint">Good Google titles and descriptions bring more visitors. Start with the pages marked red.</p>
+<% if (can('enquiries') || can('content')) { %>
+<div class="dg">
+  <% if (can('enquiries')) { %>
+  <div class="card dc dc-wide">
+    <div class="dc-h"><h2>Enquiries <span class="ch-big" data-k="count">–</span></h2>
+      <div class="seg seg-s" data-range><button type="button" data-d="7">7 d</button><button type="button" data-d="30" aria-pressed="true">30 d</button><button type="button" data-d="90">90 d</button><button type="button" data-d="365">12 m</button><button type="button" data-d="0">All</button></div></div>
+    <p class="sub" data-k="timeSub"></p><div data-c="time"></div>
   </div>
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h2>Latest enquiries</h2><a href="/admin/enquiries">All →</a></div>
+  <div class="card dc">
+    <div class="dc-h"><h2>Latest enquiries</h2><a href="/admin/enquiries">All</a></div>
     <% if (!latest.length) { %><p class="hint">No enquiries yet.</p><% } %>
     <% latest.forEach(e => { %>
-    <div style="padding:9px 0;border-bottom:1px solid #EEF2F7">
-      <b><%= e.name %></b> <span class="url">· <%= e.email %></span><% if (!e._read) { %> <span class="tag tag-g">New</span><% } %>
-      <div class="url"><%= new Date(e.receivedAt).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }) %><%= e.tour || e.message ? ' · ' + String(e.tour || e.message).slice(0, 70) : '' %></div>
-    </div>
+    <a class="row-link" href="/admin/enquiries"><span><b><%= e.name %></b><small><%= when(e.receivedAt) %><%= e.country ? ' · ' + e.country : '' %></small></span><span class="pill <%= e._st === 'New' ? 'pill-new' : 'pill-live' %>"><%= e._st %></span></a>
     <% }) %>
   </div>
-  <div class="card">
-    <h2 style="margin-bottom:10px">Your website</h2>
-    <table class="tbl" style="border:0">
-      <% Object.entries(kinds).forEach(([k, v]) => { %><tr><td><a href="/admin/<%= k %>"><%= v.label %></a></td><td style="text-align:right"><b><%= counts[k] %></b></td></tr><% }) %>
-    </table>
+  <div class="card dc"><div class="dc-h"><h2>Where each enquiry stands</h2></div><div data-c="status"></div></div>
+  <div class="card dc"><div class="dc-h"><h2>Where travellers come from</h2></div><div data-c="country"></div></div>
+  <% } %>
+  <% if (can('content')) { %>
+  <div class="card dc"><div class="dc-h"><h2>Tours by region</h2></div><div data-c="groups"></div></div>
+  <% } %>
+</div>
+<% } %>
+
+<div class="dg <%= can('content') && drafts.length ? 'dg-2' : 'dg-1' %>">
+  <% if (can('content') && drafts.length) { %>
+  <div class="card dc" id="waiting">
+    <div class="dc-h"><h2>Waiting to be published <span class="ch-big"><%= drafts.length %></span></h2></div>
+    <% drafts.slice(0, 6).forEach(d => { %>
+    <a class="row-link" href="<%= d.kind === 'single' ? '/admin/settings/' + d.id : '/admin/' + d.kind + '/' + d.id %>"><span><b><%= d.name %></b><small><%= d.one.charAt(0).toUpperCase() + d.one.slice(1) %> · <%= d.published ? 'live, with changes' : 'not on the website yet' %></small></span><span class="pill <%= d.published ? 'pill-draft' : 'pill-off' %>"><%= d.published ? 'Changes' : 'Draft' %></span></a>
+    <% }) %>
+  </div>
+  <% } %>
+  <div class="card dc">
+    <div class="dc-h"><h2>Recent changes<% if (can('content') && !drafts.length) { %> <small class="muted dc-ok">· nothing waiting to be published</small><% } %></h2><% if (can('users')) { %><a href="/admin/activity">Activity log</a><% } %></div>
+    <% if (!recent.length) { %><p class="hint dc-empty">Changes made in the panel show here.</p><% } %>
+    <div class="rc-list"><% recent.slice(0, 6).forEach(a => { %>
+    <a class="row-link" href="<%= a.link || '#' %>"><span><b><%= a.action %> <%= a.what %></b><small><%= a.by %> · <%= when(a.at) %></small></span></a>
+    <% }) %></div>
   </div>
 </div>
-<%- include('_bottom') %>
+<%- include('_bottom', { scripts: ['/admin-assets/charts.js?v=1', '/admin-assets/dash.js?v=2'] }) %>

@@ -39,34 +39,7 @@
 </section>
 
 <!-- 3) Why choose us: the same section as on the home page -->
-<section id="why" class="wn abx-wn">
-  <div class="b-wrap wn-grid">
-    <div class="wn-media">
-      <div class="wn-photo"><img src="/photos/handshake-deal.webp" alt="Two people shaking hands across a desk" loading="lazy"></div>
-      <figure class="wn-quote">
-        <blockquote>“The guest is the only Boss of our company; this is our prime duty and commitment to always provide the best services.”</blockquote>
-        <figcaption><span><b>Ashok Pareek</b>Founder, Meruka India Tourism Service</span></figcaption>
-      </figure>
-    </div>
-    <div class="wn-copy">
-      <h2 class="h4-h2">Why to <em>Choose Us?</em></h2>
-      <p class="h4-base">“Always give people more than what they expect to get.”</p>
-      <p class="wn-intro">Founded in 2001 to do one thing properly: look after overseas travellers inside India. No domestic groups, no merged coaches — your party, your car, your pace, with our own ground teams in every state you pass through.</p>
-      <% const wvTick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>'; %>
-      <ul class="wv-list">
-        <li><span class="wv-ic"><%- wvTick %></span><div><b>Routed by hand</b><span>Distances, driving hours and city order worked out for your party — never a template.</span></div></li>
-        <li><span class="wv-ic"><%- wvTick %></span><div><b>Hotels contracted direct</b><span>See the hotel name and room category before you pay.</span></div></li>
-        <li><span class="wv-ic"><%- wvTick %></span><div><b>Transparent to the last line</b><span>What is quoted is exactly what arrives.</span></div></li>
-        <li><span class="wv-ic"><%- wvTick %></span><div><b>Full inbound specialists</b><span>22 years of looking after overseas guests across India.</span></div></li>
-      </ul>
-      <div class="wn-contact">
-        <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="wn-btn wn-wa">WhatsApp</a>
-        <a href="mailto:<%= footer.hq.email %>" class="wn-btn">Email us</a>
-        <a href="tel:<%= footer.hq.phones[0].replace(/[^0-9+]/g, '') %>" class="wn-btn">Call <%= footer.hq.phones[0] %></a>
-      </div>
-    </div>
-  </div>
-</section>
+<%- include('partials/why-us', { W: W, extraClass: 'abx-wn' }) %>
 
 <!-- 4) Testimonials: the same section as on the home page -->
 <%- include('partials/home-reviews', { RV: T }) %>

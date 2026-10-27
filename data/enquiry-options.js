@@ -374,5 +374,19 @@ module.exports = {
     "4 Star",
     "3 Star",
     "2 Star"
-  ]
+  ],
+  // (26 Oct 2026, client video II) the form's own words and which of its optional fields show; edited in the admin panel
+  // (Site settings → Enquiry form). Name, email, country and the message are always asked.
+  form: {
+    heading: 'Your trip details',
+    name: 'Name', email: 'Email Id', country: 'Country',
+    period: 'Travel Period', showPeriod: true,
+    days: 'No. of Days for the Trip', showDays: true,
+    people: 'No. of People Traveling', showPeople: true,
+    hotelBudget: 'Hotel Budget (per day in USD)', showHotelBudget: true,
+    hotelCategory: 'Hotel Category', showHotelCategory: true,
+    message: 'Preferred Destinations / Required Services / Tour Code',
+    messageHint: "The places you'd like to see, the services you need and a tour code if you have one — e.g. GT-1 plus the Kerala backwaters, a guide in Jaipur.",
+    button: 'Send My Enquiry'
+  }
 };

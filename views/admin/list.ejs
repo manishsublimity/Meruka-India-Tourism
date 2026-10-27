@@ -1,9 +1,34 @@
 <%- include('_top', { pageTitle: k.label }) %>
-<%# (19 Oct 2026, the WeWeed admin's list layout) title and add button; filters, bulk actions and search; a bordered table %>
+<%# (19 Oct 2026, the WeWeed admin's list layout; 23 Oct 2026: Tours and Categories as tabs of one place, the main pages on
+    top of Pages, a status per item, actions only for the roles that may use them) %>
+<% const mayDelete = can('delete'); %>
 <div class="ad-top ad-head">
-  <h1><%= k.label %></h1>
-  <button class="btn btn-g" type="button" data-new>+ Add <%= k.one %></button>
+  <div>
+    <h1><%= kind === 'lists' ? 'Tour categories' : k.label %></h1>
+    <p class="lead"><%= kind === 'tours' ? 'All your tours. A tour’s categories are ticked inside the tour.' : kind === 'lists' ? 'The pages that list tours (Rajasthan Tours, Kerala Tours…). Tours are added to them from each tour.' : k.help %></p>
+  </div>
+  <%# (26 Oct 2026, client) one button that adds what this page lists %>
+  <button class="btn btn-g" type="button" data-new>+ Add <%= kind === 'lists' ? 'category' : k.one %></button>
 </div>
+
+
+<% if (typeof main !== 'undefined' && main.length) { %>
+<h2 class="sect-h">Main pages</h2>
+<div class="main-pages">
+  <% main.forEach(m => { %>
+  <div class="mp-card">
+    <div><b><%= m.name %></b><a href="<%= m.url %>" target="_blank" rel="noopener" class="url"><%= m.url %> ↗</a><% if (m.draft) { %> <span class="pill pill-draft">Draft</span><% } %></div>
+    <% if (m.editable) { %><a class="btn btn-s btn-p" href="/admin/settings/<%= m.id %>">Edit</a><% } else { %><span class="muted">Owner only</span><% } %>
+  </div>
+  <% }) %>
+</div>
+<h2 class="sect-h">More pages <small>grouped by where they sit on the website</small></h2>
+<div class="subtabs" data-groups>
+  <button type="button" class="on" data-g="">All <b><%= items.length %></b></button>
+  <% groups.forEach(g => { %><button type="button" data-g="<%= g.g %>"><%= g.name %> <b><%= g.n %></b></button><% }) %>
+</div>
+<p class="hint" data-group-help></p>
+<% } %>
 
 <div class="lst-bar">
   <div class="lst-left">
@@ -13,48 +38,46 @@
       <% cats.forEach(c => { %><option value="<%= c.code %>"><%= c.code %> · <%= c.name %></option><% }) %>
     </select>
     <% } %>
-    <select class="in lst-sel" data-google aria-label="Filter by Google check">
-      <option value="">All Google checks</option><option value="good">Good</option><option value="ok">Could be better</option><option value="bad">Needs attention</option>
+    <select class="in lst-sel" data-state aria-label="Filter by status">
+      <option value="">Any status</option><option value="live">Live</option><option value="draft">Drafts and changes</option>
     </select>
-    <select class="in lst-sel" data-bulk aria-label="Bulk actions">
-      <option value="">Bulk actions</option><option value="delete">Delete selected</option>
-    </select>
-    <button class="btn btn-s btn-p" type="button" data-bulk-go>Apply</button>
   </div>
   <div class="lst-right">
-    <span class="muted" data-count><%= items.length %> <%= k.one %>s</span>
+    <span class="muted" data-count><%= items.length %> <%= k.one === 'category' ? 'categories' : k.one + 's' %></span>
     <input class="in lst-q" type="search" placeholder="Search <%= k.one %> name, code or address…" data-q>
   </div>
 </div>
 
 <div class="lst-wrap">
-<table class="tbl lst" data-kind="<%= kind %>">
+<table class="tbl lst lst-clean" data-kind="<%= kind %>">
   <thead><tr>
-    <th class="lst-ck"><input type="checkbox" data-all aria-label="Select all"></th>
-    <% if (kind !== 'pages') { %><th>Code</th><% } %>
-    <th><%= k.one.charAt(0).toUpperCase() + k.one.slice(1) %> name</th>
+    <th class="n">#</th>
+    <% if (kind === 'tours' || kind === 'lists') { %><th>Code</th><% } %>
+    <th><%= k.one.charAt(0).toUpperCase() + k.one.slice(1) %></th>
     <% if (kind === 'tours') { %><th>Length</th><% } %>
-    <th>Google</th><th>Last change</th><th>Actions</th>
+    <% if (kind === 'posts') { %><th>Date</th><% } %>
+    <th>Status</th><th>Last change</th><th>Actions</th>
   </tr></thead>
   <tbody>
-    <% items.forEach(it => { %>
-    <tr data-row data-id="<%= it.id %>" data-name="<%= it.name %>" data-code="<%= it.code %>" data-seo="<%= it.seo %>" data-s="<%= (it.code + ' ' + it.name + ' ' + it.url + ' ' + it.title).toLowerCase() %>">
-      <td class="lst-ck"><input type="checkbox" data-pick aria-label="Select <%= it.name %>"></td>
-      <% if (kind !== 'pages') { %><td><% if (it.code) { %><span class="code"><%= it.code %></span><% } else { %><span class="muted">—</span><% } %></td><% } %>
+    <% items.forEach(it => { const st = it.hasDraft ? 'draft' : it.published ? 'live' : 'draft'; %>
+    <tr data-row<%- it.textTour ? ' data-text="1"' : '' %> data-group="<%= it.group || '' %>" data-id="<%= it.id %>" data-name="<%= it.name %>" data-code="<%= it.code %>" data-seo="<%= it.seo %>" data-state="<%= st %>" data-s="<%= (it.code + ' ' + it.name + ' ' + it.url + ' ' + it.title).toLowerCase() %>">
+      <td class="n" data-n></td>
+      <% if (kind === 'tours' || kind === 'lists') { %><td><% if (it.code) { %><span class="code"><%= it.code %></span><% } else { %><span class="muted">—</span><% } %></td><% } %>
       <td><div class="lst-name">
         <% if (it.img) { %><img class="thumb" src="<%= it.img %>" alt="" loading="lazy"><% } %>
-        <div><a href="/admin/<%= kind %>/<%= it.id %>"><b><%= it.name %></b></a>
-          <% if (it.added) { %> <span class="tag tag-n">New</span><% } %><% if (it.hidden) { %> <span class="tag">Hidden from Google</span><% } %>
-          <div><a href="<%= it.url %>" target="_blank" rel="noopener" class="url"><%= it.url %> ↗</a></div></div>
+        <div><a href="/admin/<%= it.editKind || kind %>/<%= it.id %>" class="row-name"><b><%= it.name %></b></a><% if (it.textTour) { %> <span class="tag">Written as text</span><% } %>
+          <% if (it.id === 'blog-template') { %> <span class="tag">Template</span><% } %><% if (it.hidden && it.id !== 'blog-template') { %> <span class="tag">Hidden from Google</span><% } %>
+          <div><% if (it.published) { %><a href="<%= it.url %>" target="_blank" rel="noopener" class="url"><%= it.url %> ↗</a><% } else { %><span class="url"><%= it.url %></span><% } %></div></div>
       </div></td>
       <% if (kind === 'tours') { %><td class="muted"><%= it.info %></td><% } %>
-      <td><span class="dot <%= it.seo %>"></span><span class="muted"><%= { good: 'Good', ok: 'OK', bad: 'Fix' }[it.seo] %></span></td>
-      <td class="muted"><%= it.savedAt ? new Date(it.savedAt).toLocaleString('en-GB', { day: 'numeric', month: 'long', year: '2-digit' }) : 'Original' %></td>
-      <td class="acts"><a class="btn btn-s btn-p" href="/admin/<%= kind %>/<%= it.id %>">Edit</a><button class="btn btn-s" type="button" data-copy="<%= it.id %>" data-name="<%= it.name %>">Copy</button><button class="btn btn-s btn-d" type="button" data-del="<%= it.id %>" data-name="<%= it.name %>">Delete</button></td>
+      <% if (kind === 'posts') { %><td class="muted"><%= it.date %></td><% } %>
+      <td><% if (!it.published) { %><span class="pill pill-off">Draft</span><% } else if (it.hasDraft) { %><span class="pill pill-draft">Live + changes</span><% } else { %><span class="pill pill-live">Live</span><% } %></td>
+      <td class="muted"><%= it.savedAt ? new Date(it.savedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' }) : 'Original' %></td>
+      <td class="acts"><a class="btn btn-s btn-p" href="/admin/<%= it.editKind || kind %>/<%= it.id %>">Edit</a><% if (it.textTour) { %></td><% } else { %><button class="btn btn-s" type="button" data-copy="<%= it.id %>" data-name="<%= it.name %>">Copy</button><% if (mayDelete) { %><button class="btn btn-s btn-d" type="button" data-del="<%= it.id %>" data-name="<%= it.name %>">Delete</button><% } %></td><% } %>
     </tr>
     <% }) %>
   </tbody>
 </table>
 </div>
 <script>window.LIST = { kind: <%- JSON.stringify(kind) %>, one: <%- JSON.stringify(k.one) %> };</script>
-<%- include('_bottom', { scripts: ['/admin-assets/list.js?v=3'] }) %>
+<%- include('_bottom', { scripts: ['/admin-assets/list.js?v=10'] }) %>

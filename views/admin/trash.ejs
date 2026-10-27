@@ -1,6 +1,6 @@
 <%- include('_top', { pageTitle: 'Deleted items' }) %>
 <div class="ad-top">
-  <div><h1>Deleted items</h1><p>Pages you delete are kept here and can be put back on the website.</p></div>
+  <div><h1>Deleted items</h1><p>Tours, tour categories and pages you delete are kept here and can be put back on the website.</p></div>
 </div>
 <% if (!items.length) { %><div class="card"><p class="hint" style="margin:0">Nothing has been deleted.</p></div><% } else { %>
 <table class="tbl">
@@ -13,4 +13,4 @@
   </tbody>
 </table>
 <% } %>
-<%- include('_bottom', { scripts: ['/admin-assets/trash.js?v=1'] }) %>
+<%- include('_bottom', { scripts: ['/admin-assets/trash.js?v=2'] }) %>

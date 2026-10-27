@@ -1,27 +1,73 @@
 <%
-  // simple line icons for the menu
+  // (23 Oct 2026) the admin panel's frame: a menu that shows only what the signed-in person's role allows (the server
+  // checks every page and action as well), the person and their role at the foot, and a top bar.
   const IC = {
     home: '<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',
-    tours: '<path d="M3 6h18M3 12h18M3 18h12"/>',
-    lists: '<rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="4" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    tours: '<path d="M4 18 9 6l4 8 3-5 4 9z"/>',
     pages: '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/>',
-    homepage: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/>',
+    blog: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m14 6 4 4"/>',
     reviews: '<path d="M4 5h16v11H9l-5 4z"/>',
-    about: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>',
-    contact: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
-    social: '<circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6"/>',
+    menus: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/>',
+    foot: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15h18"/>',
+    settings: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/>',
     seo: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
-    photos: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-8 8"/>',
     enquiries: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+    users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.3-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.6c2 .7 3.2 2.5 3.6 5.4"/>',
+    activity: '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
     trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+    cats: '<path d="M4 6h16M4 12h10M4 18h7"/>',
+    map: '<path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',
+    guide: '<path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 7h6M9 11h6"/>',
+    attr: '<path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6-4.5-4.2 6.1-.7z"/>',
+    tools: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/>',
+    look: '<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/>',
+    user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>',
     web: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
-    out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>',
-    chart: '<path d="M4 20V10M10 20V4M16 20v-7M21 20H3"/>'
+    out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>'
   };
   const ic = n => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[n] + '</svg>';
-  const SICON = { home: 'homepage', reviews: 'reviews', about: 'about', contact: 'contact', social: 'social', seo: 'seo' };
-  const onKind = k => typeof kind !== 'undefined' && kind === k;
-  const onSingle = k => typeof kind !== 'undefined' && kind === 'single' && typeof id !== 'undefined' && id === k;
+  const K = typeof kind !== 'undefined' ? kind : '', S = typeof id !== 'undefined' ? id : '';
+  const onSingle = n => K === 'single' && S === n;
+  const me = typeof admin !== 'undefined' && admin ? admin : { name: '', role: '' };
+  const initials = String(me.name || '?').split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+  const c = typeof can === 'function' ? can : () => false;
+  const R = typeof roles !== 'undefined' ? roles : {};
+  const SG = typeof singles !== 'undefined' ? singles : {};
+  // the menu: [section label, [[label, icon, href, active, permission, badge]]]
+  // (26 Oct 2026, client) like WordPress: content first, the two menus apart, the inbox, and the settings kept together at
+  // the foot of the menu
+  // (26 Oct 2026, client video II) Pages holds only the main pages; destinations and the travel guide have their own
+  // place, the old text tour plans sit with the tours
+  // (26 Oct 2026, client) the menu as the client listed it: Tours (add a tour, categories), the Four Regions one by one,
+  // the travel guide's three sections, the footer's four columns. A group opens on its own page, or with its arrow.
+  const PG = typeof pageGroup !== 'undefined' ? pageGroup : '', PS = typeof pageSection !== 'undefined' ? pageSection : '';
+  const QS = typeof q !== 'undefined' && q ? q : {};
+  const REG = [['North India', 'north'], ['South India', 'south'], ['East India', 'east'], ['West India', 'west']];
+  const GSEC = [['Travelers Guide', 'travelers'], ['Attractions of India', 'attractions'], ['Travel Tools', 'tools']];
+  const FCOL = [['Tour Packages', 1], ['Destinations', 2], ['Travel Guide', 3], ['Company', 4]];
+  const onDest = page === 'destinations' || (K === 'pages' && PG === 'places'), onGuide = page === 'travel-guide' || (K === 'pages' && PG === 'guide');
+  const onFoot = onSingle('footer') || onSingle('menus') || onSingle('social');
+  // [label, icon, href, on, permission, badge, (unused), kids: [label, href, on]]
+  const MENU = [
+    ['', [['Dashboard', 'home', '/admin', page === 'dashboard' || page === 'insights', '']]],
+    ['Content', [
+      ['Tours', 'tours', '/admin/tours', K === 'tours' || K === 'lists' || (K === 'pages' && PG === 'tours'), 'content', 0, 0, [
+        ['Add tour', '/admin/tours#new', false], ['Categories', '/admin/lists', K === 'lists']]],
+      ['Pages', 'pages', '/admin/pages', page === 'pages' || (K === 'single' && SG[S] && SG[S].page && !['reviews', 'contact', 'guide', 'plan'].includes(S)), 'content'],
+      ['Four Regions', 'map', '/admin/destinations', onDest, 'content', 0, 0, REG.map(([l, k]) => [l, '/admin/destinations?region=' + k, onDest && (QS.region || PS || 'north') === k])],
+      // (26 Oct 2026, client) the travel guide's three sections, each on its own, like a post type
+      ...GSEC.map(([l, k], n) => [l, ['guide', 'attr', 'tools'][n], '/admin/travel-guide?section=' + k, onGuide && (QS.section || PS || 'travelers') === k, 'content']),
+      ['Guest reviews', 'reviews', '/admin/reviews', page === 'reviews' || onSingle('reviews'), 'reviews']]],
+    ['Menus', [
+      ['Header menu', 'menus', '/admin/settings/header', onSingle('header'), 'menus'],
+      ['Footer menu', 'foot', '/admin/settings/footer', onFoot, 'menus', 0, 0, FCOL.map(([l, n]) => [l, '/admin/settings/footer?col=' + n, onFoot && +(QS.col || 0) === n])]]],
+    ['Inbox', [['Enquiries', 'enquiries', '/admin/enquiries', page === 'enquiries', 'enquiries', typeof unreadEnquiries !== 'undefined' ? unreadEnquiries : 0]]],
+    ['Settings', [
+      ['Site settings', 'settings', '/admin/settings', page === 'settings-hub' || page === 'look' || onSingle('seo') || onSingle('contact') || onSingle('plan'), 'settings'],
+      ['Google & SEO', 'seo', '/admin/seo', page === 'seo', 'content'],
+      ['Users', 'users', '/admin/users', page === 'users', 'users'], ['Activity log', 'activity', '/admin/activity', page === 'activity', 'users'],
+      ['Deleted items', 'trash', '/admin/trash', page === 'trash', 'delete']]]
+  ];
 %><!doctype html>
 <html lang="en">
 <head>
@@ -31,34 +77,57 @@
 <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' — ' : '' %>Meruka admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/admin-assets/admin.css?v=3">
+<link rel="stylesheet" href="/admin-assets/admin.css?v=10">
+<%# (26 Oct 2026, client) the panel's look (light or dark, and its colour), chosen per browser in "Look of the panel" %>
+<script>(function () { try { var l = JSON.parse(localStorage.getItem('mk-look') || '{}'), d = document.documentElement, m = l.mode || 'light';
+  if (m === 'auto') m = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  d.setAttribute('data-mode', m); d.setAttribute('data-accent', l.accent || 'blue'); } catch (e) {} })();</script>
 </head>
 <body>
 <div class="ad">
   <aside class="ad-side">
-    <a class="ad-brand" href="/admin"><i>M</i><span>MERUKA<small>Website editor</small></span></a>
-    <%# (19 Oct 2026, the WeWeed admin's layout) menu in groups that open and close; the open page's group is highlighted %>
-    <% const grp = (key, label, icon, open, links) => { %>
-      <details class="ad-grp<%= open ? ' on' : '' %>"<%= open ? ' open' : '' %>>
-        <summary><%- ic(icon) %><span><%= label %></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
-        <div class="ad-sub"><% links.forEach(([href, text, on, extra]) => { %><a href="<%= href %>" class="<%= on ? 'on' : '' %>"<%- extra || '' %>><%= text %></a><% }) %></div>
-      </details>
-    <% }; %>
-    <nav class="ad-nav">
-      <% grp('dash', 'Dashboard', 'chart', page === 'dashboard' || page === 'insights', [['/admin', 'Start here', page === 'dashboard'], ['/admin/dashboard', 'Charts', page === 'insights']]); %>
-      <% grp('tours', 'Tours', 'tours', onKind('tours'), [['/admin/tours', 'All tours', onKind('tours')], ['/admin/tours#new', 'Add tour', false]]); %>
-      <% grp('lists', 'Tour categories', 'lists', onKind('lists'), [['/admin/lists', 'All categories', onKind('lists')], ['/admin/lists#new', 'Add category', false]]); %>
-      <% grp('pages', 'Pages & guide', 'pages', onKind('pages'), [['/admin/pages', 'All pages', onKind('pages')], ['/admin/pages#new', 'Add page', false]]); %>
-      <% const cmsKeys = Object.keys(singles).filter(k => k !== 'seo'); %>
-      <% grp('cms', 'CMS', 'homepage', cmsKeys.some(onSingle), cmsKeys.map(k => ['/admin/settings/' + k, singles[k].label, onSingle(k)])); %>
-      <% grp('seo', 'SEO', 'seo', page === 'seo' || onSingle('seo'), [['/admin/seo', 'Google & SEO check', page === 'seo'], ['/admin/settings/seo', 'Google settings', onSingle('seo')]]); %>
-      <% grp('files', 'Media', 'photos', page === 'media' || page === 'trash', [['/admin/media', 'Photos', page === 'media'], ['/admin/trash', 'Deleted items', page === 'trash']]); %>
-      <% grp('enq', 'Enquiries', 'enquiries', page === 'enquiries', [['/admin/enquiries', 'All enquiries', page === 'enquiries']]); %>
+    <a class="ad-brand" href="/admin" aria-label="Meruka India Tourism, admin home"><span class="ad-logo" aria-hidden="true"></span><span><b>MERUKA INDIA TOURISM</b><small>Website editor</small></span></a>
+    <nav class="ad-nav" aria-label="Admin menu">
+      <% MENU.forEach(([sect, links]) => { const shown = links.filter(l => !l[4] || c(l[4])); if (!shown.length) return; %>
+      <% if (sect) { %><p class="ad-sect"><%= sect %></p><% } %>
+      <% shown.forEach(([label, icon, href, on, , badge, , kids]) => { %>
+      <% if (kids) { %>
+      <div class="ad-tree<%= on ? ' open' : '' %>" data-tree="<%= href %>">
+        <div class="ad-tree-h"><a class="ad-one<%= on ? ' on' : '' %>" href="<%= href %>"><%- ic(icon) %><span><%= label %></span></a><button type="button" class="ad-tree-t" aria-label="Show or hide <%= label %>" aria-expanded="<%= !!on %>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></div>
+        <div class="ad-kids"><% kids.forEach(([kl, kh, kon]) => { %><a href="<%= kh %>" class="<%= kon ? 'on' : '' %>"<%- kon ? ' aria-current="page"' : '' %>><%= kl %></a><% }) %></div>
+      </div>
+      <% } else { %>
+      <a class="ad-one<%= on ? ' on' : '' %>" href="<%= href %>"<%- on ? ' aria-current="page"' : '' %>><%- ic(icon) %><span><%= label %></span><% if (badge) { %><b class="ad-badge"><%= badge %></b><% } %></a>
+      <% } %>
+      <% }) %>
+      <% }) %>
     </nav>
-    <div class="ad-foot">
-      <a href="/" target="_blank" rel="noopener"><%- ic('web') %>Open the website ↗</a>
-      <a href="/admin/logout"><%- ic('out') %>Log out</a>
-    </div>
   </aside>
   <main class="ad-main">
-    <div class="ad-bar"><button type="button" class="ad-burger" data-burger aria-label="Show or hide the menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><a href="/" target="_blank" rel="noopener" class="ad-bar-site">View website ↗</a></div>
+    <%# (26 Oct 2026, client) the top bar: "+ New" (as in WordPress), the notifications and the signed-in person %>
+    <% const NEW = [['content', '/admin/tours#new', 'Tour', 'A new tour with its days and prices'], ['content', '/admin/lists#new', 'Tour category', 'A page that lists tours'], ['content', '/admin/destinations#new', 'Destination page', 'A region, state or city'], ['content', '/admin/travel-guide#new', 'Travel guide page', 'A topic of the India Travel Guide'], ['reviews', '/admin/reviews#new', 'Guest review', 'What a guest wrote'], ['users', '/admin/users#new', 'User', 'A login for your team']].filter(n => c(n[0]));
+       const NOTES = typeof notes !== 'undefined' ? notes : []; %>
+    <div class="ad-bar"><button type="button" class="ad-burger" data-burger aria-label="Show or hide the menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <% if (typeof crumb !== 'undefined' && crumb) { %><a class="ad-crumb" href="<%= crumb[0] %>">← <%= crumb[1] %></a><% } %>
+      <div class="ad-bar-r">
+        <% const NEW_IC = { Tour: 'tours', 'Tour category': 'cats', 'Destination page': 'map', 'Travel guide page': 'guide', 'Blog post': 'blog', 'Guest review': 'reviews', User: 'user' }; %>
+        <% if (NEW.length) { %><details class="ad-new" data-pop><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New</summary><div class="ad-menu ad-newgrid"><p class="nt-h">Create something new</p><div class="ng"><% NEW.forEach(([, href, t, sub]) => { %><a href="<%= href %>"><i><%- ic(NEW_IC[t] || 'pages') %></i><span><%= t %><small><%= sub %></small></span></a><% }) %></div></div></details><% } %>
+        <details class="ad-pop" data-pop>
+          <summary class="ad-bell" aria-label="Notifications: <%= NOTES.length %>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><% if (NOTES.length) { %><b><%= NOTES.length %></b><% } %></summary>
+          <div class="ad-menu ad-notes"><div class="nt-h">Notifications<% if (c('enquiries')) { %><a href="/admin/enquiries">All enquiries</a><% } %></div>
+            <% if (!NOTES.length) { %><p class="nt-empty">You are all caught up: nothing new.</p><% } %>
+            <% NOTES.forEach(n => { %><a class="nt" href="<%= n.href %>"><i><%= n.icon %></i><span><%= n.title %><small><%= n.sub %></small></span></a><% }) %>
+          </div>
+        </details>
+        <details class="ad-pop ad-me-top" data-pop>
+          <summary><i><%= initials %></i><span><b><%= me.name %></b><small><%= R[me.role] ? R[me.role].label : '' %></small></span></summary>
+          <div class="ad-menu ad-usermenu">
+            <div class="um-h"><i><%= initials %></i><span><b><%= me.name %></b><small><%= me.email %></small></span></div>
+            <a href="/admin/account"><%- ic('user') %><span>My account<small>Name and password</small></span></a>
+            <a href="/admin/look"><%- ic('look') %><span>Look of the panel<small>Light or dark, colours</small></span></a>
+            <a href="/" target="_blank" rel="noopener"><%- ic('web') %><span>View the website</span></a>
+            <hr><a href="/admin/logout"><%- ic('out') %><span>Log out</span></a>
+          </div>
+        </details>
+      </div>
+    </div>

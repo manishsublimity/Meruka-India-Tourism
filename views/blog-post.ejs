@@ -1,0 +1,46 @@
+<%- include('partials/head') %>
+<%# A blog post (23 Oct 2026): written in the admin panel (Blog); the text in the site's article style %>
+<%
+  const day = s => { const t = new Date(s); return isNaN(t) ? '' : t.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); };
+  const crumbs = [{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: d.heading }];
+%>
+<div style="width:100%;overflow-x:clip;background:#fff">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#fff">
+
+<%- include('partials/page-header', { nav: d.nav, enquireHref: '/plan-my-trip' }) %>
+<%- include('partials/photo-hero', { title: d.heading, img: d.photo || '/images/travel-guideline.webp', alt: d.heading, crumbs }) %>
+
+<section class="bl-sec bl-post">
+  <div class="ex-wrap bl-post-in">
+    <p class="bl-meta"><% if (d.category) { %><a href="/blog?cat=<%= encodeURIComponent(d.category) %>" class="bl-cat"><%= d.category %></a> · <% } %><%= day(d.date) %><% if (d.author) { %> · <%= d.author %><% } %></p>
+    <article class="prose bl-prose"><%- d.html %></article>
+    <p class="bl-back"><a href="/blog">All blog posts</a> · <a href="/plan-my-trip">Plan My Trip</a></p>
+  </div>
+</section>
+
+<% if (more.length) { %>
+<section class="bl-sec gd-tint">
+  <div class="ex-wrap">
+    <div class="h4-head"><div><h2 class="h4-h2">More from the <em>blog</em></h2></div><a href="/blog" class="h4-all">All posts</a></div>
+    <div class="bl-grid">
+      <% more.forEach(p => { %>
+      <article class="bl-card">
+        <a href="<%= p.url %>" class="bl-img" tabindex="-1" aria-hidden="true"><img src="<%= p.photo || '/photos/taj-mahal-feature.webp' %>" alt="" loading="lazy"></a>
+        <div class="bl-body">
+          <p class="bl-meta"><%= day(p.date) %></p>
+          <h3 class="bl-h"><a href="<%= p.url %>"><%= p.heading %></a></h3>
+          <a href="<%= p.url %>" class="bl-more">Read the story</a>
+        </div>
+      </article>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('partials/page-footer', { footCols: d.footCols, enquireHref: '/plan-my-trip' }) %>
+
+</div>
+</div>
+</body>
+</html>
