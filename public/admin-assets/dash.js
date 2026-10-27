@@ -29,9 +29,11 @@
       const t = timeline(list);
       k('timeSub').textContent = 'Enquiries per ' + t.unit + (days ? ', last ' + (days === 365 ? '12 months' : days + ' days') : ', since the first one') + '.';
       const none = 'No enquiries in this period.', opt = h => ({ head: h, valueHead: 'Enquiries', unit: 'enquiries', total: list.length, totalLabel: 'enquiries', empty: none });
-      CH.columns(c('time'), t.out, { head: t.unit, valueHead: 'Enquiries', unit: 'enquiries', empty: none, height: 170 });
+      CH.columns(c('time'), t.out, { head: t.unit, valueHead: 'Enquiries', unit: 'enquiries', empty: none, height: 130 });
       CH.bars(c('country'), top(countBy(list, 'country'), 6), opt('Country'));
-      CH.bars(c('status'), countBy(list, 'status', ['New', 'Replied', 'Quote sent', 'Booked', 'Closed']), opt('Status'));
+      // (27 Oct 2026, client) where the enquiries stand: five small tiles instead of a chart
+      c('status').innerHTML = countBy(list, 'status', ['New', 'Replied', 'Quote sent', 'Booked', 'Closed']).map(r => '<a href="/admin/enquiries" class="st-t st-' + A.slug(r.label) + '"><b>' + r.value + '</b><span>' + A.esc(r.label) + '</span></a>').join('');
+      k('rangeName').textContent = days ? 'Last ' + (days === 365 ? '12 months' : days + ' days') : 'All time';
     }
     if (c('groups')) {
       CH.bars(c('groups'), S.toursByGroup, { head: 'Region', valueHead: 'Tours', unit: 'tours', total: S.totals.tours, totalLabel: 'tours' });

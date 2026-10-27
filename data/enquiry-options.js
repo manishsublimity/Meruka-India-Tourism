@@ -378,7 +378,7 @@ module.exports = {
   // (26 Oct 2026, client video II) the form's own words and which of its optional fields show; edited in the admin panel
   // (Site settings → Enquiry form). Name, email, country and the message are always asked.
   form: {
-    heading: 'Your trip details',
+    heading: 'Your Trip Details',
     name: 'Name', email: 'Email Id', country: 'Country',
     period: 'Travel Period', showPeriod: true,
     days: 'No. of Days for the Trip', showDays: true,

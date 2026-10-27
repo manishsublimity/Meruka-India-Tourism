@@ -7,7 +7,7 @@
 <title>Log in — Meruka admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Instrument+Serif:ital@1&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/admin-assets/admin.css?v=10">
+<link rel="stylesheet" href="/admin-assets/admin.css?v=30">
 </head>
 <body>
 <div class="login">
@@ -21,9 +21,10 @@
   </aside>
   <main class="login-side">
     <form class="login-form" method="post" action="/admin/login">
-      <div class="login-brand lg-top"><span class="lg-logo" aria-hidden="true"></span><span><b>MERUKA INDIA TOURISM</b><small>Website editor</small></span></div>
-      <h1>Welcome <em>back</em></h1>
-      <p class="hint">Log in to manage tours, pages, the blog and enquiries.</p>
+      <%# (27 Oct 2026, client) one logo only, on the photo; this one shows only on phones, where the photo is hidden %>
+      <div class="login-brand lg-top lg-phone"><span class="lg-logo" aria-hidden="true"></span><span><b>MERUKA INDIA TOURISM</b><small>Website editor</small></span></div>
+      <h1>Sign in to your <em>editor</em></h1>
+      <p class="hint">Manage tours, destinations, the travel guide and enquiries for Meruka India Tourism.</p>
       <% if (error) { %><div class="err"><%= error %></div><% } %>
       <% if (!closed) { %>
       <input type="hidden" name="next" value="<%= next %>">
@@ -42,8 +43,8 @@
       <% } %>
       <a class="login-back" href="/">← Back to the website</a>
     </form>
-    <p class="login-copy">© <%= new Date().getFullYear() %> Meruka India Tourism Service</p>
   </main>
+  <footer class="login-foot">© <%= new Date().getFullYear() %> Meruka India Tourism Service. All rights reserved.</footer>
 </div>
 <script>
 (function () {

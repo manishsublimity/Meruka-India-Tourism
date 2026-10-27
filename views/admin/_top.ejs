@@ -44,7 +44,8 @@
   const QS = typeof q !== 'undefined' && q ? q : {};
   const REG = [['North India', 'north'], ['South India', 'south'], ['East India', 'east'], ['West India', 'west']];
   const GSEC = [['Travelers Guide', 'travelers'], ['Attractions of India', 'attractions'], ['Travel Tools', 'tools']];
-  const FCOL = [['Tour Packages', 1], ['Destinations', 2], ['Travel Guide', 3], ['Company', 4]];
+  // (27 Oct 2026, client) the Footer menu's entries are its tabs, the same names as in the page
+  const FCOL = [['Logo & about', 'logo-and-about'], ['Link columns', 'link-columns'], ['Popular searches', 'popular-searches'], ['Social media', 'social-media']];
   const onDest = page === 'destinations' || (K === 'pages' && PG === 'places'), onGuide = page === 'travel-guide' || (K === 'pages' && PG === 'guide');
   const onFoot = onSingle('footer') || onSingle('menus') || onSingle('social');
   // [label, icon, href, on, permission, badge, (unused), kids: [label, href, on]]
@@ -53,17 +54,17 @@
     ['Content', [
       ['Tours', 'tours', '/admin/tours', K === 'tours' || K === 'lists' || (K === 'pages' && PG === 'tours'), 'content', 0, 0, [
         ['Add tour', '/admin/tours#new', false], ['Categories', '/admin/lists', K === 'lists']]],
-      ['Pages', 'pages', '/admin/pages', page === 'pages' || (K === 'single' && SG[S] && SG[S].page && !['reviews', 'contact', 'guide', 'plan'].includes(S)), 'content'],
+      ['Pages', 'pages', '/admin/pages', page === 'pages' || (K === 'single' && SG[S] && SG[S].page && S !== 'reviews'), 'content'],
       ['Four Regions', 'map', '/admin/destinations', onDest, 'content', 0, 0, REG.map(([l, k]) => [l, '/admin/destinations?region=' + k, onDest && (QS.region || PS || 'north') === k])],
       // (26 Oct 2026, client) the travel guide's three sections, each on its own, like a post type
       ...GSEC.map(([l, k], n) => [l, ['guide', 'attr', 'tools'][n], '/admin/travel-guide?section=' + k, onGuide && (QS.section || PS || 'travelers') === k, 'content']),
       ['Guest reviews', 'reviews', '/admin/reviews', page === 'reviews' || onSingle('reviews'), 'reviews']]],
     ['Menus', [
       ['Header menu', 'menus', '/admin/settings/header', onSingle('header'), 'menus'],
-      ['Footer menu', 'foot', '/admin/settings/footer', onFoot, 'menus', 0, 0, FCOL.map(([l, n]) => [l, '/admin/settings/footer?col=' + n, onFoot && +(QS.col || 0) === n])]]],
+      ['Footer menu', 'foot', '/admin/settings/footer', onFoot, 'menus', 0, 0, FCOL.map(([l, n], i) => [l, '/admin/settings/footer?tab=' + n, onFoot && ((QS.tab || (QS.col ? 'link-columns' : '')) === n || (!QS.tab && !QS.col && i === 0))])]]],
     ['Inbox', [['Enquiries', 'enquiries', '/admin/enquiries', page === 'enquiries', 'enquiries', typeof unreadEnquiries !== 'undefined' ? unreadEnquiries : 0]]],
     ['Settings', [
-      ['Site settings', 'settings', '/admin/settings', page === 'settings-hub' || page === 'look' || onSingle('seo') || onSingle('contact') || onSingle('plan'), 'settings'],
+      ['Site settings', 'settings', '/admin/settings', page === 'settings-hub' || page === 'look' || onSingle('seo'), 'settings'],
       ['Google & SEO', 'seo', '/admin/seo', page === 'seo', 'content'],
       ['Users', 'users', '/admin/users', page === 'users', 'users'], ['Activity log', 'activity', '/admin/activity', page === 'activity', 'users'],
       ['Deleted items', 'trash', '/admin/trash', page === 'trash', 'delete']]]
@@ -77,7 +78,7 @@
 <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' — ' : '' %>Meruka admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/admin-assets/admin.css?v=10">
+<link rel="stylesheet" href="/admin-assets/admin.css?v=30">
 <%# (26 Oct 2026, client) the panel's look (light or dark, and its colour), chosen per browser in "Look of the panel" %>
 <script>(function () { try { var l = JSON.parse(localStorage.getItem('mk-look') || '{}'), d = document.documentElement, m = l.mode || 'light';
   if (m === 'auto') m = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -107,11 +108,11 @@
     <%# (26 Oct 2026, client) the top bar: "+ New" (as in WordPress), the notifications and the signed-in person %>
     <% const NEW = [['content', '/admin/tours#new', 'Tour', 'A new tour with its days and prices'], ['content', '/admin/lists#new', 'Tour category', 'A page that lists tours'], ['content', '/admin/destinations#new', 'Destination page', 'A region, state or city'], ['content', '/admin/travel-guide#new', 'Travel guide page', 'A topic of the India Travel Guide'], ['reviews', '/admin/reviews#new', 'Guest review', 'What a guest wrote'], ['users', '/admin/users#new', 'User', 'A login for your team']].filter(n => c(n[0]));
        const NOTES = typeof notes !== 'undefined' ? notes : []; %>
-    <div class="ad-bar"><button type="button" class="ad-burger" data-burger aria-label="Show or hide the menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-      <% if (typeof crumb !== 'undefined' && crumb) { %><a class="ad-crumb" href="<%= crumb[0] %>">← <%= crumb[1] %></a><% } %>
+    <div class="ad-bar"><button type="button" class="ad-burger" data-burger aria-label="Show or hide the menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9 4v16"/></svg></button>
+      <% if (typeof crumb !== 'undefined' && crumb) { %><a class="ad-crumb" href="<%= crumb[0] %>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span>Back to <b><%= crumb[1] %></b></span></a><% } %>
       <div class="ad-bar-r">
         <% const NEW_IC = { Tour: 'tours', 'Tour category': 'cats', 'Destination page': 'map', 'Travel guide page': 'guide', 'Blog post': 'blog', 'Guest review': 'reviews', User: 'user' }; %>
-        <% if (NEW.length) { %><details class="ad-new" data-pop><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New</summary><div class="ad-menu ad-newgrid"><p class="nt-h">Create something new</p><div class="ng"><% NEW.forEach(([, href, t, sub]) => { %><a href="<%= href %>"><i><%- ic(NEW_IC[t] || 'pages') %></i><span><%= t %><small><%= sub %></small></span></a><% }) %></div></div></details><% } %>
+        <% if (NEW.length) { %><details class="ad-new" data-pop><summary><svg class="nb-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create new</summary><div class="ad-menu ad-newgrid"><p class="nt-h">Create something new</p><div class="ng"><% NEW.forEach(([, href, t, sub]) => { %><a href="<%= href %>"><i><%- ic(NEW_IC[t] || 'pages') %></i><span><%= t %><small><%= sub %></small></span></a><% }) %></div></div></details><% } %>
         <details class="ad-pop" data-pop>
           <summary class="ad-bell" aria-label="Notifications: <%= NOTES.length %>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><% if (NOTES.length) { %><b><%= NOTES.length %></b><% } %></summary>
           <div class="ad-menu ad-notes"><div class="nt-h">Notifications<% if (c('enquiries')) { %><a href="/admin/enquiries">All enquiries</a><% } %></div>
@@ -120,7 +121,7 @@
           </div>
         </details>
         <details class="ad-pop ad-me-top" data-pop>
-          <summary><i><%= initials %></i><span><b><%= me.name %></b><small><%= R[me.role] ? R[me.role].label : '' %></small></span></summary>
+          <summary><i><%= initials %></i><span><b><%= me.name %></b><small><%= R[me.role] ? R[me.role].label : '' %></small></span><svg class="um-cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
           <div class="ad-menu ad-usermenu">
             <div class="um-h"><i><%= initials %></i><span><b><%= me.name %></b><small><%= me.email %></small></span></div>
             <a href="/admin/account"><%- ic('user') %><span>My account<small>Name and password</small></span></a>

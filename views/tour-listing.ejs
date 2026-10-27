@@ -90,7 +90,7 @@
               <% if (g.desc || g.line) { %><p class="tp2-line"><%= g.desc || g.line %></p><% } %>
               <div class="tpc-foot">
                 <p class="tpc-price"><% if (g.from) { %><span>From</span><strong><%= usd(g.from) %></strong><span>per person</span><% } else { %><strong>Price on request</strong><% } %></p>
-                <button type="button" class="tp2-chev tpc-toggle" data-tp2-toggle aria-expanded="<%= open %>" aria-controls="tp2-rows-<%= gi %>"><span class="tpc-label" data-n="<%= nTours %>">View Tours</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l5 5 5-5"/></svg></button>
+                <button type="button" class="tp2-chev tpc-toggle" data-tp2-toggle aria-expanded="<%= open %>" aria-controls="tp2-rows-<%= gi %>"><span class="tpc-label" data-n="<%= nTours %>">View <%= nTours %> <%= nTours === 1 ? 'Tour' : 'Tours' %></span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l5 5 5-5"/></svg></button>
               </div>
             </div>
           </div>
@@ -167,6 +167,6 @@
 
 </div>
 </div>
-<script src="/js/tour-listing.js" defer></script>
+<script src="/js/tour-listing.js?v=2" defer></script>
 </body>
 </html>

@@ -10,13 +10,16 @@
   // the menu's links: ?region=north … / ?section=travelers …
   const qp = new URLSearchParams(location.search), want = qp.get('region') || qp.get('section');
   if (want) { const map = { north: 0, south: 1, east: 2, west: 3, travelers: 0, attractions: 1, tools: 2 }; if (secs[map[want]]) cur = map[want]; }
-  const show = () => { secs.forEach((s, i) => { s.hidden = i !== cur; }); tabs.forEach((t, i) => t.classList.toggle('on', i === cur)); };
+  // (27 Oct 2026, client) every part shows, one under the other; opened from the menu, that part alone
+  const solo = !!want && secs.length > 1 && !!secs[cur];
+  const show = () => { secs.forEach((s, i) => { s.hidden = solo && i !== cur; }); };
   tabs.forEach((t, i) => t.onclick = () => { cur = i; if (q) q.value = ''; rows.forEach(r => { r.hidden = false; }); show(); try { sessionStorage.setItem('mk-sec-' + T.mode, i); } catch (e) {} });
   show();
+  if (solo) { const h = document.querySelector('.tr-top h1'); if (h) h.textContent = secs[cur].dataset.title; secs[cur].querySelectorAll('[data-sec-h]').forEach(x => x.remove()); }
   if (q) q.oninput = () => {
     const v = q.value.trim().toLowerCase();
     rows.forEach(r => { r.hidden = !!v && !r.dataset.s.includes(v); });
-    if (!v) return show();
+    if (!v || solo) return show();
     tabs.forEach(t => t.classList.remove('on'));
     secs.forEach(s => { s.hidden = ![...s.querySelectorAll('[data-row]')].some(r => !r.hidden); });
   };

@@ -6,7 +6,7 @@
   const saveBtn = document.querySelector('[data-save]'), draftBtn = document.querySelector('[data-draft]'), state = document.querySelector('[data-state]');
   const statusEl = document.querySelector('[data-status]'), draftNote = document.querySelector('[data-draft-note]');
   const apiUrl = E.mode === 'single' ? '/admin/api/single/' + E.id : '/admin/api/item/' + E.kind + '/' + E.id;
-  let comps = {}, getters = {}, dirty = false, templates = {}, refreshGoogle = () => {}, current = null, catState = null;
+  let comps = {}, getters = {}, dirty = false, templates = {}, refreshGoogle = () => {}, current = null, catState = null, dayAuto = [];
 
   // ---------- plain-language names and help ----------
   const LABELS = {
@@ -18,22 +18,22 @@
     intro: 'Introduction text', groups: 'Tours on this page', tours: 'Tours', outro: 'Closing text', name: 'Name', html: 'Page text',
     steps: 'How it works (steps)', faqs: 'Questions & answers', q: 'Question', a: 'Answer', guideCols: 'Travel guide links', stateGroups: 'Destinations by state',
     footerCols: 'Footer link columns', seoLinks: 'Footer "Popular searches" links', social: 'Social media', all: 'Reviews', quote: 'What the guest wrote', tour: 'Tour they took', country: 'Country',
-    closing: 'Closing line', leadName: 'Lead name', paragraphs: 'Paragraphs', mission: 'Mission', founder: 'Founder', atithi: 'Atithi Devo Bhava',
-    offices: 'Other offices (and the head office for the footer)', hqBlock: 'Head office as shown on the Contact page', cell: 'Mobile', landline: 'Landline', gmail: 'Gmail', website: 'Website', infoList: 'What we ask for (list on the Contact page)', interests: 'Interests (buttons in the enquiry form)', tourNames: 'Tours in the enquiry form',
+    closing: 'Closing line', leadName: 'Company name (in bold at the start)', paragraphs: 'Text', mission: 'Mission', founder: 'Founder', atithi: 'Atithi Devo Bhava',
+    offices: 'Other offices (and the head office for the footer)', hqBlock: 'Head office', cell: 'Mobile', landline: 'Landline', gmail: 'Second email', website: 'Website', infoList: 'What we ask for (list on the Contact page)', interests: 'Interests (buttons in the enquiry form)', tourNames: 'Tours in the enquiry form',
     guide: 'Travel guide (Contact page)', city: 'City', area: 'Area', phones: 'Phone numbers', email: 'Email', lines: 'Address lines', kind: 'Type', img: 'Photo',
     initials: 'Initials (shown in the circle)', details_: 'Details', googleVerification: 'Google Search Console code', googleAnalytics: 'Google Analytics ID',
     bingVerification: 'Bing Webmaster code (optional)', defaultShareImage: 'Default share picture', pages: 'Main pages in Google', redirects: 'Redirects',
     from: 'Old address', to: 'New address',
-    heroTitle: 'Banner title', line1: 'First line', line2: 'Second line (in the accent style)', heroSlides: 'Banner photos', src: 'Photo', alt: 'Describe the photo in a few words',
-    place: 'Place (shown with the photo)', region: 'Region / theme', pos: 'Focus point of the photo', flip: 'Show the photo mirrored', stats: 'Figures under the banner', figure: 'Figure (e.g. 22 or 97.80%)',
-    offer: 'Seasonal offer', show: 'Show the seasonal offer on the home page', eyebrow: 'Small line above', percent: 'Big figure (e.g. 10%)', headerMenu: 'Header menu links', popularSearches: 'Popular searches', footerSocial: 'Social media', footerAbout: 'Text under the logo',
+    heroTitle: 'Banner title', line1: 'Title — first line', line2: 'Title — second line (accent colour)', heroSlides: 'Banner photos', src: 'Photo', alt: 'Describe the photo in a few words',
+    place: 'Place (shown with the photo)', region: 'Region / theme', pos: 'Focus point of the photo', flip: 'Show the photo mirrored', stats: 'Figures', figure: 'Figure (e.g. 22 or 97.80%)',
+    offer: 'Seasonal offer', show: 'Show the offer on the home page', eyebrow: 'Small line above', percent: 'Big figure (e.g. 10%)', headerMenu: 'Header menu links', popularSearches: 'Popular searches', footerSocial: 'Social media', footerAbout: 'Text under the footer logo', siteLogo: 'Logo picture (optional)',
     date: 'Date', author: 'Written by', category: 'Category', guideSection: 'Show in the India Travel Guide', excerpt: 'Short summary (shown in the list of posts)', topics: 'Topic groups', glance: 'Useful information at a glance', seasons: 'Seasons',
     goodToKnow: 'Good to know', tips: 'Travel tips', titles: 'Titles (Mr., Mrs. …)', countries: 'Countries', months: 'Months', years: 'Years', adults: 'Adults', children: 'Children',
-    photo_single: 'Photo', note_single: 'Small note under the cards',
-    intro_lists: 'Description (shown above the tours)', outro_lists: 'Text below the tours (optional)',
-    secPackages: 'Best Tour Packages', secPopular: 'Most Popular Tours', secOwnTour: 'Private tour band', secRegions: 'Four Regions', secGuide: 'Travel Guide section', secWhy: 'Why Choose Us', secFaq: 'FAQs section',
-    accent: 'Heading — second part (in the accent style)', sub: 'Line under the heading', button: 'Button text', buttonLink: 'Button opens', cards: 'Cards', link: 'Opens (page)', price: 'Price (USD)',
-    currency: 'Currency', priceNote: 'Line under the price', included: 'What is included', extras: 'You can also', kicker: 'Small line under the name', cities: 'Popular cities', statesTitle: 'Title above the states',
+    photo_single: 'Photo', note_single: 'Small text under the cards',
+    intro_lists: 'Description (shown above the tours)', outro_lists: 'Closing text (under the list of tours, optional)',
+    secPackages: 'Best Tour Packages', secPopular: 'Most Popular Tours', secOwnTour: 'Chalk out your own tour', secRegions: 'Four Regions', secGuide: 'Travel Guide section', secWhy: 'Why Choose Us', secFaq: 'FAQs section',
+    accent: 'Title — second part (accent colour)', sub: 'Paragraph under the title', button: 'Button text', buttonLink: 'Button link', cards: 'Cards', link: 'Opens (page)', price: 'Price (USD, per couple per day)',
+    currency: 'Currency', priceNote: 'Text after the price', included: 'What is included (one per line)', extras: 'You can also (one per line)', kicker: 'Small line under the name', cities: 'Popular cities', statesTitle: 'Title above the states',
     tag: 'Small label on the photo', seasonTitle: 'Photo title', seasonText: 'Photo line', points: 'Points', quoteName: 'Name under the quote', quoteRole: 'Their role', boxTitle: 'Box title', boxText: 'Box line',
     homeCount: 'How many questions the home page shows (the rest are on the FAQs page, /faqs)', howTitle: '“How we work” title', howNote: '“How we work” note', n: 'Step number (01, 02 …)', when: 'When (e.g. DAY 0, WEEK 1)', body: 'Text',
     form: 'Form', period: 'Travel period — words', showPeriod: 'Show “Travel period”', people: 'Number of people — words', showPeople: 'Show “Number of people”',
@@ -72,9 +72,10 @@
     footerCols: 'Each column: its title and its links (name and address).',
     excerpt: 'Two or three lines. Shown on /blog under the title.',
     photo: 'Shown for this tour or post in lists and cards.',
-    price: 'Leave empty to show the lowest tour price of that category automatically.',
-    cards: 'Use ↑ ↓ to change the order, ✕ to remove a card, + Add one more for a new card.',
-    cities: 'Each city: its name and the page it opens.'
+    outro: 'Shown under the list of tours on the category page. Leave it empty if the page needs no closing text.',
+    cards: 'Use the arrows to change the order and ✕ to remove a card.',
+    cities: 'Each city: its name and the page it opens.',
+    siteLogo: 'Leave it empty to keep the Meruka logo as it is now. A picture chosen here replaces it in the header and the footer.'
   };
   const label = k => LABELS[k + '_' + E.kind] || LABELS[k] || String(k).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]/g, ' ').replace(/^./, c => c.toUpperCase());
 
@@ -83,22 +84,28 @@
   const TABS = {
     // (26 Oct 2026, client) the banner sits in Basic info; the breadcrumb is made automatically, so it has no tab
     // (26 Oct 2026, client video II) one photo per tour; the banner is its category's; route and length come from the days
-    tours: [['Basic info', ['heading', 'photo', 'route', 'duration'], ''], ['Day by day', ['days'], 'Click a day to open it. ↑ ↓ change the order.'],
-      ['Price & inclusions', ['details'], ''], ['Google', GOOGLE, '']],
+    // (27 Oct 2026, client) no Google tab for now; the prices (the box beside the days) apart from the includes and notes
+    tours: [['Basic info', ['heading', 'photo', 'route', 'duration'], ''], ['Day by day', ['days'], 'Click a day to open it. Use the arrows to change the order.'],
+      ['Prices', ['details'], 'The price box beside the days on the tour page: one line per hotel class.']],
     // a category's tours are chosen in each tour (its Categories tab), so the category only needs its text and banner
     lists: [['Basic info', ['heading', 'intro', 'outro', 'heroSrc', 'heroAlt'], '']],
-    pages: [['Text', ['heading', 'html', 'guideSection', 'heroSrc', 'heroAlt'], 'Write the page like in Word: the buttons make headings, bold text, lists, links and photos.'], ['Google', GOOGLE, '']],
-    posts: [['Post', ['heading', 'category', 'date', 'author', 'photo', 'excerpt'], 'The title, date and summary shown in the list of posts.'], ['Text', ['html'], 'Write the post like in Word: the buttons make headings, bold text, lists, links and photos.'],
-      ['Google', GOOGLE, '']],
+    pages: [['Text', ['heading', 'html', 'guideSection', 'heroSrc', 'heroAlt'], 'Write the page like in Word: the buttons make headings, bold text, lists, links and photos.']],
+    posts: [['Post', ['heading', 'category', 'date', 'author', 'photo', 'excerpt'], 'The title, date and summary shown in the list of posts.'], ['Text', ['html'], 'Write the post like in Word: the buttons make headings, bold text, lists, links and photos.']],
     // (26 Oct 2026, client) the home page section by section, in the order the website shows them
     home: [['Banner', ['heroTitle', 'heroSlides'], 'The big title and the photos at the top of the home page.'], ['Figures', ['stats'], 'The band under the banner.'],
-      ['Best Tour Packages', ['secPackages'], 'The first row of cards. Add, remove or change a card: its name, photo, the page it opens and its price.'],
+      ['Best Tour Packages', ['secPackages'], 'The first row of cards. Each card is a tour category: choose the category and its name, photo and lowest price come by themselves.'],
       ['Seasonal offer', ['offer'], 'The yellow offer band under the first row of cards (e.g. 10% off for bookings from April to September). Untick “Show” to hide it.'],
       ['Most Popular Tours', ['secPopular'], 'The heading and notes. The tour cards are the first tour of each main category, so they change by themselves.'],
-      ['Private tour band', ['secOwnTour'], 'The “Chalk Out Your Own Private Tour” band: the price per couple per day and what is included.'],
-      ['Four Regions', ['secRegions', 'stateGroups'], 'The four region cards and their cities. “States of India” under them is made from the Destinations menu, so a state added there shows by itself.'],
-      ['Travel Guide', ['secGuide', 'guideCols'], 'The India Travel Guide section and its three link cards.'],
-      ['Why Choose Us', ['secWhy'], ''], ['FAQs', ['secFaq', 'faqs', 'steps'], 'The questions & answers, and the “How we work” steps.']],
+      ['Chalk out your own tour', ['secOwnTour'], 'The “Chalk Out Your Own Private Tour” band: the price per couple per day and what is included.'],
+      ['Four Regions', ['secRegions'], 'The four region cards and their popular cities. The line of states under them comes from the Destinations menu by itself.'],
+      ['Travel Guide', ['secGuide', 'guideCols'], 'The heading, the big photo with its season note, and the three cards. The links in each card are the pages of Travelers Guide, Attractions of India and Travel Tools: add or change pages there and they show here by themselves.'],
+      ['Why Choose Us', ['secWhy'], 'Also shown on the About us page.']],
+    // (27 Oct 2026, client) the FAQs page: its questions (the first ones show on the home page too) and the steps
+    faqs: [['Questions & answers', ['secFaq', 'faqs'], 'The heading of the FAQs and every question with its answer. The home page shows the first ones.'],
+      ['How we work', ['steps'], 'The steps from the first email to the airport, shown beside the FAQs.']],
+    // (27 Oct 2026, client) the About and Contact pages as one page each, top to bottom
+    about: [['About us page', ['heroSrc', 'leadName', 'paragraphs', 'mission', 'founder', 'atithi'], 'The page from top to bottom: the banner photo, the opening text, the mission, the founder and Atithi Devo Bhava. “Why choose us” on this page is edited in Home page → Why Choose Us.']],
+    contact: [['Contact page', ['hqBlock'], 'The address box on the Contact page.'], ['Offices', ['offices'], 'Every office. The first one is the head office: its first phone number is used for WhatsApp and in the footer.']],
     menus: [['Header', ['headerMenu'], 'The menu at the top of every page.'], ['Footer', ['footerCols', 'seoLinks'], 'The link columns and the popular searches at the bottom of every page.']],
     // (26 Oct 2026, client) the reviews as a list with a search, like the tours; the page's own text apart
     // the reviews themselves are edited in the Guest reviews table (/admin/reviews); this is the page's own text
@@ -106,9 +113,10 @@
     plan: [['Form fields', ['form'], 'The words above each field of the Plan My Trip form, and which optional fields show. Name, email, country and the message are always asked.'],
       ['Choices', ['titles', 'countries', 'months', 'years', 'days', 'adults', 'children', 'hotelBudget', 'hotelCategory'], 'The choices in the drop-down lists, one per line.']],
     header: [['Header menu', ['headerMenu'], 'The links at the top of every page, left to right. “+ Add pages from the website” lets you tick pages; “+ Add a custom link” is for anything else.']],
-    footer: [['Link columns', ['footerCols'], 'Each column has a title and its links. Open a column to change its links: “+ Add pages from the website” to tick pages, “+ Add a custom link” for anything else.'],
+    footer: [['Logo & about', ['siteLogo', 'footerAbout'], 'The logo at the top of every page and in the footer, and the short text under the footer logo.'],
+      ['Link columns', ['footerCols'], 'Each column has a title and its links. Open a column to change its links: “+ Add pages from the website” to tick pages, “+ Add a custom link” for anything else.'],
       ['Popular searches', ['popularSearches'], 'The line of search words at the very bottom of every page: each word and the page it opens.'],
-      ['Social media & about', ['footerSocial', 'footerAbout'], 'The social media icons and the short text under the logo. An icon shows as a link once its address is filled in.']],
+      ['Social media', ['footerSocial'], 'Paste the address of each profile. Its icon shows in the footer once the address is filled in.']],
     seo: [['Search Console & Analytics', ['googleVerification', 'googleAnalytics', 'bingVerification'], 'Connect the website to Google’s free tools to see how people find you.'],
       ['Main pages in Google', ['pages'], 'The Google title and description of the Home, About, Contact, Guest Reviews and Plan My Trip pages.'],
       ['Share picture', ['defaultShareImage'], ''], ['Redirects', ['redirects'], '']]
@@ -120,14 +128,14 @@
   // a link written as a pair [text, link] (footer columns) or [name, link, photo] (destinations by state)
   const isLinkRow = v => Array.isArray(v) && v.length >= 2 && v.length <= 3 && v.every(x => typeof x === 'string') && (v[1] === '' || /^(\/|https?:|#|mailto:|tel:)/.test(v[1]));
   // a link as an object: { label, href } (header menu) or { name, href } (social media)
-  const isLinkObj = v => v && typeof v === 'object' && !Array.isArray(v) && 'href' in v && Object.keys(v).every(k => ['label', 'name', 'href'].includes(k));
+  const isLinkObj = v => v && typeof v === 'object' && !Array.isArray(v) && 'href' in v && Object.keys(v).every(k => ['label', 'name', 'href', 'line'].includes(k));
   const isParas = v => Array.isArray(v) && v.length > 0 && v.every(p => Array.isArray(p) && p.every(isSeg));
-  const IMG_KEY = /^(img|image|photo|heroSrc|src|logo|icon|thumb|ogImage|defaultShareImage)$|(Img|Src|Photo)$/;
+  const IMG_KEY = /^(img|image|photo|heroSrc|src|logo|icon|thumb|ogImage|defaultShareImage)$|(Img|Src|Photo|Logo)$/;
   const isImg = (k, v) => typeof v === 'string' && (IMG_KEY.test(k) || /^\/.*\.(webp|jpe?g|png|gif|avif)$/i.test(v));
-  const LONG = /^(description|intro|text|quote|a|note|closing|mission|html|line|lead|summary|body|desc)$/i;
+  const LONG = /^(description|intro|text|quote|a|note|closing|mission|html|line|lead|summary|body|desc|sub)$/i;
   const segText = segs => segs.map(s => s.bold && s.text.trim() ? '**' + s.text + '**' : s.text).join('');
   const textSeg = str => String(str).split(/(\*\*[^*]+\*\*)/).filter(x => x !== '').map(x => /^\*\*[^*]+\*\*$/.test(x) ? { text: x.slice(2, -2), bold: true } : { text: x, bold: false });
-  const blank = v => Array.isArray(v) ? (isSegs(v) ? [{ text: '', bold: false }] : v.length && isLinkRow(v[0]) ? [v[0].map(() => '')] : isLinkRow(v) ? v.map(() => '') : []) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, blank(x)])) : typeof v === 'number' ? 0 : typeof v === 'boolean' ? false : '';
+  const blank = v => Array.isArray(v) ? (isSegs(v) ? [{ text: '', bold: false }] : v.length && v.every(x => typeof x === 'string') && !isLinkRow(v) ? v.map(() => '') : v.length && isLinkRow(v[0]) ? [v[0].map(() => '')] : isLinkRow(v) ? v.map(() => '') : []) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, blank(x)])) : typeof v === 'number' ? 0 : typeof v === 'boolean' ? false : '';
   const summary = v => {
     if (v == null) return '';
     if (typeof v !== 'object') return String(v);
@@ -140,12 +148,22 @@
   const touch = () => { if (!dirty) { dirty = true; state.textContent = '● Unsaved changes'; state.classList.add('dirty'); } refreshGoogle(); };
 
   // ---------- field builders: each returns { el, get } ----------
-  function field(key, value, depth) {
+  function field(key, value, depth, inList) {
     if (key === 'html' && typeof value === 'string') return rte(value);
+    // (27 Oct 2026, client) a list of words (choices, phone numbers, address lines, paragraphs): one box, one per line
+    if (!inList && Array.isArray(value) && value.length && value.every(x => typeof x === 'string') && !isLinkRow(value)) return linesBox(key, value);
+    // a short row of words inside a list (e.g. “Visa | e-Visa … | link”): its boxes side by side
+    if (inList && Array.isArray(value) && value.length >= 2 && value.length <= 4 && value.every(x => typeof x === 'string') && !isLinkRow(value)) return tupleRow(value);
     if (key === 'noindex') return toggle(value);
     if (key === 'date' && typeof value === 'string') return input(value, 'date', x => x);
     // a tour's banner: empty means "use its category's banner" (the old shared banner counts as empty)
-    if (key === 'heroSrc' && E.kind === 'tours') { const c = image(value === '/images/india-tours-main.webp' ? '' : value); c.el.querySelector('input').placeholder = 'Empty: the category’s banner is used'; return c; }
+    // (27 Oct 2026, client) a tour without its own photo shows the one the website picks for it
+    if (key === 'photo' && depth === 0 && (E.kind === 'tours' || E.kind === 'lists') && current && current.thumb && !current.isNew) return image(value, () => current.thumb);
+    if (key === 'heroSrc' && E.kind === 'tours') return image(value === '/images/india-tours-main.webp' ? '' : value);
+    // (27 Oct 2026, client) a few lines, one per line ("What is included", "You can also")
+    if (/^(included|extras)$/.test(key) && Array.isArray(value) && value.every(x => typeof x === 'string')) {
+      const t = textBox(value.join('\n'), x => x.split('\n').map(l => l.trim()).filter(Boolean), Math.max(3, value.length)); t.input.placeholder = 'One point per line'; return t;
+    }
     if (isImg(key, value)) return image(value);
     if (key === 'details' && Array.isArray(value) && value.length && value.every(b => b && typeof b === 'object' && Array.isArray(b.items))) return detailsEditor(value);
     if (isParas(value)) return richText(value, false);
@@ -157,7 +175,8 @@
     if (typeof value === 'number') return input(value, 'number', v => v === '' ? 0 : +v);
     if (typeof value === 'boolean') return check(value);
     const s = value == null ? '' : String(value);
-    if (/^(href|to|link|list)$/.test(key) && !s.includes('\n')) { const c = input(s, 'text', x => x); pageLink(c.el); return c; }
+    if (/^(href|to|link|list|buttonLink)$/.test(key) && !s.includes('\n')) { const c = input(s, 'text', x => x); pageLink(c.el); return c; }
+    if (key === 'sub' && s.length < 70 && !s.includes('\n')) return input(s, 'text', x => x);
     // a page can sit in a section of the India Travel Guide: it then shows there by itself
     if (key === 'guideSection') {
       const el = document.createElement('select'); el.className = 'in'; el.onchange = touch;
@@ -172,7 +191,20 @@
         A.api('GET', '/admin/api/blog-categories').then(r => { dl.innerHTML = (r.items || []).map(x => '<option value="' + A.esc(x) + '">').join(''); }).catch(() => {}); }
       return c;
     }
-    return LONG.test(key) || s.length > 90 || s.includes('\n') ? textBox(s, x => x, s.length > 400 ? 8 : 3) : input(s, 'text', x => x);
+    return LONG.test(key) || s.length > 90 || s.includes('\n') ? textBox(s, x => x, s.length > 400 ? 8 : key === 'sub' || s.length < 60 ? 2 : 3) : input(s, 'text', x => x);
+  }
+  function linesBox(key, arr) {   // returns isLines, so two of them can share a row
+    const long = arr.some(x => x.length > 120), sep = long ? '\n\n' : '\n';
+    const t = textBox(arr.join(sep), x => x.split(long ? /\n\s*\n/ : /\n/).map(l => l.trim()).filter(Boolean), long ? Math.min(14, arr.length * 4) : Math.min(10, Math.max(3, arr.length)));
+    t.input.placeholder = long ? 'Leave an empty line between two paragraphs' : 'One per line';
+    t.el.insertAdjacentHTML('beforeend', '<p class="fhelp lines-n">' + (long ? arr.length + ' paragraphs — leave an empty line between two paragraphs' : arr.length + ' lines — one per line') + '</p>');
+    t.input.addEventListener('input', () => { const n = t.get().length; t.el.querySelector('.lines-n').textContent = n + (long ? ' paragraphs — leave an empty line between two paragraphs' : ' lines — one per line'); });
+    t.isLines = !long; return t;
+  }
+  function tupleRow(v) {
+    const el = document.createElement('div'); el.className = 'tp-row'; el.style.setProperty('--n', v.length);
+    const parts = v.map(x => { const c = /^(https?:|\/)/.test(x) ? (y => { pageLink(y.el); return y; })(input(x, 'text', y => y.trim())) : x.length > 60 ? textBox(x, y => y, 2) : input(x, 'text', y => y); el.appendChild(c.el); return c; });
+    return { el, get: () => parts.map(c => c.get()) };
   }
   function input(v, type, read) {
     const el = document.createElement('input'); el.className = 'in'; el.type = type; el.value = v; el.oninput = touch;
@@ -275,19 +307,18 @@
   // includes, excludes and the notes as lists written like in Word. A price line that is not changed is kept word for word.
   const PRICE_RE = /^\s*(.+?):\s*(USD|US\$|\$)?\s*([\d,]+)\s*(?:[-–]\s*(?:USD|US\$|\$)?\s*([\d,]+))?\s*(\+?)\s*(.*)$/i;
   const HOTEL_CLASSES = ['3-Star', '4-Star', '5-Star', '5-Star Deluxe', 'Heritage', 'Standard', 'Superior', 'Deluxe', 'Premium', 'Luxury'];
+  // (27 Oct 2026, client) one plain table for the prices (no box in a box): hotel class from a list, From and To in USD,
+  // "+" after the price, and what the price is for. The includes, excludes and notes are given apart (their own tab).
   function detailsEditor(blocks) {
     const el = document.createElement('div'); el.className = 'px';
     const isPrice = b => /pric|cost/i.test(b.title || '');
     const pb = blocks.find(isPrice) || { title: 'Tour Pricing Details', text: '', items: [] };
-    // prices
-    const pcard = document.createElement('div'); pcard.className = 'px-block';
-    pcard.innerHTML = '<h4>Prices per person</h4><p class="fhelp">One line per hotel class. Leave “To” empty for one price. Tick “or more” to show $250+.</p>' +
-      '<div class="f"><label class="lb">Text above the prices</label></div><div class="px-rows" data-rows></div>' +
-      '<div class="chips"><button type="button" class="btn btn-s btn-g" data-add>+ Add a hotel class</button></div>' +
-      '<datalist id="px-hotels">' + HOTEL_CLASSES.map(h => '<option value="' + h + '">').join('') + '</datalist>';
-    const intro = textBox(pb.text || '', x => x, 3);
-    pcard.querySelector('.f').appendChild(intro.el);
-    const rowsEl = pcard.querySelector('[data-rows]'), rows = [];
+    el.innerHTML = '<div class="f"><label class="lb">Short text under the price heading (optional)</label><p class="fhelp">Shown in small letters at the top of the price box.</p></div>' +
+      '<div class="px-t"><div class="px-hd"><span>Hotel class</span><span>From (USD)</span><span>To (USD)</span><span title="Shows the price as $250+">Add “+”</span><span>The price is</span><span></span></div><div data-rows></div></div>' +
+      '<div class="chips"><button type="button" class="btn btn-s" data-add>+ Add a hotel class</button></div>';
+    const intro = textBox(pb.text || '', x => x, 2); intro.input.placeholder = 'e.g. The final cost depends on the hotels, the travel dates and the number of travellers.';
+    el.querySelector('.f').appendChild(intro.el);
+    const rowsEl = el.querySelector('[data-rows]'), rows = [];
     const num = v => String(v || '').replace(/[^\d]/g, '');
     const addRow = (segs, open) => {
       const text = (segs || []).map(x => x.text).join(''), m = PRICE_RE.exec(text);
@@ -297,11 +328,12 @@
         rows.push({ r, get: () => t.get() });
       } else {
         const v = m ? { cls: m[1].trim(), cur: m[2] || '$', from: num(m[3]), to: num(m[4]), plus: !!m[5], per: m[6].trim() || 'per person per day' } : { cls: '', cur: '$', from: '', to: '', plus: false, per: 'per person per day' };
-        r.innerHTML = '<label><small>Hotel class</small><input class="in" list="px-hotels" data-cls placeholder="e.g. 3-Star"></label>' +
-          '<label><small>From (USD)</small><input class="in" inputmode="numeric" data-from placeholder="85"></label>' +
-          '<label><small>To (USD)</small><input class="in" inputmode="numeric" data-to placeholder="100"></label>' +
-          '<label class="px-plus"><input type="checkbox" data-plus> or more</label>' +
-          '<label><small>Price is</small><select class="in" data-per><option>per person per day</option><option>per person per night</option><option>per person</option></select></label>';
+        const classes = HOTEL_CLASSES.concat(v.cls && !HOTEL_CLASSES.includes(v.cls) ? [v.cls] : []);
+        r.innerHTML = '<select class="in" data-cls aria-label="Hotel class"><option value="">Choose…</option>' + classes.map(h => '<option>' + A.esc(h) + '</option>').join('') + '</select>' +
+          '<input class="in" inputmode="numeric" data-from placeholder="85" aria-label="From (USD)">' +
+          '<input class="in" inputmode="numeric" data-to placeholder="optional" aria-label="To (USD)">' +
+          '<label class="px-plus" title="Shows the price as $250+"><input type="checkbox" data-plus><span>+</span></label>' +
+          '<select class="in" data-per aria-label="The price is"><option>per person per day</option><option>per person per night</option><option>per person</option></select>';
         const q = s => r.querySelector(s);
         q('[data-cls]').value = v.cls; q('[data-from]').value = v.from; q('[data-to]').value = v.to; q('[data-plus]').checked = v.plus;
         if (![...q('[data-per]').options].some(o => o.value === v.per)) q('[data-per]').insertAdjacentHTML('beforeend', '<option>' + A.esc(v.per) + '</option>');
@@ -312,26 +344,28 @@
         r.addEventListener('input', touch); r.addEventListener('change', touch);
         rows.push({ r, get: () => same() ? segs : pack(), empty: () => !q('[data-cls]').value.trim() && !num(q('[data-from]').value) });
       }
-      const x = document.createElement('button'); x.type = 'button'; x.className = 'px-x'; x.title = 'Remove this line'; x.textContent = '✕';
+      const x = document.createElement('button'); x.type = 'button'; x.className = 'px-x'; x.title = 'Remove this hotel class';
+      x.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>';
       x.onclick = () => { rows.splice(rows.findIndex(o => o.r === r), 1); r.remove(); touch(); };
       r.appendChild(x); rowsEl.appendChild(r);
-      if (open) r.querySelector('input').focus();
+      if (open) r.querySelector('select,input').focus();
     };
     (pb.items || []).forEach(s => addRow(s));
-    pcard.querySelector('[data-add]').onclick = () => { addRow(null, true); touch(); };
-    el.appendChild(pcard);
-    // includes, excludes, notes (and any other block), each a list of points
+    if (!(pb.items || []).length) addRow(null);
+    el.querySelector('[data-add]').onclick = () => { addRow(null, true); touch(); };
+    // includes, excludes, notes (and any other block): each a heading and its points, in a tab of their own
+    const more = document.createElement('div'); more.className = 'px-more';
     const others = blocks.filter(b => b !== pb).map(b => {
-      const card = document.createElement('div'); card.className = 'px-block';
-      card.innerHTML = '<h4>' + A.esc(b.title || '') + '</h4><p class="fhelp">One point per line: press Enter for the next point.</p>';
-      const t = richText(b.items || [], false); card.appendChild(t.el);
+      const sec = document.createElement('div'); sec.className = 'px-sec' + (/includ|exclud/i.test(b.title || '') ? ' px-half' : '');
+      sec.innerHTML = '<h3>' + A.esc(b.title || '') + '</h3>';
       let tx = null;
-      if (b.text) { tx = textBox(b.text, x => x, 3); const f = document.createElement('div'); f.className = 'f'; f.innerHTML = '<label class="lb">Text above the points</label>'; f.appendChild(tx.el); card.insertBefore(f, t.el); }
-      el.appendChild(card);
+      if (b.text) { tx = textBox(b.text, x => x, 2); const f = document.createElement('div'); f.className = 'f'; f.innerHTML = '<label class="lb">Text above the points</label>'; f.appendChild(tx.el); sec.appendChild(f); }
+      const t = richText(b.items || [], false); t.input.dataset.ph = 'One point per line: press Enter for the next point'; sec.appendChild(t.el);
+      more.appendChild(sec);
       return { b, get: () => Object.assign({}, b, { text: tx ? tx.get() : b.text, items: t.get() }) };
     });
-    return { el, get: () => blocks.map(b => b === pb ? Object.assign({}, pb, { text: intro.get(), items: rows.filter(o => !(o.empty && o.empty())).map(o => o.get()) }) : others.find(o => o.b === b).get())
-      .concat(blocks.includes(pb) ? [] : [Object.assign({}, pb, { text: intro.get(), items: rows.filter(o => !(o.empty && o.empty())).map(o => o.get()) })]) };
+    const priceOut = () => Object.assign({}, pb, { text: intro.get(), items: rows.filter(o => !(o.empty && o.empty())).map(o => o.get()) });
+    return { el, more: others.length ? more : null, get: () => blocks.map(b => b === pb ? priceOut() : others.find(o => o.b === b).get()).concat(blocks.includes(pb) ? [] : [priceOut()]) };
   }
   // (26 Oct 2026, client) a destination or guide page edited in the same shape the website shows it: "Quick facts"
   // (Area, Altitude, Climate …), then each heading of the page ("Places of Interest", "Reach" …) with its groups — a list
@@ -353,7 +387,7 @@
     const card = document.createElement('section'); card.className = 'card ps'; card.hidden = true;
     const draw = () => {
       const ed = comps.html && comps.html.el.querySelector('.rte');
-      card.innerHTML = '<p class="tab-intro">The page as the website shows it: its quick facts, its places and distances, how to reach it. The story itself is in the Text tab.</p>';
+      card.innerHTML = '';
       if (!ed || ed.hidden) { card.insertAdjacentHTML('beforeend', '<p class="hint">Switch the HTML view off in the Text tab first.</p>'); return; }
       // walk the page: headings open a part; label paragraphs are facts or lists
       const parts = [{ title: 'Quick facts', facts: [], lists: [], after: null }];
@@ -391,7 +425,7 @@
           };
           const add = (x, focus) => {
             const r = document.createElement('div'); r.className = 'ps-it';
-            r.innerHTML = '<i aria-hidden="true"></i><input class="in" data-n placeholder="Place">' + (withKm ? '<input class="in" data-k inputmode="decimal" placeholder="km" title="Distance in km">' : '') + '<button type="button" title="Remove">✕</button>';
+            r.innerHTML = '<input class="in" data-n placeholder="Place">' + (withKm ? '<input class="in" data-k inputmode="decimal" placeholder="km" title="Distance in km">' : '') + '<button type="button" title="Remove">✕</button>';
             r.querySelector('[data-n]').value = x.name; if (withKm) r.querySelector('[data-k]').value = x.km;
             r.querySelector('button').onclick = () => { r.remove(); write(); };
             r.oninput = write; itemsEl.appendChild(r); if (focus) r.querySelector('[data-n]').focus();
@@ -403,7 +437,7 @@
         card.appendChild(box);
       });
     };
-    panesAdd('Page sections', card, draw);
+    panesAdd('Facts & places', card, draw);
   }
   // a link the client fills in as "Text" and "Link to" (the link box suggests the website's own pages)
   function linkRow(v) {
@@ -427,7 +461,14 @@
   let lkPop = null;
   function pageLink(inp) {
     inp.placeholder = inp.placeholder || 'Click to choose a page, or paste https://…';
-    inp.autocomplete = 'off';
+    inp.autocomplete = 'off'; inp.classList.add('lk-in');
+    // (27 Oct 2026, client) under a link box: the name of the page it opens
+    setTimeout(() => {
+      if (!inp.isConnected || inp.closest('.ln-row,.tp-row,.addr-row,.lk-pop') || inp.closest('dialog')) return;
+      const hint = document.createElement('p'); hint.className = 'lk-name'; inp.insertAdjacentElement('afterend', hint);
+      const upd = () => loadLinks().then(items => { const v = inp.value.trim(), it = items.find(x => x.url === v); hint.innerHTML = !v ? '' : it ? 'Opens: <b>' + A.esc(lkName(it)) + '</b>' : /^https?:/.test(v) ? 'Opens another website' : 'Opens: ' + A.esc(v); });
+      inp.addEventListener('input', upd); upd();
+    }, 0);
     const open = async () => {
       const items = await loadLinks();
       if (lkPop) lkPop.remove();
@@ -490,19 +531,30 @@
     wrap.appendChild(el);
     return { el: wrap, input: el, get: () => read(el.value) };
   }
-  function image(v) {
+  // (27 Oct 2026, client) the photo box: the photo itself (click it to choose one), its file name, Change and Remove.
+  // auto() gives the photo the website uses when none is chosen; it shows with the label "Chosen by itself".
+  function image(v, auto) {
     const el = document.createElement('div'); el.className = 'img-f';
-    el.innerHTML = '<div class="pv"></div><div><div class="row" style="margin:0 0 6px"><button type="button" class="btn btn-s btn-p">Choose a photo</button><button type="button" class="btn btn-s btn-d">Remove</button></div><input class="in" type="text" placeholder="No photo chosen"></div>';
-    const pv = el.querySelector('.pv'), inp = el.querySelector('input');
-    const show = () => { pv.style.backgroundImage = inp.value ? 'url("' + inp.value.replace(/"/g, '') + '")' : 'none'; };
+    el.innerHTML = '<button type="button" class="pv" title="Choose a photo"><span class="pv-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 8"/></svg>Choose a photo</span></button>' +
+      '<div class="img-side"><span class="img-name"></span><span class="img-acts"><button type="button" class="lnk" data-ch></button><button type="button" class="lnk lnk-d" data-rm>Remove</button></span></div><input type="hidden">';
+    const pv = el.querySelector('.pv'), inp = el.querySelector('input'), name = el.querySelector('.img-name'), ch = el.querySelector('[data-ch]'), rm = el.querySelector('[data-rm]');
+    const show = () => {
+      const own = inp.value.trim(), a = !own && auto ? auto() || '' : '', src = own || a;
+      pv.style.backgroundImage = src ? 'url("' + src.replace(/"/g, '') + '")' : 'none'; pv.classList.toggle('has', !!src);
+      if (a) pv.dataset.auto = 'Chosen by itself'; else delete pv.dataset.auto;
+      name.textContent = own ? own.split('/').pop() : a ? 'The website picks this one. Choose a photo to use your own.' : 'No photo yet';
+      ch.textContent = own ? 'Change' : 'Choose a photo'; rm.hidden = !own;
+    };
+    const pick = async () => { const src = await A.pickImage(); if (src) { inp.value = src; show(); touch(); } };
+    pv.onclick = pick; ch.onclick = pick; rm.onclick = () => { inp.value = ''; show(); touch(); };
     inp.value = v || ''; show();
-    inp.oninput = () => { touch(); show(); };
-    el.querySelectorAll('button')[0].onclick = async () => { const src = await A.pickImage(); if (src) { inp.value = src; show(); touch(); } };
-    el.querySelectorAll('button')[1].onclick = () => { inp.value = ''; show(); touch(); };
-    return { el, get: () => inp.value.trim() };
+    return { el, input: inp, get: () => inp.value.trim(), refresh: show };
   }
   function fieldBox(k, c, top) {
-    const f = document.createElement('div'); f.className = 'f' + (c.el.matches && c.el.matches('input.in:not([type=checkbox]), select.in') ? ' half' : ''); f.dataset.k = k;
+    if (c.el.matches && c.el.matches('input[type=checkbox]')) {   // (27 Oct 2026, client) a tick box with its words beside it
+      const f = document.createElement('label'); f.className = 'f f-chk'; f.dataset.k = k; f.appendChild(c.el); f.insertAdjacentHTML('beforeend', '<span>' + A.esc(label(k)) + '</span>'); return f;
+    }
+    const f = document.createElement('div'); f.className = 'f' + (c.isLines || (c.el.matches && c.el.matches('input.in:not([type=checkbox]), select.in')) ? ' half' : '') + (top && c.isGroup ? ' f-grp' : ''); f.dataset.k = k;
     f.innerHTML = '<label class="lb">' + A.esc(label(k)) + '</label>' + ((HELP[k + '_' + E.kind] || HELP[k]) && (top || /^(href|paras|items|price|cards|cities|link)$/.test(k)) ? '<p class="fhelp">' + A.esc(HELP[k + '_' + E.kind] || HELP[k]) + '</p>' : '');
     f.appendChild(c.el);
     return f;
@@ -517,13 +569,54 @@
     const isForm = 'showPeriod' in obj;   // the enquiry form's words
     // (26 Oct 2026, client) what the website never shows is not asked for (it is kept as it is)
     const hide = 'src' in obj && 'pos' in obj ? ['alt', 'place', 'region', 'href', 'pos', 'flip'] : [];
+    // (27 Oct 2026, client) the currency is always USD; a package card's price is the category's lowest one, by itself
+    if ('currency' in obj && 'priceNote' in obj) hide.push('currency');
+    if ('count' in obj && 'items' in obj && 'title' in obj && E.id === 'home') hide.push('count', 'items');
+    if (E.id === 'home' && 'link' in obj && 'photo' in obj && 'price' in obj && 'title' in obj) return pkgCard(obj);
     el.className = 'fg';
-    Object.entries(obj).forEach(([k, v]) => { if (hide.includes(k)) { gets[k] = () => v; return; } const c = field(k, v, depth + 1); const fb = fieldBox(k, c, false); el.appendChild(fb); gets[k] = c.get;
+    Object.entries(obj).forEach(([k, v]) => { if (hide.includes(k)) { gets[k] = () => v; return; }
+      const c = isDay && k === 'photo' ? (a => image(v, () => a))(dayAuto.length ? dayAuto.shift() : '') : field(k, v, depth + 1); const fb = fieldBox(k, c, false); el.appendChild(fb); gets[k] = c.get;
       if (isForm && FORM_LABELS[k]) fb.querySelector('.lb').textContent = FORM_LABELS[k];
       if (k === 'items' && Array.isArray(v) && v.some(isLinkRow)) { fb.querySelector('.lb').textContent = 'Links'; const h = fb.querySelector('.fhelp'); if (h) h.remove(); }
-      if (isDay && k === 'photo') { fb.querySelector('.lb').textContent = 'Photo for this day (optional)'; fb.querySelector('.lb').insertAdjacentHTML('afterend', '<p class="fhelp">Leave it empty and a photo of the day’s places is chosen by itself.</p>'); } if ((k === 'title' || k === 'description') && Object.keys(obj).every(x => x === 'title' || x === 'description')) counter(k, c); });   // the main pages' Google text
+      if (isDay && k === 'photo') fb.querySelector('.lb').textContent = 'Photo for this day (optional)';
+      // (27 Oct 2026, client) an empty day shows examples, not someone else's text
+      const ph = isDay && { day: 'e.g. 01 Day', title: 'e.g. Delhi - Agra', eta: 'e.g. 210 km · about 4 hours', note: 'Optional' }[k], inp = ph && fb.querySelector('input.in, textarea.in');
+      if (inp) inp.placeholder = ph;
+      if (isDay && k === 'paras' && c.input) c.input.dataset.ph = 'What happens this day: the sights, the drive, the overnight stay';
+      if (/^(included|extras)$/.test(k)) fb.classList.add('half');
+      if (Object.keys(obj).filter(x => !hide.includes(x)).length === 1) fb.classList.add('f-solo'); if ((k === 'title' || k === 'description') && Object.keys(obj).every(x => x === 'title' || x === 'description')) counter(k, c); });   // the main pages' Google text
     pairHalves(el);
-    return { el, get: () => Object.fromEntries(Object.entries(gets).map(([k, g]) => [k, g()])) };
+    [...el.children].forEach(f => { const n = f.nextElementSibling; if (f.querySelector(':scope > .img-f') && n && n.querySelector(':scope > div > textarea.in') && !f.classList.contains('half') && !n.classList.contains('half')) { f.classList.add('half', 'f-img'); n.classList.add('half'); } });
+    return { el, isGroup: true, get: () => Object.fromEntries(Object.entries(gets).map(([k, g]) => [k, g()])) };
+  }
+  // (27 Oct 2026, client) a "Best Tour Packages" card: choose a tour category; its name and photo fill in by themselves
+  // (both can be changed), and the website shows the category's lowest price
+  let catCards = null;
+  const loadCatCards = () => catCards || (catCards = A.api('GET', '/admin/api/category-cards').then(r => r.items || []).catch(() => []));
+  function pkgCard(obj) {
+    const el = document.createElement('div'); el.className = 'pk';
+    el.innerHTML = '<div class="f"><label class="lb">Photo</label></div><div class="f"><label class="lb">Tour category</label><select class="in" data-cat><option value="">Choose a category…</option></select></div>' +
+      '<div class="f"><label class="lb">Name on the card</label><input class="in" data-t></div><p class="pk-price" data-p></p>';
+    const sel = el.querySelector('[data-cat]'), t = el.querySelector('[data-t]'), pr = el.querySelector('[data-p]');
+    let cats = [];
+    const catNow = () => cats.find(x => x.url === sel.value);
+    const img = image(obj.photo, () => (catNow() || {}).img || '');
+    el.children[0].appendChild(img.el);
+    t.value = obj.title || ''; t.oninput = touch;
+    const price = () => { const c = catNow(); pr.innerHTML = c && c.from ? 'Price on the card: <b>from USD ' + c.from.toLocaleString('en-US') + '</b> per person, the lowest tour price of this category' : c ? 'No tour price in this category yet' : ''; };
+    if (obj.link) sel.insertAdjacentHTML('beforeend', '<option value="' + A.esc(obj.link) + '" selected>' + A.esc(obj.link) + '</option>');
+    loadCatCards().then(list => {
+      cats = list;
+      sel.innerHTML = '<option value="">Choose a category…</option>' + list.map(c => '<option value="' + A.esc(c.url) + '">' + A.esc(c.name) + (c.code ? ' (' + A.esc(c.code) + ')' : '') + '</option>').join('') +
+        (obj.link && !list.some(c => c.url === obj.link) ? '<option value="' + A.esc(obj.link) + '">' + A.esc(obj.link) + '</option>' : '');
+      sel.value = obj.link || ''; img.refresh(); price();
+    });
+    sel.onchange = () => {
+      const c = catNow(), was = cats.some(x => x.name === t.value.trim());
+      if (c && (!t.value.trim() || was)) t.value = c.name;
+      img.refresh(); price(); touch(); t.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+    return { el, get: () => Object.assign({}, obj, { title: t.value.trim(), link: sel.value, photo: img.get() || (catNow() || {}).img || obj.photo || '' }) };
   }
   function list(key, arr, depth) {
     const el = document.createElement('div'); el.className = 'arr';
@@ -532,24 +625,32 @@
     const rows = [];
     // (26 Oct 2026, client video II) a list of links shows as rows of "Text | Link" (like WordPress menus), not as boxes to open
     const linkList = (arr.length ? arr : [tmpl]).every(x => (isLinkRow(x) && x.length === 2) || isLinkObj(x));
-    const simple = linkList || (arr.length ? arr.every(x => typeof x !== 'object' || x === null) : typeof tmpl !== 'object');
+    const isTuple = x => Array.isArray(x) && x.length >= 2 && x.length <= 4 && x.every(y => typeof y === 'string') && !isLinkRow(x);
+    const tupleList = arr.length ? arr.every(isTuple) : isTuple(tmpl);
+    const simple = linkList || tupleList || (arr.length ? arr.every(x => typeof x !== 'object' || x === null) : typeof tmpl !== 'object');
     const renum = () => rows.forEach((r, i) => { r.n.textContent = key === 'days' ? '' : i + 1; });
+    // (27 Oct 2026, client) small things side by side, all open: figures, banner photos, cards, points, steps
+    const gridCols = !simple && { stats: 5, heroSlides: 4, cards: key === 'cards' && E.id === 'home' && arr[0] ? ('price' in arr[0] ? 4 : 'cities' in arr[0] ? 2 : 0) : 0, points: arr.length === 4 ? 4 : 3, steps: 4, seasons: 3, glance: 3, guideCols: 3, footerCols: 2, offices: 2, tips: 3 }[key];
+    if (gridCols) { box.classList.add('arr-grid'); box.style.setProperty('--cols', gridCols); }
+    const ICO = { up: '<path d="m18 15-6-6-6 6"/>', down: '<path d="m6 9 6 6 6-6"/>', left: '<path d="m15 18-6-6 6-6"/>', right: '<path d="m9 18 6-6-6-6"/>', x: '<path d="M18 6 6 18M6 6l12 12"/>' };
+    const ico = n => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICO[n] + '</svg>';
     const add = (v, open) => {
-      const it = document.createElement('div'); it.className = 'it' + (open || simple ? '' : ' closed');
-      it.innerHTML = '<div class="it-h"><span class="n"></span><b></b><button type="button" title="Move up">↑</button><button type="button" title="Move down">↓</button><button type="button" class="x" title="Remove">✕</button></div><div class="it-b"></div>';
-      const c = linkList ? linkInline(v, key !== 'footerSocial') : field(key === 'items' ? 'item' : key, v, depth + 1), b = it.querySelector('b');
+      const it = document.createElement('div'); it.className = 'it' + (open || simple || gridCols ? '' : ' closed');
+      it.innerHTML = '<div class="it-h">' + (simple || gridCols ? '' : '<i class="it-c" aria-hidden="true">' + ico('down') + '</i>') + '<span class="n"></span><b></b><span class="it-acts"><button type="button" title="' + (gridCols ? 'Move left' : 'Move up') + '">' + ico(gridCols ? 'left' : 'up') + '</button><button type="button" title="' + (gridCols ? 'Move right' : 'Move down') + '">' + ico(gridCols ? 'right' : 'down') + '</button><button type="button" class="x" title="Remove">' + ico('x') + '</button></span></div><div class="it-b"></div>';
+      const c = key === 'footerSocial' && isLinkObj(v) ? socialRow(v) : linkList ? linkInline(v, true) : field(key === 'items' ? 'item' : key, v, depth + 1, true), b = it.querySelector('b');
       it.querySelector('.it-b').appendChild(c.el);
       const r = { it, get: c.get, n: it.querySelector('.n') };
-      const setSum = () => { b.textContent = summary(c.get()) || '(empty — click to fill in)'; };
+      const setSum = () => { if (!gridCols) b.textContent = summary(c.get()) || '(empty — click to fill in)'; };
       setSum(); it.addEventListener('input', setSum);
       if (simple) { b.style.display = 'none'; it.classList.remove('closed'); it.style.display = 'grid'; it.style.gridTemplateColumns = 'minmax(0,1fr) auto'; it.querySelector('.it-b').style.padding = '6px'; it.insertBefore(it.querySelector('.it-b'), it.firstChild); Object.assign(it.querySelector('.it-h').style, { borderBottom: '0', background: 'none', cursor: 'default' }); r.n.style.display = 'none'; }
-      const [up, down, x] = it.querySelectorAll('.it-h button');
-      it.querySelector('.it-h').onclick = e => { if (!e.target.closest('button') && !simple) it.classList.toggle('closed'); };
+      const [up, down, x] = it.querySelectorAll('.it-h .it-acts button');
+      it.querySelector('.it-h').onclick = e => { if (!e.target.closest('button') && !simple && !gridCols) it.classList.toggle('closed'); };
       up.onclick = () => { const i = rows.indexOf(r); if (i > 0) { rows.splice(i, 1); rows.splice(i - 1, 0, r); box.insertBefore(it, rows[i].it); renum(); touch(); } };
       down.onclick = () => { const i = rows.indexOf(r); if (i < rows.length - 1) { rows.splice(i, 1); rows.splice(i + 1, 0, r); box.insertBefore(it, rows[i].it.nextSibling); renum(); touch(); } };
       x.onclick = async () => { if (!(await A.confirm('Remove this?', '"' + (summary(c.get()) || 'This item') + '" will be removed when you save.', 'Remove', true))) return; rows.splice(rows.indexOf(r), 1); it.remove(); renum(); touch(); };
       rows.push(r); box.appendChild(it); renum();
       if (open && !simple) it.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (gridCols) b.textContent = { stats: 'Figure', heroSlides: 'Photo', cards: 'Card', points: 'Point', steps: 'Step', guideCols: 'Card', footerCols: 'Column', offices: 'Office', topics: 'Topic', tips: 'Group', seasons: 'Season', glance: 'Box' }[key] || 'Item';
     };
     arr.forEach(v => add(v, false));
     // a long list gets a search box (the reviews, the days of a long tour, the footer links …)
@@ -571,7 +672,7 @@
     // (26 Oct 2026, client) a list of links (menus, footer columns, cities): tick pages of the website to add them, as in
     // WordPress menus — no need to know or type an address
     const linkish = isLinkRow(tmpl) || (tmpl && typeof tmpl === 'object' && !Array.isArray(tmpl) && 'href' in tmpl && ('label' in tmpl || 'name' in tmpl));
-    if (linkish && key !== 'tours' && key !== 'footerSocial') {
+    if (linkish && !tupleList && key !== 'tours' && key !== 'footerSocial') {
       const pagesBtn = document.createElement('button'); pagesBtn.type = 'button'; pagesBtn.className = 'btn btn-s btn-g'; pagesBtn.textContent = '+ Add pages from the website';
       pagesBtn.onclick = () => pickPages(list => {
         list.forEach(p => {
@@ -585,9 +686,26 @@
     }
     btns.appendChild(addBtn);
     el.appendChild(btns);
-    if (linkList) el.classList.add('arr-links');
+    if (linkList || tupleList) el.classList.add('arr-links');
     // empty link rows are left out when saving
     return { el, get: () => rows.map(r => r.get()).filter(v => !linkList || (Array.isArray(v) ? v.some(Boolean) : (v.label || v.name || v.href))) };
+  }
+  // (27 Oct 2026, client) a social network: its icon and name, then the address of the profile
+  const SOC = {
+    Facebook: '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v6h4v-6h3l1-4h-4V8z"/>', Instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/>',
+    YouTube: '<rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z"/>', X: '<path d="M4 4l16 16M20 4 4 20"/>', LinkedIn: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>',
+    Pinterest: '<circle cx="12" cy="12" r="9"/><path d="m11 8-2 12M10 14c4 1 6-1 6-4a4 4 0 0 0-8 0"/>', TripAdvisor: '<circle cx="7" cy="13" r="3"/><circle cx="17" cy="13" r="3"/><path d="M2 9h20M12 9c-2-2-6-2-8 0M12 9c2-2 6-2 8 0"/>'
+  };
+  function socialRow(v) {
+    const el = document.createElement('div'); el.className = 'so-row';
+    const known = Object.keys(SOC);
+    el.innerHTML = '<span class="so-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>' +
+      '<select class="in so-n" aria-label="Network">' + known.concat(known.includes(v.name) || !v.name ? [] : [v.name]).map(n => '<option>' + A.esc(n) + '</option>').join('') + '</select><input class="in" placeholder="https://… (the address of your page)" aria-label="Address">';
+    const sel = el.querySelector('select'), inp = el.querySelector('input'), svg = el.querySelector('svg');
+    sel.value = v.name || 'Facebook'; inp.value = v.href || '';
+    const ic = () => { svg.innerHTML = SOC[sel.value] || '<circle cx="12" cy="12" r="9"/>'; el.classList.toggle('so-off', !inp.value.trim()); };
+    sel.onchange = () => { ic(); touch(); }; inp.oninput = () => { ic(); touch(); }; ic();
+    return { el, get: () => Object.assign({}, v, { name: sel.value, href: inp.value.trim() }) };
   }
   // one link on one line: its text and where it goes (the link box suggests the website's pages)
   function linkInline(v, pages) {
@@ -597,7 +715,9 @@
     t.el.placeholder = isArr || tk === 'label' ? 'Text shown' : 'Name'; h.el.placeholder = pages ? 'Click to choose a page' : 'https://…';
     if (pages) pageLink(h.el);
     el.append(t.el, h.el);
-    return { el, get: () => isArr ? [t.get(), h.get()] : Object.assign({}, v, { [tk]: t.get(), href: h.get() }) };
+    const ln = !isArr && 'line' in v ? input(v.line || '', 'text', x => x) : null;
+    if (ln) { ln.el.placeholder = 'Short line under it'; el.appendChild(ln.el); el.classList.add('ln-3'); }
+    return { el, get: () => isArr ? [t.get(), h.get()] : Object.assign({}, v, { [tk]: t.get(), href: h.get() }, ln ? { line: ln.get() } : {}) };
   }
   // the website's pages with tick boxes and a search (Pages, Tour categories, Tours, Blog), for the lists of links
   async function pickPages(done) {
@@ -730,7 +850,7 @@
 
   // ---------- the form, in tabs ----------
   function build(res) {
-    getters = {}; comps = {}; templates = res.templates || {}; root.innerHTML = ''; tabsEl.innerHTML = ''; refreshGoogle = () => {};
+    current = res; getters = {}; comps = {}; templates = res.templates || {}; root.innerHTML = ''; tabsEl.innerHTML = ''; refreshGoogle = () => {}; dayAuto = (res.dayPhotos || []).slice();
     const data = res.data;
     // (26 Oct 2026, client) each day of a tour can have its own photo: the box sits under the day's title
     if (E.kind === 'tours' && Array.isArray(data.days)) data.days = data.days.map(d => d && typeof d === 'object' && !('photo' in d) ? Object.fromEntries(Object.entries(d).flatMap(([k, v]) => k === 'eta' ? [[k, v], ['photo', '']] : [[k, v]]).concat('eta' in d ? [] : [['photo', '']])) : d);
@@ -738,18 +858,21 @@
     if (!tabs) tabs = res.fields.filter(k => k in data).map(k => [label(k), [k], HELP[k] || '']);   // settings: one tab per part
     const used = new Set(tabs.flatMap(t => t[1]));
     // made automatically or chosen elsewhere: the breadcrumb, and a category's tours (ticked in each tour)
-    const AUTO = E.mode === 'item' ? ['breadcrumb'].concat(E.kind === 'lists' && E.id !== 'itineraries' ? ['groups'].concat(GOOGLE) : E.kind === 'tours' ? ['heroSrc', 'heroAlt'] : []) : E.id === 'reviews' ? ['all'] : [];
+    const AUTO = E.mode === 'item' ? ['breadcrumb'].concat(GOOGLE, E.kind === 'lists' && E.id !== 'itineraries' ? ['groups'] : E.kind === 'tours' ? ['heroSrc', 'heroAlt'] : []) : E.id === 'reviews' ? ['all'] : [];
     const rest = res.fields.filter(k => k in data && !used.has(k) && !AUTO.includes(k));
     if (rest.length) tabs = tabs.concat([['More', rest, '']]);
     const panes = [];
     tabs.forEach(([name, keys, intro], ti) => {
       keys = keys.filter(k => k in data); if (!keys.length) return;
       const card = document.createElement('section'); card.className = 'card fg'; card.hidden = true;
-      if (intro) card.insertAdjacentHTML('beforeend', '<p class="tab-intro">' + A.esc(intro) + '</p>');
+      // (27 Oct 2026, client) a part of a page: its name as a heading, then what it is, then its fields
+      if (E.mode === 'single' && tabs.length > 1) card.insertAdjacentHTML('beforeend', '<div class="tab-head"><h2>' + A.esc(name) + '</h2>' + (intro ? '<p>' + A.esc(intro) + '</p>' : '') + '</div>');
+      else if (intro) card.insertAdjacentHTML('beforeend', '<p class="tab-intro">' + A.esc(intro) + '</p>');
       keys.forEach(k => {
         const c = field(k, data[k], 0);
         // (26 Oct 2026, client video II) a tab with one thing in it needs no second title for it
         const f = keys.length === 1 && name !== 'Google' ? Object.assign(document.createElement('div'), { className: 'f' }) : fieldBox(k, c, true);
+        if (E.mode === 'single' && /^sec[A-Z]/.test(k) && f.querySelector(':scope > .lb')) f.querySelector(':scope > .lb').remove();
         if (keys.length === 1 && name !== 'Google') f.appendChild(c.el);
         if (GHELP[k] && name === 'Google') f.querySelector('.lb').insertAdjacentHTML('afterend', '<p class="fhelp">' + A.esc(GHELP[k]) + '</p>');
         card.appendChild(f); getters[k] = c.get; comps[k] = c;
@@ -769,8 +892,18 @@
       panes.splice(1, 0, { b, card, slug: A.slug(name), keys: [] });
       if (location.hash.slice(1) === A.slug(name)) b.click();
     };
-    const h = location.hash.slice(1);
+    // (27 Oct 2026, client) the tour's includes, excludes and notes: the sections under the days, in a tab of their own
+    if (comps.details && comps.details.more) {
+      const card = document.createElement('section'); card.className = 'card fg'; card.hidden = true;
+      card.insertAdjacentHTML('beforeend', '<p class="tab-intro">The lists under the days on the tour page. One point per line: press Enter for the next point.</p>');
+      card.appendChild(comps.details.more);
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = 'Includes & notes';
+      b.onclick = () => { panes.forEach(p => { p.card.hidden = p.b !== b; p.b.classList.toggle('on', p.b === b); }); history.replaceState(null, '', '#includes-notes'); };
+      tabsEl.appendChild(b); root.appendChild(card); panes.push({ b, card, slug: 'includes-notes', keys: [] });
+    }
+    const h = location.hash.slice(1) || new URLSearchParams(location.search).get('tab') || (new URLSearchParams(location.search).get('col') ? 'link-columns' : '');
     const start = panes.find(p => p.slug === h || p.keys.includes(h)) || panes[0];
+    panes.forEach(p => p.b.addEventListener('click', () => document.querySelectorAll('.ad-kids a[href*="?tab="]').forEach(a => a.classList.toggle('on', a.getAttribute('href').endsWith('tab=' + p.slug)))));
     if (start) start.b.click();
     if (panes.length < 2) tabsEl.hidden = true;
     if (E.kind === 'tours' && E.mode === 'item') { catState = null; categoriesTab(addPane).then(() => { tabsEl.hidden = false; }); }
@@ -779,7 +912,7 @@
     const col = +new URLSearchParams(location.search).get('col');
     if (E.id === 'footer' && col && comps.footerCols) { const its = [...comps.footerCols.el.querySelectorAll(':scope > .arr > .it')]; its.forEach((it, i) => it.classList.toggle('closed', i !== col - 1)); if (its[col - 1]) setTimeout(() => its[col - 1].scrollIntoView({ block: 'start', behavior: 'smooth' }), 50); }
     // a destination / guide page with facts and lists opens on "Page sections", in the website's shape
-    if (E.kind === 'pages' && comps.html && hasSections(data.html)) { placesTab(addPane); tabsEl.hidden = false; if (!h) { const b = [...tabsEl.children].find(x => x.textContent === 'Page sections'); if (b) b.click(); } }
+    if (E.kind === 'pages' && comps.html && hasSections(data.html)) { placesTab(addPane); tabsEl.hidden = false; if (!h) { const b = [...tabsEl.children].find(x => x.textContent === 'Facts & places'); if (b) b.click(); } }
     dirty = false; state.textContent = ''; state.classList.remove('dirty');
   }
   // (26 Oct 2026, client) a tour's route and length fill in by themselves from its days: the length from how many days
@@ -897,40 +1030,68 @@
   async function categoriesTab(panesAdd) {
     let items;
     try { items = (await A.api('GET', '/admin/api/tour-categories/' + E.id)).items; } catch (e) { return; }
+    // (27 Oct 2026, client) like WordPress's category box: the website's menu groups, each a tidy list of tick boxes;
+    // one line says where the tour shows; categories are made in Tours → Categories, not here
+    // (27 Oct 2026, client) the search sits in the row of tabs, beside "Categories", and shows only on this tab
     const card = document.createElement('section'); card.className = 'card'; card.hidden = true;
-    card.innerHTML = '<p class="tab-intro">Tick the categories this tour shows in. Publishing adds it to (or takes it off) those category pages.</p>' +
-      '<div class="cat-on"><b>Shows in</b><div data-on></div></div>' +
-      '<div class="cat-tools"><input class="in" placeholder="Search a category or code, e.g. Rajasthan or GT" data-cs><button type="button" class="btn" data-cn>+ New category</button></div>' +
-      '<div data-cl></div>';
-    const cl = card.querySelector('[data-cl]'), cs = card.querySelector('[data-cs]'), on = card.querySelector('[data-on]');
+    card.innerHTML = '<p class="ct-sum" data-on></p><div class="ct-grid" data-cl></div>';
+    const cs = document.createElement('input'); cs.className = 'in etabs-q'; cs.type = 'search'; cs.placeholder = 'Search a category or code'; cs.hidden = true;
+    tabsEl.appendChild(cs);
+    new MutationObserver(() => { cs.hidden = card.hidden; }).observe(card, { attributes: true, attributeFilter: ['hidden'] });
+    const cl = card.querySelector('[data-cl]'), on = card.querySelector('[data-on]');
     const groups = [...new Set(items.map(c => c.group))];
-    const tag = c => '<span class="cat-tag">' + (c.code ? '<i>' + A.esc(c.code) + '</i>' : '') + A.esc(c.name) + '<button type="button" data-off="' + A.esc(c.id) + '" aria-label="Take the tour out of ' + A.esc(c.name) + '">×</button></span>';
-    const drawOn = () => { const sel = items.filter(c => c.checked); on.innerHTML = sel.length ? sel.map(tag).join('') : '<span class="muted">Not in any category yet — tick one below.</span>'; };
+    const drawOn = () => { const sel = items.filter(c => c.checked); on.innerHTML = sel.length ? 'Shows in: <b>' + sel.map(c => A.esc(c.name)).join(', ') + '</b>' : 'Not in any category yet: tick one below.'; };
     const draw = () => {
       const v = cs.value.trim().toLowerCase();
       cl.innerHTML = groups.map(g => {
         const list = items.filter(c => c.group === g && (!v || (c.name + ' ' + c.code + ' ' + g).toLowerCase().includes(v)));
         if (!list.length) return '';
-        // (26 Oct 2026, client) compact: one tick-chip per category, as many in a row as fit
-        return '<div class="cg"><h4 class="cat-g">' + A.esc(g) + '</h4><div class="chipset">' + list.map(c => '<label class="chk"><input type="checkbox" data-c="' + A.esc(c.id) + '"' + (c.checked ? ' checked' : '') + '><span>' + (c.code ? '<i>' + A.esc(c.code) + '</i>' : '') + A.esc(c.name) + (c.published ? '' : ' <small>(draft)</small>') + '</span></label>').join('') + '</div></div>';
+        return '<div class="ct-g"><h4>' + A.esc(g) + ' <small>' + list.length + '</small></h4>' + list.map(c => '<label><input type="checkbox" data-c="' + A.esc(c.id) + '"' + (c.checked ? ' checked' : '') + '><span>' + A.esc(c.name) + (c.published ? '' : ' <small class="muted">(draft)</small>') + '</span>' + (c.code ? '<i class="code-b" title="Tour code">' + A.esc(c.code) + '</i>' : '') + '</label>').join('') + '</div>';
       }).join('') || '<p class="hint">No category found.</p>';
       drawOn();
     };
     cl.onchange = e => { const x = e.target.closest('[data-c]'); if (!x) return; items.find(c => c.id === x.dataset.c).checked = x.checked; drawOn(); touch(); };
-    on.onclick = e => { const x = e.target.closest('[data-off]'); if (!x) return; items.find(c => c.id === x.dataset.off).checked = false; draw(); touch(); };
     cs.oninput = draw; draw();
-    card.querySelector('[data-cn]').onclick = async () => {
-      const box = await A.dialog({ title: 'New category', ok: 'Create category', html: '<label class="lb">Name</label><input class="in" data-n placeholder="e.g. Rajasthan Desert Tours"><p class="hint">It is made as a draft. Open it from Tours → Categories to write its description, choose its banner and publish it.</p>', validate: b => b.querySelector('[data-n]').value.trim() ? '' : 'Type a name.' });
-      if (!box) return;
-      const name = box.querySelector('[data-n]').value.trim();
-      try {
-        const res = await A.api('POST', '/admin/api/item/lists', { name, slug: A.slug(name), from: '' });
-        items.unshift({ id: res.id, name, code: '', group: 'New categories', published: false, checked: true }); if (!groups.includes('New categories')) groups.unshift('New categories'); draw(); touch();
-        A.toast('Category "' + name + '" made — publish the tour to add it');
-      } catch (e) { A.toast(e.message, true); }
-    };
     catState = () => items.filter(c => c.checked).map(c => c.id);
     panesAdd('Categories', card);
+  }
+
+  // ---------- (27 Oct 2026, client) the page's address: this server's host, and "Change" to give it a new one ----------
+  document.querySelectorAll('[data-host]').forEach(h => { h.textContent = location.host; });
+  const addrBtn = document.querySelector('[data-addr]');
+  if (addrBtn) addrBtn.onclick = async () => {
+    const link = document.querySelector('[data-url]'), now = link.getAttribute('href'), pre = E.kind === 'posts' ? '/blog/' : '/';
+    if (dirty) return A.toast('Save or publish your changes first, then change the address.', true);
+    const box = await A.dialog({ title: 'Change the page address', ok: 'Change address',
+      html: '<label class="lb">New address</label><div class="addr-row"><span class="muted">' + A.esc(location.host + pre) + '</span><input class="in" data-a></div>' +
+        '<p class="hint">Letters, numbers and - only. The old address keeps working: visitors and Google are sent to the new one.</p>',
+      onOpen: b => { const i = b.querySelector('[data-a]'); i.value = now.slice(pre.length); i.select(); },
+      validate: b => /^[A-Za-z0-9][A-Za-z0-9_-]*$/.test(b.querySelector('[data-a]').value.trim()) ? '' : 'Use letters, numbers and - only.' });
+    if (!box) return;
+    try {
+      const r = await A.api('POST', apiUrl + '/address', { url: box.querySelector('[data-a]').value.trim() });
+      link.setAttribute('href', r.url); document.querySelector('[data-path]').textContent = r.url;
+      const pv = document.querySelector('[data-preview]'); E.url = r.url;
+      A.toast('Address changed to ' + r.url + ' — the old one now leads here');
+    } catch (e) { A.toast(e.message, true); }
+  };
+  // ---------- (27 Oct 2026, client) a tour's code (GT-1 …): shown before the title; click it to give or change it ----------
+  const codeBtn = document.querySelector('[data-code]');
+  const showCode = c => { codeBtn.innerHTML = c ? 'Tour code <b>' + A.esc(c) + '</b>' : '+ Tour code'; codeBtn.classList.toggle('none', !c); };
+  if (codeBtn) {
+    A.api('GET', apiUrl + '/code').then(r => showCode(r.code)).catch(() => showCode(''));
+    codeBtn.onclick = async () => {
+      if (!E.canPublish) return A.toast('An Owner or Editor gives the codes.', true);
+      let r = { code: '', suggest: '' }; try { r = await A.api('GET', apiUrl + '/code'); } catch (e) {}
+      const box = await A.dialog({ title: 'Tour code', ok: 'Save code',
+        html: '<label class="lb">Code</label><input class="in" data-c placeholder="e.g. GT-9" style="text-transform:uppercase">' +
+          '<p class="hint">' + (E.kind === 'tours' ? 'The code of its category, a dash and a number (GT-1, ER-3 …).' : 'Two letters for this category (GT, ER …); its tours get GT-1, GT-2 …') +
+          (r.suggest ? ' Next free code: <button type="button" class="lnk" data-s>' + A.esc(r.suggest) + '</button>' : '') + ' Shown with the tour name and price on the website.</p>',
+        onOpen: b => { const i = b.querySelector('[data-c]'); i.value = r.code || r.suggest || ''; i.select(); const sg = b.querySelector('[data-s]'); if (sg) sg.onclick = () => { i.value = r.suggest; }; } });
+      if (!box) return;
+      try { const out = await A.api('POST', apiUrl + '/code', { code: box.querySelector('[data-c]').value }); showCode(out.code); A.toast(out.code ? 'Code saved: ' + out.code : 'Code removed'); }
+      catch (e) { A.toast(e.message, true); }
+    };
   }
   load();
 })();

@@ -20,8 +20,9 @@
   ].filter(x => can(x[0]));
   const ACTIONS = [['content', '/admin/tours#new', 'Add a tour'], ['content', '/admin/lists#new', 'Add a category'], ['enquiries', '/admin/enquiries', 'Enquiries']].filter(x => can(x[0]));
 %>
+<%# (27 Oct 2026, client) a plain title instead of the greeting %>
 <div class="dh">
-  <div><h1><%= hello %><%= first ? ', ' + first : '' %></h1><p class="lead">Signed in as <b><%= roles[admin.role].label %></b>.</p></div>
+  <div><h1>Dashboard</h1><p class="lead"><%= new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) %></p></div>
   <div class="dh-acts"><% ACTIONS.forEach(([, href, t], i) => { %><a class="btn<%= i === 0 ? ' btn-p' : '' %>" href="<%= href %>"><%- i < 2 ? ic('plus') : '' %><%= t %></a><% }) %></div>
 </div>
 
@@ -39,37 +40,43 @@
       <div class="seg seg-s" data-range><button type="button" data-d="7">7 d</button><button type="button" data-d="30" aria-pressed="true">30 d</button><button type="button" data-d="90">90 d</button><button type="button" data-d="365">12 m</button><button type="button" data-d="0">All</button></div></div>
     <p class="sub" data-k="timeSub"></p><div data-c="time"></div>
   </div>
-  <div class="card dc">
-    <div class="dc-h"><h2>Latest enquiries</h2><a href="/admin/enquiries">All</a></div>
+  <%# (27 Oct 2026, client) as tall as the chart beside it; more enquiries scroll inside %>
+  <div class="card dc dc-latest">
+    <div class="dc-h"><h2>Latest enquiries</h2><a href="/admin/enquiries">See all</a></div>
+    <div class="dl-box"><div class="dl-list">
     <% if (!latest.length) { %><p class="hint">No enquiries yet.</p><% } %>
     <% latest.forEach(e => { %>
-    <a class="row-link" href="/admin/enquiries"><span><b><%= e.name %></b><small><%= when(e.receivedAt) %><%= e.country ? ' · ' + e.country : '' %></small></span><span class="pill <%= e._st === 'New' ? 'pill-new' : 'pill-live' %>"><%= e._st %></span></a>
+    <a class="dl-row" href="/admin/enquiries"><i aria-hidden="true"><%= String(e.name || '?').trim().charAt(0).toUpperCase() %></i><span><b><%= e.name %></b><small><%= [e.country, e.travellers ? e.travellers + ' travellers' : '', e.duration].filter(Boolean).join(' · ') %></small></span><span class="dl-r"><span class="pill <%= e._st === 'New' ? 'pill-new' : 'pill-live' %>"><%= e._st %></span><small><%= when(e.receivedAt) %></small></span></a>
     <% }) %>
+    </div></div>
   </div>
-  <div class="card dc"><div class="dc-h"><h2>Where each enquiry stands</h2></div><div data-c="status"></div></div>
-  <div class="card dc"><div class="dc-h"><h2>Where travellers come from</h2></div><div data-c="country"></div></div>
+  <% } %>
+</div>
+<%# (27 Oct 2026, client) two cards of the same height: where the enquiries stand and come from, and the tours by region %>
+<div class="dg dg-2">
+  <% if (can('enquiries')) { %>
+  <div class="card dc">
+    <div class="dc-h"><h2>Enquiries at a glance</h2><span class="muted" data-k="rangeName"></span></div>
+    <div class="st-tiles" data-c="status"></div>
+    <h3 class="dc-sub">Where travellers come from</h3>
+    <div data-c="country"></div>
+  </div>
   <% } %>
   <% if (can('content')) { %>
-  <div class="card dc"><div class="dc-h"><h2>Tours by region</h2></div><div data-c="groups"></div></div>
+  <div class="card dc"><div class="dc-h"><h2>Tours by region</h2><a href="/admin/tours">All tours</a></div><div data-c="groups"></div></div>
   <% } %>
 </div>
 <% } %>
 
-<div class="dg <%= can('content') && drafts.length ? 'dg-2' : 'dg-1' %>">
-  <% if (can('content') && drafts.length) { %>
+<%# (27 Oct 2026, client) "Recent changes" is gone (the Activity log has it); what waits to be published shows only when there is some %>
+<% if (can('content') && drafts.length) { %>
+<div class="dg dg-1">
   <div class="card dc" id="waiting">
     <div class="dc-h"><h2>Waiting to be published <span class="ch-big"><%= drafts.length %></span></h2></div>
     <% drafts.slice(0, 6).forEach(d => { %>
     <a class="row-link" href="<%= d.kind === 'single' ? '/admin/settings/' + d.id : '/admin/' + d.kind + '/' + d.id %>"><span><b><%= d.name %></b><small><%= d.one.charAt(0).toUpperCase() + d.one.slice(1) %> · <%= d.published ? 'live, with changes' : 'not on the website yet' %></small></span><span class="pill <%= d.published ? 'pill-draft' : 'pill-off' %>"><%= d.published ? 'Changes' : 'Draft' %></span></a>
     <% }) %>
   </div>
-  <% } %>
-  <div class="card dc">
-    <div class="dc-h"><h2>Recent changes<% if (can('content') && !drafts.length) { %> <small class="muted dc-ok">· nothing waiting to be published</small><% } %></h2><% if (can('users')) { %><a href="/admin/activity">Activity log</a><% } %></div>
-    <% if (!recent.length) { %><p class="hint dc-empty">Changes made in the panel show here.</p><% } %>
-    <div class="rc-list"><% recent.slice(0, 6).forEach(a => { %>
-    <a class="row-link" href="<%= a.link || '#' %>"><span><b><%= a.action %> <%= a.what %></b><small><%= a.by %> · <%= when(a.at) %></small></span></a>
-    <% }) %></div>
-  </div>
 </div>
-<%- include('_bottom', { scripts: ['/admin-assets/charts.js?v=1', '/admin-assets/dash.js?v=2'] }) %>
+<% } %>
+<%- include('_bottom', { scripts: ['/admin-assets/charts.js?v=1', '/admin-assets/dash.js?v=4'] }) %>

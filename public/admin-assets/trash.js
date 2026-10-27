@@ -10,4 +10,11 @@
       catch (e) { A.toast(e.message, true); }
     };
   });
+  document.querySelectorAll('[data-purge]').forEach(b => {
+    b.onclick = async () => {
+      if (!(await A.confirm('Delete for good?', '“' + b.dataset.name + '” is removed for ever. It cannot be put back.', 'Delete for good', true))) return;
+      try { await A.api('POST', '/admin/api/purge', { kind: b.dataset.kind, bin: b.dataset.bin }); A.toast('Deleted for good'); b.closest('tr').remove(); if (pager) pager.update(); }
+      catch (e) { A.toast(e.message, true); }
+    };
+  });
 })();

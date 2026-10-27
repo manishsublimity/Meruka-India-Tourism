@@ -127,9 +127,9 @@ function buildSite() {
     };
   })();
   // The header's Destinations / Tour Packages dropdowns appear on every page
-  app.locals.menu = { pkgCols: home.pkgMenuCols, destCols: home.destMenuCols, to: home.to, mostBookedHref: home.mostBookedHref, langs: require('./data/languages'), header: home.headerMenu };
+  app.locals.menu = { logo: home.siteLogo || '', pkgCols: home.pkgMenuCols, destCols: home.destMenuCols, to: home.to, mostBookedHref: home.mostBookedHref, langs: require('./data/languages'), header: home.headerMenu };
   // ...and so does the one footer (partials/site-footer), with the head office details from the contact page
-  app.locals.footer = { cols: home.footerCols, seo: home.popularSearches || home.seoLinks, about: home.footerAbout, hq: contact.offices[0], testimonialsHref: home.testimonials.href,
+  app.locals.footer = { logo: home.siteLogo || '', cols: home.footerCols, seo: home.popularSearches || home.seoLinks, about: home.footerAbout, hq: contact.offices[0], testimonialsHref: home.testimonials.href,
     // WhatsApp chat link: the head office's first number
     social: home.footerSocial || require('./data/home2').social,
     wa: 'https://wa.me/' + contact.offices[0].phones[0].replace(/[^0-9]/g, ''),
