@@ -4,13 +4,16 @@
   const A = window.ADMIN, R = window.ROLES, P = window.PERMS;
   const roleOptions = sel => Object.entries(R).map(([k, r]) => '<option value="' + k + '"' + (k === sel ? ' selected' : '') + '>' + A.esc(r.label) + '</option>').join('');
   const all = r => R[r] && R[r].can.includes('*');
+  const PERM_NAME = { content: 'Write', publish: 'Publish', delete: 'Delete', menus: 'Menus', reviews: 'Guest reviews', enquiries: 'Enquiries', settings: 'Site settings', users: 'Users' };
   const defaults = r => all(r) ? P.map(p => p[0]) : (R[r] ? R[r].can : []);
   const form = (u, isNew) =>
-    '<div class="f"><label class="lb">Name</label><input class="in" data-n value="' + A.esc(u.name || '') + '" placeholder="e.g. Priya Sharma" autocomplete="off"></div>' +
-    '<div class="f"><label class="lb">Email (used to log in)</label><input class="in" data-e type="email" value="' + A.esc(u.email || '') + '" placeholder="name@company.com" autocomplete="off"></div>' +
+    // (27 Oct 2026, client video) a tidier form: two fields a row; what they can do as switches with a short name
+    '<div class="u-row"><div class="f"><label class="lb">Name</label><input class="in" data-n value="' + A.esc(u.name || '') + '" placeholder="e.g. Priya Sharma" autocomplete="off"></div>' +
+    '<div class="f"><label class="lb">Email (used to log in)</label><input class="in" data-e type="email" value="' + A.esc(u.email || '') + '" placeholder="name@company.com" autocomplete="off"></div></div>' +
     '<div class="f"><label class="lb">Role</label><select class="in" data-r>' + roleOptions(u.role || 'editor') + '</select></div>' +
     '<div class="f"><label class="lb">What they can do <small class="muted" data-own></small></label><div class="perm-grid" data-perms>' +
-      P.map(([k, t]) => '<label class="perm"><input type="checkbox" value="' + k + '"><span>' + A.esc(t) + '</span></label>').join('') + '</div></div>' +
+      P.map(([k, t]) => { const m = /^([^:(]+?)(?::\s*|\s*\()(.*?)\)?$/.exec(t); const head = PERM_NAME[k] || (m ? m[1] : t), sub = PERM_NAME[k] ? t : (m ? m[2] : '');
+        return '<label class="perm"><input type="checkbox" value="' + k + '"><span><b>' + A.esc(head) + '</b><small>' + A.esc(sub) + '</small></span></label>'; }).join('') + '</div></div>' +
     '<div class="f"><label class="lb">' + (isNew ? 'Password' : 'New password (leave empty to keep the current one)') + '</label><input class="in" data-p type="password" autocomplete="new-password" placeholder="At least 8 characters"></div>' +
     (isNew ? '' : '<div class="f"><label class="lb"><input type="checkbox" data-a' + (u.active ? ' checked' : '') + '> Can log in (untick to switch the account off)</label></div>') +
     '<p class="hint">Share the email and password with the person yourself. They can change their password in My account.</p>';

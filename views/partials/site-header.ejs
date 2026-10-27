@@ -67,6 +67,7 @@
             <svg class="mh-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="mh-lang-menu is-hidden" data-mh-lang-menu>
+            <div class="mh-lang-top"><span>Choose a language</span><button type="button" class="mh-drawer-x" data-mh-lang-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
             <%# (23 Oct 2026) every Google Translate language: its own name, the English name beside it %>
             <% menu.langs.forEach(l => { %><button type="button" data-mh-lang-pick="<%= l.name %>" data-code="<%= l.code %>" translate="no" lang="<%= l.code %>"><%= l.name %><% if (l.en) { %> <small lang="en"><%= l.en %></small><% } %></button><% }) %>
           </div>
@@ -77,11 +78,14 @@
   </div>
 
 
+  <%# (27 Oct 2026, client video) on tablets and phones the menu slides in from the right over the page, like an app %>
   <div class="mh-drawer is-hidden" data-mh-drawer>
+    <div class="mh-drawer-top"><span class="mh-drawer-t">Menu</span><button type="button" class="mh-drawer-x" data-mh-close aria-label="Close the menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
     <% links.forEach(l => { %>
     <a href="<%= l.href %>" class="mh-drawer-link<%= l.label === current ? ' on' : '' %>"><%= l.label %></a>
     <% }) %>
     <a href="/plan-my-trip" class="mh-plan mh-drawer-plan">Plan My Trip</a>
   </div>
+  <div class="mh-scrim" data-mh-scrim hidden></div>
 </header>
 <%- include('admin-bar') %>

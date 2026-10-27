@@ -16,6 +16,29 @@
   </div>
   <p class="hint" style="margin:14px 0 0">Changes show straight away. The website keeps its own colours.</p>
 </div>
+<% if (can('users')) { %>
+<%# (27 Oct 2026, client video) an Owner chooses the look each role starts with %>
+<div class="card">
+  <h3 class="look-h">The look each role starts with</h3>
+  <p class="hint" style="margin:0 0 12px">Everyone with this role sees this look until they choose their own above.</p>
+  <div class="rl-grid">
+    <% Object.entries(roles).forEach(([rk, r]) => { const cur = (roleLooks || {})[rk] || { mode: 'light', accent: 'blue' }; %>
+    <div class="rl-row" data-role="<%= rk %>">
+      <b><%= r.label %></b>
+      <select class="in" data-rl-mode aria-label="Mode for <%= r.label %>"><% [['light', 'Light'], ['dark', 'Dark'], ['auto', 'Automatic']].forEach(([v, t]) => { %><option value="<%= v %>"<%= cur.mode === v ? ' selected' : '' %>><%= t %></option><% }) %></select>
+      <span class="rl-dots"><% [['blue', '#336699'], ['teal', '#0F766E'], ['indigo', '#4F46E5'], ['green', '#2F7A3E'], ['maroon', '#9F1239'], ['slate', '#334155']].forEach(([k, c]) => { %><button type="button" data-rl-accent="<%= k %>" class="<%= cur.accent === k ? 'on' : '' %>" style="background:<%= c %>" title="<%= k %>" aria-label="<%= k %>"></button><% }) %></span>
+    </div>
+    <% }) %>
+  </div>
+</div>
+<script>
+document.querySelectorAll('[data-role]').forEach(function (row) {
+  var save = function () { var acc = row.querySelector('[data-rl-accent].on'); ADMIN.api('POST', '/admin/api/role-look', { role: row.dataset.role, mode: row.querySelector('[data-rl-mode]').value, accent: acc ? acc.dataset.rlAccent : 'blue' }).then(function () { ADMIN.toast('Saved for ' + row.querySelector('b').textContent); }).catch(function (e) { ADMIN.toast(e.message, true); }); };
+  row.querySelector('[data-rl-mode]').onchange = save;
+  row.querySelectorAll('[data-rl-accent]').forEach(function (b) { b.onclick = function () { row.querySelectorAll('[data-rl-accent]').forEach(function (x) { x.classList.toggle('on', x === b); }); save(); }; });
+});
+</script>
+<% } %>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   var read = function () { try { return JSON.parse(localStorage.getItem('mk-look') || '{}'); } catch (e) { return {}; } };

@@ -31,4 +31,4 @@
 </table>
 </div>
 <script>window.ROLES = <%- JSON.stringify(Object.fromEntries(Object.entries(roles).map(([k, r]) => [k, { label: r.label, can: r.can }]))) %>; window.PERMS = <%- JSON.stringify(perms) %>;</script>
-<%- include('_bottom', { scripts: ['/admin-assets/users.js?v=2'] }) %>
+<%- include('_bottom', { scripts: ['/admin-assets/users.js?v=3'] }) %>

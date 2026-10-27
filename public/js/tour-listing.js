@@ -87,4 +87,18 @@
   // phones: the filters start folded under a "Filters" bar
   var det = root.querySelector('[data-tp2-details]');
   if (det && window.matchMedia('(max-width: 1199.98px)').matches && !(qp || np)) det.removeAttribute('open');
+  // (27 Oct 2026, client video) tablets and phones: the filters open as a sheet from the bottom, like an app; the
+  // "Show tours" button, a tap on the dimmed page or Escape closes it (the tours update as you tick)
+  if (det) {
+    var frm = det.querySelector('form');
+    if (frm && !frm.querySelector('[data-tp2-done]')) {
+      var done = document.createElement('button'); done.type = 'button'; done.className = 'tp2-done'; done.setAttribute('data-tp2-done', ''); done.textContent = 'Show tours';
+      done.addEventListener('click', function () { det.removeAttribute('open'); });
+      frm.appendChild(done);
+    }
+    var small = window.matchMedia('(max-width: 1199.98px)');
+    det.addEventListener('click', function (e) { if (small.matches && e.target === det) det.removeAttribute('open'); });
+    det.addEventListener('toggle', function () { document.documentElement.classList.toggle('tp2-lock', small.matches && det.open); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && det.open && small.matches) det.removeAttribute('open'); });
+  }
 })();

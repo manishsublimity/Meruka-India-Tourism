@@ -78,9 +78,9 @@
 <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' — ' : '' %>Meruka admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/admin-assets/admin.css?v=30">
+<link rel="stylesheet" href="/admin-assets/admin.css?v=35">
 <%# (26 Oct 2026, client) the panel's look (light or dark, and its colour), chosen per browser in "Look of the panel" %>
-<script>(function () { try { var l = JSON.parse(localStorage.getItem('mk-look') || '{}'), d = document.documentElement, m = l.mode || 'light';
+<script>(function () { try { var rl = <%- JSON.stringify(typeof roleLook !== 'undefined' && roleLook ? roleLook : {}) %>, own = localStorage.getItem('mk-look'), l = own ? JSON.parse(own) : rl, d = document.documentElement, m = l.mode || 'light';
   if (m === 'auto') m = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   d.setAttribute('data-mode', m); d.setAttribute('data-accent', l.accent || 'blue'); } catch (e) {} })();</script>
 </head>
@@ -112,7 +112,7 @@
       <% if (typeof crumb !== 'undefined' && crumb) { %><a class="ad-crumb" href="<%= crumb[0] %>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span>Back to <b><%= crumb[1] %></b></span></a><% } %>
       <div class="ad-bar-r">
         <% const NEW_IC = { Tour: 'tours', 'Tour category': 'cats', 'Destination page': 'map', 'Travel guide page': 'guide', 'Blog post': 'blog', 'Guest review': 'reviews', User: 'user' }; %>
-        <% if (NEW.length) { %><details class="ad-new" data-pop><summary><svg class="nb-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create new</summary><div class="ad-menu ad-newgrid"><p class="nt-h">Create something new</p><div class="ng"><% NEW.forEach(([, href, t, sub]) => { %><a href="<%= href %>"><i><%- ic(NEW_IC[t] || 'pages') %></i><span><%= t %><small><%= sub %></small></span></a><% }) %></div></div></details><% } %>
+        <% if (NEW.length) { %><details class="ad-new" data-pop><summary><svg class="nb-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Quick add<span class="nb-kbd" title="Press N on any page">N</span></summary><div class="ad-menu ad-newgrid"><p class="nt-h">Quick add — from any page <span class="muted">(press N)</span></p><div class="ng"><% NEW.forEach(([, href, t, sub]) => { %><a href="<%= href %>"><i><%- ic(NEW_IC[t] || 'pages') %></i><span><%= t %><small><%= sub %></small></span></a><% }) %></div></div></details><% } %>
         <details class="ad-pop" data-pop>
           <summary class="ad-bell" aria-label="Notifications: <%= NOTES.length %>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><% if (NOTES.length) { %><b><%= NOTES.length %></b><% } %></summary>
           <div class="ad-menu ad-notes"><div class="nt-h">Notifications<% if (c('enquiries')) { %><a href="/admin/enquiries">All enquiries</a><% } %></div>

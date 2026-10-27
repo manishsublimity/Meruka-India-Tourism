@@ -144,6 +144,12 @@
   pops.forEach(p => p.addEventListener('toggle', () => { if (p.open) pops.forEach(o => { if (o !== p) o.open = false; }); }));
   document.addEventListener('click', e => { pops.forEach(p => { if (p.open && !p.contains(e.target)) p.open = false; }); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') pops.forEach(p => { p.open = false; }); });
+  // (27 Oct 2026, client video) N opens "Quick add" from any page (not while typing)
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'n' && e.key !== 'N') return;
+    if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest('input,textarea,select,[contenteditable="true"]')) return;
+    const q = document.querySelector('.ad-new'); if (q) { e.preventDefault(); q.open = true; q.querySelector('a') && q.querySelector('a').focus(); }
+  });
 })();
 
 // (26 Oct 2026) menu groups (Tours, Four Regions, Travel Guide, Footer menu): the arrow opens or closes the group

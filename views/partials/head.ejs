@@ -92,7 +92,7 @@ html.gt-wait::after{content:"";position:fixed;left:50%;top:50%;width:34px;height
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&amp;family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Shantell+Sans:wght@400;500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="<%= typeof cssHref !== 'undefined' ? cssHref : '/css/site.css' %>">
 <% if (typeof extraCss !== 'undefined') { [].concat(extraCss).forEach(h => { %><link rel="stylesheet" href="<%= h %>"><% }) } %>
-<script src="<%= typeof siteJs !== 'undefined' ? siteJs : '/js/site.js' %>" defer></script>
+<script src="<%= typeof siteJs !== 'undefined' ? siteJs : '/js/site.js?v=3' %>" defer></script>
 <% if (typeof frameClass !== 'undefined' && frameClass.split(' ').includes('in4')) { %><script src="/js/inner-4.js" defer></script><% } %>
 </head>
 <body>

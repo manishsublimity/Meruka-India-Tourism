@@ -49,7 +49,7 @@
     guideSection: 'Choose a section and this page is listed there by itself: on the home page’s Travel Guide cards and on the India Travel Guide page (/guide). The pages already listed there stay as they are.',
     heroSrc_tours: 'Leave it empty to show the banner of the tour’s category. Choose a photo only if this tour needs its own.',
     heroAlt: 'For Google and for people who cannot see the photo. Example: Taj Mahal at sunrise',
-    days: 'Click a day to open it. Use ↑ ↓ to change the order, ✕ to remove a day.',
+    days: 'Click a day to open it. Drag it by its dots to change the order; the bin removes it.',
     paras: 'Write it like in Word: Enter starts a new paragraph. Select words and use the toolbar for bold, italic, underline or a link.',
     details: 'First the prices per hotel class, then what the tour includes and excludes, and the important notes.',
     items: 'One point per line (press Enter for the next point).',
@@ -73,7 +73,7 @@
     excerpt: 'Two or three lines. Shown on /blog under the title.',
     photo: 'Shown for this tour or post in lists and cards.',
     outro: 'Shown under the list of tours on the category page. Leave it empty if the page needs no closing text.',
-    cards: 'Use the arrows to change the order and ✕ to remove a card.',
+    cards: 'Drag a card by its dots to change the order; the bin removes it.',
     cities: 'Each city: its name and the page it opens.',
     siteLogo: 'Leave it empty to keep the Meruka logo as it is now. A picture chosen here replaces it in the header and the footer.'
   };
@@ -85,7 +85,7 @@
     // (26 Oct 2026, client) the banner sits in Basic info; the breadcrumb is made automatically, so it has no tab
     // (26 Oct 2026, client video II) one photo per tour; the banner is its category's; route and length come from the days
     // (27 Oct 2026, client) no Google tab for now; the prices (the box beside the days) apart from the includes and notes
-    tours: [['Basic info', ['heading', 'photo', 'route', 'duration'], ''], ['Day by day', ['days'], 'Click a day to open it. Use the arrows to change the order.'],
+    tours: [['Basic info', ['heading', 'photo', 'route', 'duration'], ''], ['Day by day', ['days'], 'Click a day to open it. Drag a day by its dots to change the order.'],
       ['Prices', ['details'], 'The price box beside the days on the tour page: one line per hotel class.']],
     // a category's tours are chosen in each tour (its Categories tab), so the category only needs its text and banner
     lists: [['Basic info', ['heading', 'intro', 'outro', 'heroSrc', 'heroAlt'], '']],
@@ -536,14 +536,15 @@
   function image(v, auto) {
     const el = document.createElement('div'); el.className = 'img-f';
     el.innerHTML = '<button type="button" class="pv" title="Choose a photo"><span class="pv-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 8"/></svg>Choose a photo</span></button>' +
-      '<div class="img-side"><span class="img-name"></span><span class="img-acts"><button type="button" class="lnk" data-ch></button><button type="button" class="lnk lnk-d" data-rm>Remove</button></span></div><input type="hidden">';
+      '<span class="img-acts"><button type="button" class="img-ic" data-ch title="Choose another photo" aria-label="Choose another photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v3h3l10-10-3-3L4 16z"/><path d="m13 7 3 3"/></svg></button><button type="button" class="img-ic img-ic-d" data-rm title="Remove the photo" aria-label="Remove the photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></span>' +
+      '<span class="img-name"></span><input type="hidden">';
     const pv = el.querySelector('.pv'), inp = el.querySelector('input'), name = el.querySelector('.img-name'), ch = el.querySelector('[data-ch]'), rm = el.querySelector('[data-rm]');
     const show = () => {
       const own = inp.value.trim(), a = !own && auto ? auto() || '' : '', src = own || a;
       pv.style.backgroundImage = src ? 'url("' + src.replace(/"/g, '') + '")' : 'none'; pv.classList.toggle('has', !!src);
       if (a) pv.dataset.auto = 'Chosen by itself'; else delete pv.dataset.auto;
-      name.textContent = own ? own.split('/').pop() : a ? 'The website picks this one. Choose a photo to use your own.' : 'No photo yet';
-      ch.textContent = own ? 'Change' : 'Choose a photo'; rm.hidden = !own;
+      name.textContent = own ? own.split('/').pop() : a ? 'Chosen by the website — click the photo to use your own' : '';
+      ch.hidden = !src; rm.hidden = !own;
     };
     const pick = async () => { const src = await A.pickImage(); if (src) { inp.value = src; show(); touch(); } };
     pv.onclick = pick; ch.onclick = pick; rm.onclick = () => { inp.value = ''; show(); touch(); };
@@ -574,7 +575,18 @@
     if ('count' in obj && 'items' in obj && 'title' in obj && E.id === 'home') hide.push('count', 'items');
     if (E.id === 'home' && 'link' in obj && 'photo' in obj && 'price' in obj && 'title' in obj) return pkgCard(obj);
     el.className = 'fg';
-    Object.entries(obj).forEach(([k, v]) => { if (hide.includes(k)) { gets[k] = () => v; return; }
+    // (27 Oct 2026, client video) a button's words and the page it opens are one thing: one row
+    if ('button' in obj && 'buttonLink' in obj && typeof obj.button === 'string') hide.push('buttonLink');
+    Object.entries(obj).forEach(([k, v]) => { if (hide.includes(k) && !(k === 'buttonLink' && 'button' in obj)) { gets[k] = () => v; return; }
+      if (k === 'buttonLink') return;
+      if (k === 'button' && 'buttonLink' in obj) {
+        const row = document.createElement('div'); row.className = 'ln-row btn-row';
+        const t = input(v, 'text', x => x), h = input(obj.buttonLink || '', 'text', x => x.trim());
+        t.el.placeholder = 'Words on the button'; h.el.placeholder = 'Click to choose the page it opens'; pageLink(h.el);
+        row.append(t.el, h.el);
+        const fb = document.createElement('div'); fb.className = 'f'; fb.dataset.k = 'button'; fb.innerHTML = '<label class="lb">Button — its words and the page it opens</label>'; fb.appendChild(row);
+        el.appendChild(fb); gets.button = t.get; gets.buttonLink = h.get; return;
+      }
       const c = isDay && k === 'photo' ? (a => image(v, () => a))(dayAuto.length ? dayAuto.shift() : '') : field(k, v, depth + 1); const fb = fieldBox(k, c, false); el.appendChild(fb); gets[k] = c.get;
       if (isForm && FORM_LABELS[k]) fb.querySelector('.lb').textContent = FORM_LABELS[k];
       if (k === 'items' && Array.isArray(v) && v.some(isLinkRow)) { fb.querySelector('.lb').textContent = 'Links'; const h = fb.querySelector('.fhelp'); if (h) h.remove(); }
@@ -586,6 +598,9 @@
       if (/^(included|extras)$/.test(k)) fb.classList.add('half');
       if (Object.keys(obj).filter(x => !hide.includes(x)).length === 1) fb.classList.add('f-solo'); if ((k === 'title' || k === 'description') && Object.keys(obj).every(x => x === 'title' || x === 'description')) counter(k, c); });   // the main pages' Google text
     pairHalves(el);
+    // (27 Oct 2026, client video) a card with a photo: the photo on the left, its fields beside it (no empty space)
+    const ph = [...el.children].filter(f => f.querySelector(':scope > .img-f'));
+    if (ph.length === 1 && el.children.length >= 3 && !obj.paras) { el.classList.add('fg-media'); ph[0].classList.add('f-photo'); ph[0].classList.remove('half'); }
     [...el.children].forEach(f => { const n = f.nextElementSibling; if (f.querySelector(':scope > .img-f') && n && n.querySelector(':scope > div > textarea.in') && !f.classList.contains('half') && !n.classList.contains('half')) { f.classList.add('half', 'f-img'); n.classList.add('half'); } });
     return { el, isGroup: true, get: () => Object.fromEntries(Object.entries(gets).map(([k, g]) => [k, g()])) };
   }
@@ -595,7 +610,7 @@
   const loadCatCards = () => catCards || (catCards = A.api('GET', '/admin/api/category-cards').then(r => r.items || []).catch(() => []));
   function pkgCard(obj) {
     const el = document.createElement('div'); el.className = 'pk';
-    el.innerHTML = '<div class="f"><label class="lb">Photo</label></div><div class="f"><label class="lb">Tour category</label><select class="in" data-cat><option value="">Choose a category…</option></select></div>' +
+    el.innerHTML = '<div class="f f-photo"><label class="lb">Photo</label></div><div class="f"><label class="lb">Tour category</label><select class="in" data-cat><option value="">Choose a category…</option></select></div>' +
       '<div class="f"><label class="lb">Name on the card</label><input class="in" data-t></div><p class="pk-price" data-p></p>';
     const sel = el.querySelector('[data-cat]'), t = el.querySelector('[data-t]'), pr = el.querySelector('[data-p]');
     let cats = [];
@@ -632,21 +647,31 @@
     // (27 Oct 2026, client) small things side by side, all open: figures, banner photos, cards, points, steps
     const gridCols = !simple && { stats: 5, heroSlides: 4, cards: key === 'cards' && E.id === 'home' && arr[0] ? ('price' in arr[0] ? 4 : 'cities' in arr[0] ? 2 : 0) : 0, points: arr.length === 4 ? 4 : 3, steps: 4, seasons: 3, glance: 3, guideCols: 3, footerCols: 2, offices: 2, tips: 3 }[key];
     if (gridCols) { box.classList.add('arr-grid'); box.style.setProperty('--cols', gridCols); }
-    const ICO = { up: '<path d="m18 15-6-6-6 6"/>', down: '<path d="m6 9 6 6 6-6"/>', left: '<path d="m15 18-6-6 6-6"/>', right: '<path d="m9 18 6-6-6-6"/>', x: '<path d="M18 6 6 18M6 6l12 12"/>' };
+    // (27 Oct 2026, client video) no up / down arrows: each item has a grip to drag it where it should go; a bin removes it
+    const ICO = { down: '<path d="m6 9 6 6 6-6"/>', x: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>', grip: '<circle cx="9" cy="6" r="1.4"/><circle cx="15" cy="6" r="1.4"/><circle cx="9" cy="12" r="1.4"/><circle cx="15" cy="12" r="1.4"/><circle cx="9" cy="18" r="1.4"/><circle cx="15" cy="18" r="1.4"/>' };
     const ico = n => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICO[n] + '</svg>';
+    let dragging = null;
+    box.addEventListener('dragover', e => {
+      if (!dragging || dragging.parentNode !== box) return; e.preventDefault();
+      const after = [...box.children].filter(c => c !== dragging).find(c => { const rc = c.getBoundingClientRect(); return gridCols ? (e.clientY < rc.bottom && e.clientX < rc.left + rc.width / 2) || e.clientY < rc.top : e.clientY < rc.top + rc.height / 2; });
+      if (after) box.insertBefore(dragging, after); else box.appendChild(dragging);
+    });
     const add = (v, open) => {
       const it = document.createElement('div'); it.className = 'it' + (open || simple || gridCols ? '' : ' closed');
-      it.innerHTML = '<div class="it-h">' + (simple || gridCols ? '' : '<i class="it-c" aria-hidden="true">' + ico('down') + '</i>') + '<span class="n"></span><b></b><span class="it-acts"><button type="button" title="' + (gridCols ? 'Move left' : 'Move up') + '">' + ico(gridCols ? 'left' : 'up') + '</button><button type="button" title="' + (gridCols ? 'Move right' : 'Move down') + '">' + ico(gridCols ? 'right' : 'down') + '</button><button type="button" class="x" title="Remove">' + ico('x') + '</button></span></div><div class="it-b"></div>';
+      it.innerHTML = '<div class="it-h">' + (simple || gridCols ? '' : '<i class="it-c" aria-hidden="true">' + ico('down') + '</i>') + '<span class="n"></span><b></b><span class="it-acts"><button type="button" class="x" title="Remove">' + ico('x') + '</button></span></div><div class="it-b"></div>';
+      const grip = document.createElement('span'); grip.className = 'it-grip'; grip.title = 'Drag to move'; grip.innerHTML = ico('grip').replace('fill="none"', 'fill="currentColor"');
+      grip.addEventListener('mousedown', () => { it.draggable = true; }); grip.addEventListener('mouseup', () => { it.draggable = false; }); grip.addEventListener('touchstart', () => { it.draggable = true; }, { passive: true });
+      it.addEventListener('dragstart', e => { if (!it.draggable) return e.preventDefault(); dragging = it; it.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', ''); } catch (er) {} });
+      it.addEventListener('dragend', () => { it.draggable = false; it.classList.remove('dragging'); dragging = null; const order = [...box.children]; rows.sort((a, b2) => order.indexOf(a.it) - order.indexOf(b2.it)); renum(); touch(); });
       const c = key === 'footerSocial' && isLinkObj(v) ? socialRow(v) : linkList ? linkInline(v, true) : field(key === 'items' ? 'item' : key, v, depth + 1, true), b = it.querySelector('b');
       it.querySelector('.it-b').appendChild(c.el);
       const r = { it, get: c.get, n: it.querySelector('.n') };
       const setSum = () => { if (!gridCols) b.textContent = summary(c.get()) || '(empty — click to fill in)'; };
       setSum(); it.addEventListener('input', setSum);
-      if (simple) { b.style.display = 'none'; it.classList.remove('closed'); it.style.display = 'grid'; it.style.gridTemplateColumns = 'minmax(0,1fr) auto'; it.querySelector('.it-b').style.padding = '6px'; it.insertBefore(it.querySelector('.it-b'), it.firstChild); Object.assign(it.querySelector('.it-h').style, { borderBottom: '0', background: 'none', cursor: 'default' }); r.n.style.display = 'none'; }
-      const [up, down, x] = it.querySelectorAll('.it-h .it-acts button');
+      if (simple) { b.style.display = 'none'; it.classList.remove('closed'); it.style.display = 'grid'; it.style.gridTemplateColumns = 'auto minmax(0,1fr) auto'; it.querySelector('.it-b').style.padding = '6px'; it.insertBefore(it.querySelector('.it-b'), it.firstChild); Object.assign(it.querySelector('.it-h').style, { borderBottom: '0', background: 'none', cursor: 'default' }); r.n.style.display = 'none'; }
+      const [x] = it.querySelectorAll('.it-h .it-acts button');
+      if (simple) it.insertBefore(grip, it.firstChild); else it.querySelector('.it-h').insertBefore(grip, it.querySelector('.it-h').firstChild);
       it.querySelector('.it-h').onclick = e => { if (!e.target.closest('button') && !simple && !gridCols) it.classList.toggle('closed'); };
-      up.onclick = () => { const i = rows.indexOf(r); if (i > 0) { rows.splice(i, 1); rows.splice(i - 1, 0, r); box.insertBefore(it, rows[i].it); renum(); touch(); } };
-      down.onclick = () => { const i = rows.indexOf(r); if (i < rows.length - 1) { rows.splice(i, 1); rows.splice(i + 1, 0, r); box.insertBefore(it, rows[i].it.nextSibling); renum(); touch(); } };
       x.onclick = async () => { if (!(await A.confirm('Remove this?', '"' + (summary(c.get()) || 'This item') + '" will be removed when you save.', 'Remove', true))) return; rows.splice(rows.indexOf(r), 1); it.remove(); renum(); touch(); };
       rows.push(r); box.appendChild(it); renum();
       if (open && !simple) it.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -679,7 +704,7 @@
           const v = isLinkRow(tmpl) ? [p.name].concat([p.url], tmpl.length > 2 ? [''] : []) : Object.assign(JSON.parse(JSON.stringify(tmpl)), 'label' in tmpl ? { label: p.name } : { name: p.name }, { href: p.url });
           add(v, false);
         });
-        if (list.length) { touch(); A.toast(list.length === 1 ? 'Added: ' + list[0].name : list.length + ' links added — use ↑ ↓ to put them in order'); }
+        if (list.length) { touch(); A.toast(list.length === 1 ? 'Added: ' + list[0].name : list.length + ' links added — drag them by their dots to put them in order'); }
       });
       btns.appendChild(pagesBtn);
       addBtn.textContent = '+ Add a custom link';
@@ -866,7 +891,8 @@
       keys = keys.filter(k => k in data); if (!keys.length) return;
       const card = document.createElement('section'); card.className = 'card fg'; card.hidden = true;
       // (27 Oct 2026, client) a part of a page: its name as a heading, then what it is, then its fields
-      if (E.mode === 'single' && tabs.length > 1) card.insertAdjacentHTML('beforeend', '<div class="tab-head"><h2>' + A.esc(name) + '</h2>' + (intro ? '<p>' + A.esc(intro) + '</p>' : '') + '</div>');
+      // (27 Oct 2026, client video) the tab already names the part: only the short note what it is, no second heading
+      if (E.mode === 'single' && tabs.length > 1 && intro) card.insertAdjacentHTML('beforeend', '<div class="tab-head"><p>' + A.esc(intro) + '</p></div>');
       else if (intro) card.insertAdjacentHTML('beforeend', '<p class="tab-intro">' + A.esc(intro) + '</p>');
       keys.forEach(k => {
         const c = field(k, data[k], 0);
