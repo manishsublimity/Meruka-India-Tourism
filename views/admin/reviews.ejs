@@ -1,0 +1,20 @@
+<%- include('_top', { pageTitle: 'Guest reviews' }) %>
+<%# (26 Oct 2026, client video II) the guest reviews as a table, like the tours: number, guest, where from, tour.
+    A review opens in a small form; the page's own text is a separate button. %>
+<div class="ad-top ad-head">
+  <div><h1>Guest reviews</h1><p class="lead">The reviews on the Guest Reviews page, the home page and About us. The first one in this list shows first on the website.</p></div>
+  <div class="row" style="margin:0">
+    <a class="btn" href="/admin/settings/reviews#page-text">Edit the page text</a>
+    <% if (canPublish) { %><button class="btn btn-g" type="button" data-add>+ Add review</button><% } %>
+  </div>
+</div>
+<div class="lst-bar"><div class="lst-left"><span class="muted" data-count></span></div><div class="lst-right"><input class="in lst-q" type="search" placeholder="Search a guest, country or tour…" data-q></div></div>
+<div class="lst-wrap">
+<table class="tbl lst lst-clean">
+  <thead><tr><th class="n">#</th><th>Client name</th><th>Tour they took</th><th class="rv-q">What they wrote</th><th class="acts-h">Actions</th></tr></thead>
+  <tbody data-body></tbody>
+</table>
+</div>
+<p class="hint" style="margin-top:10px">Use ↑ ↓ to change the order. Changes go on the website straight away.</p>
+<script>window.REVIEWS = { canPublish: <%- JSON.stringify(!!canPublish) %> };</script>
+<%- include('_bottom', { scripts: ['/admin-assets/reviews.js?v=1'] }) %>

@@ -2,16 +2,8 @@
   // One header for every page. `active` is the highlighted link.
   const current = typeof active !== 'undefined' ? active : '';
   const ext = h => /^https?:/.test(h) ? ' target="_blank" rel="noopener"' : '';
-  const links = [
-    { label: 'Home', href: '/' },
-    { label: 'About Us', href: '/aboutus' },
-    // (15 Oct 2026) direct links, no dropdowns — as on the original site
-    { label: 'Tour Packages', href: '/itineraries' },
-    { label: 'Contact', href: '/contactus' }
-  ];
-  // home-2 (Anshuman's brief): the old site's Testimonials link and the traced logo
-  const v2 = typeof variant !== 'undefined' && variant === 'over';
-  if (v2) links.splice(3, 0, { label: 'Guest Reviews', href: '/testimonials' });   // (16 Oct 2026) one name everywhere: Guest Reviews
+  // (23 Oct 2026) the header's links come from data/home.js (headerMenu), editable in the admin panel → Header & footer
+  const links = (menu.header || []).map(l => ({ label: l.label, href: l.href }));
   const phone = footer.hq.phones[0], tel = 'tel:' + phone.replace(/[^0-9+]/g, '');
   const icon = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
   const I = {
@@ -91,3 +83,4 @@
     <a href="/plan-my-trip" class="mh-plan mh-drawer-plan">Plan My Trip</a>
   </div>
 </header>
+<%- include('admin-bar') %>

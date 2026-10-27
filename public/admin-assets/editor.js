@@ -3,26 +3,42 @@
 (function () {
   const A = window.ADMIN, E = window.EDIT;
   const root = document.querySelector('[data-form]'), tabsEl = document.querySelector('[data-tabs]');
-  const saveBtn = document.querySelector('[data-save]'), state = document.querySelector('[data-state]');
+  const saveBtn = document.querySelector('[data-save]'), draftBtn = document.querySelector('[data-draft]'), state = document.querySelector('[data-state]');
+  const statusEl = document.querySelector('[data-status]'), draftNote = document.querySelector('[data-draft-note]');
   const apiUrl = E.mode === 'single' ? '/admin/api/single/' + E.id : '/admin/api/item/' + E.kind + '/' + E.id;
-  let getters = {}, dirty = false, templates = {}, refreshGoogle = () => {};
+  let comps = {}, getters = {}, dirty = false, templates = {}, refreshGoogle = () => {}, current = null, catState = null;
 
   // ---------- plain-language names and help ----------
   const LABELS = {
     heading: 'Page title (the big heading on the page)', photo: 'Tour photo (used in lists and cards)', route: 'Route', duration: 'Length of the tour',
     days: 'Days', day: 'Day number', title: 'Title', eta: 'Distance / drive time', paras: 'What happens this day', note: 'Extra note (optional)',
     details: 'Price & what is included', text: 'Text', items: 'Points', breadcrumb: 'Breadcrumb', label: 'Text', href: 'Link to',
-    heroSrc: 'Banner photo (top of the page)', heroAlt: 'Describe the banner photo in a few words', description: 'Description', keywords: 'Keywords',
-    focusKeyword: 'Focus phrase', noindex: 'Hide this page from Google', ogImage: 'Picture when shared on WhatsApp / Facebook',
+    heroSrc: 'Banner photo (top of the page)', heroSrc_tours: 'Banner photo (optional)', heroAlt: 'Describe the banner photo in a few words', description: 'Description', keywords: 'Keywords',
+    focusKeyword: 'Main search words (optional)', noindex: 'Hide this page from Google', ogImage: 'Picture when shared on WhatsApp / Facebook',
     intro: 'Introduction text', groups: 'Tours on this page', tours: 'Tours', outro: 'Closing text', name: 'Name', html: 'Page text',
     steps: 'How it works (steps)', faqs: 'Questions & answers', q: 'Question', a: 'Answer', guideCols: 'Travel guide links', stateGroups: 'Destinations by state',
-    footerCols: 'Footer link columns', seoLinks: 'Footer "Popular searches" links', social: 'Social media', all: 'Reviews', quote: 'What the guest wrote', tour: 'Tour they took',
+    footerCols: 'Footer link columns', seoLinks: 'Footer "Popular searches" links', social: 'Social media', all: 'Reviews', quote: 'What the guest wrote', tour: 'Tour they took', country: 'Country',
     closing: 'Closing line', leadName: 'Lead name', paragraphs: 'Paragraphs', mission: 'Mission', founder: 'Founder', atithi: 'Atithi Devo Bhava',
     offices: 'Other offices (and the head office for the footer)', hqBlock: 'Head office as shown on the Contact page', cell: 'Mobile', landline: 'Landline', gmail: 'Gmail', website: 'Website', infoList: 'What we ask for (list on the Contact page)', interests: 'Interests (buttons in the enquiry form)', tourNames: 'Tours in the enquiry form',
     guide: 'Travel guide (Contact page)', city: 'City', area: 'Area', phones: 'Phone numbers', email: 'Email', lines: 'Address lines', kind: 'Type', img: 'Photo',
     initials: 'Initials (shown in the circle)', details_: 'Details', googleVerification: 'Google Search Console code', googleAnalytics: 'Google Analytics ID',
     bingVerification: 'Bing Webmaster code (optional)', defaultShareImage: 'Default share picture', pages: 'Main pages in Google', redirects: 'Redirects',
-    from: 'Old address', to: 'New address', '/': 'Home page', '/aboutus': 'About us page', '/contactus': 'Contact us page', '/testimonials': 'Guest Reviews page', '/plan-my-trip': 'Plan My Trip page'
+    from: 'Old address', to: 'New address',
+    heroTitle: 'Banner title', line1: 'First line', line2: 'Second line (in the accent style)', heroSlides: 'Banner photos', src: 'Photo', alt: 'Describe the photo in a few words',
+    place: 'Place (shown with the photo)', region: 'Region / theme', pos: 'Focus point of the photo', flip: 'Show the photo mirrored', stats: 'Figures under the banner', figure: 'Figure (e.g. 22 or 97.80%)',
+    offer: 'Seasonal offer', show: 'Show the seasonal offer on the home page', eyebrow: 'Small line above', percent: 'Big figure (e.g. 10%)', headerMenu: 'Header menu links', popularSearches: 'Popular searches', footerSocial: 'Social media', footerAbout: 'Text under the logo',
+    date: 'Date', author: 'Written by', category: 'Category', guideSection: 'Show in the India Travel Guide', excerpt: 'Short summary (shown in the list of posts)', topics: 'Topic groups', glance: 'Useful information at a glance', seasons: 'Seasons',
+    goodToKnow: 'Good to know', tips: 'Travel tips', titles: 'Titles (Mr., Mrs. …)', countries: 'Countries', months: 'Months', years: 'Years', adults: 'Adults', children: 'Children',
+    photo_single: 'Photo', note_single: 'Small note under the cards',
+    intro_lists: 'Description (shown above the tours)', outro_lists: 'Text below the tours (optional)',
+    secPackages: 'Best Tour Packages', secPopular: 'Most Popular Tours', secOwnTour: 'Private tour band', secRegions: 'Four Regions', secGuide: 'Travel Guide section', secWhy: 'Why Choose Us', secFaq: 'FAQs section',
+    accent: 'Heading — second part (in the accent style)', sub: 'Line under the heading', button: 'Button text', buttonLink: 'Button opens', cards: 'Cards', link: 'Opens (page)', price: 'Price (USD)',
+    currency: 'Currency', priceNote: 'Line under the price', included: 'What is included', extras: 'You can also', kicker: 'Small line under the name', cities: 'Popular cities', statesTitle: 'Title above the states',
+    tag: 'Small label on the photo', seasonTitle: 'Photo title', seasonText: 'Photo line', points: 'Points', quoteName: 'Name under the quote', quoteRole: 'Their role', boxTitle: 'Box title', boxText: 'Box line',
+    homeCount: 'How many questions the home page shows (the rest are on the FAQs page, /faqs)', howTitle: '“How we work” title', howNote: '“How we work” note', n: 'Step number (01, 02 …)', when: 'When (e.g. DAY 0, WEEK 1)', body: 'Text',
+    form: 'Form', period: 'Travel period — words', showPeriod: 'Show “Travel period”', people: 'Number of people — words', showPeople: 'Show “Number of people”',
+    showDays: 'Show “Number of days”', showHotelBudget: 'Show “Hotel budget”', showHotelCategory: 'Show “Hotel category”', message: 'Message box — words', messageHint: 'Message box — example text',
+    hotelBudget: 'Hotel budget choices', hotelCategory: 'Hotel category choices', '/': 'Home page', '/aboutus': 'About us page', '/contactus': 'Contact us page', '/testimonials': 'Guest Reviews page', '/plan-my-trip': 'Plan My Trip page'
   };
   const HELP = {
     heading: 'The large title at the top of the page.',
@@ -30,11 +46,13 @@
     duration: 'Example: 06 Nights · 07 Days',
     photo: 'Shown for this tour in tour lists and "Most Popular Tours". Leave empty to use a matching photo automatically.',
     heroSrc: 'The wide photo at the very top of the page.',
+    guideSection: 'Choose a section and this page is listed there by itself: on the home page’s Travel Guide cards and on the India Travel Guide page (/guide). The pages already listed there stay as they are.',
+    heroSrc_tours: 'Leave it empty to show the banner of the tour’s category. Choose a photo only if this tour needs its own.',
     heroAlt: 'For Google and for people who cannot see the photo. Example: Taj Mahal at sunrise',
     days: 'Click a day to open it. Use ↑ ↓ to change the order, ✕ to remove a day.',
-    paras: 'A blank line starts a new paragraph. Select words and press B Bold to make them stand out.',
-    details: 'The first block is the price list (one hotel type per line, e.g. **3-Star:** $85 - $100 per person per day). Then what is included, excluded and notes.',
-    items: 'One point per line.',
+    paras: 'Write it like in Word: Enter starts a new paragraph. Select words and use the toolbar for bold, italic, underline or a link.',
+    details: 'First the prices per hotel class, then what the tour includes and excludes, and the important notes.',
+    items: 'One point per line (press Enter for the next point).',
     groups: 'The tours this page lists. Open a group to add, remove or reorder its tours. The first tour of a main category is the one shown in "Most Popular Tours".',
     href: 'A page on this website starts with / (example: /golden_triangle_packages). Another website starts with https://',
     breadcrumb: 'The small path above the page title. Usually no need to change it.',
@@ -46,41 +64,77 @@
     defaultShareImage: 'Used when a page without its own photo is shared on WhatsApp, Facebook or LinkedIn.',
     pages: 'Leave empty to keep the built-in text.',
     redirects: 'When a page gets a new address, send visitors and Google from the old address to the new one. Example: /old-tour → /new-tour',
-    all: 'Each review: what the guest wrote, their name and country, and the tour they took.'
+    all: 'Each review: what the guest wrote, their name and country, and the tour they took.',
+    heroSlides: 'The photos turn every few seconds, in this order. The first one shows first.',
+    pos: 'Which part of the photo stays in view: left-right then top-bottom, e.g. 50% 30%.',
+    stats: 'Leave a figure empty to show the "private tour" shield instead.',
+    headerMenu: 'The links in the header, left to right. A page on this website starts with / (example: /itineraries).',
+    footerCols: 'Each column: its title and its links (name and address).',
+    excerpt: 'Two or three lines. Shown on /blog under the title.',
+    photo: 'Shown for this tour or post in lists and cards.',
+    price: 'Leave empty to show the lowest tour price of that category automatically.',
+    cards: 'Use ↑ ↓ to change the order, ✕ to remove a card, + Add one more for a new card.',
+    cities: 'Each city: its name and the page it opens.'
   };
-  const label = k => LABELS[k] || String(k).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]/g, ' ').replace(/^./, c => c.toUpperCase());
+  const label = k => LABELS[k + '_' + E.kind] || LABELS[k] || String(k).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]/g, ' ').replace(/^./, c => c.toUpperCase());
 
   // ---------- tabs for each kind of page ----------
   const GOOGLE = ['title', 'description', 'keywords', 'focusKeyword', 'noindex', 'ogImage'];
   const TABS = {
-    tours: [['Basic info', ['heading', 'route', 'duration', 'photo'], 'The main details of this tour.'], ['Day by day', ['days'], 'The itinerary, one day at a time.'],
-      ['Price & inclusions', ['details'], 'Price per person and what the tour includes and does not include.'], ['Banner photo', ['heroSrc', 'heroAlt'], 'The wide photo at the top of the page.'],
-      ['Google', GOOGLE, ''], ['Breadcrumb', ['breadcrumb'], '']],
-    lists: [['Basic info', ['heading', 'intro', 'outro'], 'The title and the text above and below the tours.'], ['Tours on this page', ['groups'], 'Which tours this page shows, in what order.'],
-      ['Banner photo', ['heroSrc', 'heroAlt'], ''], ['Google', GOOGLE, ''], ['Breadcrumb', ['breadcrumb'], '']],
-    pages: [['Text', ['heading', 'html'], 'Write the page like in Word: the buttons make headings, bold text, lists, links and photos.'], ['Banner photo', ['heroSrc', 'heroAlt'], ''],
-      ['Google', GOOGLE, ''], ['Breadcrumb', ['breadcrumb'], '']],
+    // (26 Oct 2026, client) the banner sits in Basic info; the breadcrumb is made automatically, so it has no tab
+    // (26 Oct 2026, client video II) one photo per tour; the banner is its category's; route and length come from the days
+    tours: [['Basic info', ['heading', 'photo', 'route', 'duration'], ''], ['Day by day', ['days'], 'Click a day to open it. ↑ ↓ change the order.'],
+      ['Price & inclusions', ['details'], ''], ['Google', GOOGLE, '']],
+    // a category's tours are chosen in each tour (its Categories tab), so the category only needs its text and banner
+    lists: [['Basic info', ['heading', 'intro', 'outro', 'heroSrc', 'heroAlt'], '']],
+    pages: [['Text', ['heading', 'html', 'guideSection', 'heroSrc', 'heroAlt'], 'Write the page like in Word: the buttons make headings, bold text, lists, links and photos.'], ['Google', GOOGLE, '']],
+    posts: [['Post', ['heading', 'category', 'date', 'author', 'photo', 'excerpt'], 'The title, date and summary shown in the list of posts.'], ['Text', ['html'], 'Write the post like in Word: the buttons make headings, bold text, lists, links and photos.'],
+      ['Google', GOOGLE, '']],
+    // (26 Oct 2026, client) the home page section by section, in the order the website shows them
+    home: [['Banner', ['heroTitle', 'heroSlides'], 'The big title and the photos at the top of the home page.'], ['Figures', ['stats'], 'The band under the banner.'],
+      ['Best Tour Packages', ['secPackages'], 'The first row of cards. Add, remove or change a card: its name, photo, the page it opens and its price.'],
+      ['Seasonal offer', ['offer'], 'The yellow offer band under the first row of cards (e.g. 10% off for bookings from April to September). Untick “Show” to hide it.'],
+      ['Most Popular Tours', ['secPopular'], 'The heading and notes. The tour cards are the first tour of each main category, so they change by themselves.'],
+      ['Private tour band', ['secOwnTour'], 'The “Chalk Out Your Own Private Tour” band: the price per couple per day and what is included.'],
+      ['Four Regions', ['secRegions', 'stateGroups'], 'The four region cards and their cities. “States of India” under them is made from the Destinations menu, so a state added there shows by itself.'],
+      ['Travel Guide', ['secGuide', 'guideCols'], 'The India Travel Guide section and its three link cards.'],
+      ['Why Choose Us', ['secWhy'], ''], ['FAQs', ['secFaq', 'faqs', 'steps'], 'The questions & answers, and the “How we work” steps.']],
+    menus: [['Header', ['headerMenu'], 'The menu at the top of every page.'], ['Footer', ['footerCols', 'seoLinks'], 'The link columns and the popular searches at the bottom of every page.']],
+    // (26 Oct 2026, client) the reviews as a list with a search, like the tours; the page's own text apart
+    // the reviews themselves are edited in the Guest reviews table (/admin/reviews); this is the page's own text
+    reviews: [['Page text', ['heading', 'intro', 'closing'], 'The title and the text above and below the reviews on the Guest Reviews page. The reviews are changed in Guest reviews.']],
+    plan: [['Form fields', ['form'], 'The words above each field of the Plan My Trip form, and which optional fields show. Name, email, country and the message are always asked.'],
+      ['Choices', ['titles', 'countries', 'months', 'years', 'days', 'adults', 'children', 'hotelBudget', 'hotelCategory'], 'The choices in the drop-down lists, one per line.']],
+    header: [['Header menu', ['headerMenu'], 'The links at the top of every page, left to right. “+ Add pages from the website” lets you tick pages; “+ Add a custom link” is for anything else.']],
+    footer: [['Link columns', ['footerCols'], 'Each column has a title and its links. Open a column to change its links: “+ Add pages from the website” to tick pages, “+ Add a custom link” for anything else.'],
+      ['Popular searches', ['popularSearches'], 'The line of search words at the very bottom of every page: each word and the page it opens.'],
+      ['Social media & about', ['footerSocial', 'footerAbout'], 'The social media icons and the short text under the logo. An icon shows as a link once its address is filled in.']],
     seo: [['Search Console & Analytics', ['googleVerification', 'googleAnalytics', 'bingVerification'], 'Connect the website to Google’s free tools to see how people find you.'],
       ['Main pages in Google', ['pages'], 'The Google title and description of the Home, About, Contact, Guest Reviews and Plan My Trip pages.'],
       ['Share picture', ['defaultShareImage'], ''], ['Redirects', ['redirects'], '']]
   };
 
   // ---------- recognising the data's shapes ----------
-  const isSeg = v => v && typeof v === 'object' && !Array.isArray(v) && typeof v.text === 'string' && Object.keys(v).every(k => k === 'text' || k === 'bold');
+  const isSeg = v => v && typeof v === 'object' && !Array.isArray(v) && typeof v.text === 'string' && Object.keys(v).every(k => ['text', 'bold', 'italic', 'underline', 'href'].includes(k));
   const isSegs = v => Array.isArray(v) && v.length > 0 && v.every(isSeg);
+  // a link written as a pair [text, link] (footer columns) or [name, link, photo] (destinations by state)
+  const isLinkRow = v => Array.isArray(v) && v.length >= 2 && v.length <= 3 && v.every(x => typeof x === 'string') && (v[1] === '' || /^(\/|https?:|#|mailto:|tel:)/.test(v[1]));
+  // a link as an object: { label, href } (header menu) or { name, href } (social media)
+  const isLinkObj = v => v && typeof v === 'object' && !Array.isArray(v) && 'href' in v && Object.keys(v).every(k => ['label', 'name', 'href'].includes(k));
   const isParas = v => Array.isArray(v) && v.length > 0 && v.every(p => Array.isArray(p) && p.every(isSeg));
   const IMG_KEY = /^(img|image|photo|heroSrc|src|logo|icon|thumb|ogImage|defaultShareImage)$|(Img|Src|Photo)$/;
   const isImg = (k, v) => typeof v === 'string' && (IMG_KEY.test(k) || /^\/.*\.(webp|jpe?g|png|gif|avif)$/i.test(v));
   const LONG = /^(description|intro|text|quote|a|note|closing|mission|html|line|lead|summary|body|desc)$/i;
   const segText = segs => segs.map(s => s.bold && s.text.trim() ? '**' + s.text + '**' : s.text).join('');
   const textSeg = str => String(str).split(/(\*\*[^*]+\*\*)/).filter(x => x !== '').map(x => /^\*\*[^*]+\*\*$/.test(x) ? { text: x.slice(2, -2), bold: true } : { text: x, bold: false });
-  const blank = v => Array.isArray(v) ? (isSegs(v) ? [{ text: '', bold: false }] : []) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, blank(x)])) : typeof v === 'number' ? 0 : typeof v === 'boolean' ? false : '';
+  const blank = v => Array.isArray(v) ? (isSegs(v) ? [{ text: '', bold: false }] : v.length && isLinkRow(v[0]) ? [v[0].map(() => '')] : isLinkRow(v) ? v.map(() => '') : []) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, blank(x)])) : typeof v === 'number' ? 0 : typeof v === 'boolean' ? false : '';
   const summary = v => {
     if (v == null) return '';
     if (typeof v !== 'object') return String(v);
     if (isSegs(v)) return segText(v).replace(/\*\*/g, '');
-    if (Array.isArray(v)) return v.length + ' items';
-    const pick = ['day', 'title', 'name', 'label', 'heading', 'q', 'city', 'from', 'to', 'tour', 'text', 'quote'].filter(k => typeof v[k] === 'string' && v[k].trim());
+    if (isLinkRow(v)) return v[0] + '  →  ' + v[1];
+    if (Array.isArray(v)) return v.length ? (v.every(x => typeof x === 'string') ? v.filter(Boolean).slice(0, 3).join(', ') + (v.length > 3 ? ' …' : '') : v.length + ' items') : '';
+    const pick = ['day', 'title', 'name', 'label', 'heading', 'q', 'place', 'region', 'city', 'from', 'to', 'tour', 'text', 'quote', 'alt'].filter(k => typeof v[k] === 'string' && v[k].trim());
     return pick.slice(0, 2).map(k => v[k]).join(' — ').replace(/<[^>]+>/g, '');
   };
   const touch = () => { if (!dirty) { dirty = true; state.textContent = '● Unsaved changes'; state.classList.add('dirty'); } refreshGoogle(); };
@@ -89,20 +143,325 @@
   function field(key, value, depth) {
     if (key === 'html' && typeof value === 'string') return rte(value);
     if (key === 'noindex') return toggle(value);
+    if (key === 'date' && typeof value === 'string') return input(value, 'date', x => x);
+    // a tour's banner: empty means "use its category's banner" (the old shared banner counts as empty)
+    if (key === 'heroSrc' && E.kind === 'tours') { const c = image(value === '/images/india-tours-main.webp' ? '' : value); c.el.querySelector('input').placeholder = 'Empty: the category’s banner is used'; return c; }
     if (isImg(key, value)) return image(value);
-    if (isParas(value)) return textBox(value.map(segText).join(key === 'items' ? '\n' : '\n\n'), txt => txt.split(key === 'items' ? /\n/ : /\n\s*\n/).map(p => p.trim()).filter(Boolean).map(textSeg), 6, true);
-    if (isSegs(value)) return textBox(segText(value), textSeg, 3, true);
-    if (key === 'items' && Array.isArray(value) && value.length === 0) return textBox('', txt => txt.split(/\n/).map(p => p.trim()).filter(Boolean).map(textSeg), 4, true);
+    if (key === 'details' && Array.isArray(value) && value.length && value.every(b => b && typeof b === 'object' && Array.isArray(b.items))) return detailsEditor(value);
+    if (isParas(value)) return richText(value, false);
+    if (isSegs(value)) return richText([value], true);
+    if (isLinkRow(value)) return linkRow(value);
+    if (/^(items|intro|outro|paras)$/.test(key) && Array.isArray(value) && value.length === 0) return richText([], false);
     if (Array.isArray(value)) return list(key, value, depth);
     if (value && typeof value === 'object') return group(value, depth);
     if (typeof value === 'number') return input(value, 'number', v => v === '' ? 0 : +v);
     if (typeof value === 'boolean') return check(value);
     const s = value == null ? '' : String(value);
+    if (/^(href|to|link|list)$/.test(key) && !s.includes('\n')) { const c = input(s, 'text', x => x); pageLink(c.el); return c; }
+    // a page can sit in a section of the India Travel Guide: it then shows there by itself
+    if (key === 'guideSection') {
+      const el = document.createElement('select'); el.className = 'in'; el.onchange = touch;
+      const opts = ['', 'Travelers Guide', 'Attractions of India', 'Travel Tools'];
+      if (s && !opts.includes(s)) opts.push(s);
+      el.innerHTML = opts.map(o => '<option value="' + A.esc(o) + '"' + (o === s ? ' selected' : '') + '>' + (o ? A.esc(o) : 'Not in the India Travel Guide') + '</option>').join('');
+      return { el, get: () => el.value };
+    }
+    if (key === 'category' && E.kind === 'posts') {
+      const c = input(s, 'text', x => x.trim()); c.el.setAttribute('list', 'mk-blogcats'); c.el.placeholder = 'e.g. Travel tips, Destinations, Festivals';
+      if (!document.getElementById('mk-blogcats')) { const dl = document.createElement('datalist'); dl.id = 'mk-blogcats'; document.body.appendChild(dl);
+        A.api('GET', '/admin/api/blog-categories').then(r => { dl.innerHTML = (r.items || []).map(x => '<option value="' + A.esc(x) + '">').join(''); }).catch(() => {}); }
+      return c;
+    }
     return LONG.test(key) || s.length > 90 || s.includes('\n') ? textBox(s, x => x, s.length > 400 ? 8 : 3) : input(s, 'text', x => x);
   }
   function input(v, type, read) {
     const el = document.createElement('input'); el.className = 'in'; el.type = type; el.value = v; el.oninput = touch;
     return { el, get: () => read(el.value) };
+  }
+  // ---------- (26 Oct 2026, client video II) a proper text editor: a toolbar with icons, as in Word / WordPress ----------
+  const TB_ICON = {
+    bold: '<path d="M7 5h6a3.5 3.5 0 0 1 0 7H7zM7 12h7a3.5 3.5 0 0 1 0 7H7z"/>', italic: '<path d="M14 5h-4M14 19h-4M14 5l-4 14"/>',
+    underline: '<path d="M7 4v7a5 5 0 0 0 10 0V4M5 20h14"/>', link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+    unlink: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/><path d="M4 4l16 16"/>',
+    undo: '<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>', redo: '<path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/>',
+    clear: '<path d="M6 5h12M12 5l-4 14M4 20h8"/><path d="m15 14 5 5M20 14l-5 5"/>', ul: '<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/>',
+    ol: '<path d="M10 6h10M10 12h10M10 18h10M4 4.5h1.5V9M4 9h3M4 14.5c.5-1 3-1 3 .5S4 17 4 19h3"/>', h2: '<path d="M4 5v14M12 5v14M4 12h8"/><path d="M15 9c.5-1.5 5-1.5 5 1s-5 4-5 7h5"/>',
+    h3: '<path d="M4 5v14M12 5v14M4 12h8"/><path d="M15 8h5l-3 4c2 0 3 1 3 3s-3 3-5 1"/>', p: '<path d="M13 4v16M17 4v16M19 4H9.5a4.5 4.5 0 0 0 0 9H13"/>',
+    quote: '<path d="M7 7h4v4c0 3-2 5-4 6M15 7h4v4c0 3-2 5-4 6"/>', img: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 8"/>',
+    src: '<path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/>'
+  };
+  const TB_TITLE = { bold: 'Bold (Ctrl+B)', italic: 'Italic (Ctrl+I)', underline: 'Underline (Ctrl+U)', link: 'Link: select words, then press', unlink: 'Remove the link', undo: 'Undo (Ctrl+Z)', redo: 'Redo (Ctrl+Y)',
+    clear: 'Remove the formatting of the selected words', ul: 'Bullet list', ol: 'Numbered list', h2: 'Heading', h3: 'Small heading', p: 'Normal text', quote: 'Quote', img: 'Add a photo', src: 'Show the HTML code' };
+  // a toolbar: groups of buttons, separated by thin lines
+  function toolbar(groups) {
+    const bar = document.createElement('div'); bar.className = 'tb';
+    bar.innerHTML = groups.map(g => '<span class="tb-g">' + g.map(c => '<button type="button" data-c="' + c + '" title="' + TB_TITLE[c] + '" aria-label="' + TB_TITLE[c] + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + TB_ICON[c] + '</svg></button>').join('') + '</span>').join('');
+    bar.onmousedown = e => { if (e.target.closest('button')) e.preventDefault(); };   // keep the selection in the text
+    return bar;
+  }
+  const tbState = (bar, ed) => {   // light up B / I / U where the cursor is
+    const upd = () => { if (!ed.contains(document.getSelection().anchorNode)) return; ['bold', 'italic', 'underline'].forEach(c => { const b = bar.querySelector('[data-c="' + c + '"]'); if (b) b.classList.toggle('on', document.queryCommandState(c)); }); };
+    document.addEventListener('selectionchange', upd);
+  };
+  const askLink = async (current) => {
+    const box = await A.dialog({ title: 'Add a link', ok: 'Add link', html: '<label class="lb">Link to</label><input class="in" data-l placeholder="Type a page name, e.g. Rajasthan Tours, or paste https://…"><p class="hint">' + HELP.href + '</p>',
+      onOpen: b => { const i = b.querySelector('[data-l]'); i.value = current || ''; pageLink(i); }, validate: b => b.querySelector('[data-l]').value.trim() ? '' : 'Type a page or an address.' });
+    return box ? box.querySelector('[data-l]').value.trim() : '';
+  };
+
+  // text with bold, italic, underlined and linked words: what you see is what the website shows.
+  // Paragraphs come back as lists of { text, bold, italic?, underline?, href? } pieces; one=true gives one paragraph.
+  function richText(paras, one) {
+    const wrap = document.createElement('div'); wrap.className = 'rt';
+    const bar = toolbar([['bold', 'italic', 'underline'], ['link', 'unlink'], ['undo', 'redo', 'clear']]);
+    const ed = document.createElement('div'); ed.className = 'in rich-p' + (one ? ' one' : ''); ed.contentEditable = 'true'; ed.spellcheck = true;
+    const segHtml = x => { let h = A.esc(x.text); if (x.italic) h = '<i>' + h + '</i>'; if (x.underline) h = '<u>' + h + '</u>'; if (x.bold) h = '<b>' + h + '</b>'; if (x.href) h = '<a href="' + A.esc(x.href) + '">' + h + '</a>'; return h; };
+    ed.innerHTML = paras.map(p => '<p>' + (p.map(segHtml).join('') || '<br>') + '</p>').join('') || '<p><br></p>';
+    const picked = () => { const r = getSelection(); return r.rangeCount && !r.isCollapsed && ed.contains(r.anchorNode); };
+    bar.onclick = async e => {
+      const b = e.target.closest('button'); if (!b) return;
+      const c = b.dataset.c; ed.focus();
+      if (c === 'link') {
+        if (!picked()) return A.toast('First select the words to turn into a link');
+        const r = getSelection().getRangeAt(0).cloneRange(), url = await askLink('');
+        if (url) { const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('createLink', false, url); }
+      } else if (c === 'clear') { if (!picked()) return A.toast('First select the words'); document.execCommand('removeFormat'); document.execCommand('unlink'); }
+      else document.execCommand(c);
+      touch();
+    };
+    tbState(bar, ed);
+    ed.oninput = touch;
+    ed.onpaste = e => { e.preventDefault(); document.execCommand('insertText', false, (e.clipboardData || window.clipboardData).getData('text/plain')); };
+    if (one) ed.onkeydown = e => { if (e.key === 'Enter') e.preventDefault(); };
+    const styleOf = (n, block) => {
+      const st = { bold: false, italic: false, underline: false, href: '' };
+      for (let el = n.parentNode; el && el !== block; el = el.parentNode) {
+        const nm = el.nodeName, fs = el.style || {};
+        if (/^(B|STRONG)$/.test(nm) || fs.fontWeight === 'bold' || +fs.fontWeight >= 600) st.bold = true;
+        if (/^(I|EM)$/.test(nm) || fs.fontStyle === 'italic') st.italic = true;
+        if (nm === 'U' || /underline/.test(fs.textDecoration || '')) st.underline = true;
+        if (nm === 'A' && !st.href) st.href = el.getAttribute('href') || '';
+      }
+      return st;
+    };
+    const same = (a, b) => a.bold === b.bold && !!a.italic === !!b.italic && !!a.underline === !!b.underline && (a.href || '') === (b.href || '');
+    const piece = (text, st) => { const o = { text, bold: st.bold }; if (st.italic) o.italic = true; if (st.underline) o.underline = true; if (st.href) o.href = st.href; return o; };
+    const get = () => {
+      const blocks = []; let loose = null;
+      ed.childNodes.forEach(n => {
+        if (/^(P|DIV|H\d|LI|UL|OL|BLOCKQUOTE)$/.test(n.nodeName)) { loose = null; blocks.push(n); }
+        else { if (!loose) { loose = document.createElement('p'); blocks.push(loose); } loose.appendChild(n.cloneNode(true)); }
+      });
+      const out = blocks.map(block => {
+        const segs = [];
+        const add = (text, st) => { const last = segs[segs.length - 1]; if (last && same(last, st)) last.text += text; else if (text) segs.push(piece(text, st)); };
+        const walk = n => n.childNodes.forEach(ch => {
+          if (ch.nodeType === 3) add(ch.nodeValue.replace(/ /g, ' '), styleOf(ch, block));
+          else if (ch.nodeName === 'BR') add(' ', { bold: false });
+          else walk(ch);
+        });
+        walk(block);
+        return segs.map(x => Object.assign({}, x, { text: x.text.replace(/\s+/g, ' ') }));
+      }).filter(p => p.some(x => x.text.trim()));
+      out.forEach(p => { p[0].text = p[0].text.replace(/^\s+/, ''); p[p.length - 1].text = p[p.length - 1].text.replace(/\s+$/, ''); });
+      const clean = p => p.filter(x => x.text);
+      if (one) return out.length ? clean(out.reduce((a, p) => a.concat(a.length ? [{ text: ' ', bold: false }] : [], p), [])) : [{ text: '', bold: false }];
+      return out.map(clean);
+    };
+    wrap.appendChild(bar); wrap.appendChild(ed);
+    return { el: wrap, input: ed, get };
+  }
+  // (26 Oct 2026, client) a tour's prices as a small form — hotel class from a list, prices in boxes — and what the tour
+  // includes, excludes and the notes as lists written like in Word. A price line that is not changed is kept word for word.
+  const PRICE_RE = /^\s*(.+?):\s*(USD|US\$|\$)?\s*([\d,]+)\s*(?:[-–]\s*(?:USD|US\$|\$)?\s*([\d,]+))?\s*(\+?)\s*(.*)$/i;
+  const HOTEL_CLASSES = ['3-Star', '4-Star', '5-Star', '5-Star Deluxe', 'Heritage', 'Standard', 'Superior', 'Deluxe', 'Premium', 'Luxury'];
+  function detailsEditor(blocks) {
+    const el = document.createElement('div'); el.className = 'px';
+    const isPrice = b => /pric|cost/i.test(b.title || '');
+    const pb = blocks.find(isPrice) || { title: 'Tour Pricing Details', text: '', items: [] };
+    // prices
+    const pcard = document.createElement('div'); pcard.className = 'px-block';
+    pcard.innerHTML = '<h4>Prices per person</h4><p class="fhelp">One line per hotel class. Leave “To” empty for one price. Tick “or more” to show $250+.</p>' +
+      '<div class="f"><label class="lb">Text above the prices</label></div><div class="px-rows" data-rows></div>' +
+      '<div class="chips"><button type="button" class="btn btn-s btn-g" data-add>+ Add a hotel class</button></div>' +
+      '<datalist id="px-hotels">' + HOTEL_CLASSES.map(h => '<option value="' + h + '">').join('') + '</datalist>';
+    const intro = textBox(pb.text || '', x => x, 3);
+    pcard.querySelector('.f').appendChild(intro.el);
+    const rowsEl = pcard.querySelector('[data-rows]'), rows = [];
+    const num = v => String(v || '').replace(/[^\d]/g, '');
+    const addRow = (segs, open) => {
+      const text = (segs || []).map(x => x.text).join(''), m = PRICE_RE.exec(text);
+      const r = document.createElement('div'); r.className = 'px-row';
+      if (segs && !m) {   // a line in another form: kept as it is, editable as text
+        const t = richText([segs], true); r.appendChild(t.el); r.classList.add('px-free');
+        rows.push({ r, get: () => t.get() });
+      } else {
+        const v = m ? { cls: m[1].trim(), cur: m[2] || '$', from: num(m[3]), to: num(m[4]), plus: !!m[5], per: m[6].trim() || 'per person per day' } : { cls: '', cur: '$', from: '', to: '', plus: false, per: 'per person per day' };
+        r.innerHTML = '<label><small>Hotel class</small><input class="in" list="px-hotels" data-cls placeholder="e.g. 3-Star"></label>' +
+          '<label><small>From (USD)</small><input class="in" inputmode="numeric" data-from placeholder="85"></label>' +
+          '<label><small>To (USD)</small><input class="in" inputmode="numeric" data-to placeholder="100"></label>' +
+          '<label class="px-plus"><input type="checkbox" data-plus> or more</label>' +
+          '<label><small>Price is</small><select class="in" data-per><option>per person per day</option><option>per person per night</option><option>per person</option></select></label>';
+        const q = s => r.querySelector(s);
+        q('[data-cls]').value = v.cls; q('[data-from]').value = v.from; q('[data-to]').value = v.to; q('[data-plus]').checked = v.plus;
+        if (![...q('[data-per]').options].some(o => o.value === v.per)) q('[data-per]').insertAdjacentHTML('beforeend', '<option>' + A.esc(v.per) + '</option>');
+        q('[data-per]').value = v.per;
+        const pack = () => { const from = num(q('[data-from]').value), to = num(q('[data-to]').value), cur = v.cur === 'USD' ? 'USD ' : v.cur;
+          return [{ text: q('[data-cls]').value.trim() + ':', bold: true }, { text: ' ' + cur + from + (to ? ' - ' + cur + to : '') + (q('[data-plus]').checked ? '+' : '') + ' ' + q('[data-per]').value, bold: false }]; };
+        const same = () => segs && q('[data-cls]').value.trim() === v.cls && num(q('[data-from]').value) === v.from && num(q('[data-to]').value) === v.to && q('[data-plus]').checked === v.plus && q('[data-per]').value === v.per;
+        r.addEventListener('input', touch); r.addEventListener('change', touch);
+        rows.push({ r, get: () => same() ? segs : pack(), empty: () => !q('[data-cls]').value.trim() && !num(q('[data-from]').value) });
+      }
+      const x = document.createElement('button'); x.type = 'button'; x.className = 'px-x'; x.title = 'Remove this line'; x.textContent = '✕';
+      x.onclick = () => { rows.splice(rows.findIndex(o => o.r === r), 1); r.remove(); touch(); };
+      r.appendChild(x); rowsEl.appendChild(r);
+      if (open) r.querySelector('input').focus();
+    };
+    (pb.items || []).forEach(s => addRow(s));
+    pcard.querySelector('[data-add]').onclick = () => { addRow(null, true); touch(); };
+    el.appendChild(pcard);
+    // includes, excludes, notes (and any other block), each a list of points
+    const others = blocks.filter(b => b !== pb).map(b => {
+      const card = document.createElement('div'); card.className = 'px-block';
+      card.innerHTML = '<h4>' + A.esc(b.title || '') + '</h4><p class="fhelp">One point per line: press Enter for the next point.</p>';
+      const t = richText(b.items || [], false); card.appendChild(t.el);
+      let tx = null;
+      if (b.text) { tx = textBox(b.text, x => x, 3); const f = document.createElement('div'); f.className = 'f'; f.innerHTML = '<label class="lb">Text above the points</label>'; f.appendChild(tx.el); card.insertBefore(f, t.el); }
+      el.appendChild(card);
+      return { b, get: () => Object.assign({}, b, { text: tx ? tx.get() : b.text, items: t.get() }) };
+    });
+    return { el, get: () => blocks.map(b => b === pb ? Object.assign({}, pb, { text: intro.get(), items: rows.filter(o => !(o.empty && o.empty())).map(o => o.get()) }) : others.find(o => o.b === b).get())
+      .concat(blocks.includes(pb) ? [] : [Object.assign({}, pb, { text: intro.get(), items: rows.filter(o => !(o.empty && o.empty())).map(o => o.get()) })]) };
+  }
+  // (26 Oct 2026, client) a destination or guide page edited in the same shape the website shows it: "Quick facts"
+  // (Area, Altitude, Climate …), then each heading of the page ("Places of Interest", "Reach" …) with its groups — a list
+  // of places in columns, with the distance where there is one — and its one-line facts (By Air, By Road …).
+  // Every change is written straight into the page text (the same paragraph), so the website lays it out as before.
+  const LABEL_P = p => { const st = p.firstElementChild; return st && /^(STRONG|B)$/.test(st.nodeName) && /:\s*$/.test(st.textContent) && st === p.firstChild ? st : null; };
+  const LIST_P = p => {
+    const st = LABEL_P(p); if (!st) return null;
+    const rest = p.textContent.slice(st.textContent.length).trim().replace(/\.\s*$/, '');
+    const parts = rest.split(/\s*,\s*|\s+and\s+(?=[A-Z])/).map(x => x.trim()).filter(Boolean);
+    if (parts.length < 3 || p.querySelector('a,img')) return null;
+    if (/^(climate|languages?|best season|altitude|area|population|temperature|clothing|currency|religions?|rainfall|season)/i.test(st.textContent.trim())) return null;
+    const sep = /^[^,]*?\s*:\s*\d/.test(rest) ? ': ' : '- ';
+    return { label: st.textContent.trim(), sep, items: parts.map(x => { const m = /^(.*?)\s*[-–:]\s*([\d.]+)\s*(?:kms?|km)?\.?$/i.exec(x); return m ? { name: m[1].trim(), km: m[2] } : { name: x, km: '' }; }) };
+  };
+  const FACT_P = p => { const st = LABEL_P(p); if (!st || LIST_P(p) || p.querySelector('img')) return null; const v = p.textContent.slice(st.textContent.length).trim(); return v.length <= 400 ? { label: st.textContent.replace(/:\s*$/, '').trim(), value: v } : null; };
+  const hasSections = html => { const t = document.createElement('div'); t.innerHTML = html || ''; const ps = [...t.querySelectorAll('p')]; return ps.some(LIST_P) || ps.filter(FACT_P).length >= 2; };
+  function placesTab(panesAdd) {
+    const card = document.createElement('section'); card.className = 'card ps'; card.hidden = true;
+    const draw = () => {
+      const ed = comps.html && comps.html.el.querySelector('.rte');
+      card.innerHTML = '<p class="tab-intro">The page as the website shows it: its quick facts, its places and distances, how to reach it. The story itself is in the Text tab.</p>';
+      if (!ed || ed.hidden) { card.insertAdjacentHTML('beforeend', '<p class="hint">Switch the HTML view off in the Text tab first.</p>'); return; }
+      // walk the page: headings open a part; label paragraphs are facts or lists
+      const parts = [{ title: 'Quick facts', facts: [], lists: [], after: null }];
+      [...ed.children].forEach(n => {
+        if (/^H[1-6]$/.test(n.nodeName)) { parts.push({ title: n.textContent.replace(/:\s*$/, '').trim(), facts: [], lists: [], after: n }); return; }
+        if (n.nodeName !== 'P') return;
+        const cur = parts[parts.length - 1], l = LIST_P(n), f = !l && FACT_P(n);
+        if (l) cur.lists.push({ p: n, l }); else if (f) cur.facts.push({ p: n, f });
+      });
+      parts.filter(pt => pt.facts.length || pt.lists.length).forEach((pt, pi) => {
+        const box = document.createElement('div'); box.className = 'ps-part' + (pi === 0 && pt.title === 'Quick facts' ? ' ps-facts' : '');
+        box.innerHTML = '<h3 class="ps-h">' + A.esc(pt.title) + '</h3>';
+        // one-line facts: label | value
+        if (pt.facts.length) {
+          const g = document.createElement('div'); g.className = 'ps-fg';
+          pt.facts.forEach(({ p, f }) => {
+            const r = document.createElement('label'); r.className = 'ps-fact';
+            r.innerHTML = '<span>' + A.esc(f.label) + '</span><input class="in">';
+            const i = r.querySelector('input'); i.value = f.value;
+            i.oninput = () => { p.innerHTML = '<strong>' + A.esc(f.label) + ':</strong> ' + A.esc(i.value.trim()); touch(); };
+            g.appendChild(r);
+          });
+          box.appendChild(g);
+        }
+        // lists of places: in columns, with the distance where the list has distances
+        pt.lists.forEach(({ p, l }) => {
+          const withKm = l.items.some(x => x.km);
+          const grp = document.createElement('div'); grp.className = 'ps-list';
+          grp.innerHTML = '<h4>' + A.esc(l.label.replace(/:\s*$/, '')) + ' <small>' + l.items.length + '</small></h4><div class="ps-items' + (withKm ? ' km' : '') + '"></div><button type="button" class="btn btn-s">+ Add a place</button>';
+          const itemsEl = grp.querySelector('.ps-items');
+          const write = () => {
+            const items = [...itemsEl.children].map(r => ({ name: r.querySelector('[data-n]').value.trim(), km: (r.querySelector('[data-k]') || { value: '' }).value.trim() })).filter(x => x.name);
+            p.innerHTML = '<strong>' + A.esc(l.label) + '</strong> ' + A.esc(items.map(x => x.km ? x.name + l.sep + x.km + ' kms' : x.name).join(', ') + '.');
+            grp.querySelector('h4 small').textContent = items.length; touch();
+          };
+          const add = (x, focus) => {
+            const r = document.createElement('div'); r.className = 'ps-it';
+            r.innerHTML = '<i aria-hidden="true"></i><input class="in" data-n placeholder="Place">' + (withKm ? '<input class="in" data-k inputmode="decimal" placeholder="km" title="Distance in km">' : '') + '<button type="button" title="Remove">✕</button>';
+            r.querySelector('[data-n]').value = x.name; if (withKm) r.querySelector('[data-k]').value = x.km;
+            r.querySelector('button').onclick = () => { r.remove(); write(); };
+            r.oninput = write; itemsEl.appendChild(r); if (focus) r.querySelector('[data-n]').focus();
+          };
+          l.items.forEach(x => add(x));
+          grp.querySelector('.btn').onclick = () => add({ name: '', km: '' }, true);
+          box.appendChild(grp);
+        });
+        card.appendChild(box);
+      });
+    };
+    panesAdd('Page sections', card, draw);
+  }
+  // a link the client fills in as "Text" and "Link to" (the link box suggests the website's own pages)
+  function linkRow(v) {
+    const el = document.createElement('div'), parts = [];
+    [['Text', v[0]], ['Link to', v[1]], ['Photo', v[2]]].slice(0, v.length).forEach(([name, val], i) => {
+      const c = i === 2 ? image(val) : input(val, 'text', x => x);
+      if (i === 1) pageLink(c.el);
+      const f = document.createElement('div'); f.className = 'f'; f.innerHTML = '<label class="lb">' + name + '</label>' + (i === 1 ? '<p class="fhelp">Start typing to pick a page of this website, or paste an address (https://…).</p>' : '');
+      f.appendChild(c.el); el.appendChild(f); parts.push(c.get);
+    });
+    return { el, get: () => parts.map(g => g()) };
+  }
+  // the website's pages, offered in every "Link to" box (like WordPress menus: pick a page instead of typing it)
+  // (26 Oct 2026, client) a "Link to" box opens the same page picker as "+ Add pages from the website": a search, the
+  // kinds of pages as tabs, and the pages as a list — click one to use it. Typing an address by hand still works.
+  let linkIndex = null;
+  const loadLinks = () => linkIndex || (linkIndex = A.api('GET', '/admin/api/link-index').then(r => r.items || []).catch(() => []));
+  const LK = [['', 'All'], ['main', 'Main pages'], ['Category', 'Categories'], ['Tour', 'Tours'], ['Page', 'Pages']];
+  const lkKind = it => (/^(Category|Tour|Page|Blog): /.exec(it.name) || [, 'main'])[1];
+  const lkName = it => it.name.replace(/^(Category|Tour|Page|Blog): /, '');
+  let lkPop = null;
+  function pageLink(inp) {
+    inp.placeholder = inp.placeholder || 'Click to choose a page, or paste https://…';
+    inp.autocomplete = 'off';
+    const open = async () => {
+      const items = await loadLinks();
+      if (lkPop) lkPop.remove();
+      const pop = lkPop = document.createElement('div'); pop.className = 'lk-pop';
+      pop.innerHTML = '<input class="in lk-q" type="search" placeholder="Search a page, e.g. Rajasthan" aria-label="Search a page"><div class="subtabs lk-tabs">' + LK.map(([k, l], i) => '<button type="button" data-k="' + k + '"' + (i ? '' : ' class="on"') + '>' + l + '</button>').join('') + '</div><div class="lk-list"></div><p class="lk-foot">Click a page to link to it. Or type an address, e.g. https://…</p>';
+      document.body.appendChild(pop);
+      const r = inp.getBoundingClientRect();
+      pop.style.left = Math.max(8, Math.min(r.left + scrollX, scrollX + innerWidth - 440)) + 'px'; pop.style.top = (r.bottom + scrollY + 4) + 'px'; pop.style.width = Math.max(r.width, 420) + 'px';
+      let k = '';
+      const draw = () => {
+        const v = pop.querySelector('.lk-q').value.trim().toLowerCase(), list = pop.querySelector('.lk-list');
+        const hit = items.filter(it => (!k || lkKind(it) === k) && (!v || (it.name + ' ' + it.url).toLowerCase().includes(v))).slice(0, 150);
+        list.innerHTML = hit.map(it => '<button type="button" data-u="' + A.esc(it.url) + '" data-n="' + A.esc(lkName(it)) + '"' + (it.url === inp.value.trim() ? ' class="on"' : '') + '><b>' + A.esc(lkName(it)) + '</b><small>' + A.esc(it.url) + '</small></button>').join('') || '<p class="hint" style="padding:10px">No page found. You can type the address yourself.</p>';
+      };
+      pop.querySelectorAll('[data-k]').forEach(b => b.onmousedown = e => { e.preventDefault(); k = b.dataset.k; pop.querySelectorAll('[data-k]').forEach(x => x.classList.toggle('on', x === b)); draw(); });
+      pop.querySelector('.lk-list').onmousedown = e => {
+        const b = e.target.closest('[data-u]'); if (!b) return; e.preventDefault();
+        inp.value = b.dataset.u;
+        // a link's text box beside it, still empty, gets the page's name
+        const row = inp.closest('.ln-row'), txt = row && row.querySelector('input');
+        if (txt && txt !== inp && !txt.value.trim()) txt.value = b.dataset.n;
+        inp.dispatchEvent(new Event('input', { bubbles: true })); touch(); close();
+      };
+      pop.querySelector('.lk-q').oninput = draw;
+      pop.querySelector('.lk-q').onkeydown = e => { if (e.key === 'Escape') { close(); inp.focus(); } if (e.key === 'Enter') { e.preventDefault(); const f = pop.querySelector('[data-u]'); if (f) f.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })); } };
+      inp.oninput = touch;
+      draw();
+    };
+    const close = () => { if (lkPop) { lkPop.remove(); lkPop = null; } };
+    inp.addEventListener('focus', open);
+    // it stays open while you search in it; a click anywhere else closes it
+    inp.addEventListener('blur', () => setTimeout(() => { if (lkPop && !lkPop.contains(document.activeElement)) close(); }, 150));
+    document.addEventListener('mousedown', e => { if (lkPop && e.target !== inp && !lkPop.contains(e.target)) close(); });
+    inp.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
   }
   function check(v) {
     const el = document.createElement('input'); el.type = 'checkbox'; el.checked = !!v; el.onchange = touch;
@@ -143,14 +502,27 @@
     return { el, get: () => inp.value.trim() };
   }
   function fieldBox(k, c, top) {
-    const f = document.createElement('div'); f.className = 'f';
-    f.innerHTML = '<label class="lb">' + A.esc(label(k)) + '</label>' + (HELP[k] && (top || k === 'href' || k === 'paras' || k === 'items') ? '<p class="fhelp">' + A.esc(HELP[k]) + '</p>' : '');
+    const f = document.createElement('div'); f.className = 'f' + (c.el.matches && c.el.matches('input.in:not([type=checkbox]), select.in') ? ' half' : ''); f.dataset.k = k;
+    f.innerHTML = '<label class="lb">' + A.esc(label(k)) + '</label>' + ((HELP[k + '_' + E.kind] || HELP[k]) && (top || /^(href|paras|items|price|cards|cities|link)$/.test(k)) ? '<p class="fhelp">' + A.esc(HELP[k + '_' + E.kind] || HELP[k]) + '</p>' : '');
     f.appendChild(c.el);
     return f;
   }
+  const FORM_LABELS = { button: 'Send button', heading: 'Title of the form', name: 'Name — words', email: 'Email — words', country: 'Country — words', days: 'Number of days — words', hotelBudget: 'Hotel budget — words', hotelCategory: 'Hotel category — words' };
+  // short fields sit two to a row; one left without a partner takes the full row
+  const pairHalves = box => { let run = []; const flush = () => { if (run.length % 2) run[run.length - 1].classList.remove('half'); run = []; };
+    [...box.children].forEach(ch => { if (ch.classList && ch.classList.contains('half')) run.push(ch); else flush(); }); flush(); };
   function group(obj, depth) {
     const el = document.createElement('div'), gets = {};
-    Object.entries(obj).forEach(([k, v]) => { const c = field(k, v, depth + 1); el.appendChild(fieldBox(k, c, false)); gets[k] = c.get; if ((k === 'title' || k === 'description') && Object.keys(obj).every(x => x === 'title' || x === 'description')) counter(k, c); });   // the main pages' Google text
+    const isDay = 'paras' in obj && 'title' in obj;
+    const isForm = 'showPeriod' in obj;   // the enquiry form's words
+    // (26 Oct 2026, client) what the website never shows is not asked for (it is kept as it is)
+    const hide = 'src' in obj && 'pos' in obj ? ['alt', 'place', 'region', 'href', 'pos', 'flip'] : [];
+    el.className = 'fg';
+    Object.entries(obj).forEach(([k, v]) => { if (hide.includes(k)) { gets[k] = () => v; return; } const c = field(k, v, depth + 1); const fb = fieldBox(k, c, false); el.appendChild(fb); gets[k] = c.get;
+      if (isForm && FORM_LABELS[k]) fb.querySelector('.lb').textContent = FORM_LABELS[k];
+      if (k === 'items' && Array.isArray(v) && v.some(isLinkRow)) { fb.querySelector('.lb').textContent = 'Links'; const h = fb.querySelector('.fhelp'); if (h) h.remove(); }
+      if (isDay && k === 'photo') { fb.querySelector('.lb').textContent = 'Photo for this day (optional)'; fb.querySelector('.lb').insertAdjacentHTML('afterend', '<p class="fhelp">Leave it empty and a photo of the day’s places is chosen by itself.</p>'); } if ((k === 'title' || k === 'description') && Object.keys(obj).every(x => x === 'title' || x === 'description')) counter(k, c); });   // the main pages' Google text
+    pairHalves(el);
     return { el, get: () => Object.fromEntries(Object.entries(gets).map(([k, g]) => [k, g()])) };
   }
   function list(key, arr, depth) {
@@ -158,12 +530,14 @@
     const box = document.createElement('div'); box.className = 'arr'; el.appendChild(box);
     const tmpl = arr.length ? blank(arr[0]) : (templates[key] !== undefined ? templates[key] : '');
     const rows = [];
-    const simple = arr.length ? arr.every(x => typeof x !== 'object' || x === null) : typeof tmpl !== 'object';
+    // (26 Oct 2026, client video II) a list of links shows as rows of "Text | Link" (like WordPress menus), not as boxes to open
+    const linkList = (arr.length ? arr : [tmpl]).every(x => (isLinkRow(x) && x.length === 2) || isLinkObj(x));
+    const simple = linkList || (arr.length ? arr.every(x => typeof x !== 'object' || x === null) : typeof tmpl !== 'object');
     const renum = () => rows.forEach((r, i) => { r.n.textContent = key === 'days' ? '' : i + 1; });
     const add = (v, open) => {
       const it = document.createElement('div'); it.className = 'it' + (open || simple ? '' : ' closed');
       it.innerHTML = '<div class="it-h"><span class="n"></span><b></b><button type="button" title="Move up">↑</button><button type="button" title="Move down">↓</button><button type="button" class="x" title="Remove">✕</button></div><div class="it-b"></div>';
-      const c = field(key === 'items' ? 'item' : key, v, depth + 1), b = it.querySelector('b');
+      const c = linkList ? linkInline(v, key !== 'footerSocial') : field(key === 'items' ? 'item' : key, v, depth + 1), b = it.querySelector('b');
       it.querySelector('.it-b').appendChild(c.el);
       const r = { it, get: c.get, n: it.querySelector('.n') };
       const setSum = () => { b.textContent = summary(c.get()) || '(empty — click to fill in)'; };
@@ -178,9 +552,15 @@
       if (open && !simple) it.scrollIntoView({ behavior: 'smooth', block: 'center' });
     };
     arr.forEach(v => add(v, false));
+    // a long list gets a search box (the reviews, the days of a long tour, the footer links …)
+    if (arr.length > 12 && !simple) {
+      const q = document.createElement('input'); q.className = 'in arr-q'; q.type = 'search'; q.placeholder = 'Search in these ' + arr.length + ' …';
+      q.oninput = () => { const v = q.value.trim().toLowerCase(); rows.forEach(r => { r.it.hidden = !!v && !JSON.stringify(r.get()).toLowerCase().includes(v); }); };
+      el.insertBefore(q, box);
+    }
     const btns = document.createElement('div'); btns.className = 'chips';
     const addBtn = document.createElement('button'); addBtn.type = 'button'; addBtn.className = 'btn btn-s add';
-    addBtn.textContent = '+ Add ' + ({ days: 'a day', faqs: 'a question', all: 'a review', offices: 'an office', redirects: 'a redirect', tours: 'a tour by hand', groups: 'a group' }[key] || (simple ? 'a line' : 'one more'));
+    addBtn.textContent = '+ Add ' + ({ days: 'a day', faqs: 'a question', all: 'a review', offices: 'an office', redirects: 'a redirect', tours: 'a tour by hand', groups: 'a group', cards: 'a card', points: 'a point', heroSlides: 'a banner photo', stats: 'a figure', steps: 'a step' }[key] || (simple ? 'a line' : 'one more'));
     addBtn.onclick = () => { add(JSON.parse(JSON.stringify(tmpl)), true); touch(); };
     // a category's tours: pick an existing tour instead of typing it in
     if (key === 'tours' && (arr.length ? arr.every(t => t && typeof t === 'object' && 'href' in t) : true)) {
@@ -188,9 +568,64 @@
       pickBtn.onclick = () => pickTour(t => { add(t, false); touch(); A.toast('Added: ' + t.name); });
       btns.appendChild(pickBtn);
     }
+    // (26 Oct 2026, client) a list of links (menus, footer columns, cities): tick pages of the website to add them, as in
+    // WordPress menus — no need to know or type an address
+    const linkish = isLinkRow(tmpl) || (tmpl && typeof tmpl === 'object' && !Array.isArray(tmpl) && 'href' in tmpl && ('label' in tmpl || 'name' in tmpl));
+    if (linkish && key !== 'tours' && key !== 'footerSocial') {
+      const pagesBtn = document.createElement('button'); pagesBtn.type = 'button'; pagesBtn.className = 'btn btn-s btn-g'; pagesBtn.textContent = '+ Add pages from the website';
+      pagesBtn.onclick = () => pickPages(list => {
+        list.forEach(p => {
+          const v = isLinkRow(tmpl) ? [p.name].concat([p.url], tmpl.length > 2 ? [''] : []) : Object.assign(JSON.parse(JSON.stringify(tmpl)), 'label' in tmpl ? { label: p.name } : { name: p.name }, { href: p.url });
+          add(v, false);
+        });
+        if (list.length) { touch(); A.toast(list.length === 1 ? 'Added: ' + list[0].name : list.length + ' links added — use ↑ ↓ to put them in order'); }
+      });
+      btns.appendChild(pagesBtn);
+      addBtn.textContent = '+ Add a custom link';
+    }
     btns.appendChild(addBtn);
     el.appendChild(btns);
-    return { el, get: () => rows.map(r => r.get()) };
+    if (linkList) el.classList.add('arr-links');
+    // empty link rows are left out when saving
+    return { el, get: () => rows.map(r => r.get()).filter(v => !linkList || (Array.isArray(v) ? v.some(Boolean) : (v.label || v.name || v.href))) };
+  }
+  // one link on one line: its text and where it goes (the link box suggests the website's pages)
+  function linkInline(v, pages) {
+    const el = document.createElement('div'); el.className = 'ln-row';
+    const isArr = Array.isArray(v), tk = isArr ? 0 : ('label' in v ? 'label' : 'name');
+    const t = input(isArr ? v[0] : v[tk], 'text', x => x), h = input(isArr ? v[1] : v.href, 'text', x => x.trim());
+    t.el.placeholder = isArr || tk === 'label' ? 'Text shown' : 'Name'; h.el.placeholder = pages ? 'Click to choose a page' : 'https://…';
+    if (pages) pageLink(h.el);
+    el.append(t.el, h.el);
+    return { el, get: () => isArr ? [t.get(), h.get()] : Object.assign({}, v, { [tk]: t.get(), href: h.get() }) };
+  }
+  // the website's pages with tick boxes and a search (Pages, Tour categories, Tours, Blog), for the lists of links
+  async function pickPages(done) {
+    let items = [];
+    try { items = (await A.api('GET', '/admin/api/link-index')).items || []; } catch (e) { return A.toast(e.message, true); }
+    const kinds = [['', 'All'], ['main', 'Main pages'], ['Category', 'Tour categories'], ['Tour', 'Tours'], ['Page', 'Pages'], ['Blog', 'Blog']];
+    const kindOf = it => (/^(Category|Tour|Page|Blog): /.exec(it.name) || [, 'main'])[1];
+    const nameOf = it => it.name.replace(/^(Category|Tour|Page|Blog): /, '');
+    let k = '';
+    const box = await A.dialog({
+      title: 'Add pages', ok: 'Add to the list',
+      html: '<div class="subtabs" data-pk>' + kinds.map(([v, l]) => '<button type="button" data-k="' + v + '"' + (v ? '' : ' class="on"') + '>' + l + '</button>').join('') + '</div>' +
+        '<input class="in" data-ps placeholder="Search a page, e.g. Rajasthan" style="margin-bottom:10px"><div class="pick-list pick-ticks" data-pl></div><p class="hint" data-pn>Tick one or more pages.</p>',
+      onOpen: b => {
+        const pl = b.querySelector('[data-pl]'), ps = b.querySelector('[data-ps]'), picked = new Set();
+        const draw = () => {
+          const v = ps.value.trim().toLowerCase();
+          pl.innerHTML = items.map((it, i) => [it, i]).filter(([it]) => (!k || kindOf(it) === k) && (!v || (it.name + ' ' + it.url).toLowerCase().includes(v))).slice(0, 200)
+            .map(([it, i]) => '<label class="perm"><input type="checkbox" data-i="' + i + '"' + (picked.has(i) ? ' checked' : '') + '><span><b>' + A.esc(nameOf(it)) + '</b><small class="muted"> ' + A.esc(it.url) + '</small></span></label>').join('') || '<p class="hint">Nothing found.</p>';
+        };
+        pl.onchange = e => { const x = e.target.closest('[data-i]'); if (!x) return; x.checked ? picked.add(+x.dataset.i) : picked.delete(+x.dataset.i); b.querySelector('[data-pn]').textContent = picked.size ? picked.size + ' ticked' : 'Tick one or more pages.'; };
+        b.querySelectorAll('[data-pk] [data-k]').forEach(x => x.onclick = () => { k = x.dataset.k; b.querySelectorAll('[data-pk] [data-k]').forEach(y => y.classList.toggle('on', y === x)); draw(); });
+        ps.oninput = draw; draw();
+        b._picked = picked;
+      }
+    });
+    if (!box) return;
+    done([...box._picked].sort((a, b) => a - b).map(i => ({ name: nameOf(items[i]), url: items[i].url })));
   }
   let tourIndex = null;
   async function pickTour(cb) {
@@ -208,29 +643,34 @@
     });
   }
   // a simple word processor for page text (HTML), with a switch to edit the HTML itself
+  // a page's whole text (HTML): the same toolbar, plus headings, lists, quote, photo and the HTML code
   function rte(html) {
-    const el = document.createElement('div');
-    el.innerHTML = '<div class="rte-bar">' + [['bold', '<b>B</b> Bold'], ['italic', '<i>I</i>'], ['h2', 'Heading'], ['h3', 'Small heading'], ['p', 'Normal text'], ['ul', '• List'], ['ol', '1. List'], ['link', 'Link'], ['unlink', 'Remove link'], ['img', 'Photo'], ['src', 'HTML']]
-      .map(([c, t]) => '<button type="button" data-c="' + c + '">' + t + '</button>').join('') + '</div><div class="rte" contenteditable="true"></div><textarea class="in" rows="18" hidden style="font-family:monospace;font-size:13px;border-radius:0 0 5px 5px"></textarea>';
-    const ed = el.querySelector('.rte'), raw = el.querySelector('textarea');
+    const el = document.createElement('div'); el.className = 'rt';
+    const bar = toolbar([['p', 'h2', 'h3'], ['bold', 'italic', 'underline'], ['ul', 'ol', 'quote'], ['link', 'unlink', 'img'], ['undo', 'redo', 'clear'], ['src']]);
+    const ed = document.createElement('div'); ed.className = 'rte'; ed.contentEditable = 'true';
+    const raw = document.createElement('textarea'); raw.className = 'in rte-src'; raw.rows = 18; raw.hidden = true;
+    el.append(bar, ed, raw);
     ed.innerHTML = html; ed.oninput = touch; raw.oninput = touch;
+    tbState(bar, ed);
     const cmd = (c, v) => { ed.focus(); document.execCommand(c, false, v); touch(); };
-    el.querySelector('.rte-bar').onclick = async e => {
+    bar.onclick = async e => {
       const b = e.target.closest('button'); if (!b) return;
       const c = b.dataset.c;
-      if (c === 'src') { if (raw.hidden) { raw.value = ed.innerHTML; raw.hidden = false; ed.hidden = true; } else { ed.innerHTML = raw.value; raw.hidden = true; ed.hidden = false; } return; }
-      if (!raw.hidden) return A.toast('Switch HTML off to use the buttons');
-      if (c === 'bold' || c === 'italic' || c === 'unlink') cmd(c);
+      if (c === 'src') { if (raw.hidden) { raw.value = ed.innerHTML; raw.hidden = false; ed.hidden = true; b.classList.add('on'); } else { ed.innerHTML = raw.value; raw.hidden = true; ed.hidden = false; b.classList.remove('on'); } return; }
+      if (!raw.hidden) return A.toast('Press the </> button again to go back to the normal view');
+      if (['bold', 'italic', 'underline', 'unlink', 'undo', 'redo'].includes(c)) cmd(c);
+      else if (c === 'clear') cmd('removeFormat');
       else if (c === 'h2' || c === 'h3' || c === 'p') cmd('formatBlock', c.toUpperCase());
+      else if (c === 'quote') cmd('formatBlock', 'BLOCKQUOTE');
       else if (c === 'ul') cmd('insertUnorderedList');
       else if (c === 'ol') cmd('insertOrderedList');
       else if (c === 'link') {
-        const sel = window.getSelection(), range = sel.rangeCount ? sel.getRangeAt(0) : null;
+        const sel = window.getSelection(), range = sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
         if (!range || range.collapsed) return A.toast('First select the words to turn into a link');
-        const box = await A.dialog({ title: 'Add a link', ok: 'Add link', html: '<label class="lb">Link to</label><input class="in" placeholder="/golden_triangle_packages or https://…"><p class="hint">' + HELP.href + '</p>', validate: b => b.querySelector('input').value.trim() ? '' : 'Please type an address.' });
-        if (box) { sel.removeAllRanges(); sel.addRange(range); cmd('createLink', box.querySelector('input').value.trim()); }
+        const url = await askLink('');
+        if (url) { sel.removeAllRanges(); sel.addRange(range); cmd('createLink', url); }
       }
-      else if (c === 'img') { const sel = window.getSelection(), range = sel.rangeCount ? sel.getRangeAt(0) : null; const src = await A.pickImage(); if (src) { if (range) { sel.removeAllRanges(); sel.addRange(range); } cmd('insertHTML', '<img src="' + src + '" alt="">'); } }
+      else if (c === 'img') { const sel = window.getSelection(), range = sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null; const src = await A.pickImage(); if (src) { if (range) { sel.removeAllRanges(); sel.addRange(range); } cmd('insertHTML', '<img src="' + src + '" alt="">'); } }
     };
     return { el, get: () => (raw.hidden ? ed.innerHTML : raw.value).trim() };
   }
@@ -254,8 +694,13 @@
     const pv = document.createElement('div');
     pv.innerHTML = '<p class="tab-intro">This is how the page can look in Google. Write the title and description for a traveller who is searching — say what the page offers and why to click.</p>' +
       '<div class="gprev"><div class="gu"><i>M</i><div>Meruka India Tourism<small>' + A.esc(location.host + (E.url || '')) + '</small></div></div><div class="gt"></div><div class="gd"></div></div>' +
-      '<h3 style="margin:18px 0 8px">Checklist</h3><ul class="checks"></ul><hr style="border:0;border-top:1px solid var(--line);margin:20px 0">';
+      '<ul class="checks checks-s"></ul><hr style="border:0;border-top:1px solid var(--line);margin:18px 0">';
     card.prepend(pv);
+    // (26 Oct 2026, client) keep it simple: the title and description show; the rest folds away under "More Google settings"
+    const more = document.createElement('details'); more.className = 'g-more';
+    more.innerHTML = '<summary>More Google settings <small>keywords, search words, hide from Google, share picture</small></summary>';
+    [...card.querySelectorAll(':scope > .f')].forEach(f => { const k = f.dataset.k; if (k && !/^(title|description)$/.test(k)) more.appendChild(f); });
+    if (more.children.length > 1) card.appendChild(more);
     const v = k => { const g = getters[k]; return g ? String(g() || '') : ''; };
     refreshGoogle = () => {
       const t = v('title').trim(), d = v('description').trim(), fk = v('focusKeyword').trim().toLowerCase();
@@ -266,11 +711,10 @@
       L.push([t.length >= 30 && t.length <= 60 ? '' : t ? 'warn' : 'no', 'Google title ' + (t ? 'is ' + t.length + ' characters (best 30–60)' : 'is empty')]);
       L.push([d.length >= 120 && d.length <= 160 ? '' : d ? 'warn' : 'no', 'Description ' + (d ? 'is ' + d.length + ' characters (best 120–160)' : 'is empty')]);
       if (fk) {
-        L.push([t.toLowerCase().includes(fk) ? '' : 'warn', 'Focus phrase "' + fk + '" ' + (t.toLowerCase().includes(fk) ? 'is' : 'is not') + ' in the Google title']);
-        L.push([d.toLowerCase().includes(fk) ? '' : 'warn', 'Focus phrase ' + (d.toLowerCase().includes(fk) ? 'is' : 'is not') + ' in the description']);
-        if (getters.heading) L.push([head.includes(fk) ? '' : 'warn', 'Focus phrase ' + (head.includes(fk) ? 'is' : 'is not') + ' in the page title']);
-      } else L.push(['warn', 'Add a focus phrase (what people type in Google, e.g. "Rajasthan tour") to get tips']);
-      if (getters.heroAlt) L.push([v('heroAlt').trim() ? '' : 'warn', 'Banner photo ' + (v('heroAlt').trim() ? 'has a description' : 'has no description (Banner photo tab)')]);
+        L.push([t.toLowerCase().includes(fk) ? '' : 'warn', 'The search words "' + fk + '" ' + (t.toLowerCase().includes(fk) ? 'is' : 'is not') + ' in the Google title']);
+        L.push([d.toLowerCase().includes(fk) ? '' : 'warn', 'The search words ' + (d.toLowerCase().includes(fk) ? 'is' : 'is not') + ' in the description']);
+        if (getters.heading) L.push([head.includes(fk) ? '' : 'warn', 'The search words ' + (head.includes(fk) ? 'is' : 'is not') + ' in the page title']);
+      }
       if (getters.noindex && getters.noindex()) L.push(['no', 'This page is hidden from Google']);
       pv.querySelector('.checks').innerHTML = L.map(([c, txt]) => '<li class="' + c + '">' + A.esc(txt) + '</li>').join('');
     };
@@ -280,63 +724,213 @@
     title: 'The blue headline in Google results and the name in the browser tab.',
     description: 'The two grey lines under the headline in Google.',
     keywords: 'Words people search for, separated by commas (Google mostly ignores these, other search engines may use them).',
-    focusKeyword: 'The main phrase this page should be found for, e.g. "Golden Triangle tour". Only used for the checklist above.',
+    focusKeyword: 'The words a traveller would type in Google to find this page, e.g. "Golden Triangle tour". It is not shown on the website: it only lets the checks above tell you if the title and description use those words.',
     ogImage: 'Optional. Leave empty to use the tour photo or the banner photo.'
   };
 
   // ---------- the form, in tabs ----------
   function build(res) {
-    getters = {}; templates = res.templates || {}; root.innerHTML = ''; tabsEl.innerHTML = ''; refreshGoogle = () => {};
+    getters = {}; comps = {}; templates = res.templates || {}; root.innerHTML = ''; tabsEl.innerHTML = ''; refreshGoogle = () => {};
     const data = res.data;
+    // (26 Oct 2026, client) each day of a tour can have its own photo: the box sits under the day's title
+    if (E.kind === 'tours' && Array.isArray(data.days)) data.days = data.days.map(d => d && typeof d === 'object' && !('photo' in d) ? Object.fromEntries(Object.entries(d).flatMap(([k, v]) => k === 'eta' ? [[k, v], ['photo', '']] : [[k, v]]).concat('eta' in d ? [] : [['photo', '']])) : d);
     let tabs = TABS[E.mode === 'single' ? E.id : E.kind];
     if (!tabs) tabs = res.fields.filter(k => k in data).map(k => [label(k), [k], HELP[k] || '']);   // settings: one tab per part
     const used = new Set(tabs.flatMap(t => t[1]));
-    const rest = res.fields.filter(k => k in data && !used.has(k));
+    // made automatically or chosen elsewhere: the breadcrumb, and a category's tours (ticked in each tour)
+    const AUTO = E.mode === 'item' ? ['breadcrumb'].concat(E.kind === 'lists' && E.id !== 'itineraries' ? ['groups'].concat(GOOGLE) : E.kind === 'tours' ? ['heroSrc', 'heroAlt'] : []) : E.id === 'reviews' ? ['all'] : [];
+    const rest = res.fields.filter(k => k in data && !used.has(k) && !AUTO.includes(k));
     if (rest.length) tabs = tabs.concat([['More', rest, '']]);
     const panes = [];
     tabs.forEach(([name, keys, intro], ti) => {
       keys = keys.filter(k => k in data); if (!keys.length) return;
-      const card = document.createElement('section'); card.className = 'card'; card.hidden = true;
+      const card = document.createElement('section'); card.className = 'card fg'; card.hidden = true;
       if (intro) card.insertAdjacentHTML('beforeend', '<p class="tab-intro">' + A.esc(intro) + '</p>');
       keys.forEach(k => {
         const c = field(k, data[k], 0);
-        const f = fieldBox(k, c, true);
+        // (26 Oct 2026, client video II) a tab with one thing in it needs no second title for it
+        const f = keys.length === 1 && name !== 'Google' ? Object.assign(document.createElement('div'), { className: 'f' }) : fieldBox(k, c, true);
+        if (keys.length === 1 && name !== 'Google') f.appendChild(c.el);
         if (GHELP[k] && name === 'Google') f.querySelector('.lb').insertAdjacentHTML('afterend', '<p class="fhelp">' + A.esc(GHELP[k]) + '</p>');
-        card.appendChild(f); getters[k] = c.get;
+        card.appendChild(f); getters[k] = c.get; comps[k] = c;
         if ((k === 'title' || k === 'description') && name === 'Google') counter(k, c);
       });
+      pairHalves(card);
       if (name === 'Google') googlePanel(card, data);
       const b = document.createElement('button'); b.type = 'button'; b.textContent = name; b.dataset.key = keys.join(' ');
       b.onclick = () => { panes.forEach(p => { p.card.hidden = p.b !== b; p.b.classList.toggle('on', p.b === b); }); history.replaceState(null, '', '#' + A.slug(name)); };
       tabsEl.appendChild(b); root.appendChild(card); panes.push({ b, card, slug: A.slug(name), keys });
     });
+    const addPane = (name, card, onShow) => {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = name;
+      b.onclick = () => { if (onShow) onShow(); panes.forEach(p => { p.card.hidden = p.b !== b; p.b.classList.toggle('on', p.b === b); }); history.replaceState(null, '', '#' + A.slug(name)); };
+      const after = panes[0] ? panes[0].b.nextSibling : null;
+      tabsEl.insertBefore(b, after); root.insertBefore(card, panes[0] ? panes[0].card.nextSibling : null);
+      panes.splice(1, 0, { b, card, slug: A.slug(name), keys: [] });
+      if (location.hash.slice(1) === A.slug(name)) b.click();
+    };
     const h = location.hash.slice(1);
     const start = panes.find(p => p.slug === h || p.keys.includes(h)) || panes[0];
     if (start) start.b.click();
     if (panes.length < 2) tabsEl.hidden = true;
-    dirty = false; state.textContent = 'No changes yet'; state.classList.remove('dirty');
+    if (E.kind === 'tours' && E.mode === 'item') { catState = null; categoriesTab(addPane).then(() => { tabsEl.hidden = false; }); }
+    if (E.kind === 'tours' && comps.days) autoFromDays();
+    // Footer menu ?col=2: that column opens, the others stay closed
+    const col = +new URLSearchParams(location.search).get('col');
+    if (E.id === 'footer' && col && comps.footerCols) { const its = [...comps.footerCols.el.querySelectorAll(':scope > .arr > .it')]; its.forEach((it, i) => it.classList.toggle('closed', i !== col - 1)); if (its[col - 1]) setTimeout(() => its[col - 1].scrollIntoView({ block: 'start', behavior: 'smooth' }), 50); }
+    // a destination / guide page with facts and lists opens on "Page sections", in the website's shape
+    if (E.kind === 'pages' && comps.html && hasSections(data.html)) { placesTab(addPane); tabsEl.hidden = false; if (!h) { const b = [...tabsEl.children].find(x => x.textContent === 'Page sections'); if (b) b.click(); } }
+    dirty = false; state.textContent = ''; state.classList.remove('dirty');
+  }
+  // (26 Oct 2026, client) a tour's route and length fill in by themselves from its days: the length from how many days
+  // there are, the route from the places in the day titles (a place repeated one after the other is written once)
+  const DROP = /(arrival|arrive|departure|depart|sightseeing|sight seeing|local|excursion|drive|hometown|home town|onward|journey|full day|half day|day|tour|by air|by train|by road|fly|flight|train|via)/gi;
+  function routeOf(days) {
+    const out = [];
+    days.forEach(d => String(d.title || '').split(/\s*[–—-]\s*|\s+to\s+|,|\//i).forEach(p => {
+      const n = p.replace(/\(.*?(\)|$)/g, '').replace(DROP, ' ').replace(/\s+/g, ' ').trim();
+      if (n && /[a-z]/i.test(n) && (!out.length || out[out.length - 1].toLowerCase() !== n.toLowerCase())) out.push(n);
+    }));
+    return out.join(' - ');
+  }
+  const two = n => String(n).padStart(2, '0');
+  function autoFromDays() {
+    const route = comps.route && comps.route.el, dur = comps.duration && comps.duration.el;
+    const pane = comps.days.el.closest('section') || comps.days.el;
+    // (26 Oct 2026, client video II) not typed by hand: shown as one line, made from the days
+    [route, dur].forEach(x => { const f = x && x.closest('.f'); if (f) f.hidden = true; });
+    const sum = document.createElement('div'); sum.className = 'auto-sum';
+    const show = () => { sum.innerHTML = '<span>Route &amp; length <small>made from the days</small></span><b>' + A.esc(route ? route.value : '') + '</b><em>' + A.esc(dur ? dur.value : '') + '</em>'; };
+    const anchor = (route || dur).closest('.f'); anchor.parentNode.insertBefore(sum, anchor); show();
+    let last = JSON.stringify((getters.days() || []).map(d => d.title));
+    const run = () => {
+      const days = getters.days() || [], key = JSON.stringify(days.map(d => d.title));
+      if (key === last) return; last = key;
+      if (dur && days.length) dur.value = two(days.length - 1) + ' Nights · ' + two(days.length) + ' Days';
+      if (route) { const r = routeOf(days); if (r) route.value = r; }
+      show(); touch();
+    };
+    pane.addEventListener('input', run); new MutationObserver(() => setTimeout(run, 0)).observe(comps.days.el, { childList: true, subtree: true });
   }
   const collect = () => Object.fromEntries(Object.entries(getters).map(([k, g]) => [k, g()]));
 
+  // ---------- status, draft, publish (23 Oct 2026) ----------
+  const when = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); };
+  function showStatus(res) {
+    current = res;
+    const live = res.published !== false;
+    statusEl.className = 'pill ' + (res.draft ? 'pill-draft' : live ? 'pill-live' : 'pill-off');
+    statusEl.textContent = res.draft ? (live ? 'Live — with unpublished changes' : 'Draft — not on the website yet') : live ? 'Live on the website' : 'Not on the website';
+    if (res.draft) { draftNote.hidden = false; draftNote.innerHTML = '📝 <span>You are seeing the draft saved ' + A.esc(when(res.draft.at)) + (res.draft.by ? ' by ' + A.esc(res.draft.by) : '') + '. ' + (E.canPublish ? 'Press Publish to put it on the website.' : 'An Owner or Editor will publish it.') + '</span>'; }
+    else draftNote.hidden = true;
+    const disc = document.querySelector('[data-discard]'), unp = document.querySelector('[data-unpublish]');
+    if (disc) disc.hidden = !res.draft;
+    if (unp) unp.hidden = !live || E.mode !== 'item';
+    if (saveBtn) saveBtn.textContent = live ? 'Publish changes' : 'Publish';
+  }
   async function load() {
-    try { build(await A.api('GET', apiUrl)); }
+    try { const res = await A.api('GET', apiUrl); build(res); showStatus(res); }
     catch (e) { root.innerHTML = '<div class="card"><p class="err">' + A.esc(e.message) + '</p></div>'; }
   }
-  saveBtn.onclick = async () => {
-    saveBtn.disabled = true; state.textContent = 'Saving…';
+  async function send(publish) {
+    const btn = publish ? saveBtn : draftBtn;
+    if (btn) btn.disabled = true; state.textContent = publish ? 'Publishing…' : 'Saving…';
     try {
-      const res = await A.api('PUT', apiUrl, { data: collect() });
-      dirty = false; state.textContent = '✓ Saved ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' — live on the website'; state.classList.remove('dirty');
+      const body = { data: collect(), publish };
+      if (catState) body.categories = catState();
+      const res = await A.api('PUT', apiUrl, body);
+      dirty = false; state.classList.remove('dirty');
+      state.textContent = (publish ? '✓ Published ' : '✓ Draft saved ') + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       if (res.data && res.data.heading) document.querySelector('[data-title]').textContent = res.data.heading;
-      A.toast('Saved — the website is updated');
+      showStatus(res);
+      A.toast(publish ? 'Published — the website is updated' + (res.categoriesChanged && res.categoriesChanged.length ? ' (' + res.categoriesChanged.join(', ') + ')' : '') : 'Draft saved — the website is not changed');
     } catch (e) { state.textContent = 'Not saved'; A.toast(e.message, true); }
-    saveBtn.disabled = false;
+    if (btn) btn.disabled = false;
+  }
+  if (saveBtn) saveBtn.onclick = () => send(true);
+  draftBtn.onclick = () => send(false);
+  document.querySelector('[data-revert]') && (document.querySelector('[data-revert]').onclick = async () => {
+    if (!(await A.confirm('Back to the original?', 'This brings back the original text of this ' + E.one + ' on the website. Earlier versions stay in History.', 'Bring back the original', true))) return;
+    try { const res = await A.api('POST', apiUrl + '/revert'); build(res); showStatus(res); A.toast('Back to the original'); } catch (e) { A.toast(e.message, true); }
+  });
+  const disc = document.querySelector('[data-discard]');
+  if (disc) disc.onclick = async () => {
+    if (!(await A.confirm('Throw away the draft?', 'The changes saved as a draft are removed. What is on the website stays as it is.', 'Throw away', true))) return;
+    try { const res = await A.api('POST', apiUrl + '/discard'); build(res); showStatus(res); A.toast('Draft thrown away'); } catch (e) { A.toast(e.message, true); }
   };
-  document.querySelector('[data-revert]').onclick = async () => {
-    if (!(await A.confirm('Undo all your edits?', 'This brings back the original text of this ' + (E.mode === 'single' ? 'section' : 'page') + '. Your changes cannot be recovered.', 'Undo my edits', true))) return;
-    try { build(await A.api('POST', apiUrl + '/revert')); A.toast('Back to the original'); } catch (e) { A.toast(e.message, true); }
+  const unp = document.querySelector('[data-unpublish]');
+  if (unp) unp.onclick = async () => {
+    if (!(await A.confirm('Take this ' + E.one + ' off the website?', 'Visitors will not find it any more. It stays here, and you can publish it again any time.', 'Take it off', true))) return;
+    try { showStatus(await A.api('POST', apiUrl + '/unpublish')); A.toast('Taken off the website'); } catch (e) { A.toast(e.message, true); }
   };
-  document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveBtn.click(); } });
+  const del = document.querySelector('[data-delete]');
+  if (del) del.onclick = async () => {
+    if (!(await A.confirm('Delete this ' + E.one + '?', 'It is taken off the website. You can put it back from "Deleted items".', 'Delete', true))) return;
+    try { await A.api('DELETE', apiUrl); dirty = false; location.href = '/admin/' + (E.kind === 'lists' ? 'lists' : E.kind); } catch (e) { A.toast(e.message, true); }
+  };
+  // History: every published version (and the original); one can be loaded into the form, then published again
+  document.querySelector('[data-history]').onclick = async () => {
+    let items;
+    try { items = (await A.api('GET', apiUrl + '/revisions')).items; } catch (e) { return A.toast(e.message, true); }
+    const box = await A.dialog({
+      title: 'History', ok: 'Close', cancel: false,
+      html: !items.length ? '<p class="hint">No earlier versions yet. Each time this is published, a copy is kept here (the latest 25).</p>' :
+        '<p class="hint">Load a version into the form, check it, then press Publish to put it back on the website.</p><div class="pick-list">' +
+        items.map(r => '<button type="button" data-rev="' + A.esc(r.rev) + '"><b>' + A.esc(when(r.at)) + ' — ' + A.esc(r.note) + '</b><small>' + A.esc(r.by ? 'by ' + r.by : 'imported content') + '</small></button>').join('') + '</div>',
+      onOpen: (b, close) => {
+        b.querySelectorAll('[data-rev]').forEach(x => x.onclick = async () => {
+          try {
+            const r = await A.api('GET', apiUrl + '/revisions/' + x.dataset.rev);
+            build(Object.assign({}, current, { data: Object.assign({}, current.data, r.data) }));
+            dirty = true; state.textContent = '● Older version loaded — publish to put it back'; state.classList.add('dirty');
+            close(); A.toast('Version loaded into the form');
+          } catch (e) { A.toast(e.message, true); }
+        });
+      }
+    });
+  };
+  document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); draftBtn.click(); } });
   window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+  // ---------- a tour's categories: one tick per category; "+ New category" makes one here ----------
+  // (26 Oct 2026, client) the chosen categories on top as tags, then every category in the groups of the website's menu
+  async function categoriesTab(panesAdd) {
+    let items;
+    try { items = (await A.api('GET', '/admin/api/tour-categories/' + E.id)).items; } catch (e) { return; }
+    const card = document.createElement('section'); card.className = 'card'; card.hidden = true;
+    card.innerHTML = '<p class="tab-intro">Tick the categories this tour shows in. Publishing adds it to (or takes it off) those category pages.</p>' +
+      '<div class="cat-on"><b>Shows in</b><div data-on></div></div>' +
+      '<div class="cat-tools"><input class="in" placeholder="Search a category or code, e.g. Rajasthan or GT" data-cs><button type="button" class="btn" data-cn>+ New category</button></div>' +
+      '<div data-cl></div>';
+    const cl = card.querySelector('[data-cl]'), cs = card.querySelector('[data-cs]'), on = card.querySelector('[data-on]');
+    const groups = [...new Set(items.map(c => c.group))];
+    const tag = c => '<span class="cat-tag">' + (c.code ? '<i>' + A.esc(c.code) + '</i>' : '') + A.esc(c.name) + '<button type="button" data-off="' + A.esc(c.id) + '" aria-label="Take the tour out of ' + A.esc(c.name) + '">×</button></span>';
+    const drawOn = () => { const sel = items.filter(c => c.checked); on.innerHTML = sel.length ? sel.map(tag).join('') : '<span class="muted">Not in any category yet — tick one below.</span>'; };
+    const draw = () => {
+      const v = cs.value.trim().toLowerCase();
+      cl.innerHTML = groups.map(g => {
+        const list = items.filter(c => c.group === g && (!v || (c.name + ' ' + c.code + ' ' + g).toLowerCase().includes(v)));
+        if (!list.length) return '';
+        // (26 Oct 2026, client) compact: one tick-chip per category, as many in a row as fit
+        return '<div class="cg"><h4 class="cat-g">' + A.esc(g) + '</h4><div class="chipset">' + list.map(c => '<label class="chk"><input type="checkbox" data-c="' + A.esc(c.id) + '"' + (c.checked ? ' checked' : '') + '><span>' + (c.code ? '<i>' + A.esc(c.code) + '</i>' : '') + A.esc(c.name) + (c.published ? '' : ' <small>(draft)</small>') + '</span></label>').join('') + '</div></div>';
+      }).join('') || '<p class="hint">No category found.</p>';
+      drawOn();
+    };
+    cl.onchange = e => { const x = e.target.closest('[data-c]'); if (!x) return; items.find(c => c.id === x.dataset.c).checked = x.checked; drawOn(); touch(); };
+    on.onclick = e => { const x = e.target.closest('[data-off]'); if (!x) return; items.find(c => c.id === x.dataset.off).checked = false; draw(); touch(); };
+    cs.oninput = draw; draw();
+    card.querySelector('[data-cn]').onclick = async () => {
+      const box = await A.dialog({ title: 'New category', ok: 'Create category', html: '<label class="lb">Name</label><input class="in" data-n placeholder="e.g. Rajasthan Desert Tours"><p class="hint">It is made as a draft. Open it from Tours → Categories to write its description, choose its banner and publish it.</p>', validate: b => b.querySelector('[data-n]').value.trim() ? '' : 'Type a name.' });
+      if (!box) return;
+      const name = box.querySelector('[data-n]').value.trim();
+      try {
+        const res = await A.api('POST', '/admin/api/item/lists', { name, slug: A.slug(name), from: '' });
+        items.unshift({ id: res.id, name, code: '', group: 'New categories', published: false, checked: true }); if (!groups.includes('New categories')) groups.unshift('New categories'); draw(); touch();
+        A.toast('Category "' + name + '" made — publish the tour to add it');
+      } catch (e) { A.toast(e.message, true); }
+    };
+    catState = () => items.filter(c => c.checked).map(c => c.id);
+    panesAdd('Categories', card);
+  }
   load();
 })();

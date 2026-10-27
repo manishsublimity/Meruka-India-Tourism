@@ -20,7 +20,7 @@ const LISTS = {};
 for (const f of fs.readdirSync(path.join(__dirname, 'tour-lists')).filter(f => f.endsWith('.js'))) {
   const l = require('./tour-lists/' + f);
   const seen = new Set();
-  LISTS[l.url.toLowerCase()] = { title: l.heading, url: l.url, tours: (l.groups || []).flatMap(g => g.tours || []).filter(t => t.href && !seen.has(t.href.toLowerCase()) && seen.add(t.href.toLowerCase())) };
+  LISTS[l.url.toLowerCase()] = { title: l.heading, url: l.url, hero: l.heroSrc || '', tours: (l.groups || []).flatMap(g => g.tours || []).filter(t => t.href && !seen.has(t.href.toLowerCase()) && seen.add(t.href.toLowerCase())) };
 }
 const tourPages = new Set(fs.readdirSync(path.join(__dirname, 'tours')).filter(f => f.endsWith('.js')).map(f => require('./tours/' + f).url.toLowerCase()));
 
@@ -31,7 +31,7 @@ function inCategory(tourUrl, listUrl) {
   if (!l) return null;
   const tours = l.tours.filter(t => tourPages.has(String(t.href).toLowerCase()));
   const i = tours.findIndex(t => t.href.toLowerCase() === String(tourUrl).toLowerCase());
-  return { title: l.title, url: l.url, tours, index: i, prev: i > 0 ? tours[i - 1] : null, next: i >= 0 && i < tours.length - 1 ? tours[i + 1] : null };
+  return { title: l.title, url: l.url, hero: l.hero, tours, index: i, prev: i > 0 ? tours[i - 1] : null, next: i >= 0 && i < tours.length - 1 ? tours[i + 1] : null };
 }
 
 module.exports = { groups: GROUPS, inCategory };

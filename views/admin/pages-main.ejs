@@ -1,0 +1,23 @@
+<%- include('_top', { pageTitle: 'Pages' }) %>
+<%# (26 Oct 2026, client video II) Pages: only the website's main pages. Destinations, the Travel Guide and the blog have
+    their own place in the menu. %>
+<div class="ad-top ad-head">
+  <div><h1>Pages</h1><p class="lead">The main pages of the website. Destinations and the India Travel Guide have their own place in the menu.</p></div>
+</div>
+<div class="lst-wrap">
+<table class="tbl lst lst-clean">
+  <thead><tr><th class="n">#</th><th>Page</th><th>What you change here</th><th>Status</th><th class="acts-h">Actions</th></tr></thead>
+  <tbody>
+    <% main.forEach((m, i) => { %>
+    <tr>
+      <td class="n"><%= i + 1 %></td>
+      <td><a href="<%= m.edit %>" class="row-name"><b><%= m.name %></b></a><a href="<%= m.url %>" target="_blank" rel="noopener" class="url"><%= m.url %> ↗</a></td>
+      <td class="muted"><%= m.what %></td>
+      <td><% if (m.draft) { %><span class="pill pill-draft">Live + changes</span><% } else { %><span class="pill pill-live">Live</span><% } %></td>
+      <td class="acts"><% if (m.editable) { %><a class="btn btn-s btn-p" href="<%= m.edit %>">Edit</a><% } else { %><span class="muted">Owner only</span><% } %><a class="btn btn-s" href="<%= m.url %>" target="_blank" rel="noopener">View</a></td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+</div>
+<%- include('_bottom') %>

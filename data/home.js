@@ -184,7 +184,7 @@ module.exports = {
     { title: 'Destinations', items: [['North India', '/north_india_tour'], ['South India', '/south_india_tours_tourism'], ['East India', '/east_india_tour_tourism'], ['West India', '/west_india_tour_tourism']] },
     // "Travel Tips" is the Traveller's Guide page (its tips); "Important Links" as in the old site's footer
     { title: 'Travel Guide', items: [['India Travel Guide', '/guide'], ['Travel Tips', '/travelers_guide'], ['Best Time to Visit', '/weather'], ['Fairs & Festivals', '/Fairs-Festivals'], ['Visa Information', '/visa_information'], ['Important Links', '/important_links']] },
-    { title: 'Company', items: [['About Us', '/aboutus'], ['Guest Reviews', '/testimonials'], ['FAQs', '/#faq'], ['Contact Us', '/contactus'], ['Plan My Trip', '/plan-my-trip'], ['Sitemap', '/sitemap']] }
+    { title: 'Company', items: [['About Us', '/aboutus'], ['Guest Reviews', '/testimonials'], ['FAQs', '/faqs'], ['Contact Us', '/contactus'], ['Plan My Trip', '/plan-my-trip'], ['Sitemap', '/sitemap']] }
   ],
   seoLinks: ['India tour packages', 'India travel agency', 'Indian tour operators', 'India holiday packages', 'Golden Triangle tour', 'Rajasthan tour packages', 'Kerala backwaters tours', 'Kerala tour operators', 'Private tours India', 'India tour plan', 'India Tour Itineraries', 'India Tourism', 'South India Tours', 'North India Tours'],
   socials: ['f', 'in', 'ig', 'yt']
@@ -210,3 +210,104 @@ module.exports.tours.forEach(t => {
   const cat = t.cats.find(c => CATEGORY_LIST[c]);
   t.list = cat ? CATEGORY_LIST[cat] : t.href;
 });
+
+// (23 Oct 2026, admin panel) parts of the home page and the header that used to be written into the templates, now data
+// so they can be changed in the admin panel (Pages → Home, Header & footer)
+module.exports.heroTitle = { line1: 'One Country', line2: 'Many Worlds...' };
+// banner photos in the client's order: photo, its description, place, the tour list it opens, focus point, mirrored
+module.exports.heroSlides = [
+  { src: '/photos/hero-taj-mahal.webp', alt: 'The Taj Mahal at sunset across the Yamuna, Agra', place: 'Taj Mahal, Agra', region: 'Golden Triangle', href: '/india-golden-triangle-tour', pos: '50% 30%', flip: false },
+  { src: '/photos/hero-desert-camel.webp', alt: 'Camel safari on the sand dunes, Jaisalmer', place: 'Sand dunes, Jaisalmer', region: 'Desert', href: '/rajasthan-tours', pos: '50% 22%', flip: false },
+  { src: '/photos/hero-tigers.webp', alt: 'Two Bengal tigers in the forest', place: 'Tiger safari', region: 'Wildlife', href: '/wildlife_tour', pos: '70% 32%', flip: false },
+  { src: '/photos/hero-holi.webp', alt: 'Holi, the festival of colours', place: 'Holi festival', region: 'Fairs & Festivals', href: '/india_fair_festival_travelplan', pos: '50% 18%', flip: false },
+  { src: '/photos/hero-ladakh.webp', alt: 'Mountains reflected in a high lake, Ladakh', place: 'Ladakh', region: 'Mountains', href: '/leh_ladakh_tours', pos: '50% 50%', flip: false },
+  { src: '/photos/hero-hawa-mahal.webp', alt: 'Hawa Mahal, the Palace of Winds, Jaipur', place: 'Hawa Mahal, Jaipur', region: 'Rajasthan', href: '/rajasthan-tours', pos: '50% 22%', flip: false },
+  { src: '/photos/hero-houseboat.webp', alt: 'A houseboat on the Kerala backwaters', place: 'Kerala Backwaters', region: 'Kerala', href: '/southindia_kerala_tours', pos: '50% 28%', flip: false }
+];
+// the band under the banner; a figure left empty shows the "private tour" shield instead
+module.exports.stats = [
+  { figure: '22', text: 'Years of Experience' }, { figure: '1150+', text: 'Happy guests' }, { figure: '135+', text: 'Tour packages' },
+  { figure: '97.80%', text: 'Success Rate' }, { figure: '', text: 'Private Tours — No Sharing' }
+];
+module.exports.offer = { show: true, eyebrow: 'Seasonal offer', percent: '10%', text: 'discount on the tour packages booked from April to September!' };
+// the header's links, left to right
+module.exports.headerMenu = [
+  { label: 'Home', href: '/' }, { label: 'About Us', href: '/aboutus' }, { label: 'Tour Packages', href: '/itineraries' },
+  { label: 'Guest Reviews', href: '/testimonials' }, { label: 'Contact', href: '/contactus' }
+];
+
+// (26 Oct 2026, client) every section of the home page, editable in the admin panel (Pages → Home page): its heading,
+// the line under it, its button and its cards. The values are the ones the page showed before, word for word.
+// A card's price left empty is the lowest tour price of that category, worked out from the tours.
+module.exports.secPackages = {
+  title: 'Best Tour Packages', accent: 'in The Industry', sub: 'Offering Various Tour Packages in Each Sector.', button: 'View Tours', buttonLink: '/itineraries',
+  cards: [
+    { title: 'Golden Triangle', photo: '/photos/red-fort-hd.webp', link: '/india-golden-triangle-tour', price: '' },
+    { title: 'Rajasthan Heritage', photo: '/photos/gadisar-lake-hd.webp', link: '/rajasthan-tours', price: '' },
+    { title: 'Kerala Backwaters', photo: '/photos/kerala-houseboat-dusk.webp', link: '/southindia_kerala_tours', price: '' },
+    { title: 'South India', photo: '/photos/mysore-palace-lit.webp', link: '/south_india_tour', price: '' }
+  ],
+  note: '*Starting price per person for the whole tour, two people sharing a room in 3-star hotels. All our tours are private: no sharing with other travellers.'
+};
+module.exports.secPopular = {
+  title: 'Most Popular Tours', accent: 'of India', sub: 'From Thar Desert of Rajasthan to Backwaters of Kerala.', button: 'View Tours', buttonLink: '/itineraries',
+  note: 'Tour cost is for a minimum of 2 persons travelling together · 3-star hotels, 1 double room on twin sharing with breakfast.'
+};
+module.exports.secOwnTour = {
+  title: 'Chalk Out Your Own', accent: 'Private Tour', sub: 'Your trip, your way.', currency: 'USD', price: '170', priceNote: 'Per Couple Per Day onwards',
+  included: ['3-star hotel accommodation with breakfast', 'Private A/C car with an English-speaking driver throughout the tour', 'All pickups, sightseeing, intercity travel, excursions and other services as specified'],
+  extras: ['Upgrade to 4-star, 5-star & 5-star deluxe hotels', 'Customize the number of days, destinations and sightseeing', 'Planned to your budget and requirement'],
+  button: 'Tell Us Your Plan', buttonLink: '/plan-my-trip'
+};
+module.exports.secRegions = {
+  title: 'Four Regions.', accent: 'Four Different Countries.', sub: 'The Grace of Geography.', statesTitle: 'States of India',
+  cards: [
+    { name: 'South India', kicker: 'Backwaters, temples & tea', photo: '/photos/region-south-india.webp', link: '/south_india_tours_tourism', cities: [['Kochi', '/Kerala'], ['Munnar', '/Kerala'], ['Alleppey', '/Kerala'], ['Kovalam', '/Kerala'], ['Madurai', '/Tamil-Nadu'], ['Mysore', '/Karnataka'], ['Hampi', '/Karnataka']] },
+    { name: 'North India', kicker: 'Mughals, forts & the Ganges', photo: '/photos/golden-temple-amritsar.webp', link: '/north_india_tour', cities: [['Jaipur', '/rajasthan_jaipur'], ['Agra', '/Uttar-Pradesh'], ['Delhi', '/delhi'], ['Jaisalmer', '/rajasthan_jaisalmer'], ['Udaipur', '/rajasthan_udaipur'], ['Varanasi', '/Uttar-Pradesh']] },
+    { name: 'West India', kicker: 'Desert, caves & salt flats', photo: '/photos/goa-beach-palms.webp', link: '/west_india_tour_tourism', cities: [['Kutch', '/Gujarat'], ['Ajanta & Ellora', '/Maharashtra'], ['Mumbai', '/Maharashtra'], ['Goa', '/Goa'], ['Khajuraho', '/khajuraho_city_tour_travel']] },
+    { name: 'East India', kicker: 'Tribes, tigers & the hills', photo: '/photos/arunachal-losar.webp', link: '/east_india_tour_tourism', cities: [['Kolkata', '/West-Bengal'], ['Puri', '/Orissa'], ['Sikkim', '/Sikkim'], ['Darjeeling', '/West-Bengal'], ['Assam', '/Assam']] }
+  ]
+};
+module.exports.secGuide = {
+  title: 'India', accent: 'Travel Guide', sub: 'Travel with peace of mind — everything we are asked before a first trip, answered plainly.', button: 'View Travel Guide', buttonLink: '/guide',
+  photo: '/photos/guide-main.webp', tag: 'WHEN TO COME', seasonTitle: 'The Country for All Seasons', seasonText: 'September to March is the best time.'
+};
+module.exports.secWhy = {
+  title: 'Why to', accent: 'Choose Us?', sub: '“Always give people more than what they expect to get.”',
+  intro: 'Founded in 2001 to do one thing properly: look after overseas travellers inside India. No domestic groups, no merged coaches — your party, your car, your pace, with our own ground teams in every state you pass through.',
+  points: [
+    { title: 'Routed by hand', text: 'Distances, driving hours and city order worked out for your party — never a template.' },
+    { title: 'Hotels contracted direct', text: 'See the hotel name and room category before you pay.' },
+    { title: 'Transparent to the last line', text: 'What is quoted is exactly what arrives.' },
+    { title: 'Full inbound specialists', text: '22 years of looking after overseas guests across India.' }
+  ],
+  photo: '/photos/handshake-deal.webp', quote: 'The guest is the only Boss of our company; this is our prime duty and commitment to always provide the best services.', quoteName: 'Ashok Pareek', quoteRole: 'Founder, Meruka India Tourism Service'
+};
+module.exports.secFaq = {
+  title: 'FAQs', sub: 'Assistance on every step you take.', homeCount: 6, boxTitle: 'Still have a question?', boxText: 'A planner answers, not a bot.',
+  howTitle: 'How we work — from your first email to the airport wave-off', howNote: 'No deposit until the whole plan — routing, hotels by name, every cost — is approved by you.'
+};
+
+// (26 Oct 2026, client video II) everything in the footer is edited in one place (Footer menu): the short text under the
+// logo, the social media addresses (an icon becomes a link once its address is filled in) and the popular searches, each
+// with the page it opens
+module.exports.footerAbout = 'Inbound travel agency for overseas visitors. Private tours, 3–5 star hotels, a dedicated car and driver from arrival to departure.';
+module.exports.footerSocial = [
+  { name: 'Facebook', href: '' }, { name: 'Instagram', href: '' }, { name: 'YouTube', href: '' }, { name: 'X', href: '' }
+];
+module.exports.popularSearches = [
+  ['India tour packages','/itineraries'],
+  ['India travel agency','/aboutus'],
+  ['Indian tour operators','/aboutus'],
+  ['India holiday packages','/itineraries'],
+  ['Golden Triangle tour','/india-golden-triangle-tour'],
+  ['Rajasthan tour packages','/rajasthan-tours'],
+  ['Kerala backwaters tours','/southindia_kerala_tours'],
+  ['Kerala tour operators','/southindia_kerala_tours'],
+  ['Private tours India','/itineraries'],
+  ['India tour plan','/plan-my-trip'],
+  ['India Tour Itineraries','/itineraries'],
+  ['India Tourism','/'],
+  ['South India Tours','/south_india_tour'],
+  ['North India Tours','/north_india_tour']
+];

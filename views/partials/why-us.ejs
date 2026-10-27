@@ -1,0 +1,31 @@
+<%# (26 Oct 2026, client) "Why to Choose Us": one section for the home page and About us, edited in Pages → Home page %>
+<% const SW = W || {}; %>
+<section id="why" class="wn<%= typeof extraClass !== 'undefined' ? ' ' + extraClass : '' %>">
+  <div class="b-wrap wn-grid">
+    <div class="wn-media">
+      <div class="wn-photo"><img src="<%= SW.photo || '/photos/handshake-deal.webp' %>" alt="Two people shaking hands across a desk" loading="lazy"></div>
+      <figure class="wn-quote">
+        <blockquote>“<%= SW.quote %>”</blockquote>
+        <figcaption><span><b><%= SW.quoteName %></b><%= SW.quoteRole %></span></figcaption>
+      </figure>
+    </div>
+
+    <div class="wn-copy">
+      <h2 class="h4-h2"><%= SW.title %><% if (SW.accent) { %> <em><%= SW.accent %></em><% } %></h2>
+      <% if (SW.sub) { %><p class="h4-base"><%= SW.sub %></p><% } %>
+      <% if (SW.intro) { %><p class="wn-intro"><%= SW.intro %></p><% } %>
+      <% const wvTick = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>'; %>
+      <ul class="wv-list">
+        <% (SW.points || []).filter(x => x && x.title).forEach(x => { %>
+        <li><span class="wv-ic"><%- wvTick %></span><div><b><%= x.title %></b><span><%= x.text %></span></div></li>
+        <% }) %>
+      </ul>
+
+      <div class="wn-contact">
+        <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="wn-btn wn-wa">WhatsApp</a>
+        <a href="mailto:<%= footer.hq.email %>" class="wn-btn">Email us</a>
+        <a href="tel:<%= footer.hq.phones[0].replace(/[^0-9+]/g, '') %>" class="wn-btn">Call <%= footer.hq.phones[0] %></a>
+      </div>
+    </div>
+  </div>
+</section>

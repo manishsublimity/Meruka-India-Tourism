@@ -1,27 +1,51 @@
 <%- include('_top', { pageTitle: 'Enquiries' }) %>
 <%
-  const HIDE = ['_i', '_read', 'name', 'email', 'receivedAt'];
+  // (23 Oct 2026) enquiries as a small inbox: a status, who handles it and a note for the team.
+  // (26 Oct 2026, client video II) one neat table, one line per enquiry; "Open" shows everything the guest wrote.
+  const HIDE = ['_i', '_read', '_st', '_status', '_note', '_assignee', '_assigneeName', 'name', 'email', 'receivedAt', 'source'];
   const label = k => k.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]/g, ' ').replace(/^./, c => c.toUpperCase());
+  const counts = Object.fromEntries(statuses.map(s => [s, items.filter(e => e._st === s).length]));
+  const pillOf = s => ({ New: 'pill-new', Replied: 'pill-live', 'Quote sent': 'pill-draft', Booked: 'pill-role', Closed: 'pill-off' })[s] || '';
+  const FORM = { 'plan-my-trip': 'Plan My Trip', contact: 'Contact page', home: 'Home page' };
+  const trip = e => [e.duration || e.days, e.travellers || e.adults && (e.adults + ' adults'), e.hotel].filter(Boolean).join(' · ');
 %>
-<div class="ad-top">
-  <div><h1>Enquiries</h1><p><%= items.length %> enquir<%= items.length === 1 ? 'y' : 'ies' %> sent from the website forms, newest first.</p></div>
+<div class="ad-top ad-head">
+  <div><h1>Enquiries</h1><p class="lead"><%= items.length %> enquir<%= items.length === 1 ? 'y' : 'ies' %> from the website forms, newest first.</p></div>
   <a class="btn" href="/admin/enquiries.csv">Download as Excel (CSV)</a>
 </div>
-<div class="enq">
-  <% if (!items.length) { %><div class="card"><p class="hint" style="margin:0">No enquiries yet.</p></div><% } %>
-  <% items.forEach(e => { %>
-  <div class="card<%= e._read ? '' : ' new' %>" data-enq="<%= e._i %>">
-    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-      <div><h3><%= e.name %> <% if (!e._read) { %><span class="tag tag-g">New</span><% } %></h3>
-        <div class="url"><a href="mailto:<%= e.email %>"><%= e.email %></a> · <%= new Date(e.receivedAt).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }) %></div></div>
-      <div><button class="btn btn-s" type="button" data-read="<%= e._read ? 0 : 1 %>"><%= e._read ? 'Mark as new' : 'Mark as read' %></button> <button class="btn btn-s btn-d" type="button" data-del>Delete</button></div>
-    </div>
-    <dl>
-      <% Object.entries(e).filter(([k, v]) => !HIDE.includes(k) && v !== '' && v != null).forEach(([k, v]) => { %>
-      <dt><%= label(k) %></dt><dd><%= Array.isArray(v) ? v.join(', ') : v %></dd>
-      <% }) %>
-    </dl>
+<div class="lst-bar">
+  <div class="subtabs enq-tabs" data-enq-tabs>
+    <button type="button" class="on" data-f="">All <b><%= items.length %></b></button>
+    <% statuses.forEach(s => { %><button type="button" data-f="<%= s %>"><%= s %> <b><%= counts[s] %></b></button><% }) %>
   </div>
-  <% }) %>
+  <div class="lst-right"><input class="in lst-q" type="search" placeholder="Search name, email, country…" data-q></div>
 </div>
-<%- include('_bottom', { scripts: ['/admin-assets/enquiries.js?v=1'] }) %>
+<% if (!items.length) { %><div class="card"><p class="hint" style="margin:0">No enquiries yet. Messages sent from the Plan My Trip, Contact and home page forms show here.</p></div><% } else { %>
+<div class="lst-wrap">
+<table class="tbl lst lst-clean enq-tbl">
+  <thead><tr><th class="n">#</th><th>Guest</th><th>Received</th><th class="enq-trip">Trip</th><th>Status</th><th>Handled by</th><th class="acts-h">Actions</th></tr></thead>
+  <% items.forEach((e, n) => { %>
+  <tbody data-enq="<%= e._i %>" data-st="<%= e._st %>" data-s="<%= [e.name, e.email, e.country, e.tour, e.message, e.tourCode].filter(Boolean).join(' ').toLowerCase() %>" class="<%= e._st === 'New' ? 'is-new' : '' %>">
+    <tr>
+      <td class="n"><%= n + 1 %></td>
+      <td><b><%= e.name %></b> <span class="pill <%= pillOf(e._st) %>" data-pill><%= e._st %></span><a class="url" href="mailto:<%= e.email %>"><%= e.email %></a></td>
+      <td class="muted"><%= new Date(e.receivedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) %><small class="url"><%= FORM[e.source] || e.source || '' %><%= e.country ? ' · ' + e.country : '' %></small></td>
+      <td class="muted enq-trip"><%= trip(e) || '—' %></td>
+      <td><select class="in in-s" data-status aria-label="Status"><% statuses.forEach(s => { %><option<%= s === e._st ? ' selected' : '' %>><%= s %></option><% }) %></select></td>
+      <td><select class="in in-s" data-assignee aria-label="Handled by"><option value="">Nobody yet</option><% team.forEach(t => { %><option value="<%= t.id %>"<%= t.id === e._assignee ? ' selected' : '' %>><%= t.name %></option><% }) %></select></td>
+      <td class="acts"><button class="btn btn-s" type="button" data-open aria-expanded="false">Open</button><a class="btn btn-s btn-p" href="mailto:<%= e.email %>?subject=<%= encodeURIComponent('Your India trip — Meruka India Tourism') %>">Reply</a><% if (can('delete')) { %><button class="btn btn-s btn-d" type="button" data-del>Delete</button><% } %></td>
+    </tr>
+    <tr class="enq-more" hidden><td></td><td colspan="6">
+      <dl>
+        <% Object.entries(e).filter(([k, v]) => !HIDE.includes(k) && v !== '' && v != null).forEach(([k, v]) => { %>
+        <dt><%= label(k) %></dt><dd><%= Array.isArray(v) ? v.join(', ') : v %></dd>
+        <% }) %>
+      </dl>
+      <div class="enq-note"><label class="lb">Note for the team</label><textarea class="in" rows="2" data-note placeholder="e.g. Sent a quote for 12 nights, waiting for dates"><%= e._note || '' %></textarea></div>
+    </td></tr>
+  </tbody>
+  <% }) %>
+</table>
+</div>
+<% } %>
+<%- include('_bottom', { scripts: ['/admin-assets/enquiries.js?v=4'] }) %>

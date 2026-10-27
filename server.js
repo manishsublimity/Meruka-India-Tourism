@@ -95,6 +95,16 @@ function buildSite() {
       .filter(t => t.code && t.code.includes('-')).sort((a, b) => rank(a.code) - rank(b.code));
   })();
   app.locals.tourPhoto = url => { const t = TOUR_PAGES[String(url || '').toLowerCase()]; return t ? (t.photo || app.locals.photoFor([t.heading, t.url, t.route])) : ''; };
+  // (26 Oct 2026, client) a page put in a section of the India Travel Guide (in its editor) shows in that section by itself:
+  // on the home page's travel guide cards and on /guide
+  const guideExtras = () => {
+    const out = {};
+    for (const f of fs.readdirSync(path.join(__dirname, 'data', 'articles')).filter(f => f.endsWith('.js'))) {
+      const a = require('./data/articles/' + f);
+      if (a.guideSection && a.url && !a.unpublished) (out[a.guideSection] = out[a.guideSection] || []).push({ name: String(a.heading || '').replace(/^India:\s*/i, ''), href: a.url, line: a.description || '' });
+    }
+    return out;
+  };
   app.locals.explore = (() => {
     const H2 = require('./data/home2');
     const REGION_IMG = { 'North India': '/photos/golden-temple-amritsar.webp', 'South India': '/photos/region-south-india.webp', 'West India': '/photos/goa-beach-palms.webp', 'East India': '/photos/arunachal-losar.webp' };
@@ -103,6 +113,7 @@ function buildSite() {
         .map(r => Object.assign({}, r, { img: REGION_IMG[r.name] || r.img })),
       guideCols: home.guideCols,
       guideImgs: ['/photos/guide-travelers.webp', '/photos/guide-attractions.webp', '/photos/travel-tools-hd.webp'],
+      guideExtras: guideExtras(),
       // (18 Oct 2026) the number of tours in each category and in each sector, for "India Tour Packages"
       tourCounts: (() => {
         const lists = {};
@@ -116,11 +127,11 @@ function buildSite() {
     };
   })();
   // The header's Destinations / Tour Packages dropdowns appear on every page
-  app.locals.menu = { pkgCols: home.pkgMenuCols, destCols: home.destMenuCols, to: home.to, mostBookedHref: home.mostBookedHref, langs: require('./data/languages') };
+  app.locals.menu = { pkgCols: home.pkgMenuCols, destCols: home.destMenuCols, to: home.to, mostBookedHref: home.mostBookedHref, langs: require('./data/languages'), header: home.headerMenu };
   // ...and so does the one footer (partials/site-footer), with the head office details from the contact page
-  app.locals.footer = { cols: home.footerCols, seo: home.seoLinks, hq: contact.offices[0], testimonialsHref: home.testimonials.href,
+  app.locals.footer = { cols: home.footerCols, seo: home.popularSearches || home.seoLinks, about: home.footerAbout, hq: contact.offices[0], testimonialsHref: home.testimonials.href,
     // WhatsApp chat link: the head office's first number
-    social: require('./data/home2').social,
+    social: home.footerSocial || require('./data/home2').social,
     wa: 'https://wa.me/' + contact.offices[0].phones[0].replace(/[^0-9]/g, ''),
     // links the original inner-page footer had, so no page loses its only way in
     legacy: site.footCols('').flatMap(c => c.items).filter(i => i.href.startsWith('/') && i.href !== '/') };
@@ -168,6 +179,13 @@ function buildSite() {
   // Inner pages wear the home-4 design: its classes on #mk-frame, home-4.css, then inner-4.css for the inner-page sections
   const cssV = f => '/css/' + f + '?v=' + Math.round(fs.statSync(path.join(__dirname, 'public/css', f)).mtimeMs);
   const inner4 = () => ({ frameClass: 'ux v3 h4 in4', extraCss: [cssV('home-4.css'), cssV('inner-4.css')] });
+  // published blog posts, newest first (data/posts; the admin panel's template and drafts stay out)
+  const blogPosts = () => {
+    const dir = path.join(__dirname, 'data', 'posts');
+    if (!fs.existsSync(dir)) return [];
+    return fs.readdirSync(dir).filter(f => f.endsWith('.js')).map(f => require('./data/posts/' + f)).filter(p => p.url && !p.unpublished)
+      .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+  };
 
   const importedPage = (view, d) => (req, res) => res.render(view, Object.assign({
     title: d.title, d, meta: { description: d.description, keywords: d.keywords, canonical: d.url }
@@ -203,13 +221,14 @@ function buildSite() {
         return Object.assign({}, c, CAT_IMG[c.url] ? { img: CAT_IMG[c.url] } : {}, { fromTotal: prices.length ? Math.min(...prices) : 0 });
       }),
       popular: popularTours(),
-      guideImgs: ['/photos/guide-travelers.webp', '/photos/guide-attractions.webp', '/photos/travel-tools-hd.webp']
+      guideImgs: ['/photos/guide-travelers.webp', '/photos/guide-attractions.webp', '/photos/travel-tools-hd.webp'],
+      guideExtras: guideExtras()
     });
     res.render('home-4', { title: 'Meruka India Tourism — One Country, Many Worlds' + (live ? '' : ' (copy 3)'), d: home, H2: H4, extraCss: '/css/home-4.css?v=' + Math.round(fs.statSync(path.join(__dirname, 'public/css/home-4.css')).mtimeMs), meta: live ? { description: HOME_DESC, canonical: '/' } : { description: HOME_DESC, canonical: '/', robots: 'noindex' } });
   };
   router.get('/', renderHome4(true));
   // (23 Oct 2026, client) the old /home-4 design copy is removed: the home page is the only copy
-  router.get('/aboutus', (req, res) => res.render('about', { ...inner4(), totalTours: require('./data/home2').totalTours, T: home.testimonials, title: 'About us — Meruka India Tourism', d: about, meta: { description: 'Meruka India Tourism has looked after overseas travellers inside India since 2001: private, hand-routed tours with our own ground teams across the country.', canonical: '/aboutus' } }));
+  router.get('/aboutus', (req, res) => res.render('about', { ...inner4(), totalTours: require('./data/home2').totalTours, T: home.testimonials, W: home.secWhy, title: 'About us — Meruka India Tourism', d: about, meta: { description: 'Meruka India Tourism has looked after overseas travellers inside India since 2001: private, hand-routed tours with our own ground teams across the country.', canonical: '/aboutus' } }));
   // Plan My Trip (15 Oct 2026): every "Plan My Trip" button opens this page; ?tour=<name> fills in the message
   // Sitemap (18 Oct 2026, footer → Company): every page of the website, for visitors
   // (23 Oct 2026, client doc) India Travel Guide hub, after Anshuman's reference layout; "Open the full guide" leads here.
@@ -223,12 +242,14 @@ function buildSite() {
       const own = byHref[t.href.toLowerCase()] || {}, duration = own.duration || t.duration, n = nightsOf(duration);
       return Object.assign({}, t, { duration: duration.replace(/\s*[-–·]\s*/, ' / '), price: own.from && n ? own.from * n : null });
     }) }));
-    res.render('guide', { ...inner4(), title: 'India Travel Guide — Meruka India Tourism', G: Object.assign({}, G, { regions }),
+    const extra = guideExtras();
+    const topics = G.topics.map(g => Object.assign({}, g, { items: g.items.concat((extra[g.title] || []).filter(x => !g.items.some(i => String(i.href).toLowerCase() === x.href.toLowerCase()))) }));
+    res.render('guide', { ...inner4(), title: 'India Travel Guide — Meruka India Tourism', G: Object.assign({}, G, { regions, topics }),
       d: { nav: site.nav('', false), footCols: site.footCols() },
       meta: { description: 'India travel guide: travellers\' guide, attractions and travel tools, essentials at a glance, the best season for each region, festivals, sights and tour packages for North, South, East and West India.', canonical: '/guide' } });
   });
   router.get('/sitemap', (req, res) => {
-    const read = dir => fs.readdirSync(path.join(__dirname, 'data', dir)).filter(f => f.endsWith('.js')).map(f => require('./data/' + dir + '/' + f)).filter(m => m.url && !m.noindex);
+    const read = dir => fs.readdirSync(path.join(__dirname, 'data', dir)).filter(f => f.endsWith('.js')).map(f => require('./data/' + dir + '/' + f)).filter(m => m.url && !m.noindex && !m.unpublished);
     const plain = s => String(s || '').replace(/<[^>]+>/g, '').trim();
     const byName = (a, b) => a.name.localeCompare(b.name);
     const tours = read('tours').map(m => ({ name: plain(m.heading || m.title), href: m.url })).sort(byName);
@@ -242,7 +263,7 @@ function buildSite() {
     const q = String(req.query.q || '').trim().slice(0, 80);
     const words = q.toLowerCase().split(/\s+/).filter(Boolean);
     const plain = s => String(s || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-    const read = dir => fs.readdirSync(path.join(__dirname, 'data', dir)).filter(f => f.endsWith('.js')).map(f => require('./data/' + dir + '/' + f)).filter(m => m.url && !m.noindex);
+    const read = dir => fs.readdirSync(path.join(__dirname, 'data', dir)).filter(f => f.endsWith('.js')).map(f => require('./data/' + dir + '/' + f)).filter(m => m.url && !m.noindex && !m.unpublished);
     const find = (dir, kind) => read(dir).map(m => {
       const name = plain(m.heading || m.title), hay = (name + ' ' + plain(m.route) + ' ' + plain(m.title) + ' ' + plain(m.keywords) + ' ' + app.locals.tourCode(m.url)).toLowerCase();
       if (!words.length || !words.every(w => hay.includes(w))) return null;
@@ -264,19 +285,46 @@ function buildSite() {
   });
 
   // One route per imported page, at the original file name without the extension:
-  // data/tours → itinerary pages, data/tour-lists → tour lists, data/articles → text pages.
-  for (const [dir, view] of [['tours', 'tour-detail'], ['tour-lists', 'tour-listing'], ['articles', 'article']]) {
+  // data/tours → itinerary pages, data/tour-lists → tour lists, data/articles → text pages, data/posts → blog posts.
+  // (23 Oct 2026) the same renderers draw the admin panel's previews; drafts not yet published get no route.
+  const renderers = {
+    // every tour page uses the new layout (13 Oct 2026, from the Enthralling Rajasthan Tour page)
+    tours: (res, page) => importedPage('tour-detail-v2', page)(null, res),
+    // tour lists also get their groups as cards (photo, line, price, filter tags)
+    lists: (res, page) => res.render('tour-listing', Object.assign({ title: page.title, d: page, G: require('./data/home2').listingFor(page),
+      meta: { description: page.description, keywords: page.keywords, canonical: page.url } }, inner4())),
+    pages: (res, page) => importedPage('article', page)(null, res),
+    posts: (res, page) => res.render('blog-post', Object.assign({ title: page.title, d: page, more: blogPosts().filter(p => p.url !== page.url).slice(0, 3),
+      meta: { description: page.description || page.excerpt, keywords: page.keywords, canonical: page.url } }, inner4()))
+  };
+  const KIND_DIRS = [['tours', 'tours'], ['lists', 'tour-lists'], ['pages', 'articles'], ['posts', 'posts']];
+  for (const [kind, dir] of KIND_DIRS) {
+    if (!fs.existsSync(path.join(__dirname, 'data', dir))) continue;
     for (const f of fs.readdirSync(path.join(__dirname, 'data', dir)).filter(f => f.endsWith('.js'))) {
       const page = require('./data/' + dir + '/' + f);
-      // tour lists also get their groups as cards (photo, line, price, filter tags)
-      // every tour page uses the new layout (13 Oct 2026, from the Enthralling Rajasthan Tour page)
-      if (view === 'tour-detail') { router.get(page.url, importedPage('tour-detail-v2', page)); continue; }
-      router.get(page.url, view === 'tour-listing'
-        ? (req, res) => res.render(view, Object.assign({ title: page.title, d: page, G: require('./data/home2').listingFor(page),
-            meta: { description: page.description, keywords: page.keywords, canonical: page.url } }, inner4()))
-        : importedPage(view, page));
+      if (page.unpublished || !page.url) continue;
+      router.get(page.url, (req, res) => renderers[kind](res, page));
     }
   }
+  // the admin panel's "Preview": the page drawn from its draft, marked so it is never indexed
+  router.preview = (kind, page, res) => renderers[kind](res, Object.assign({}, page, { noindex: true, preview: true }));
+
+  // (23 Oct 2026) the blog: published posts, newest first, nine to a page
+  // (26 Oct 2026, client) every question & answer on its own page; the home page shows the first few
+  router.get('/faqs', (req, res) => res.render('faqs', { ...inner4(), title: 'FAQs — Meruka India Tourism', H: home,
+    d: { nav: site.nav('', false), footCols: site.footCols() },
+    meta: { description: 'Questions travellers ask before a private tour of India: visas, prices, what is included, changing the plan, travelling in your sixties and how payment works.', canonical: '/faqs' } }));
+
+  router.get('/blog', (req, res) => {
+    // (26 Oct 2026, client) posts have a category; ?cat= shows one category
+    const cats = [...new Set(blogPosts().map(p => p.category).filter(Boolean))].sort();
+    const cat = cats.find(c => c.toLowerCase() === String(req.query.cat || '').toLowerCase()) || '';
+    const all = blogPosts().filter(p => !cat || p.category === cat), per = 9, pages = Math.max(1, Math.ceil(all.length / per));
+    const n = Math.min(pages, Math.max(1, parseInt(req.query.page, 10) || 1));
+    res.render('blog', { ...inner4(), title: (cat ? cat + ' — ' : '') + 'Blog — Meruka India Tourism', posts: all.slice((n - 1) * per, n * per), pageNo: n, pages, total: all.length, cats, cat,
+      d: { nav: site.nav('', false), footCols: site.footCols() },
+      meta: { description: 'Travel stories, tips and news from Meruka India Tourism: where to go in India, when to travel and how to plan a private tour.', canonical: '/blog' + (n > 1 ? '?page=' + n : '') } });
+  });
 
   // JSON data endpoints (the same data the pages are rendered from)
   router.get('/api/tours', (req, res) => res.json(home.tours));
@@ -327,7 +375,29 @@ let siteRouter = buildSite();
 require('./lib/cms/store').events.on('change', () => {
   try { siteRouter = buildSite(); } catch (e) { console.error('[cms] could not rebuild the site after a change:', e); }
 });
+// (23 Oct 2026) "Edit this page": someone signed in to the admin panel sees a small bar on the website that opens the
+// page they are looking at in the editor (visitors never get it)
+const cmsAuth = require('./lib/cms/auth'), cmsStore = require('./lib/cms/store');
+let cmsLinks = null;
+cmsStore.events.on('change', () => { cmsLinks = null; });
+const cmsEditLink = p => {
+  if (!cmsLinks) {
+    cmsLinks = {};
+    Object.keys(cmsStore.KINDS).forEach(k => cmsStore.list(k).forEach(it => { if (it.url) cmsLinks[String(it.url).toLowerCase()] = '/admin/' + k + '/' + it.id; }));
+    Object.entries(cmsStore.SINGLES).forEach(([n, x]) => { if (x.page) cmsLinks[x.page] = '/admin/settings/' + n; });
+    cmsLinks['/blog'] = '/admin/posts';
+  }
+  return cmsLinks[String(p).toLowerCase().replace(/\/+$/, '') || '/'] || '';
+};
+app.use((req, res, next) => {
+  if (req.method !== 'GET' || req.path.startsWith('/admin') || req.path.startsWith('/api/')) return next();
+  const u = cmsAuth.userOf(req);
+  if (u) res.locals.cmsBar = { name: u.name, edit: cmsEditLink(req.path) };
+  next();
+});
 app.use((req, res, next) => siteRouter(req, res, next));
+// the admin panel draws its previews with the site's current renderers
+app.set('cmsPreview', (kind, page, res) => siteRouter.preview(kind, page, res));
 
 app.use((req, res) => res.status(404).redirect('/'));
 

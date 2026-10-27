@@ -27,7 +27,7 @@
     <!-- the enquiry form -->
     <div class="pm-card">
       <div class="pm-card-head">
-        <h2 class="pm-card-t">Your trip details</h2>
+        <h2 class="pm-card-t"><%= (enquiryOptions.form || {}).heading || 'Your trip details' %></h2>
         <ul class="pm-trust"><li>Reply in 24h</li><li>No obligation</li><li>No deposit</li><li>Details never shared</li></ul>
       </div>
 
@@ -40,24 +40,24 @@
       <form id="plan-form" class="pm-body" novalidate>
         <%# (23 Oct 2026, client) the fields and choices of the original site's form (helpmetours.aspx), from
             data/enquiry-options.js. (23 Oct 2026, client) only what a planner needs is required (*): name, email, country and the message %>
-        <% const O = enquiryOptions, opt = (list, first) => (first ? '<option value="">' + first + '</option>' : '') + list.map(v => '<option value="' + v.replace(/"/g, '&quot;') + '">' + v.replace(/</g, '&lt;') + '</option>').join(''); %>
+        <% const O = enquiryOptions, F = Object.assign({ showPeriod: true, showDays: true, showPeople: true, showHotelBudget: true, showHotelCategory: true }, O.form || {}), L = (k, d) => F[k] || d, opt = (list, first) => (first ? '<option value="">' + first + '</option>' : '') + list.map(v => '<option value="' + v.replace(/"/g, '&quot;') + '">' + v.replace(/</g, '&lt;') + '</option>').join(''); %>
         <div class="pm-fields">
-          <label class="pm-f pm-f-name"><span>Name <i aria-hidden="true">*</i></span>
+          <label class="pm-f pm-f-name"><span><%= L('name', 'Name') %> <i aria-hidden="true">*</i></span>
             <span class="pm-pair pm-pair-title"><select name="title" class="pm-in" aria-label="Title"><%- opt(O.titles) %></select><input name="name" class="pm-in" placeholder="Your full name" autocomplete="name" required></span></label>
-          <label class="pm-f"><span>Email Id <i aria-hidden="true">*</i></span><input name="email" type="email" class="pm-in" placeholder="name@example.com" autocomplete="email" required></label>
-          <label class="pm-f"><span>Country <i aria-hidden="true">*</i></span><select name="country" class="pm-in" required><%- opt(O.countries, 'Select Country') %></select></label>
-          <div class="pm-f"><span>Travel Period</span>
-            <span class="pm-pair"><select name="travelMonth" class="pm-in" aria-label="Month"><%- opt(O.months, 'Month') %></select><select name="travelYear" class="pm-in" aria-label="Year"><%- opt(O.years, 'Year') %></select></span></div>
-          <label class="pm-f"><span>No. of Days for the Trip</span><select name="days" class="pm-in"><%- opt(O.days, 'Select') %></select></label>
-          <div class="pm-f"><span>No. of People Traveling</span>
-            <span class="pm-pair"><select name="adults" class="pm-in" aria-label="Adults"><%- opt(O.adults, 'Adults') %></select><select name="children" class="pm-in" aria-label="Children (over 5 years)"><%- opt(O.children, 'Children (over 5 years)') %></select></span></div>
-          <label class="pm-f"><span>Hotel Budget (per day in USD)</span><select name="hotelBudget" class="pm-in"><%- opt(O.hotelBudget, 'Select') %></select></label>
-          <label class="pm-f"><span>Hotel Category</span><select name="hotelCategory" class="pm-in"><%- opt(O.hotelCategory, 'Select') %></select></label>
+          <label class="pm-f"><span><%= L('email', 'Email Id') %> <i aria-hidden="true">*</i></span><input name="email" type="email" class="pm-in" placeholder="name@example.com" autocomplete="email" required></label>
+          <label class="pm-f"><span><%= L('country', 'Country') %> <i aria-hidden="true">*</i></span><select name="country" class="pm-in" required><%- opt(O.countries, 'Select Country') %></select></label>
+          <% if (F.showPeriod) { %><div class="pm-f"><span><%= L('period', 'Travel Period') %></span>
+            <span class="pm-pair"><select name="travelMonth" class="pm-in" aria-label="Month"><%- opt(O.months, 'Month') %></select><select name="travelYear" class="pm-in" aria-label="Year"><%- opt(O.years, 'Year') %></select></span></div><% } %>
+          <% if (F.showDays) { %><label class="pm-f"><span><%= L('days', 'No. of Days for the Trip') %></span><select name="days" class="pm-in"><%- opt(O.days, 'Select') %></select></label><% } %>
+          <% if (F.showPeople) { %><div class="pm-f"><span><%= L('people', 'No. of People Traveling') %></span>
+            <span class="pm-pair"><select name="adults" class="pm-in" aria-label="Adults"><%- opt(O.adults, 'Adults') %></select><select name="children" class="pm-in" aria-label="Children (over 5 years)"><%- opt(O.children, 'Children (over 5 years)') %></select></span></div><% } %>
+          <% if (F.showHotelBudget) { %><label class="pm-f"><span><%= L('hotelBudget', 'Hotel Budget (per day in USD)') %></span><select name="hotelBudget" class="pm-in"><%- opt(O.hotelBudget, 'Select') %></select></label><% } %>
+          <% if (F.showHotelCategory) { %><label class="pm-f"><span><%= L('hotelCategory', 'Hotel Category') %></span><select name="hotelCategory" class="pm-in"><%- opt(O.hotelCategory, 'Select') %></select></label><% } %>
         </div>
 
         <%# (23 Oct 2026, client) the tour code is written in the message itself (no separate box); from a tour page the
             message starts with that tour's code and name %>
-        <label class="pm-f pm-msg"><span>Preferred Destinations / Required Services / Tour Code <i aria-hidden="true">*</i></span><textarea name="message" rows="5" class="pm-in" placeholder="The places you'd like to see, the services you need and a tour code if you have one — e.g. GT-1 plus the Kerala backwaters, a guide in Jaipur." required><%= prefill %></textarea>
+        <label class="pm-f pm-msg"><span><%= L('message', 'Preferred Destinations / Required Services / Tour Code') %> <i aria-hidden="true">*</i></span><textarea name="message" rows="5" class="pm-in" placeholder="<%= L('messageHint', '') %>" required><%= prefill %></textarea>
           <small class="pm-hint">Each tour page shows its code under the title.</small></label>
 
         <%# (23 Oct 2026, client) a security code as on the old site's form (picture from /api/captcha, checked by the server) %>
@@ -72,7 +72,7 @@
 
         <p class="pm-req"><i aria-hidden="true">*</i> Please Fill Mandatory Field.</p>
         <div id="plan-err" class="is-hidden pm-err" role="alert"></div>
-        <button type="submit" class="pv-submit pm-go">Send My Enquiry</button>
+        <button type="submit" class="pv-submit pm-go"><%= L('button', 'Send My Enquiry') %></button>
         <p class="pm-note">By sending this you agree that a Meruka planner may contact you about your trip.</p>
       </form>
     </div>

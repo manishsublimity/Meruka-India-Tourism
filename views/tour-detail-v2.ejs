@@ -5,7 +5,8 @@
   const routeParts = d.route.split(/\s+([-–])\s+/);   // keep whichever separator the original used
   const stops = routeParts.filter((x, i) => i % 2 === 0), seps = routeParts.filter((x, i) => i % 2 === 1);
   // Renders [{ text, bold }] segments; bold parts use `b` as their style.
-  const rs = (segs, b) => segs.map(s => s.bold ? '<strong style="' + b + '">' + escapeFn(s.text) + '</strong>' : escapeFn(s.text)).join('');
+  // a paragraph's pieces: bold (styled), and (26 Oct 2026, the admin panel's toolbar) italic, underline and links
+  const rs = (segs, b) => (Array.isArray(segs) ? segs : [{ text: String(segs || "") }]).map(s => { let h = escapeFn(s.text); if (s.italic) h = '<em>' + h + '</em>'; if (s.underline) h = '<u>' + h + '</u>'; if (s.bold) h = '<strong style="' + b + '">' + h + '</strong>'; if (s.href && /^(\/|https?:|mailto:|tel:|#)/.test(s.href)) h = '<a href="' + escapeFn(s.href) + '"' + (/^https?:/.test(s.href) ? ' target="_blank" rel="noopener"' : '') + '>' + h + '</a>'; return h; }).join('');
   const escapeFn = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const h3 = "font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:600;letter-spacing:-.02em;margin:0 0 14px;color:#0B1B33";
   const pricing = d.details.find(b => /pric|cost/i.test(b.title)) || { title: '', text: '', items: [] };
@@ -44,7 +45,7 @@
     { re: /price|cost|peak/i, icon: svg('<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>') },
     { re: /customi[sz]ed|modified|private/i, icon: svg('<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>') }
   ];
-  const noteKind = segs => { const t = segs.map(x => x.text).join(''); return NOTE_ICONS.find(k => k.re.test(t)) || { icon: svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v5"/>') }; };
+  const noteKind = segs => { const t = (Array.isArray(segs) ? segs : [{ text: String(segs || "") }]).map(x => x.text).join(''); return NOTE_ICONS.find(k => k.re.test(t)) || { icon: svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v5"/>') }; };
   // Includes / excludes column look
   const tone = {
     in: { accent: '#1F8A55', soft: '#E8F6EE', ring: '#BFE6CF', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>' },
@@ -57,7 +58,13 @@
 <%- include('partials/page-header', { nav: d.nav, enquireHref: d.enquire.href }) %>
 
 <%
-  const heroImg = d.photo || photoFor([d.heading, d.url, d.route]);
+  // the banner: the tour's own banner photo if one was chosen in the admin panel, else its category's banner, else the
+  // tour photo (the generic imported banner counts as "not chosen")
+  const GENERIC_HERO = '/images/india-tours-main.webp';
+  const ownHero = d.heroSrc && d.heroSrc !== GENERIC_HERO ? d.heroSrc : '';
+  const catOf = tourNav.inCategory(d.url, ((d.breadcrumb || [])[(d.breadcrumb || []).length - 2] || {}).href);
+  const catHero = catOf && catOf.hero && catOf.hero !== GENERIC_HERO ? catOf.hero : '';
+  const heroImg = ownHero || catHero || d.photo || photoFor([d.heading, d.url, d.route]);
   const jump = [['#itinerary', 'Itinerary', d.days.length]];
   if (pricing.title) jump.push(['#pricing', pricing.title]);
   if (d.hotels) jump.push(['#hotels', d.hotels.title]);
@@ -89,7 +96,9 @@
    const dhFixed = !priced.length && tiers.length === 1 ? (tiers[0].rest.match(/^(USD\s*[\d,]+)\s*(.*)$/) || null) : null; %>
 <%
   // tour page v5: photos for the days first (the gallery uses the first two), then the page
-  const dayPhotos = d.days.map(dayPhoto);
+  // (26 Oct 2026, client) a day's own photo, chosen in the admin panel, comes first; else one is matched to its places
+  d.days.forEach(day => { if (day.photo) usedPh.add(day.photo); });
+  const dayPhotos = d.days.map(day => day.photo || dayPhoto(day));
   const gallery = [heroImg].concat(dayPhotos.filter(Boolean).slice(0, 2));
   const hq = footer.hq, tel = 'tel:' + hq.phones[0].replace(/[^0-9+]/g, '');
   const ico = p => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';

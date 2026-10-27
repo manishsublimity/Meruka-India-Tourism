@@ -1,0 +1,50 @@
+<%- include('_top', { pageTitle: title }) %>
+<%# (26 Oct 2026, client video II) Destinations, the Travel Guide and the text tour pages: in sections, as on the website,
+    each page with the pages under it. One table, numbered, no tick boxes. %>
+<% const mayDelete = can('delete');
+   const when = s => s ? new Date(s).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' }) : 'Original';
+   const total = sections.reduce((n, sct) => n + (sct.head ? 1 : 0) + sct.rows.reduce((m, r) => m + 1 + r.kids.length + r.kids.reduce((k, c) => k + c.kids.length, 0), 0), 0);
+   let n = 0; %>
+<%# (26 Oct 2026, client) one compact header: the title, the search and one Add button; tabs only when there are regions %>
+<div class="ad-top ad-head tr-top">
+  <div><h1><%= title %></h1><p class="lead"><%= lead %></p></div>
+  <div class="tr-acts"><input class="in lst-q" type="search" placeholder="Search a page…" data-tq><% if (mode !== 'tours') { %><button class="btn btn-g" type="button" data-add>+ Add <%= one %></button><% } %></div>
+</div>
+<% if (sections.length > 1) { %>
+<div class="subtabs sec-tabs" data-sectabs><% sections.forEach((sct, i) => { %><button type="button" data-sec-i="<%= i %>"<%- i === 0 ? ' class="on"' : '' %>><%= sct.title %> <b><%= sct.rows.length + sct.rows.reduce((m, r) => m + r.kids.length + r.kids.reduce((k, c) => k + c.kids.length, 0), 0) + (sct.head ? 1 : 0) %></b></button><% }) %></div>
+<% } %>
+
+<% sections.forEach(sct => { %>
+<section class="tr-sec" data-sec<%- sections.indexOf(sct) ? ' hidden' : '' %>>
+  <div class="lst-wrap">
+  <table class="tbl lst lst-clean">
+    <thead><tr><th class="n">#</th><th>Page</th><th>Status</th><th>Last change</th><th class="acts-h">Actions</th></tr></thead>
+    <tbody>
+      <% const row = (r, depth, parents) => { n++; %>
+      <tr data-row data-s="<%= (r.name + ' ' + r.url).toLowerCase() %>" class="d<%= depth %>">
+        <td class="n"><%= n %></td>
+        <td><div class="lst-name"><% if (r.img) { %><img class="thumb" src="<%= r.img %>" alt="" loading="lazy"><% } %><div>
+          <a href="/admin/pages/<%= r.id %>" class="row-name"><% if (depth) { %><span class="tr-branch" aria-hidden="true">↳</span><% } %><b><%= r.name %></b></a>
+          <% if (r.published) { %><a href="<%= r.url %>" target="_blank" rel="noopener" class="url"><%= r.url %> ↗</a><% } else { %><span class="url"><%= r.url %></span><% } %></div></div></td>
+        <td><% if (!r.published) { %><span class="pill pill-off">Draft</span><% } else if (r.hasDraft) { %><span class="pill pill-draft">Live + changes</span><% } else { %><span class="pill pill-live">Live</span><% } %></td>
+        <td class="muted"><%= when(r.savedAt) %></td>
+        <td class="acts"><a class="btn btn-s btn-p" href="/admin/pages/<%= r.id %>">Edit</a><% if (mode !== 'tours' && depth < 2) { %><button class="btn btn-s" type="button" data-add data-section="<%= sct.guideSection || '' %>" data-parents='<%- JSON.stringify((parents || []).concat([{ label: r.name, href: r.url }])).replace(/'/g, "&#39;") %>' title="Add a page under <%= r.name %>">+ Sub-page</button><% } %><% if (mayDelete) { %><button class="btn btn-s btn-d" type="button" data-del="<%= r.id %>" data-name="<%= r.name %>">Delete</button><% } %></td>
+      </tr>
+      <% r.kids.forEach(k => row(k, depth + 1, (parents || []).concat([{ label: r.name, href: r.url }]))); } %>
+      <% if (sct.head) { n++; %>
+      <tr data-row data-s="<%= (sct.head.name + ' ' + sct.head.url).toLowerCase() %>" class="tr-head">
+        <td class="n"><%= n %></td>
+        <td><div class="lst-name"><% if (sct.head.img) { %><img class="thumb" src="<%= sct.head.img %>" alt="" loading="lazy"><% } %><div><a href="/admin/pages/<%= sct.head.id %>" class="row-name"><b><%= sct.head.name %></b></a> <span class="tag">Region page</span><a href="<%= sct.head.url %>" target="_blank" rel="noopener" class="url"><%= sct.head.url %> ↗</a></div></div></td>
+        <td><span class="pill pill-live">Live</span></td><td class="muted"><%= when(sct.head.savedAt) %></td>
+        <td class="acts"><a class="btn btn-s btn-p" href="/admin/pages/<%= sct.head.id %>">Edit</a></td>
+      </tr>
+      <% } %>
+      <% sct.rows.forEach(r => row(r, 0, sct.parents || [])); %>
+      <% if (!sct.rows.length) { %><tr><td colspan="5" class="muted" style="text-align:center;padding:18px">No pages here yet.</td></tr><% } %>
+    </tbody>
+  </table>
+  </div>
+</section>
+<% }) %>
+<script>window.TREE = { mode: <%- JSON.stringify(mode) %>, one: <%- JSON.stringify(one) %>, sections: <%- JSON.stringify(sections.map(sct => ({ title: sct.title, guideSection: sct.guideSection || '', parents: sct.parents || [] }))) %> };</script>
+<%- include('_bottom', { scripts: ['/admin-assets/tree.js?v=4'] }) %>

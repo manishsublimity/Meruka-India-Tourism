@@ -1,23 +1,38 @@
-<%- include('_top', { pageTitle: title }) %>
+<%
+  // (23 Oct 2026) the editor: status, Preview / Save draft / Publish, and below the form: History, take off the website, delete
+  const back = mode === 'single' ? (id === 'plan' || id === 'contact' ? ['/admin/settings', 'Site settings'] : id === 'guide' ? ['/admin/travel-guide', 'Travel Guide'] : id === 'reviews' ? ['/admin/reviews', 'Guest reviews'] : singles[id] && singles[id].page ? ['/admin/pages', 'Pages'] : id === 'reviews' || id === 'header' || id === 'footer' || id === 'menus' ? ['/admin', 'Dashboard'] : ['/admin/settings', 'Site settings'])
+    : kind === 'lists' ? ['/admin/lists', 'Categories']
+    : kind === 'pages' ? ({ places: ['/admin/destinations', 'Destinations'], guide: ['/admin/travel-guide', 'Travel Guide'], tours: ['/admin/tours', 'Tours'] }[typeof pageGroup !== 'undefined' ? pageGroup : ''] || ['/admin/pages', 'Pages'])
+    : ['/admin/' + kind, kinds[kind].label];
+%>
+<%- include('_top', { pageTitle: title, crumb: back }) %>
 <div class="ed-head">
   <div>
-    <div class="url"><a href="<%= mode === 'single' ? '/admin' : '/admin/' + kind %>">← <%= mode === 'single' ? 'Start here' : kinds[kind].label %></a></div>
-    <h1 data-title><%= title %></h1>
+    <%# (26 Oct 2026, client) the way back is in the top bar; the status sits beside the title %>
+    <div class="ed-title"><h1 data-title><%= title %></h1><span class="pill" data-status>…</span><span class="save-state" data-state></span></div>
+    <% if (url) { %><p class="ed-url">Page address: <a href="<%= url %>" target="_blank" rel="noopener" data-url><span class="muted">india-tourism.net</span><%= url %></a></p><% } %>
   </div>
   <div class="acts">
-    <span class="save-state" data-state>No changes yet</span>
-    <% if (url) { %><a class="btn" href="<%= url %>" target="_blank" rel="noopener">View page ↗</a><% } %>
-    <button class="btn btn-g" type="button" data-save>Publish</button>
+    <% if (mode === 'item') { %><a class="btn" href="/admin/preview/<%= kind %>/<%= id %>" target="_blank" rel="noopener" data-preview>Preview</a><% } else if (url) { %><a class="btn" href="<%= url %>" target="_blank" rel="noopener">View page ↗</a><% } %>
+    <button class="btn" type="button" data-draft>Save draft</button>
+    <% if (canPublish) { %><button class="btn btn-g" type="button" data-save>Publish</button><% } %>
   </div>
 </div>
-<% if (mode === 'single' && singles[id] && singles[id].help) { %><div class="pageinfo">💡 <span><%= singles[id].help %></span></div><% } %>
+<% if (!canPublish) { %><div class="pageinfo">✍️ <span>You can change this and save it as a draft. An Owner or Editor checks it and publishes it.</span></div><% } %>
+<div class="pageinfo warn" data-draft-note hidden></div>
 
 <div class="etabs" data-tabs></div>
 <div data-form><div class="card"><p class="hint">Loading…</p></div></div>
 
-<div class="card" style="margin-top:22px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-  <p class="hint" style="margin:0">Tip: <b>Ctrl + S</b> saves. To make text <b>bold</b>, select it and press the <b>B Bold</b> button.</p>
-  <button class="btn btn-s btn-d" type="button" data-revert>Undo all my edits on this <%= mode === 'single' ? 'section' : 'page' %></button>
+<div class="card ed-foot">
+  <p class="hint" style="margin:0">Tip: <b>Ctrl + S</b> saves a draft. Select words and use the toolbar above the text for bold, italic, underline or a link.</p>
+  <div class="row" style="margin:0">
+    <button class="btn btn-s" type="button" data-history>History</button>
+    <button class="btn btn-s" type="button" data-discard hidden>Throw away the draft</button>
+    <% if (canPublish && mode === 'item') { %><button class="btn btn-s" type="button" data-unpublish hidden>Take off the website</button><% } %>
+    <% if (canPublish) { %><button class="btn btn-s btn-d" type="button" data-revert>Back to the original</button><% } %>
+    <% if (canDelete) { %><button class="btn btn-s btn-d" type="button" data-delete>Delete</button><% } %>
+  </div>
 </div>
-<script>window.EDIT = { mode: <%- JSON.stringify(mode) %>, kind: <%- JSON.stringify(kind) %>, id: <%- JSON.stringify(id) %>, url: <%- JSON.stringify(url || '') %> };</script>
-<%- include('_bottom', { scripts: ['/admin-assets/editor.js?v=3'] }) %>
+<script>window.EDIT = { mode: <%- JSON.stringify(mode) %>, kind: <%- JSON.stringify(kind) %>, id: <%- JSON.stringify(id) %>, url: <%- JSON.stringify(url || '') %>, canPublish: <%- JSON.stringify(!!canPublish) %>, canDelete: <%- JSON.stringify(!!canDelete) %>, one: <%- JSON.stringify(mode === 'item' ? kinds[kind].one : 'section') %> };</script>
+<%- include('_bottom', { scripts: ['/admin-assets/editor.js?v=11'] }) %>

@@ -1,0 +1,44 @@
+<%- include('_top', { pageTitle: 'My account' }) %>
+<%# (23 Oct 2026) the signed-in person: their details, role and a new password %>
+<div class="ad-top"><div><h1>My account</h1><p class="lead">Your name, login and password. An Owner can change your email or role in Users.</p></div></div>
+<div class="dash-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+  <div class="card">
+    <h2 style="margin-bottom:10px">You</h2>
+    <table class="tbl" style="border:0">
+      <tr><td class="muted">Name</td><td><b><%= admin.name %></b></td></tr>
+      <tr><td class="muted">Email</td><td><%= admin.email %></td></tr>
+      <tr><td class="muted">Role</td><td><span class="pill pill-role"><%= roles[admin.role].label %></span></td></tr>
+    </table>
+    <p class="hint" style="margin-top:12px"><%= roles[admin.role].help %></p>
+  </div>
+  <div class="card">
+    <h2 style="margin-bottom:10px">Your name</h2>
+    <form data-nm><div class="f"><label class="lb" for="nm">Name shown in the panel and the activity log</label><input class="in" id="nm" value="<%= admin.name %>" maxlength="60" required></div>
+      <button class="btn btn-p" type="submit">Save name</button></form>
+  </div>
+  <div class="card">
+    <h2 style="margin-bottom:10px">Change your password</h2>
+    <% if (admin.env) { %>
+    <p class="hint">You are the main owner: your login is set in the .env file on the server. Ask the website's developer to change it.</p>
+    <% } else { %>
+    <form data-pw>
+      <div class="f"><label class="lb" for="pc">Current password</label><input class="in" id="pc" type="password" autocomplete="current-password" required></div>
+      <div class="f"><label class="lb" for="pn">New password</label><input class="in" id="pn" type="password" autocomplete="new-password" minlength="8" required><p class="hint">At least 8 characters.</p></div>
+      <button class="btn btn-p" type="submit">Change password</button>
+    </form>
+    <% } %>
+  </div>
+</div>
+<script>
+(function () {
+  const nf = document.querySelector('[data-nm]');
+  nf.onsubmit = async e => { e.preventDefault(); try { await window.ADMIN.api('POST', '/admin/api/account/name', { name: nf.querySelector('#nm').value }); window.ADMIN.toast('Name saved'); setTimeout(() => location.reload(), 600); } catch (err) { window.ADMIN.toast(err.message, true); } };
+  const f = document.querySelector('[data-pw]'); if (!f) return;
+  f.onsubmit = async e => {
+    e.preventDefault();
+    try { await window.ADMIN.api('POST', '/admin/api/account/password', { current: f.querySelector('#pc').value, next: f.querySelector('#pn').value }); f.reset(); window.ADMIN.toast('Password changed'); }
+    catch (err) { window.ADMIN.toast(err.message, true); }
+  };
+})();
+</script>
+<%- include('_bottom') %>

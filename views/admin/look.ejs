@@ -1,0 +1,35 @@
+<%- include('_top', { pageTitle: 'Look of the panel' }) %>
+<%# (26 Oct 2026, client video II) light or dark, and the panel's colour; saved in this browser for this person %>
+<div class="ad-top ad-head"><div><h1>Look of the panel</h1><p class="lead">Choose how this editor looks for you. It changes only the panel, never the website, and is kept in this browser.</p></div></div>
+<div class="card">
+  <h3 class="look-h">Mode</h3>
+  <div class="look-modes" data-modes>
+    <button type="button" data-mode="light"><span class="lm lm-light"></span><b>Light</b><small>White pages</small></button>
+    <button type="button" data-mode="dark"><span class="lm lm-dark"></span><b>Dark</b><small>Easy on the eyes at night</small></button>
+    <button type="button" data-mode="auto"><span class="lm lm-auto"></span><b>Automatic</b><small>Follows your computer</small></button>
+  </div>
+  <h3 class="look-h">Colour</h3>
+  <div class="look-colours" data-accents>
+    <% [['blue', 'Meruka blue', '#336699'], ['teal', 'Teal', '#0F766E'], ['indigo', 'Indigo', '#4F46E5'], ['green', 'Green', '#2F7A3E'], ['maroon', 'Maroon', '#9F1239'], ['slate', 'Slate', '#334155']].forEach(([k, l, c]) => { %>
+    <button type="button" data-accent="<%= k %>"><i style="background:<%= c %>"></i><b><%= l %></b></button>
+    <% }) %>
+  </div>
+  <p class="hint" style="margin:14px 0 0">Changes show straight away. The website keeps its own colours.</p>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var read = function () { try { return JSON.parse(localStorage.getItem('mk-look') || '{}'); } catch (e) { return {}; } };
+  var look = read(), d = document.documentElement;
+  var apply = function () {
+    var m = look.mode || 'light'; if (m === 'auto') m = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    d.setAttribute('data-mode', m); d.setAttribute('data-accent', look.accent || 'blue');
+    document.querySelectorAll('[data-modes] button').forEach(function (b) { b.classList.toggle('on', b.dataset.mode === (look.mode || 'light')); });
+    document.querySelectorAll('[data-accents] button').forEach(function (b) { b.classList.toggle('on', b.dataset.accent === (look.accent || 'blue')); });
+    try { localStorage.setItem('mk-look', JSON.stringify(look)); } catch (e) {}
+  };
+  document.querySelectorAll('[data-modes] button').forEach(function (b) { b.onclick = function () { look.mode = b.dataset.mode; apply(); }; });
+  document.querySelectorAll('[data-accents] button').forEach(function (b) { b.onclick = function () { look.accent = b.dataset.accent; apply(); window.ADMIN && ADMIN.toast('Colour changed'); }; });
+  apply();
+});
+</script>
+<%- include('_bottom') %>

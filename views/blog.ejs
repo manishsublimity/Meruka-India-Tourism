@@ -1,0 +1,56 @@
+<%- include('partials/head') %>
+<%# The blog (23 Oct 2026): published posts, newest first, nine to a page; written in the admin panel (Blog) %>
+<%
+  const day = s => { const t = new Date(s); return isNaN(t) ? '' : t.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); };
+  const qs = (c, n) => [c ? 'cat=' + encodeURIComponent(c) : '', n > 1 ? 'page=' + n : ''].filter(Boolean).join('&');
+  const pageHref = n => '/blog' + (qs(cat, n) ? '?' + qs(cat, n) : '');
+%>
+<div style="width:100%;overflow-x:clip;background:#fff">
+<div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#fff">
+
+<%- include('partials/page-header', { nav: d.nav, enquireHref: '/plan-my-trip' }) %>
+<%- include('partials/photo-hero', { title: 'Travel Blog', img: '/images/travel-guideline.webp', alt: 'India travel blog', sub: 'Stories, tips and news to help you plan your India trip.' }) %>
+
+<section class="bl-sec">
+  <div class="ex-wrap">
+    <% if (!posts.length) { %>
+    <div class="bl-empty">
+      <h2 class="h4-h2">New stories <em>coming soon</em></h2>
+      <p class="h4-base">Meanwhile, the India Travel Guide answers what most travellers ask before a first trip.</p>
+      <a href="/guide" class="ph-btn ph-btn-gold">View Travel Guide</a>
+    </div>
+    <% } else { %>
+    <% if (cats.length > 1) { %>
+    <nav class="bl-cats" aria-label="Blog categories"><a href="/blog"<%- !cat ? ' class="on" aria-current="page"' : '' %>>All posts</a><% cats.forEach(c => { %><a href="/blog?cat=<%= encodeURIComponent(c) %>"<%- c === cat ? ' class="on" aria-current="page"' : '' %>><%= c %></a><% }) %></nav>
+    <% } %>
+    <div class="bl-grid">
+      <% posts.forEach(p => { %>
+      <article class="bl-card">
+        <a href="<%= p.url %>" class="bl-img" tabindex="-1" aria-hidden="true"><img src="<%= p.photo || '/photos/taj-mahal-feature.webp' %>" alt="" loading="lazy"></a>
+        <div class="bl-body">
+          <p class="bl-meta"><% if (p.category) { %><a href="/blog?cat=<%= encodeURIComponent(p.category) %>" class="bl-cat"><%= p.category %></a> · <% } %><%= day(p.date) %><% if (p.author) { %> · <%= p.author %><% } %></p>
+          <h2 class="bl-h"><a href="<%= p.url %>"><%= p.heading %></a></h2>
+          <% if (p.excerpt) { %><p class="bl-ex"><%= p.excerpt %></p><% } %>
+          <a href="<%= p.url %>" class="bl-more">Read the story</a>
+        </div>
+      </article>
+      <% }) %>
+    </div>
+    <% if (pages > 1) { %>
+    <nav class="bl-pages" aria-label="Blog pages">
+      <% if (pageNo > 1) { %><a href="<%= pageHref(pageNo - 1) %>" rel="prev">Previous</a><% } %>
+      <% for (let n = 1; n <= pages; n++) { %><a href="<%= pageHref(n) %>"<%- n === pageNo ? ' class="on" aria-current="page"' : '' %>><%= n %></a><% } %>
+      <% if (pageNo < pages) { %><a href="<%= pageHref(pageNo + 1) %>" rel="next">Next</a><% } %>
+    </nav>
+    <% } %>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/explore-india', { current: '/blog' }) %>
+<%- include('partials/page-footer', { footCols: d.footCols, enquireHref: '/plan-my-trip' }) %>
+
+</div>
+</div>
+</body>
+</html>

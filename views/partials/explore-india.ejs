@@ -47,7 +47,8 @@
           <% [gTrav, gAttr, gTools].forEach(g => { if (!g) return; %>
           <div class="exr-grow">
             <p class="exr-gt"><%= g.title %></p>
-            <p class="exr-chips"><% g.items.forEach(it => { const h = menu.to(it, 'guide'); %><a href="<%= h %>"<%- exExt(h) %>><%= it %></a><% }) %></p>
+            <% const exHave = g.items.map(it => String(menu.to(it, 'guide')).toLowerCase()); %>
+            <p class="exr-chips"><% g.items.forEach(it => { const h = menu.to(it, 'guide'); %><a href="<%= h %>"<%- exExt(h) %>><%= it %></a><% }) %><% ((explore.guideExtras || {})[g.title] || []).filter(x => !exHave.includes(x.href.toLowerCase())).forEach(x => { %><a href="<%= x.href %>"><%= x.name %></a><% }) %></p>
           </div>
           <% }) %>
           <p class="exr-foot"><span>Not sure where to start?</span><a href="/plan-my-trip">Talk to us</a></p>
