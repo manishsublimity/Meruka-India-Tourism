@@ -1420,3 +1420,59 @@ kbd{margin-left:6px;padding:1px 5px;border:1px solid var(--line);border-radius:4
   .ed-split{grid-template-columns:minmax(0,1fr)}
   .ed-side{position:static;max-height:none}
 }
+/* ---------- v14 (28 Oct 2026, client screenshots) ---------- */
+/* "Quick add": its menu opens from the right end of the bar, never off the screen */
+@media (max-width:1100px) and (min-width:641px){
+  .ad-bar-r{position:relative}
+  .ad-new{position:static}
+  .ad-new .ad-newgrid{right:0;top:48px;max-width:calc(100vw - 32px)}
+}
+/* phones: the lists (pages, destinations, enquiries) as cards, nothing to scroll sideways */
+@media (max-width:700px){
+  .lst-wrap:has(>.lst-cards){overflow:visible;border:0;border-radius:0}
+  .tbl.lst-cards,.tbl.lst-cards tbody{display:block;width:100%;min-width:0}
+  .tbl.lst-cards thead{display:none}
+  .tbl.lst-cards [hidden]{display:none!important}
+  .tbl.lst-cards tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:start;margin:0 0 10px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+  .tbl.lst-cards td{display:block;width:auto!important;padding:0!important;border:0!important;background:none!important;text-align:left}
+  .tbl.lst-cards tbody tr:hover>td{background:none!important}
+  .tbl.lst-cards td.n{display:none!important}
+  .tbl.lst-cards td.acts{grid-column:1/-1;display:flex!important;gap:8px;padding-top:10px!important;border-top:1px solid var(--line)!important;white-space:normal!important;width:auto!important}
+  .tbl.lst-cards td.acts .btn{flex:1 1 0;width:auto!important;min-width:0;margin:0!important;justify-content:center}
+  .tbl.lst-cards td.acts>.muted{flex:1 1 0;align-self:center;font-size:12.5px}
+  .tbl.lst-cards .row-name b{font-size:15px}
+  .tbl.lst-cards .url{max-width:none!important;white-space:normal!important;overflow-wrap:anywhere}
+  .tbl.lst-cards .lst-name{gap:12px}
+  .tbl.lst-cards .thumb{display:block!important;width:64px;height:48px;border-radius:6px}
+  /* Pages: name and status on top, then what it is for */
+  .pg-cards td:nth-child(2){grid-column:1;grid-row:1}
+  .pg-cards td:nth-child(4){grid-column:2;grid-row:1}
+  .pg-cards td:nth-child(3){grid-column:1/-1;font-size:13.5px;line-height:1.45}
+  /* Destinations / guide: photo, name and status; the last change small; the pages under a page set in */
+  .tr-cards td:nth-child(2){grid-column:1;grid-row:1;min-width:0}
+  .tr-cards td:nth-child(3){grid-column:2;grid-row:1}
+  .tr-cards td:nth-child(4){grid-column:1/-1;font-size:12.5px}
+  .tr-cards td:nth-child(4)::before{content:"Last change: "}
+  .tr-cards tr.d1{margin-left:14px;border-left:3px solid var(--tint)}
+  .tr-cards tr.d2{margin-left:28px;border-left:3px solid var(--tint)}
+  .tr-cards tr.tr-head{background:var(--surface-2)}
+  .tr-cards tr td[colspan]{grid-column:1/-1}
+  /* Enquiries: one card for each guest, the choices side by side, the details open inside it */
+  .enq-tbl.lst-cards tbody{margin:0 0 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);overflow:hidden}
+  .enq-tbl.lst-cards tbody.is-new{border-left:3px solid #D92D20}
+  .enq-tbl.lst-cards tbody.is-new tr:first-child td:first-child{box-shadow:none}
+  .enq-tbl.lst-cards tr{grid-template-columns:minmax(0,1fr) minmax(0,1fr);margin:0;border:0;border-radius:0}
+  .enq-tbl.lst-cards td:nth-child(2),.enq-tbl.lst-cards td:nth-child(3){grid-column:1/-1}
+  .enq-tbl.lst-cards td:nth-child(2) b{font-size:15px}
+  .enq-tbl.lst-cards td:nth-child(3){font-size:12.5px}
+  .enq-tbl.lst-cards td.enq-trip{display:none!important}
+  .enq-tbl.lst-cards td:nth-child(5)::before{content:"Status"}
+  .enq-tbl.lst-cards td:nth-child(6)::before{content:"Handled by"}
+  .enq-tbl.lst-cards td:nth-child(5)::before,.enq-tbl.lst-cards td:nth-child(6)::before{display:block;margin:0 0 4px;font-size:11.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .enq-tbl.lst-cards .in-s{width:100%;min-width:0}
+  .enq-tbl.lst-cards tr.enq-more{display:block;padding:12px 14px;border-top:1px solid var(--line);background:var(--surface-2)}
+  .enq-tbl.lst-cards tr.enq-more td:first-child{display:none!important}
+  .enq-more dl{grid-template-columns:minmax(0,1fr)!important;gap:0 0!important}
+  .enq-more dd{margin:0 0 8px!important}
+}
+@media (max-width:640px){ .tr-top .tr-acts{display:flex;flex-wrap:wrap;gap:8px;width:100%} .tr-top .tr-acts .lst-q{flex:1 1 100%;width:100%} .tr-top .tr-acts .btn{flex:1 1 100%;justify-content:center} }

@@ -22,7 +22,7 @@
 </div>
 <% if (!items.length) { %><div class="card"><p class="hint" style="margin:0">No enquiries yet. Messages sent from the Plan My Trip, Contact and home page forms show here.</p></div><% } else { %>
 <div class="lst-wrap">
-<table class="tbl lst lst-clean enq-tbl">
+<table class="tbl lst lst-clean enq-tbl lst-cards">
   <thead><tr><th class="n">#</th><th>Guest</th><th>Received</th><th class="enq-trip">Trip</th><th>Status</th><th>Handled by</th><th class="acts-h">Actions</th></tr></thead>
   <% items.forEach((e, n) => { %>
   <tbody data-enq="<%= e._i %>" data-st="<%= e._st %>" data-s="<%= [e.name, e.email, e.country, e.tour, e.message, e.tourCode].filter(Boolean).join(' ').toLowerCase() %>" class="<%= e._st === 'New' ? 'is-new' : '' %>">
