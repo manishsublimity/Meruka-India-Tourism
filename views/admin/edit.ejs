@@ -22,8 +22,14 @@
 <% if (!canPublish) { %><div class="pageinfo">✍️ <span>You can change this and save it as a draft. An Owner or Editor checks it and publishes it.</span></div><% } %>
 <div class="pageinfo warn" data-draft-note hidden></div>
 
-<div class="etabs" data-tabs></div>
-<div data-form><div class="card"><p class="hint">Loading…</p></div></div>
+<%# (28 Oct 2026, client) the page on the left, its SEO (Google, social media, advanced) in a panel on the right, as in the SEO plugins %>
+<div class="ed-split">
+  <div class="ed-main">
+    <div class="etabs" data-tabs></div>
+    <div data-form><div class="card"><p class="hint">Loading…</p></div></div>
+  </div>
+  <aside class="ed-side" data-side hidden></aside>
+</div>
 
 <%# (27 Oct 2026, client) no tip box: Ctrl + S still saves a draft (shown on the Save draft button) %>
 <%# (27 Oct 2026, client) the other actions: small, quiet, at the very bottom %>
@@ -36,4 +42,4 @@
   <% if (canDelete) { %><button class="ef ef-d" type="button" data-delete><%- fi('<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>') %>Delete</button><% } %>
 </div>
 <script>window.EDIT = { mode: <%- JSON.stringify(mode) %>, kind: <%- JSON.stringify(kind) %>, id: <%- JSON.stringify(id) %>, url: <%- JSON.stringify(url || '') %>, canPublish: <%- JSON.stringify(!!canPublish) %>, canDelete: <%- JSON.stringify(!!canDelete) %>, one: <%- JSON.stringify(mode === 'item' ? kinds[kind].one : 'section') %> };</script>
-<%- include('_bottom', { scripts: ['/admin-assets/editor.js?v=22'] }) %>
+<%- include('_bottom', { scripts: ['/admin-assets/editor.js?v=28'] }) %>

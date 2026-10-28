@@ -144,15 +144,21 @@ function buildSite() {
     if (!to) return next();
     res.redirect(301, to + (to.includes('?') ? '' : req.url.slice(req.path.length)));
   });
-  // the fixed pages' Google title and description, when set in the admin panel
+  // the fixed pages' SEO (title, description, keywords, hide from Google, share picture), when set in the admin panel
   router.use((req, res, next) => {
     const p = (seoSettings.pages || {})[req.path];
-    if (p && (p.title || p.description)) {
+    if (p && Object.values(p).some(Boolean)) {
       const render = res.render.bind(res);
       res.render = (view, locals, cb) => {
         if (locals) {
           if (p.title) locals.title = p.title;
-          if (p.description) locals.meta = Object.assign({}, locals.meta, { description: p.description });
+          const m = Object.assign({}, locals.meta);
+          if (p.description) m.description = p.description;
+          if (p.keywords) m.keywords = p.keywords;
+          if (p.noindex || p.nofollow) m.robots = (p.noindex ? 'noindex' : 'index') + ', ' + (p.nofollow ? 'nofollow' : 'follow');
+          ['ogImage', 'ogTitle', 'ogDescription', 'twTitle', 'twDescription', 'twImage'].forEach(k => { if (p[k]) m[k] = p[k]; });
+          if (p.canonical) m.canonical = p.canonical;
+          locals.meta = m;
         }
         return render(view, locals, cb);
       };

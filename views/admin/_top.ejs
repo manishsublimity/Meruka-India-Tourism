@@ -78,7 +78,7 @@
 <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' — ' : '' %>Meruka admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/admin-assets/admin.css?v=35">
+<link rel="stylesheet" href="/admin-assets/admin.css?v=36">
 <%# (26 Oct 2026, client) the panel's look (light or dark, and its colour), chosen per browser in "Look of the panel" %>
 <script>(function () { try { var rl = <%- JSON.stringify(typeof roleLook !== 'undefined' && roleLook ? roleLook : {}) %>, own = localStorage.getItem('mk-look'), l = own ? JSON.parse(own) : rl, d = document.documentElement, m = l.mode || 'light';
   if (m === 'auto') m = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';

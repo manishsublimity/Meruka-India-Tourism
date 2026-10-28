@@ -6,7 +6,7 @@
   const saveBtn = document.querySelector('[data-save]'), draftBtn = document.querySelector('[data-draft]'), state = document.querySelector('[data-state]');
   const statusEl = document.querySelector('[data-status]'), draftNote = document.querySelector('[data-draft-note]');
   const apiUrl = E.mode === 'single' ? '/admin/api/single/' + E.id : '/admin/api/item/' + E.kind + '/' + E.id;
-  let comps = {}, getters = {}, dirty = false, templates = {}, refreshGoogle = () => {}, current = null, catState = null, dayAuto = [];
+  let comps = {}, getters = {}, dirty = false, templates = {}, refreshGoogle = () => {}, current = null, catState = null, dayAuto = [], singleSeo = false;
 
   // ---------- plain-language names and help ----------
   const LABELS = {
@@ -77,20 +77,22 @@
     cities: 'Each city: its name and the page it opens.',
     siteLogo: 'Leave it empty to keep the Meruka logo as it is now. A picture chosen here replaces it in the header and the footer.'
   };
-  const label = k => LABELS[k + '_' + E.kind] || LABELS[k] || String(k).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]/g, ' ').replace(/^./, c => c.toUpperCase());
+    const label = k => LABELS[k + '_' + E.kind] || LABELS[k] || String(k).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]/g, ' ').replace(/^./, c => c.toUpperCase());
 
   // ---------- tabs for each kind of page ----------
-  const GOOGLE = ['title', 'description', 'keywords', 'focusKeyword', 'noindex', 'ogImage'];
+  const GOOGLE = ['title', 'description', 'keywords', 'focusKeyword', 'noindex', 'ogImage', 'nofollow', 'canonical', 'ogTitle', 'ogDescription', 'twTitle', 'twDescription', 'twImage'];
+  // (28 Oct 2026, client) every page has its SEO tab again: tours, categories, pages, posts and the fixed pages
+  const SEO_TAB = 'SEO';
   const TABS = {
     // (26 Oct 2026, client) the banner sits in Basic info; the breadcrumb is made automatically, so it has no tab
     // (26 Oct 2026, client video II) one photo per tour; the banner is its category's; route and length come from the days
     // (27 Oct 2026, client) no Google tab for now; the prices (the box beside the days) apart from the includes and notes
     tours: [['Basic info', ['heading', 'photo', 'route', 'duration'], ''], ['Day by day', ['days'], 'Click a day to open it. Drag a day by its dots to change the order.'],
-      ['Prices', ['details'], 'The price box beside the days on the tour page: one line per hotel class.']],
+      ['Prices', ['details'], 'The price box beside the days on the tour page: one line per hotel class.'], [SEO_TAB, GOOGLE, '']],
     // a category's tours are chosen in each tour (its Categories tab), so the category only needs its text and banner
-    lists: [['Basic info', ['heading', 'intro', 'outro', 'heroSrc', 'heroAlt'], '']],
-    pages: [['Text', ['heading', 'html', 'guideSection', 'heroSrc', 'heroAlt'], 'Write the page like in Word: the buttons make headings, bold text, lists, links and photos.']],
-    posts: [['Post', ['heading', 'category', 'date', 'author', 'photo', 'excerpt'], 'The title, date and summary shown in the list of posts.'], ['Text', ['html'], 'Write the post like in Word: the buttons make headings, bold text, lists, links and photos.']],
+    lists: [['Basic info', ['heading', 'intro', 'outro', 'heroSrc', 'heroAlt'], ''], [SEO_TAB, GOOGLE, '']],
+    pages: [['Text', ['heading', 'html', 'guideSection', 'heroSrc', 'heroAlt'], 'Write the page like in Word: the buttons make headings, bold text, lists, links and photos.'], [SEO_TAB, GOOGLE, '']],
+    posts: [['Post', ['heading', 'category', 'date', 'author', 'photo', 'excerpt'], 'The title, date and summary shown in the list of posts.'], ['Text', ['html'], 'Write the post like in Word: the buttons make headings, bold text, lists, links and photos.'], [SEO_TAB, GOOGLE, '']],
     // (26 Oct 2026, client) the home page section by section, in the order the website shows them
     home: [['Banner', ['heroTitle', 'heroSlides'], 'The big title and the photos at the top of the home page.'], ['Figures', ['stats'], 'The band under the banner.'],
       ['Best Tour Packages', ['secPackages'], 'The first row of cards. Each card is a tour category: choose the category and its name, photo and lowest price come by themselves.'],
@@ -130,7 +132,7 @@
   // a link as an object: { label, href } (header menu) or { name, href } (social media)
   const isLinkObj = v => v && typeof v === 'object' && !Array.isArray(v) && 'href' in v && Object.keys(v).every(k => ['label', 'name', 'href', 'line'].includes(k));
   const isParas = v => Array.isArray(v) && v.length > 0 && v.every(p => Array.isArray(p) && p.every(isSeg));
-  const IMG_KEY = /^(img|image|photo|heroSrc|src|logo|icon|thumb|ogImage|defaultShareImage)$|(Img|Src|Photo|Logo)$/;
+  const IMG_KEY = /^(img|image|photo|heroSrc|src|logo|icon|thumb|ogImage|twImage|defaultShareImage)$|(Img|Src|Photo|Logo)$/;
   const isImg = (k, v) => typeof v === 'string' && (IMG_KEY.test(k) || /^\/.*\.(webp|jpe?g|png|gif|avif)$/i.test(v));
   const LONG = /^(description|intro|text|quote|a|note|closing|mission|html|line|lead|summary|body|desc|sub)$/i;
   const segText = segs => segs.map(s => s.bold && s.text.trim() ? '**' + s.text + '**' : s.text).join('');
@@ -467,7 +469,7 @@
       if (!inp.isConnected || inp.closest('.ln-row,.tp-row,.addr-row,.lk-pop') || inp.closest('dialog')) return;
       const hint = document.createElement('p'); hint.className = 'lk-name'; inp.insertAdjacentElement('afterend', hint);
       const upd = () => loadLinks().then(items => { const v = inp.value.trim(), it = items.find(x => x.url === v); hint.innerHTML = !v ? '' : it ? 'Opens: <b>' + A.esc(lkName(it)) + '</b>' : /^https?:/.test(v) ? 'Opens another website' : 'Opens: ' + A.esc(v); });
-      inp.addEventListener('input', upd); upd();
+      inp.addEventListener('input', upd); inp.addEventListener('ph', upd); upd();
     }, 0);
     const open = async () => {
       const items = await loadLinks();
@@ -826,13 +828,16 @@
     const inp = c.input || (c.el.matches('input,textarea') ? c.el : c.el.querySelector('input,textarea')); if (!inp) return;
     const d = document.createElement('div'); d.className = 'count'; d.innerHTML = '<span class="bar"><i></i></span><span></span>';
     const upd = () => {
-      const n = inp.value.trim().length, [lo, hi, max] = LIMITS[k];
+      const own = inp.value.trim(), [lo, hi, max] = LIMITS[k];
+      // an empty box with the website's text in grey: that text is what Google gets
+      if (!own && inp.placeholder && E.mode === 'single') { d.className = 'count ok'; d.querySelector('i').style.width = Math.min(100, 100 * inp.placeholder.length / max) + '%'; d.lastChild.textContent = 'Empty — the website’s own text is used (' + inp.placeholder.length + ' characters)'; return; }
+      const n = own.length;
       const lv = !n ? 'bad' : n < (k === 'title' ? lo : 70) || n > max ? 'bad' : n < lo || n > hi ? 'ok' : 'good';
       d.className = 'count ' + lv;
       d.querySelector('i').style.width = Math.min(100, 100 * n / max) + '%';
       d.lastChild.textContent = n + ' characters — ' + (!n ? 'empty' : n < lo ? 'a little short (aim for ' + lo + '–' + hi + ')' : n > hi ? 'Google may cut it off (aim for ' + lo + '–' + hi + ')' : 'good length');
     };
-    inp.addEventListener('input', upd); upd();
+    inp.addEventListener('input', upd); inp.addEventListener('ph', upd); upd();
     setTimeout(() => inp.closest('.f') && inp.closest('.f').appendChild(d));
   }
   function googlePanel(card, data) {
@@ -848,7 +853,9 @@
     if (more.children.length > 1) card.appendChild(more);
     const v = k => { const g = getters[k]; return g ? String(g() || '') : ''; };
     refreshGoogle = () => {
-      const t = v('title').trim(), d = v('description').trim(), fk = v('focusKeyword').trim().toLowerCase();
+      // an empty box keeps the website's own text (its grey placeholder): the preview and the checks use that
+      const ph = k => { const i = card.querySelector('.f[data-k="' + k + '"] input, .f[data-k="' + k + '"] textarea'); return i ? i.placeholder || '' : ''; };
+      const t = v('title').trim() || ph('title').trim(), d = v('description').trim() || ph('description').trim(), fk = v('focusKeyword').trim().toLowerCase();
       const head = (getters.heading ? v('heading') : '').toLowerCase();
       pv.querySelector('.gt').textContent = t || '(no Google title yet)';
       pv.querySelector('.gd').textContent = d || '(no description yet — Google will pick some text from the page)';
@@ -865,30 +872,114 @@
     };
     refreshGoogle();
   }
+  // ---------- (28 Oct 2026, client) SEO in a panel beside the page, as in the SEO plugins: Google (preview, checks,
+  // title, description, focus keyword), Social media (Facebook / WhatsApp and X, each with its preview) and Advanced
+  // (keywords, canonical address, noindex, nofollow). Empty social boxes use the Google text (shown in grey). ----------
+  const sideEl = document.querySelector('[data-side]');
+  const SEO_LABEL = { title: 'SEO title', description: 'Meta description', focusKeyword: 'Focus keyword', keywords: 'Keywords', noindex: 'Hide this page from Google (noindex)',
+    nofollow: 'Do not follow the links on this page (nofollow)', canonical: 'Canonical address', ogTitle: 'Title', ogDescription: 'Description', ogImage: 'Picture',
+    twTitle: 'Title', twDescription: 'Description', twImage: 'Picture' };
+  function seoSide(keys, data) {
+    const side = sideEl; side.hidden = false; side.innerHTML = '<div class="sd-head"><b>SEO</b><span class="sd-score" data-score></span></div>';
+    const sec = (title, sub, open) => { const d = document.createElement('details'); d.className = 'sd-sec'; d.open = !!open; d.innerHTML = '<summary><span>' + title + '</span><small>' + sub + '</small></summary><div class="sd-body"></div>'; side.appendChild(d); return d.querySelector('.sd-body'); };
+    const put = (box, k) => {
+      if (!keys.includes(k)) return null;
+      const c = field(k, data[k], 0), f = fieldBox(k, c, true); f.classList.remove('half');
+      const lb = f.querySelector(':scope > .lb, :scope > span'); if (lb && SEO_LABEL[k]) lb.textContent = SEO_LABEL[k];
+      if (GHELP[k] && f.querySelector('.lb')) f.querySelector('.lb').insertAdjacentHTML('afterend', '<p class="fhelp">' + A.esc(GHELP[k]) + '</p>');
+      box.appendChild(f); getters[k] = c.get; comps[k] = c;
+      if (k === 'title' || k === 'description') counter(k, c);
+      return f;
+    };
+    const g = sec('Google', 'how the page shows in search', true);
+    g.insertAdjacentHTML('beforeend', '<div class="gprev"><div class="gu"><i>M</i><div>Meruka India Tourism<small>' + A.esc(location.host + (E.url || '')) + '</small></div></div><div class="gt"></div><div class="gd"></div></div><ul class="checks checks-s"></ul>');
+    ['focusKeyword', 'title', 'description'].forEach(k => put(g, k));
+    const so = sec('Social media', 'Facebook, WhatsApp, LinkedIn and X', false);
+    so.insertAdjacentHTML('beforeend', '<div class="subtabs sd-tabs"><button type="button" class="on" data-net="fb">Facebook · WhatsApp</button><button type="button" data-net="x">X (Twitter)</button></div>' +
+      '<div data-pane="fb"><div class="sp-card"><div class="sp-img" data-sp-img="fb"></div><div class="sp-txt"><small>' + A.esc(location.host) + '</small><b data-sp-t="fb"></b><span data-sp-d="fb"></span></div></div></div>' +
+      '<div data-pane="x" hidden><div class="sp-card sp-x"><div class="sp-img" data-sp-img="x"></div><div class="sp-txt"><b data-sp-t="x"></b><span data-sp-d="x"></span><small>' + A.esc(location.host) + '</small></div></div></div>');
+    const fbBox = so.querySelector('[data-pane="fb"]'), xBox = so.querySelector('[data-pane="x"]');
+    ['ogTitle', 'ogDescription', 'ogImage'].forEach(k => put(fbBox, k)); ['twTitle', 'twDescription', 'twImage'].forEach(k => put(xBox, k));
+    so.querySelectorAll('[data-net]').forEach(b => b.onclick = () => { so.querySelectorAll('[data-net]').forEach(x => x.classList.toggle('on', x === b)); fbBox.hidden = b.dataset.net !== 'fb'; xBox.hidden = b.dataset.net !== 'x'; });
+    const ad = sec('Advanced', 'keywords, canonical, noindex, nofollow', false);
+    ['keywords', 'canonical', 'noindex', 'nofollow'].forEach(k => put(ad, k));
+    const can = ad.querySelector('.f[data-k="canonical"] input'); if (can) can.placeholder = 'Empty: this page’s own address (' + (E.url || '/') + ')';
+    const val = k => { const gt = getters[k]; return gt ? String(gt() || '').trim() : ''; };
+    const ph = k => { const i = side.querySelector('.f[data-k="' + k + '"] input, .f[data-k="' + k + '"] textarea'); return i ? (i.placeholder || '').trim() : ''; };
+    const pic = k => { const gt = getters[k]; return gt ? gt() : ''; };
+    const fallbackImg = () => pic('ogImage') || (current && current.thumb) || data.heroSrc || data.photo || '/photos/taj-mahal-feature.webp';
+    refreshGoogle = () => {
+      const t = val('title') || ph('title'), d = val('description') || ph('description'), fk = val('focusKeyword').toLowerCase(), head = (getters.heading ? val('heading') : '').toLowerCase();
+      side.querySelector('.gt').textContent = t || '(no SEO title yet)';
+      side.querySelector('.gd').textContent = d || '(no description yet — Google will pick some text from the page)';
+      const L = [];
+      L.push([t.length >= 30 && t.length <= 60 ? '' : t ? 'warn' : 'no', 'SEO title ' + (t ? 'is ' + t.length + ' characters (best 30–60)' : 'is empty')]);
+      L.push([d.length >= 120 && d.length <= 160 ? '' : d ? 'warn' : 'no', 'Meta description ' + (d ? 'is ' + d.length + ' characters (best 120–160)' : 'is empty')]);
+      if (fk) {
+        L.push([t.toLowerCase().includes(fk) ? '' : 'warn', 'Focus keyword ' + (t.toLowerCase().includes(fk) ? 'is' : 'is not') + ' in the SEO title']);
+        L.push([d.toLowerCase().includes(fk) ? '' : 'warn', 'Focus keyword ' + (d.toLowerCase().includes(fk) ? 'is' : 'is not') + ' in the meta description']);
+        if (getters.heading) L.push([head.includes(fk) ? '' : 'warn', 'Focus keyword ' + (head.includes(fk) ? 'is' : 'is not') + ' in the page title']);
+      } else L.push(['warn', 'No focus keyword yet']);
+      if (getters.noindex && getters.noindex()) L.push(['no', 'This page is hidden from Google']);
+      side.querySelector('.checks').innerHTML = L.map(([c, txt]) => '<li class="' + c + '">' + A.esc(txt) + '</li>').join('');
+      const good = L.filter(x => !x[0]).length, bad = L.some(x => x[0] === 'no');
+      const sc = side.querySelector('[data-score]'); sc.textContent = bad ? 'Needs work' : good === L.length ? 'Good' : 'OK'; sc.className = 'sd-score ' + (bad ? 'bad' : good === L.length ? 'good' : 'ok');
+      // social: empty boxes use the Google text
+      const setPh = (k, v) => { const i = side.querySelector('.f[data-k="' + k + '"] input, .f[data-k="' + k + '"] textarea'); if (i) i.placeholder = v; };
+      setPh('ogTitle', t); setPh('ogDescription', d); setPh('twTitle', val('ogTitle') || t); setPh('twDescription', val('ogDescription') || d);
+      const fbT = val('ogTitle') || t, fbD = val('ogDescription') || d, xT = val('twTitle') || fbT, xD = val('twDescription') || fbD;
+      side.querySelector('[data-sp-t="fb"]').textContent = fbT; side.querySelector('[data-sp-d="fb"]').textContent = fbD;
+      side.querySelector('[data-sp-t="x"]').textContent = xT; side.querySelector('[data-sp-d="x"]').textContent = xD;
+      side.querySelector('[data-sp-img="fb"]').style.backgroundImage = 'url("' + String(fallbackImg()).replace(/"/g, '') + '")';
+      side.querySelector('[data-sp-img="x"]').style.backgroundImage = 'url("' + String(pic('twImage') || fallbackImg()).replace(/"/g, '') + '")';
+    };
+    side.addEventListener('input', () => refreshGoogle()); side.addEventListener('click', () => setTimeout(refreshGoogle, 300));
+    refreshGoogle(); liveSeo(side);
+  }
+  // the page's current Google title and description (from the website itself) as grey placeholders
+  function liveSeo(card) {
+    if (!E.url) return;
+    fetch(E.url, { credentials: 'same-origin' }).then(r => r.ok ? r.text() : '').then(html => {
+      if (!html) return;
+      const d = new DOMParser().parseFromString(html, 'text/html');
+      const now = { title: (d.querySelector('title') || {}).textContent || '', description: (d.querySelector('meta[name="description"]') || { getAttribute: () => '' }).getAttribute('content') || '',
+        keywords: (d.querySelector('meta[name="keywords"]') || { getAttribute: () => '' }).getAttribute('content') || '' };
+      Object.entries(now).forEach(([k, v]) => { const i = card.querySelector('.f[data-k="' + k + '"] input, .f[data-k="' + k + '"] textarea'); if (i && v) { i.placeholder = v.trim(); i.dispatchEvent(new Event('ph')); } });
+      refreshGoogle();
+    }).catch(() => {});
+  }
   const GHELP = {
     title: 'The blue headline in Google results and the name in the browser tab.',
     description: 'The two grey lines under the headline in Google.',
     keywords: 'Words people search for, separated by commas (Google mostly ignores these, other search engines may use them).',
-    focusKeyword: 'The words a traveller would type in Google to find this page, e.g. "Golden Triangle tour". It is not shown on the website: it only lets the checks above tell you if the title and description use those words.',
-    ogImage: 'Optional. Leave empty to use the tour photo or the banner photo.'
+    focusKeyword: 'The words a traveller types in Google to find this page, e.g. "Golden Triangle tour". Not shown on the website: the checks above use it.',
+    ogImage: 'Shown when the page is shared. Empty: the page’s own photo. Best 1200 × 630.',
+    ogTitle: 'Empty: the SEO title is used.', ogDescription: 'Empty: the meta description is used.',
+    twTitle: 'Empty: the Facebook title is used.', twDescription: 'Empty: the Facebook description is used.', twImage: 'Empty: the Facebook picture is used.',
+    canonical: 'Only when the same content is on another address: give the main address here. Usually leave empty.',
+    nofollow: 'Rarely needed. Google then does not follow the links on this page.'
   };
 
   // ---------- the form, in tabs ----------
   function build(res) {
     current = res; getters = {}; comps = {}; templates = res.templates || {}; root.innerHTML = ''; tabsEl.innerHTML = ''; refreshGoogle = () => {}; dayAuto = (res.dayPhotos || []).slice();
-    const data = res.data;
+    const data = Object.assign({}, res.data);   // a copy: the SEO boxes below are unpacked from it
     // (26 Oct 2026, client) each day of a tour can have its own photo: the box sits under the day's title
     if (E.kind === 'tours' && Array.isArray(data.days)) data.days = data.days.map(d => d && typeof d === 'object' && !('photo' in d) ? Object.fromEntries(Object.entries(d).flatMap(([k, v]) => k === 'eta' ? [[k, v], ['photo', '']] : [[k, v]]).concat('eta' in d ? [] : [['photo', '']])) : d);
     let tabs = TABS[E.mode === 'single' ? E.id : E.kind];
     if (!tabs) tabs = res.fields.filter(k => k in data).map(k => [label(k), [k], HELP[k] || '']);   // settings: one tab per part
+    singleSeo = E.mode === 'single' && data.seo && typeof data.seo === 'object';
+    if (singleSeo) { const sv = data.seo; delete data.seo; GOOGLE.forEach(k => { data[k] = k in sv ? sv[k] : (k === 'noindex' || k === 'nofollow' ? false : ''); }); tabs = tabs.concat([[SEO_TAB, GOOGLE, 'How this page shows in Google and when it is shared. Leave a box empty to keep the text the website uses now (shown in grey).']]); }
     const used = new Set(tabs.flatMap(t => t[1]));
     // made automatically or chosen elsewhere: the breadcrumb, and a category's tours (ticked in each tour)
-    const AUTO = E.mode === 'item' ? ['breadcrumb'].concat(GOOGLE, E.kind === 'lists' && E.id !== 'itineraries' ? ['groups'] : E.kind === 'tours' ? ['heroSrc', 'heroAlt'] : []) : E.id === 'reviews' ? ['all'] : [];
+    const AUTO = E.mode === 'item' ? ['breadcrumb'].concat(E.kind === 'lists' && E.id !== 'itineraries' ? ['groups'] : E.kind === 'tours' ? ['heroSrc', 'heroAlt'] : []) : E.id === 'reviews' ? ['all'] : [];
     const rest = res.fields.filter(k => k in data && !used.has(k) && !AUTO.includes(k));
     if (rest.length) tabs = tabs.concat([['More', rest, '']]);
     const panes = [];
+    sideEl.hidden = true; sideEl.innerHTML = '';
     tabs.forEach(([name, keys, intro], ti) => {
       keys = keys.filter(k => k in data); if (!keys.length) return;
+      if (name === SEO_TAB) return seoSide(keys, data);
       const card = document.createElement('section'); card.className = 'card fg'; card.hidden = true;
       // (27 Oct 2026, client) a part of a page: its name as a heading, then what it is, then its fields
       // (27 Oct 2026, client video) the tab already names the part: only the short note what it is, no second heading
@@ -897,15 +988,15 @@
       keys.forEach(k => {
         const c = field(k, data[k], 0);
         // (26 Oct 2026, client video II) a tab with one thing in it needs no second title for it
-        const f = keys.length === 1 && name !== 'Google' ? Object.assign(document.createElement('div'), { className: 'f' }) : fieldBox(k, c, true);
+        const f = keys.length === 1 && name !== SEO_TAB ? Object.assign(document.createElement('div'), { className: 'f' }) : fieldBox(k, c, true);
         if (E.mode === 'single' && /^sec[A-Z]/.test(k) && f.querySelector(':scope > .lb')) f.querySelector(':scope > .lb').remove();
-        if (keys.length === 1 && name !== 'Google') f.appendChild(c.el);
-        if (GHELP[k] && name === 'Google') f.querySelector('.lb').insertAdjacentHTML('afterend', '<p class="fhelp">' + A.esc(GHELP[k]) + '</p>');
+        if (keys.length === 1 && name !== SEO_TAB) f.appendChild(c.el);
+        if (GHELP[k] && name === SEO_TAB) f.querySelector('.lb').insertAdjacentHTML('afterend', '<p class="fhelp">' + A.esc(GHELP[k]) + '</p>');
         card.appendChild(f); getters[k] = c.get; comps[k] = c;
-        if ((k === 'title' || k === 'description') && name === 'Google') counter(k, c);
+        if ((k === 'title' || k === 'description') && name === SEO_TAB) counter(k, c);
       });
       pairHalves(card);
-      if (name === 'Google') googlePanel(card, data);
+      if (name === SEO_TAB) { googlePanel(card, data); liveSeo(card); }
       const b = document.createElement('button'); b.type = 'button'; b.textContent = name; b.dataset.key = keys.join(' ');
       b.onclick = () => { panes.forEach(p => { p.card.hidden = p.b !== b; p.b.classList.toggle('on', p.b === b); }); history.replaceState(null, '', '#' + A.slug(name)); };
       tabsEl.appendChild(b); root.appendChild(card); panes.push({ b, card, slug: A.slug(name), keys });
@@ -925,7 +1016,8 @@
       card.appendChild(comps.details.more);
       const b = document.createElement('button'); b.type = 'button'; b.textContent = 'Includes & notes';
       b.onclick = () => { panes.forEach(p => { p.card.hidden = p.b !== b; p.b.classList.toggle('on', p.b === b); }); history.replaceState(null, '', '#includes-notes'); };
-      tabsEl.appendChild(b); root.appendChild(card); panes.push({ b, card, slug: 'includes-notes', keys: [] });
+      const seoP = panes.find(p => p.b.textContent === SEO_TAB);   // SEO stays the last tab
+      tabsEl.insertBefore(b, seoP ? seoP.b : null); root.insertBefore(card, seoP ? seoP.card : null); panes.push({ b, card, slug: 'includes-notes', keys: [] });
     }
     const h = location.hash.slice(1) || new URLSearchParams(location.search).get('tab') || (new URLSearchParams(location.search).get('col') ? 'link-columns' : '');
     const start = panes.find(p => p.slug === h || p.keys.includes(h)) || panes[0];
@@ -971,7 +1063,11 @@
     };
     pane.addEventListener('input', run); new MutationObserver(() => setTimeout(run, 0)).observe(comps.days.el, { childList: true, subtree: true });
   }
-  const collect = () => Object.fromEntries(Object.entries(getters).map(([k, g]) => [k, g()]));
+  const collect = () => {
+    const out = Object.fromEntries(Object.entries(getters).map(([k, g]) => [k, g()]));
+    if (singleSeo) { out.seo = {}; GOOGLE.forEach(k => { if (k in out) { out.seo[k] = out[k]; delete out[k]; } }); }
+    return out;
+  };
 
   // ---------- status, draft, publish (23 Oct 2026) ----------
   const when = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); };
