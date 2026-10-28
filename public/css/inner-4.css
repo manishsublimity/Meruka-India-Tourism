@@ -3598,7 +3598,10 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 .bl-cats a.on{background:#336699;border-color:#336699;color:#fff}
 .bl-cat{color:#336699;font-weight:800;text-decoration:none}
 /* (27 Oct 2026, client) the Plan My Trip form stands out: a blue outline */
-#mk-frame.in4 .pm-card{border:2px solid var(--mk-blue) !important;border-top:4px solid var(--mk-blue) !important;box-shadow:0 14px 34px rgba(51,102,153,.14)}
+#mk-frame.in4 .pm-card{border:2px solid var(--mk-blue) !important;box-shadow:0 14px 34px rgba(51,102,153,.14);padding:0 !important;overflow:hidden}
+#mk-frame#mk-frame.in4 .pm-card-head{margin:0 0 22px !important;padding:16px clamp(18px,2.2cqw,28px) !important;border-radius:0 !important;border:0 !important}
+#mk-frame#mk-frame.in4 .pm-card>:not(.pm-card-head){margin-left:clamp(18px,2.2cqw,28px);margin-right:clamp(18px,2.2cqw,28px)}
+#mk-frame#mk-frame.in4 .pm-card>:last-child{margin-bottom:clamp(18px,2.2cqw,28px)}
 /* (27 Oct 2026, client video) FAQs → "How we work": each step a roomy card — the number and when on one line,
    the title under it, then the words at full width (no narrow column beside the number) */
 #mk-frame#mk-frame .fx-steps{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;counter-reset:none}
@@ -3608,3 +3611,41 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 @media (max-width:599.98px){ #mk-frame#mk-frame .fx-steps{grid-template-columns:minmax(0,1fr)} }
 /* (27 Oct 2026) the tour page column may shrink on the smallest phones (it pushed 7px off screen at 330px) */
 #mk-frame#mk-frame .it2-main,#mk-frame#mk-frame .it2-main>*{min-width:0;max-width:100%}
+/* (27 Oct 2026, client video) tour packages on tablets and phones: a small "Filters" button; the filters open as a
+   sheet from the bottom over a dimmed page */
+.tp2-done{display:none}
+@media (max-width:1199.98px){
+  html.tp2-lock,html.tp2-lock body{overflow:hidden}
+  #mk-frame#mk-frame.in4 .tp2-filters{background:none;border:0;box-shadow:none}
+  #mk-frame#mk-frame.in4 .tp2-f-sum{display:inline-flex;width:auto;height:42px;padding:0 16px;gap:8px;border:1px solid var(--mk-field-line,#D5DEEA);border-radius:21px !important;background:#fff;font-size:14px;font-weight:800;color:#336699}
+  #mk-frame#mk-frame.in4 .tp2-f-sum::before{content:"";width:16px;height:16px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M4 6h16M7 12h10M10 18h4'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M4 6h16M7 12h10M10 18h4'/%3E%3C/svg%3E") center/contain no-repeat}
+  #mk-frame#mk-frame.in4 .tp2-f-sum::after{display:none}
+  #mk-frame#mk-frame.in4 .tp2-f-sum span{margin:0}
+  #mk-frame#mk-frame.in4 .tp2-filters[open]::before{content:"";position:fixed;inset:0;z-index:1190;background:rgba(10,25,45,.5)}
+  #mk-frame#mk-frame.in4 .tp2-filters[open] .tp2-form{position:fixed;left:0;right:0;bottom:0;z-index:1200;max-height:82vh;overflow-y:auto;margin:0;padding:6px 18px calc(16px + env(safe-area-inset-bottom));background:#fff;border-radius:16px 16px 0 0 !important;box-shadow:0 -20px 40px rgba(10,25,45,.25);animation:tp2Up .25s ease}
+  #mk-frame#mk-frame.in4 .tp2-filters[open] .tp2-form::before{content:"";display:block;width:44px;height:5px;margin:6px auto 4px;border-radius:3px;background:#D5DEEA}
+  #mk-frame#mk-frame.in4 .tp2-done{display:flex;position:sticky;bottom:0;align-items:center;justify-content:center;width:100%;height:46px;margin-top:14px;border:0;border-radius:5px !important;background:#FFB81C;color:#141B2B;font:800 15px/1 'Manrope',system-ui,sans-serif;cursor:pointer;box-shadow:0 -8px 16px #fff}
+}
+@keyframes tp2Up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+/* (27 Oct 2026, client video) a tour row on phones: the name, route and nights on the left; the price on the right with
+   "View Tour" right under it */
+@media (max-width:767.98px){
+  #mk-frame#mk-frame.in4 .tp2-row:not(:has(.tp2-row-img)){display:grid !important;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"main price" "days go";align-items:start;gap:4px 14px;text-align:left}
+  #mk-frame#mk-frame.in4 .tp2-row:not(:has(.tp2-row-img)) .tp2-row-main{grid-area:main;min-width:0}
+  #mk-frame#mk-frame.in4 .tp2-row:not(:has(.tp2-row-img)) .tp2-row-days{grid-area:days;justify-self:start;align-self:center}
+  #mk-frame#mk-frame.in4 .tp2-row:not(:has(.tp2-row-img)) .tp2-row-price{grid-area:price;justify-self:end;text-align:right;display:flex;flex-direction:column;align-items:flex-end}
+  #mk-frame#mk-frame.in4 .tp2-row:not(:has(.tp2-row-img)) .tp2-row-go{grid-area:go;justify-self:end;align-self:center;width:auto !important;margin:0 !important}
+}
+/* (27 Oct 2026, client video) FAQs: the open / close button as on the rest of the site (no diamond); "How we work" its
+   own section with a heading */
+#mk-frame#mk-frame .fx-item summary i{width:30px;height:30px;border-radius:5px !important;transform:none !important;background:#EEF3FB;color:#336699;font-size:20px;line-height:1}
+#mk-frame#mk-frame .fx-item[open] summary i{background:#336699;color:#fff;font-size:0}
+#mk-frame#mk-frame .fx-item[open] summary i::before{content:"−";font-size:22px}
+#mk-frame#mk-frame .fx-how{padding:clamp(28px,4cqw,48px) 0 6px}
+#mk-frame#mk-frame .fx-how-h{margin:0 0 6px;font-family:var(--mk-font-head,'Bricolage Grotesque',sans-serif);font-size:clamp(24px,2.6cqw,32px);color:#141B2B}
+#mk-frame#mk-frame .fx-how .fx-note{margin:0 0 18px}
+#mk-frame#mk-frame .fx-how .fx-steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:999.98px){ #mk-frame#mk-frame .fx-how .fx-steps{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:599.98px){ #mk-frame#mk-frame .fx-how .fx-steps{grid-template-columns:minmax(0,1fr)} }
+/* phones: no "On this page" box on the guide and destination pages */
+@media (max-width:767.98px){ #mk-frame#mk-frame .ar-toc-box,#mk-frame#mk-frame .ar-toc{display:none !important} }

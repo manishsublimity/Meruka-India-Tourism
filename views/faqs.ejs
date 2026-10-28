@@ -1,12 +1,21 @@
 <%- include('partials/head') %>
 <%# (26 Oct 2026, client) all the questions & answers on one page; the home page shows the first few. Edited in the admin
-    panel: Pages → Home page → FAQs %>
+    panel: Pages → FAQs %>
 <% const F = H.secFaq || {}; %>
 <div style="width:100%;overflow-x:clip;background:#fff">
 <div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#fff">
 
 <%- include('partials/page-header', { nav: d.nav, enquireHref: '/plan-my-trip' }) %>
 <%- include('partials/photo-hero', { title: F.title || 'FAQs', img: '/photos/faqs.webp', alt: 'A question mark on a bed of sand', sub: F.sub || '' }) %>
+
+<%# (27 Oct 2026, client video) "How we work" is its own part of the page, with its own heading, above the questions %>
+<section class="fx-how" id="process">
+  <div class="ex-wrap">
+    <h2 class="fx-how-h"><%= F.howTitle || 'How we work' %></h2>
+    <% if (F.howNote) { %><p class="fx-note"><%= F.howNote %></p><% } %>
+    <ol class="fx-steps"><% H.steps.forEach(s => { %><li><span><%= s.n %></span><div><small><%= s.when %></small><b><%= s.title %></b><%= s.body %></div></li><% }) %></ol>
+  </div>
+</section>
 
 <section class="fx-sec">
   <div class="ex-wrap fx-grid">
@@ -17,13 +26,6 @@
         <div class="fx-a"><%= f.a %></div>
       </details>
       <% }) %>
-      <details class="fx-item" id="process">
-        <summary><b><%= String(H.faqs.length + 1).padStart(2, '0') %></b><span><%= F.howTitle %></span><i aria-hidden="true">+</i></summary>
-        <div class="fx-a">
-          <% if (F.howNote) { %><p class="fx-note"><%= F.howNote %></p><% } %>
-          <ol class="fx-steps"><% H.steps.forEach(s => { %><li><span><%= s.n %></span><div><small><%= s.when %></small><b><%= s.title %></b><%= s.body %></div></li><% }) %></ol>
-        </div>
-      </details>
     </div>
     <aside class="fx-box">
       <b><%= F.boxTitle %></b>

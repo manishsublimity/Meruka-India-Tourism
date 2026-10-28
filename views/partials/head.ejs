@@ -47,13 +47,15 @@ html.gt-wait::after{content:"";position:fixed;left:50%;top:50%;width:34px;height
   // and a page's own "hide from Google" switch and share picture (16 Oct 2026)
   const G = seoSettings || {};
   const pdx = typeof d !== 'undefined' && d ? d : {};
-  const robotsTag = pdx.noindex ? 'noindex, follow' : (typeof meta !== 'undefined' && meta && meta.robots);
+  const robotsTag = pdx.noindex || pdx.nofollow ? (pdx.noindex ? 'noindex' : 'index') + ', ' + (pdx.nofollow ? 'nofollow' : 'follow') : (typeof meta !== 'undefined' && meta && meta.robots);
+  // (28 Oct 2026) a page's own canonical address, set in its SEO panel, wins over the built-in one
+  if (pdx.canonical && typeof meta !== 'undefined' && meta) meta = Object.assign({}, meta, { canonical: pdx.canonical });
 %>
 <title><%= title %></title>
 <% if (typeof meta !== 'undefined' && meta) { %>
 <% if (meta.description) { %><meta name="description" content="<%= meta.description %>"><% } %>
 <% if (meta.keywords) { %><meta name="keywords" content="<%= meta.keywords %>"><% } %>
-<% if (meta.canonical) { %><link rel="canonical" href="<%= base + meta.canonical %>"><% } %>
+<% if (meta.canonical) { %><link rel="canonical" href="<%= /^https?:/.test(meta.canonical) ? meta.canonical : base + meta.canonical %>"><% } %>
 <% } %>
 <% if (robotsTag) { %><meta name="robots" content="<%= robotsTag %>"><% } %>
 <% if (G.googleVerification) { %><meta name="google-site-verification" content="<%= G.googleVerification %>"><% } %>
@@ -66,7 +68,7 @@ html.gt-wait::after{content:"";position:fixed;left:50%;top:50%;width:34px;height
   // Open Graph / Twitter cards and schema.org JSON-LD (SEO, AI answers and generative search)
   const mt = (typeof meta !== 'undefined' && meta) || {};
   const pd = pdx;
-  const shareSrc = [pd.ogImage, pd.photo, pd.heroSrc, G.defaultShareImage, '/photos/taj-mahal-feature.webp'].find(x => x && /^\//.test(x));
+  const shareSrc = [pd.ogImage, mt.ogImage, pd.photo, pd.heroSrc, G.defaultShareImage, '/photos/taj-mahal-feature.webp'].find(x => x && /^\//.test(x));
   const ogImg = base + shareSrc;
   const pg = {};
   if (Array.isArray(pd.faqs) && pd.faqs[0] && pd.faqs[0].q) pg.faqs = pd.faqs;
@@ -76,15 +78,21 @@ html.gt-wait::after{content:"";position:fixed;left:50%;top:50%;width:34px;height
 <meta name="theme-color" content="#336699">
 <meta property="og:type" content="<%= pg.trip ? 'article' : 'website' %>">
 <meta property="og:site_name" content="<%= seo.NAME %>">
-<meta property="og:title" content="<%= title %>">
-<% if (mt.description) { %><meta property="og:description" content="<%= mt.description %>"><% } %>
-<% if (mt.canonical) { %><meta property="og:url" content="<%= base + mt.canonical %>"><% } %>
+<%
+  // (28 Oct 2026) social media text and pictures from the page's SEO panel; empty ones fall back to the Google text
+  const ogT = pd.ogTitle || mt.ogTitle || title, ogD = pd.ogDescription || mt.ogDescription || mt.description;
+  const twT = pd.twTitle || mt.twTitle || ogT, twD = pd.twDescription || mt.twDescription || ogD;
+  const twSrc = [pd.twImage, mt.twImage].find(x => x && /^\//.test(x)), twImg = twSrc ? base + twSrc : ogImg;
+%>
+<meta property="og:title" content="<%= ogT %>">
+<% if (ogD) { %><meta property="og:description" content="<%= ogD %>"><% } %>
+<% if (mt.canonical) { %><meta property="og:url" content="<%= /^https?:/.test(mt.canonical) ? mt.canonical : base + mt.canonical %>"><% } %>
 <meta property="og:image" content="<%= ogImg %>">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="<%= title %>">
-<% if (mt.description) { %><meta name="twitter:description" content="<%= mt.description %>"><% } %>
-<meta name="twitter:image" content="<%= ogImg %>">
+<meta name="twitter:title" content="<%= twT %>">
+<% if (twD) { %><meta name="twitter:description" content="<%= twD %>"><% } %>
+<meta name="twitter:image" content="<%= twImg %>">
 <script type="application/ld+json"><%- JSON.stringify(seo.graph(base, pg)).replace(/</g, '\\u003c') %></script>
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,7 +100,7 @@ html.gt-wait::after{content:"";position:fixed;left:50%;top:50%;width:34px;height
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&amp;family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Shantell+Sans:wght@400;500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="<%= typeof cssHref !== 'undefined' ? cssHref : '/css/site.css' %>">
 <% if (typeof extraCss !== 'undefined') { [].concat(extraCss).forEach(h => { %><link rel="stylesheet" href="<%= h %>"><% }) } %>
-<script src="<%= typeof siteJs !== 'undefined' ? siteJs : '/js/site.js' %>" defer></script>
+<script src="<%= typeof siteJs !== 'undefined' ? siteJs : '/js/site.js?v=3' %>" defer></script>
 <% if (typeof frameClass !== 'undefined' && frameClass.split(' ').includes('in4')) { %><script src="/js/inner-4.js" defer></script><% } %>
 </head>
 <body>
