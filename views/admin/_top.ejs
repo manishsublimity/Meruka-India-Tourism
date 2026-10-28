@@ -55,7 +55,7 @@
       ['Tours', 'tours', '/admin/tours', K === 'tours' || K === 'lists' || (K === 'pages' && PG === 'tours'), 'content', 0, 0, [
         ['Add tour', '/admin/tours#new', false], ['Categories', '/admin/lists', K === 'lists']]],
       ['Pages', 'pages', '/admin/pages', page === 'pages' || (K === 'single' && SG[S] && SG[S].page && S !== 'reviews'), 'content'],
-      ['Four Regions', 'map', '/admin/destinations', onDest, 'content', 0, 0, REG.map(([l, k]) => [l, '/admin/destinations?region=' + k, onDest && (QS.region || PS || 'north') === k])],
+      ['Four Regions', 'map', '/admin/destinations', onDest, 'content', 0, 0, REG.map(([l, k]) => [l, '/admin/destinations?region=' + k, onDest && (QS.region || PS) === k])],
       // (26 Oct 2026, client) the travel guide's three sections, each on its own, like a post type
       ...GSEC.map(([l, k], n) => [l, ['guide', 'attr', 'tools'][n], '/admin/travel-guide?section=' + k, onGuide && (QS.section || PS || 'travelers') === k, 'content']),
       ['Guest reviews', 'reviews', '/admin/reviews', page === 'reviews' || onSingle('reviews'), 'reviews']]],
@@ -78,7 +78,7 @@
 <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' — ' : '' %>Meruka admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/admin-assets/admin.css?v=36">
+<link rel="stylesheet" href="/admin-assets/admin.css?v=37">
 <%# (26 Oct 2026, client) the panel's look (light or dark, and its colour), chosen per browser in "Look of the panel" %>
 <script>(function () { try { var rl = <%- JSON.stringify(typeof roleLook !== 'undefined' && roleLook ? roleLook : {}) %>, own = localStorage.getItem('mk-look'), l = own ? JSON.parse(own) : rl, d = document.documentElement, m = l.mode || 'light';
   if (m === 'auto') m = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
