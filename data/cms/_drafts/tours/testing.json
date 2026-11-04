@@ -1,0 +1,77 @@
+{
+  "_meta": {
+    "savedAt": "2026-10-27T09:54:32.546Z",
+    "by": "Main owner",
+    "byId": "owner"
+  },
+  "_categories": [
+    "india-golden-triangle-tour"
+  ],
+  "heading": "Testing",
+  "photo": "",
+  "route": "",
+  "duration": "",
+  "days": [
+    {
+      "day": "01 Day",
+      "title": "",
+      "eta": "",
+      "photo": "",
+      "paras": [
+        [
+          {
+            "text": "",
+            "bold": false
+          }
+        ]
+      ]
+    }
+  ],
+  "details": [
+    {
+      "title": "Tour Pricing Details",
+      "text": "",
+      "items": []
+    },
+    {
+      "title": "This Tour Includes",
+      "text": "",
+      "items": []
+    },
+    {
+      "title": "This Tour Excludes",
+      "text": "",
+      "items": []
+    },
+    {
+      "title": "Important Notes",
+      "text": "",
+      "items": []
+    }
+  ],
+  "breadcrumb": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "India Tour Packages",
+      "href": "/itineraries"
+    },
+    {
+      "label": "Indian Golden Triangle Tours",
+      "href": "/india-golden-triangle-tour"
+    },
+    {
+      "label": "Golden Triangle Tour"
+    }
+  ],
+  "heroSrc": "/images/india-tours-main.webp",
+  "heroAlt": "India Tours",
+  "title": "Testing — Meruka India Tourism",
+  "description": "",
+  "keywords": "",
+  "focusKeyword": "",
+  "noindex": false,
+  "ogImage": ""
+}

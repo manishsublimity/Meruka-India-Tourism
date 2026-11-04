@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "savedAt": "2026-11-04T09:32:00.125Z",
+    "by": "Main owner",
+    "byId": "owner"
+  },
+  "heading": "Manish Catg",
+  "intro": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum.",
+  "breadcrumb": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "India Tour Packages",
+      "href": "/itineraries"
+    },
+    {
+      "label": "Manish Catg"
+    }
+  ],
+  "heroSrc": "/uploads/day1-intro-1080x1350.png",
+  "heroAlt": "",
+  "title": "Manish Catg — Meruka India Tourism",
+  "description": "",
+  "keywords": "",
+  "focusKeyword": "",
+  "noindex": false,
+  "ogImage": "",
+  "nofollow": false,
+  "canonical": "",
+  "ogTitle": "",
+  "ogDescription": "",
+  "twTitle": "",
+  "twDescription": "",
+  "twImage": "",
+  "unpublished": false,
+  "navGroup": "",
+  "tourType": "",
+  "groups": [
+    {
+      "title": "",
+      "href": "",
+      "tours": [
+        {
+          "name": "Sub Package",
+          "href": "/sub-package",
+          "route": "14 Nov: Delhi - 15 Nov: Delhi - 16 Nov: Delhi - Haridwar - 17 Nov: Haridwar - Rishikesh - Haridwar - 18 Nov: Haridwar - Mathura - 19 Nov: Mathura - Agra - 20 Nov: Agra - Fatehpur Sikri - Jaipur - 21 Nov: Jaipur - 22 Nov: Jaipur - Chennai - 23 Nov: Chennai - Mahabalipuram - Kanchipuram - Tirupati - 24 Nov: Tirupati - Delhi - 25 Nov: Delhi",
+          "duration": "11 Nights - 12 Days"
+        }
+      ]
+    }
+  ],
+  "outro": []
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "at": "2026-11-04T13:18:19.043Z",
+    "id": "sub-package",
+    "name": "Sub Package",
+    "code": "",
+    "url": "/sub-package",
+    "nights": 11,
+    "how": "On Prices & notes",
+    "by": "Main owner",
+    "changes": [
+      {
+        "label": "3-Star",
+        "from": "$120",
+        "to": "",
+        "fromLo": 120,
+        "fromHi": 120,
+        "toLo": null,
+        "toHi": null
+      }
+    ]
+  },
+  {
+    "at": "2026-11-04T12:10:56.753Z",
+    "id": "golden_triangle_packages",
+    "name": "Golden Triangle Tour",
+    "code": "GT-1",
+    "how": "On Prices & notes",
+    "by": "Main owner",
+    "changes": [
+      {
+        "label": "3-Star",
+        "from": "$850 - $100",
+        "to": "$85 - $100"
+      }
+    ]
+  },
+  {
+    "at": "2026-11-04T12:08:09.218Z",
+    "id": "golden_triangle_packages",
+    "name": "Golden Triangle Tour",
+    "code": "GT-1",
+    "how": "On Prices & notes",
+    "by": "Main owner",
+    "changes": [
+      {
+        "label": "3-Star",
+        "from": "$85 - $100",
+        "to": "$850 - $100"
+      }
+    ]
+  },
+  {
+    "at": "2026-11-04T12:07:55.365Z",
+    "id": "sub-package",
+    "name": "Sub Package",
+    "code": "",
+    "how": "On Prices & notes",
+    "by": "Main owner",
+    "changes": [
+      {
+        "label": "3-Star",
+        "from": "$150",
+        "to": "$120"
+      }
+    ]
+  }
+]
