@@ -1,0 +1,40 @@
+{
+  "_meta": {
+    "at": "2026-11-02T13:50:08.757Z",
+    "note": "Published",
+    "by": "Main owner",
+    "byId": "owner"
+  },
+  "heading": "new category",
+  "navGroup": "",
+  "intro": [],
+  "outro": [],
+  "breadcrumb": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "India Tour Packages",
+      "href": "/itineraries"
+    },
+    {
+      "label": "new category"
+    }
+  ],
+  "heroSrc": "/images/india-tours-main.webp",
+  "heroAlt": "new category",
+  "title": "new category — Meruka India Tourism",
+  "description": "",
+  "keywords": "",
+  "focusKeyword": "",
+  "noindex": false,
+  "ogImage": "",
+  "nofollow": false,
+  "canonical": "",
+  "ogTitle": "",
+  "ogDescription": "",
+  "twTitle": "",
+  "twDescription": "",
+  "twImage": ""
+}

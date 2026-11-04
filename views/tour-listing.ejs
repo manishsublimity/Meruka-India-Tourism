@@ -33,7 +33,7 @@
 <%# (21 Oct 2026, client) a category page's heading without "India" in front and with "Packages":
     "India Golden Triangle Tours" → "Golden Triangle Tour Packages" %>
 <% const pageHead = /tours?$/i.test(d.heading.trim()) ? d.heading.trim().replace(/&amp;/g, '&').replace(/^indian?\s+/i, '').replace(/\s+india(?=\s+tours?$)/i, '').replace(/\s*tours?$/i, ' Tour Packages') : d.heading; %>
-<%- include('partials/photo-hero', { title: pageHead, img: d.heroSrc || heroImg, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
+<%- include('partials/photo-hero', { title: pageHead, img: d.heroSrc ? bannerFor(d.heroSrc, d.heading, d.url, true) : heroImg, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
 
 <% // Filters: only the options this page's tours actually have
    const ROWS = G.flatMap(g => g.rows);

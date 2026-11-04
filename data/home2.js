@@ -2,7 +2,7 @@
 // "by number of days" and "by interest" links. Everything is read from the imported pages.
 const fs = require('fs');
 const path = require('path');
-const { photoFor } = require('./photos');
+const { photoFor, photoForCard: cardPhoto } = require('./photos');
 
 const read = dir => fs.readdirSync(path.join(__dirname, dir)).filter(f => f.endsWith('.js')).map(f => require('./' + dir + '/' + f));
 const tours = {};
@@ -60,6 +60,17 @@ const categories = CATS.filter(([url]) => lists[url]).map(([url, title, line]) =
   };
 });
 
+// (4 Nov 2026, client) a tour has ONE photo on the whole website: the one chosen in the panel, else a fixed one for
+// its name, else the photo for its name and route in its first category. The tour cards (home, category pages,
+// "Tours that include …"), the tour page's banner and the panel all show this same photo.
+// the same answer whoever asks: the name, route and category always come from the tour's first row in India Tours
+const firstRow = {};
+(lists['/itineraries'] ? lists['/itineraries'].groups : []).forEach(g => (g.tours || []).forEach(t => { const k = String(t.href || '').toLowerCase(); if (k && !firstRow[k]) firstRow[k] = { name: t.name, route: t.route, cat: g.title || '' }; }));
+const tourPhoto = (href, name, route, cat) => {
+  const k = String(href || '').toLowerCase(), d = tours[k] || {}, r = firstRow[k] || { name: name || String(d.heading || '').replace(/<[^>]+>/g, ''), route: route || d.route, cat: cat || '' };
+  return d.photo || TOUR_IMG[r.name] || cardPhoto(r.name, r.route, r.cat);
+};
+
 // 2) Most popular tours: the first tour of the main categories
 const POPULAR_FROM = ['/india-golden-triangle-tour', '/rajasthan-tours', '/southindia_kerala_tours', '/south_india_tour',
   '/leh_ladakh_tours', '/wildlife_tour', '/yoga_ayurveda_tours', '/india_fair_festival_travelplan', '/north_west_india_tours', '/rajasthan_kerala_tours'];
@@ -72,7 +83,7 @@ const popular = POPULAR_FROM.filter(u => lists[u]).map(u => {
     tag: (CATS.find(c => c[0] === u) || [])[1] || lists[u].heading,
     line: (CATS.find(c => c[0] === u) || [])[2] || '',
     from: fromPrice(detail),
-    img: TOUR_IMG[t.name] || photoFor([t.name, t.route], t.name)
+    img: tourPhoto(t.href, t.name, t.route, lists[u].heading)
   };
 });
 
@@ -120,7 +131,7 @@ module.exports.finder = lists['/itineraries'].groups.filter(g => g.title).map(g 
   tours: g.tours.map(t => ({
     name: t.name, href: t.href || '', route: t.route || '', duration: t.duration || '',
     from: fromPrice(tours[(t.href || '').toLowerCase()]),
-    img: t.img || TOUR_IMG[t.name] || photoForCard(t.name, t.route, g.title)
+    img: t.img || tourPhoto(t.href, t.name, t.route, g.title)
   }))
 }));
 
@@ -235,7 +246,7 @@ module.exports.listingFor = list => {
         name: t.name, href: t.href || '', route: t.route || '', duration: t.duration || '', nights: n,
         price: perDay && n ? perDay * n : null,
         regions: tagsOf(text, REGION_RE), interests: tagsOf(text, INTEREST_RE),
-        img: t.img || TOUR_IMG[t.name] || photoForCard(t.name, t.route, g.title || list.heading)
+        img: t.img || tourPhoto(t.href, t.name, t.route, g.title || list.heading)
       };
     });
     const prices = rows.map(r => r.price).filter(Boolean), ns = rows.map(r => r.nights).filter(Boolean);
@@ -251,4 +262,19 @@ module.exports.listingFor = list => {
       rows
     };
   });
+};
+// (4 Nov 2026, client) a tour's "starts from" price for one person (lowest per-day price × nights), for the tour cards
+// on the destination pages ("Tours that include Delhi")
+module.exports.priceOf = (href, duration) => {
+  const t = tours[String(href || '').toLowerCase()];
+  const n = nights(duration || (t && t.duration)), perDay = fromPrice(t);
+  return perDay && n ? perDay * n : null;
+};
+module.exports.tourPhoto = tourPhoto;
+// (4 Nov 2026, client) a tour card's short line (as on the home page): its category's line, else its category's name
+module.exports.tourLine = href => {
+  const k = String(href || '').toLowerCase(), g = (lists['/itineraries'] ? lists['/itineraries'].groups : []).find(x => (x.tours || []).some(t => String(t.href || '').toLowerCase() === k));
+  if (!g) return '';
+  const c = CATS.find(x => x[0] === g.href);
+  return c ? c[2] : g.title || '';
 };

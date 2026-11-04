@@ -1,0 +1,85 @@
+{
+  "_meta": {
+    "createdAt": "2026-11-03T11:49:13.201Z",
+    "from": "golden_triangle_packages",
+    "by": "Main owner",
+    "byId": "owner"
+  },
+  "heading": "M<anish",
+  "photo": "",
+  "route": "",
+  "duration": "",
+  "summary": "",
+  "days": [
+    {
+      "day": "01 Day",
+      "title": "",
+      "eta": "",
+      "photo": "",
+      "paras": [
+        [
+          {
+            "text": "",
+            "bold": false
+          }
+        ]
+      ]
+    }
+  ],
+  "details": [
+    {
+      "title": "Tour Pricing Details",
+      "text": "",
+      "items": []
+    },
+    {
+      "title": "This Tour Includes",
+      "text": "",
+      "items": []
+    },
+    {
+      "title": "This Tour Excludes",
+      "text": "",
+      "items": []
+    },
+    {
+      "title": "Important Notes",
+      "text": "",
+      "items": []
+    }
+  ],
+  "priceLine": "",
+  "priceIncludes": [],
+  "breadcrumb": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "India Tour Packages",
+      "href": "/itineraries"
+    },
+    {
+      "label": "Indian Golden Triangle Tours",
+      "href": "/india-golden-triangle-tour"
+    },
+    {
+      "label": "Golden Triangle Tour"
+    }
+  ],
+  "heroSrc": "/images/india-tours-main.webp",
+  "heroAlt": "India Tours",
+  "title": "M<anish — Meruka India Tourism",
+  "description": "",
+  "keywords": "",
+  "focusKeyword": "",
+  "noindex": false,
+  "ogImage": "",
+  "nofollow": false,
+  "canonical": "",
+  "ogTitle": "",
+  "ogDescription": "",
+  "twTitle": "",
+  "twDescription": "",
+  "twImage": ""
+}

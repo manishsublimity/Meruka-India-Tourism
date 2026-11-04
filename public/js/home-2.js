@@ -145,7 +145,7 @@
     return '<article class="pq-card"><a href="' + href + '" class="pq-img" tabindex="-1" aria-hidden="true"><img src="' + esc(t.img) + '" alt="" loading="lazy"' + (/taj-mahal/.test(t.img) ? ' class="pq-zoom"' : '') + '>' +
       '</a>' +
       '<div class="pq-mid"><h3 class="pq-name"><a href="' + href + '">' + esc(t.name) + '</a></h3>' + (t.duration ? '<p class="pq-nd">' + esc(longDur(t.duration)) + '</p>' : '') + '<p class="pq-stops">' + stopsHtml + '</p><p class="pq-desc">' + esc(g.title) + '</p></div>' +
-      '<div class="pq-cost"><div class="pq-price">' + price + '</div><div class="pq-btns"><a href="' + href + '" class="pq-view">View Itinerary</a>' +
+      '<div class="pq-cost"><div class="pq-price">' + price + '</div><div class="pq-btns"><a href="' + href + '" class="pq-view">View<span class="pq-v-pc">&nbsp;Itinerary</span><span class="pq-v-ph">&nbsp;Tour</span></a>' +
       '<a href="' + esc(wa) + '?text=' + encodeURIComponent('Hello Meruka, I am interested in the ' + t.name + '.') + '" target="_blank" rel="noopener" class="pq-wa" aria-label="Ask on WhatsApp" title="Ask on WhatsApp">' + WA_ICON + '</a></div>' +
       '</div></article>';
   }

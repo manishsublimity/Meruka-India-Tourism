@@ -1146,6 +1146,8 @@
 #mk-frame.v3.h4 #plan.pz{margin-top:0 !important}
 /* (a) footer: the same blue family, about 25% darker — and that shade repeated in small icons */
 #mk-frame.ux.v3.h4{--mk-blue-deep:#264C73}
+/* (4 Nov 2026, client) phones: every button a little lower (42px; small ones 40px), the same on every page */
+@media (max-width:767.98px){ #mk-frame.ux.v3.h4{--mk-btn-h:42px;--mk-btn-h-sm:40px} }
 #mk-frame.v3.h4 footer.sf{background:var(--mk-blue-deep) !important}
 #mk-frame.v3.h4 :is(.fq5-line svg,.pq-pin){color:var(--mk-blue-deep)}
 #mk-frame.v3.h4 .wv-ic{background:var(--mk-blue-deep) !important;color:#fff !important}
@@ -2093,26 +2095,140 @@ font[style*="vertical-align: inherit"]{background:none !important;box-shadow:non
   #mk-frame#mk-frame.h4 .dz-main{order:0 !important;width:auto !important;min-width:0;min-height:0 !important;height:auto !important;padding:14px 16px !important;justify-content:center}
   #mk-frame#mk-frame.h4 .dz-t{font-size:15px !important;line-height:1.35 !important;margin:4px 0 0 !important}
 }
-/* (27 Oct 2026, client video) phones: Most Popular Tours as a list — a small photo on the left, the tour beside it */
-@media (max-width:639.98px){
-  #mk-frame#mk-frame.h4 #tf-grid.pq-grid{gap:10px}
-  #mk-frame#mk-frame.h4 .pq-card{display:grid !important;grid-template-columns:112px minmax(0,1fr);grid-template-areas:"img mid" "img cost";align-items:start}
-  #mk-frame#mk-frame.h4 .pq-card .pq-img{grid-area:img;height:100%;min-height:150px;aspect-ratio:auto !important}
-  #mk-frame#mk-frame.h4 .pq-card .pq-img img{height:100%;object-fit:cover}
-  #mk-frame#mk-frame.h4 .pq-card .pq-mid{grid-area:mid;padding:10px 12px 4px !important}
-  #mk-frame#mk-frame.h4 .pq-card .pq-desc{display:none}
-  #mk-frame#mk-frame.h4 .pq-card .pq-name{font-size:15px !important;line-height:1.3}
-  #mk-frame#mk-frame.h4 .pq-card .pq-cost{grid-area:cost;padding:6px 12px 10px !important;border-top:0 !important;background:none !important;display:flex !important;align-items:center;justify-content:space-between;gap:8px}
-  #mk-frame#mk-frame.h4 .pq-card .pq-cost b{font-size:16px !important}
-  #mk-frame#mk-frame.h4 .pq-card .pq-btns{width:auto !important}
-  #mk-frame#mk-frame.h4 .pq-card .pq-btns .pq-view{padding:0 12px !important;height:36px !important;font-size:12.5px !important}
+/* (4 Nov 2026, client PDF "Mobile version") the phone list of Most Popular Tours is replaced by the PC card (see the end) */
+
+/* ===================================================================================================================
+   (4 Nov 2026, client PDF "Mobile version") home page on phones
+   =================================================================================================================== */
+/* by default (PC) the phone-only bits stay hidden */
+#mk-frame .pq-v-ph,#mk-frame .tf-toggle,#mk-frame .tf-sheet-top,#mk-frame .tf-done,#mk-frame .tf-scrim{display:none}
+@media (max-width:767.98px){
+  /* 2 main picture: about 55% taller */
+  #mk-frame#mk-frame#mk-frame.h4 .h8{height:calc(100cqw * 525 / 1349 * 1.55) !important}
+  #mk-frame#mk-frame#mk-frame.h4 .h4-nav{top:calc(100cqw * 525 / 1349 * 1.55 / 2 - 16px) !important}
+  /* 3 features band: smaller words, more compact; "Private Tours – No Sharing" in the middle */
+  #mk-frame#mk-frame#mk-frame.h4 .h8-stats-in > div{padding-top:5px !important;padding-bottom:5px !important;min-height:0 !important}
+  #mk-frame#mk-frame#mk-frame.h4 .h8-stats b{font-size:16.5px !important}
+  #mk-frame#mk-frame#mk-frame.h4 .h8-stats span{font-size:11px !important;line-height:1.25 !important}
+  #mk-frame#mk-frame#mk-frame.h4 .h8-stats-in > div:last-child{grid-column:1 / -1 !important;justify-content:center !important;text-align:center;padding-left:0 !important;padding-right:0 !important}
+  /* 4 search bar: Contact Us, WhatsApp and Plan My Trip on one line; 5 a little lower */
+  #mk-frame#mk-frame#mk-frame.h4 .sb-in{gap:8px !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .sb-wa{display:none !important}
+  #mk-frame#mk-frame#mk-frame.h4 .sb-field,#mk-frame#mk-frame#mk-frame.h4 .sb-go{height:42px !important}
+  #mk-frame#mk-frame#mk-frame.h4 :is(.sb-btn,.sb-plan){flex:1 1 0 !important;min-width:0 !important;height:42px !important;padding:0 6px !important;font-size:13.5px !important;white-space:nowrap}
+  /* 5 section headings 12% smaller; their buttons a little lower */
+  #mk-frame#mk-frame#mk-frame.h4 .h4-h2{font-size:28px !important}
+  #mk-frame#mk-frame#mk-frame.h4 .h4-all{height:42px !important}
+  /* 6 the 10% OFF ticket: no dashed line under the blue part (as on PC) */
+  #mk-frame#mk-frame#mk-frame.h4 .dz-stub{border-bottom:0 !important}
+  /* 7a Most Popular Tours: a Filters button (the site's outline button) on the right; the finder opens from it as a
+     sheet from the bottom, as on a tour category page; View Tours at the end of the list */
+  #mk-frame#mk-frame#mk-frame.h4 #popular .b-wrap{display:grid !important;grid-template-columns:minmax(0,1fr) auto;column-gap:12px}
+  #mk-frame#mk-frame#mk-frame.h4 #popular :is(.h4-head,.h4-head > div){display:contents !important}
+  #mk-frame#mk-frame#mk-frame.h4 #popular :is(.b-wrap > *,.h4-head > div > *){grid-column:1 / -1}
+  #mk-frame#mk-frame#mk-frame.h4 #popular .h4-head > div > .pvt-line{grid-column:1;grid-row:3;align-self:center;margin:0}
+  #mk-frame#mk-frame#mk-frame.h4 #popular .h4-all{order:10;justify-self:center;margin-top:20px !important}
+  #mk-frame#mk-frame#mk-frame.h4 #popular #tf-grid{margin-top:18px}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .tf-toggle{display:inline-flex;grid-column:2 !important;grid-row:3;align-self:center;align-items:center;justify-content:center;gap:7px;height:42px;margin:0;padding:0 18px;border:1px solid #336699 !important;border-radius:5px !important;background:#fff;color:#336699;font:800 14.5px 'Manrope',system-ui,sans-serif;cursor:pointer}
+  #mk-frame#mk-frame#mk-frame.h4 .tf-toggle svg{width:16px;height:16px}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .tf-toggle:hover,#mk-frame#mk-frame#mk-frame#mk-frame.h4 .tf-toggle.on{background:#336699;color:#fff}
+  #mk-frame#mk-frame#mk-frame.h4 #tf:not(.tf-open){display:none !important}
+  html.tf-lock,html.tf-lock body{overflow:hidden}
+  #mk-frame#mk-frame .tf-scrim:not([hidden]){position:fixed;inset:0;z-index:1190;background:rgba(10,25,45,.5);animation:mh-fade .25s ease}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 #tf.tf-open{position:fixed;left:0;right:0;bottom:0;z-index:1200;max-height:85vh;overflow-y:auto;margin:0 !important;padding:6px 18px calc(16px + env(safe-area-inset-bottom)) !important;background:#fff !important;border-radius:16px 16px 0 0 !important;box-shadow:0 -20px 40px rgba(10,25,45,.25);animation:tp2Up .25s ease}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 #tf.tf-open::before{content:"";display:block;width:44px;height:5px;margin:6px auto 4px;border-radius:3px;background:#D5DEEA}
+  #mk-frame#mk-frame .tf-sheet-top{display:flex;align-items:center;justify-content:space-between;height:44px;font:800 17px 'Bricolage Grotesque',system-ui,sans-serif;color:#141B2B}
+  #mk-frame#mk-frame .tf-sheet-reset{padding:6px 0;border:0;background:none;color:#336699;font:800 14px 'Manrope',system-ui,sans-serif;cursor:pointer}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 #tf.tf-open .tf4-bar{display:flex !important;flex-direction:column;gap:12px;padding:6px 0 0 !important;background:none !important;box-shadow:none !important;border:0 !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 #tf.tf-open .tf4-seg{width:100%;padding:0 !important;border:0 !important;background:none !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 #tf.tf-open .tf4-l{color:#336699 !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 #tf.tf-open :is(select,input){border:1px solid #D5DEEA !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 #tf.tf-open .tf4-go{display:none !important}
+  #mk-frame#mk-frame .tf-done{display:flex;position:sticky;bottom:0;align-items:center;justify-content:center;width:100%;height:46px;margin-top:16px;border:0;border-radius:5px !important;background:#FFB81C;color:#141B2B;font:800 15px/1 'Manrope',system-ui,sans-serif;cursor:pointer;box-shadow:0 -8px 16px #fff}
+  /* 7b the tour cards as on PC (photo on top), without the short description; the button says "View Tour" */
+  #mk-frame#mk-frame#mk-frame.h4 .pq-desc{display:none !important}
+  #mk-frame#mk-frame#mk-frame.h4 .pq-v-pc{display:none}
+  #mk-frame#mk-frame#mk-frame.h4 .pq-v-ph{display:inline}
+  #mk-frame#mk-frame#mk-frame.h4 .pq-img{height:160px !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .pq-price b{white-space:nowrap !important;font-size:19px !important}
+  #mk-frame#mk-frame#mk-frame.h4 .pq-cost{display:flex !important;align-items:center !important;justify-content:space-between !important;gap:10px !important}
+  #mk-frame#mk-frame#mk-frame.h4 .pq-price{display:flex !important;flex-direction:column !important;flex-wrap:nowrap !important;min-width:0}
+  #mk-frame#mk-frame#mk-frame.h4 .pq-price span{width:auto !important}
+  #mk-frame#mk-frame#mk-frame.h4 .pq-btns{display:flex !important;flex:none !important;width:auto !important;gap:6px !important}
+  #mk-frame#mk-frame#mk-frame.h4 .pq-btns .pq-view{flex:none !important;padding:0 16px !important}
+  /* 8 Chalk out your own private tour: a thin line between the price and "per couple per day"; the three buttons
+     on one line */
+  #mk-frame#mk-frame#mk-frame.h4 .c6-price p{margin-left:14px !important;padding-left:14px !important;border-left:1px solid rgba(255,255,255,.32)}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .c6-acts .c3-actions{display:grid !important;grid-template-columns:minmax(0,1fr) 42px 42px !important;gap:8px !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .c6-acts .c3-actions > *{grid-column:auto !important;grid-row:auto !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .c6-acts .c3-btn{width:auto !important;min-width:0;height:var(--mk-btn-h) !important;margin:0 !important;padding:0 10px !important;font-size:14.5px !important;white-space:nowrap}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .c6-acts .c3-ic{padding:0 !important;justify-content:center}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .c6-acts .c3-ic .c3-t{display:none}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .c6-acts .c3-ic svg{display:block !important;width:20px;height:20px;margin:0 !important}
+  /* 9 four regions: each picture its own box with space between; the cities stay inside the picture; the states list
+     justified */
+  #mk-frame#mk-frame#mk-frame.h4 #destinations .h4-head + div{grid-auto-rows:auto !important;gap:3px !important}
+  #mk-frame#mk-frame#mk-frame.h4 #destinations .rg{height:auto !important;min-height:250px}
+  #mk-frame#mk-frame#mk-frame.h4 #destinations .sx-list{text-align:justify;text-align-last:left}
+  /* 11 guest reviews: the tour on the left (the same fading blue chip as on the Guest Reviews page), the guest and
+     the country on the right */
+  #mk-frame#mk-frame#mk-frame#mk-frame .rv-foot{display:flex !important;flex-direction:row !important;align-items:center !important;justify-content:space-between !important;gap:10px !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame .rv-foot .rv-guest{flex:1 1 0 !important;min-width:0 !important;margin-left:auto !important;text-align:right !important;align-items:flex-end !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame .rv-foot .rv-guest :is(b,small){white-space:normal !important;overflow-wrap:normal !important;word-break:normal !important}
+  /* 12 why choose us: heading and line, then the picture with the founder's words, then "Founded in 2001…"; the
+     words box as wide as the picture; Call without the number, the three buttons on one line */
+  #mk-frame#mk-frame#mk-frame .wn-grid{display:flex !important;flex-direction:column;align-items:stretch !important;row-gap:0 !important}
+  #mk-frame#mk-frame#mk-frame .wn-copy > .wv-list{margin-top:20px !important}
+  #mk-frame#mk-frame#mk-frame .wn-copy > *{align-self:stretch}
+  #mk-frame#mk-frame#mk-frame .wn-copy{display:contents !important}
+  #mk-frame#mk-frame#mk-frame .wn-copy > .h4-h2{order:1;margin:0 !important;text-align:left !important}
+  #mk-frame#mk-frame#mk-frame .wn-copy > .h4-base{order:2;margin:4px 0 0 !important;text-align:left !important}
+  #mk-frame#mk-frame#mk-frame .wn-media{order:3;width:100%;margin:20px 0 20px !important}
+  #mk-frame#mk-frame#mk-frame .wn-copy > .wn-intro{order:4;margin-top:0}
+  #mk-frame#mk-frame#mk-frame .wn-copy > .wv-list{order:5}
+  #mk-frame#mk-frame#mk-frame .wn-copy > .wn-contact{order:6}
+  #mk-frame#mk-frame#mk-frame .wn-quote{position:static !important;width:100% !important;max-width:none !important;margin:0 !important;box-sizing:border-box;transform:none !important}
+  #mk-frame#mk-frame#mk-frame .wn-contact{display:grid !important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px !important}
+  #mk-frame#mk-frame#mk-frame .wn-contact .wn-btn{width:auto !important;min-width:0;height:42px !important;padding:0 6px !important;justify-content:center;font-size:14px !important}
+  #mk-frame#mk-frame#mk-frame .wn-num{display:none}
+  /* 13 FAQs: the same space under the heading as the other sections */
+  #mk-frame#mk-frame#mk-frame.h4 #faq .h4-base{margin-top:4px !important}
+  #mk-frame#mk-frame#mk-frame.h4 #faq .fq-intro{row-gap:0 !important;gap:0 !important}
+  #mk-frame#mk-frame#mk-frame.h4 #faq .fq5{margin-top:20px !important}
+  /* 14 the View buttons at the foot of their section */
+  #mk-frame#mk-frame#mk-frame.h4 #packages .b-wrap,#mk-frame#mk-frame#mk-frame.h4 #guide .g2-wrap{display:flex !important;flex-direction:column}
+  #mk-frame#mk-frame#mk-frame.h4 #packages .h4-head,#mk-frame#mk-frame#mk-frame.h4 #guide .h4-head{display:contents !important}
+  #mk-frame#mk-frame#mk-frame.h4 #packages .h4-head > div,#mk-frame#mk-frame#mk-frame.h4 #guide .h4-head > div{margin-bottom:20px}
+  #mk-frame#mk-frame#mk-frame.h4 #packages .h4-all,#mk-frame#mk-frame#mk-frame.h4 #guide .h4-all{order:10;align-self:center;margin-top:20px !important}
 }
-@media (max-width:639.98px){
-  #mk-frame#mk-frame.h4 .pq-card .pq-cost{display:flex !important;grid-template-columns:none !important}
-  #mk-frame#mk-frame.h4 .pq-card .pq-price{display:flex !important;flex-direction:column;flex:1 1 auto;min-width:0;gap:0}
-  #mk-frame#mk-frame.h4 .pq-card .pq-price small{font-size:10px !important;white-space:nowrap}
-  #mk-frame#mk-frame.h4 .pq-card .pq-price b{white-space:nowrap}
-  #mk-frame#mk-frame.h4 .pq-card .pq-wa{display:none !important}
-  #mk-frame#mk-frame.h4 .pq-card .pq-btns{flex:none}
+
+/* (4 Nov 2026, client) the email icon of "Chalk out your own private tour" shows on phones only */
+#mk-frame .c3-mail{display:none}
+/* (4 Nov 2026, client) guest reviews (home page, About us; PC and phones): the tour's whole name on a blue chip that
+   fades out to the right, as on the Guest Reviews page; a long name runs onto a second line */
+#mk-frame#mk-frame#mk-frame#mk-frame .rm .rv-foot .rv-tour{flex:0 1 auto !important;width:fit-content !important;min-width:0 !important;max-width:58% !important;white-space:normal !important;overflow:visible !important;text-overflow:clip !important;display:block !important;-webkit-line-clamp:unset !important;line-height:1.3 !important;padding:5px 10px !important;border-radius:5px !important;background:#EEF4FA !important;color:#336699 !important;font-style:normal;font-weight:700}
+#mk-frame#mk-frame#mk-frame#mk-frame .rm .rv-foot{display:flex !important;flex-direction:row !important;align-items:center !important;justify-content:space-between !important;gap:12px !important}
+#mk-frame#mk-frame#mk-frame#mk-frame .rm .rv-foot .rv-guest{flex:1 1 0 !important;min-width:0 !important;text-align:right !important;align-items:flex-end !important}
+@media (max-width:767.98px){ #mk-frame#mk-frame#mk-frame#mk-frame .rm .rv-foot .rv-tour{max-width:50% !important} #mk-frame#mk-frame#mk-frame#mk-frame .rm .rv-foot .rv-guest{flex:1 0 auto !important;max-width:50%} }
+
+/* (4 Nov 2026, client) tablets: a tour card's price, WhatsApp and View Itinerary on one line */
+@media (min-width:768px) and (max-width:1099.98px){
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .pq-cost{display:flex !important;flex-wrap:nowrap !important;align-items:center !important;justify-content:space-between !important;gap:10px !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .pq-price{display:flex !important;flex-direction:column !important;flex-wrap:nowrap !important;min-width:0}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .pq-price b{white-space:nowrap}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .pq-btns{display:flex !important;flex:none !important;width:auto !important;gap:6px !important}
+  #mk-frame#mk-frame#mk-frame#mk-frame.h4 .pq-btns .pq-view{flex:none !important;padding:0 14px !important}
 }
-@media (max-width:639.98px){ #mk-frame#mk-frame.h4 .pq-card .pq-price small{display:none !important} }
+/* (4 Nov 2026, client) "Tours that include …" on a destination page: the home page's tour cards, four in a row */
+#mk-frame#mk-frame.h4 .dx-pq{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+@media (max-width:1099.98px){ #mk-frame#mk-frame.h4 .dx-pq{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:639.98px){ #mk-frame#mk-frame.h4 .dx-pq{grid-template-columns:minmax(0,1fr)} }
+#mk-frame#mk-frame.h4 .dx-pq .pq-more{margin-left:4px;font-weight:700;color:#336699;text-decoration:underline;text-underline-offset:3px}
+/* the same price row as the home page's cards: "STARTS FROM" over the price on the left, WhatsApp and View on the right */
+#mk-frame#mk-frame#mk-frame.h4 .dx-pq .pq-cost{display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:8px;padding:12px 18px}
+#mk-frame#mk-frame#mk-frame.h4 .dx-pq .pq-price{display:flex;flex-direction:column;flex-wrap:nowrap;min-width:0}
+#mk-frame#mk-frame#mk-frame.h4 .dx-pq .pq-price small{width:auto}
+#mk-frame#mk-frame#mk-frame.h4 .dx-pq .pq-price b{font-size:21px;white-space:nowrap}
+#mk-frame#mk-frame#mk-frame.h4 .dx-pq .pq-btns{display:flex;flex:none;gap:6px}
+#mk-frame#mk-frame#mk-frame.h4 .dx-pq .pq-view{flex:none;padding:0 10px;white-space:nowrap}
+#mk-frame#mk-frame#mk-frame.h4 .dx-pq .pq-name{font-family:'Bricolage Grotesque',system-ui,sans-serif}

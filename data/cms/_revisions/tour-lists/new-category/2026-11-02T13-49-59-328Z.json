@@ -1,0 +1,45 @@
+{
+  "_meta": {
+    "at": "2026-11-02T13:49:59.328Z",
+    "note": "Original"
+  },
+  "heading": "new category",
+  "navGroup": "Rajasthan Tours",
+  "intro": [],
+  "groups": [
+    {
+      "title": "",
+      "href": "",
+      "tours": []
+    }
+  ],
+  "outro": [],
+  "breadcrumb": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "India Tour Packages",
+      "href": "/itineraries"
+    },
+    {
+      "label": "new category"
+    }
+  ],
+  "heroSrc": "/images/india-tours-main.webp",
+  "heroAlt": "new category",
+  "title": "new category — Meruka India Tourism",
+  "description": "",
+  "keywords": "",
+  "focusKeyword": "",
+  "noindex": false,
+  "ogImage": "",
+  "nofollow": false,
+  "canonical": "",
+  "ogTitle": "",
+  "ogDescription": "",
+  "twTitle": "",
+  "twDescription": "",
+  "twImage": ""
+}

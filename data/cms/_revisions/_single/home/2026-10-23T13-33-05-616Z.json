@@ -1,0 +1,344 @@
+{
+  "_meta": {
+    "at": "2026-10-23T13:33:05.616Z",
+    "note": "Published",
+    "by": "Main owner",
+    "byId": "owner"
+  },
+  "heroTitle": {
+    "line1": "One Country",
+    "line2": "Many Worlds..."
+  },
+  "heroSlides": [
+    {
+      "src": "/photos/hero-taj-mahal.webp",
+      "alt": "The Taj Mahal at sunset across the Yamuna, Agra",
+      "place": "Taj Mahal, Agra",
+      "region": "Golden Triangle",
+      "href": "/india-golden-triangle-tour",
+      "pos": "50% 30%",
+      "flip": false
+    },
+    {
+      "src": "/photos/hero-desert-camel.webp",
+      "alt": "Camel safari on the sand dunes, Jaisalmer",
+      "place": "Sand dunes, Jaisalmer",
+      "region": "Desert",
+      "href": "/rajasthan-tours",
+      "pos": "50% 22%",
+      "flip": false
+    },
+    {
+      "src": "/photos/hero-tigers.webp",
+      "alt": "Two Bengal tigers in the forest",
+      "place": "Tiger safari",
+      "region": "Wildlife",
+      "href": "/wildlife_tour",
+      "pos": "70% 32%",
+      "flip": false
+    },
+    {
+      "src": "/photos/hero-holi.webp",
+      "alt": "Holi, the festival of colours",
+      "place": "Holi festival",
+      "region": "Fairs & Festivals",
+      "href": "/india_fair_festival_travelplan",
+      "pos": "50% 18%",
+      "flip": false
+    },
+    {
+      "src": "/photos/hero-ladakh.webp",
+      "alt": "Mountains reflected in a high lake, Ladakh",
+      "place": "Ladakh",
+      "region": "Mountains",
+      "href": "/leh_ladakh_tours",
+      "pos": "50% 50%",
+      "flip": false
+    },
+    {
+      "src": "/photos/hero-hawa-mahal.webp",
+      "alt": "Hawa Mahal, the Palace of Winds, Jaipur",
+      "place": "Hawa Mahal, Jaipur",
+      "region": "Rajasthan",
+      "href": "/rajasthan-tours",
+      "pos": "50% 22%",
+      "flip": false
+    },
+    {
+      "src": "/photos/hero-houseboat.webp",
+      "alt": "A houseboat on the Kerala backwaters",
+      "place": "Kerala Backwaters",
+      "region": "Kerala",
+      "href": "/southindia_kerala_tours",
+      "pos": "50% 28%",
+      "flip": false
+    }
+  ],
+  "stats": [
+    {
+      "figure": "22",
+      "text": "Years of Experience"
+    },
+    {
+      "figure": "1150+",
+      "text": "Happy guests"
+    },
+    {
+      "figure": "135+",
+      "text": "Tour packages"
+    },
+    {
+      "figure": "97.80%",
+      "text": "Success Rate"
+    },
+    {
+      "figure": "",
+      "text": "Private Tours — No Sharing"
+    }
+  ],
+  "offer": {
+    "show": true,
+    "eyebrow": "Seasonal offer",
+    "percent": "10%",
+    "text": "discount on the tour packages booked from April to September!"
+  },
+  "faqs": [
+    {
+      "q": "Do I need a visa, and will you help?",
+      "a": "Nearly every passport needs an e-Visa, applied for online 4 to 30 days before arrival. We send the official link, the exact document list and a completed sample, and check your application before you pay the fee."
+    },
+    {
+      "q": "Is the tour really private?",
+      "a": "Private means private. Your party alone, one dedicated car and driver from airport pickup to departure. We never combine families or nationalities into a shared coach."
+    },
+    {
+      "q": "What does a tour cost, and what is included?",
+      "a": "From USD 150 per day for a couple in 3-star hotels; 4 and 5-star scale from there. Quotes are itemised: hotel by name and room type, car, driver, guides, monument fees and every included meal."
+    },
+    {
+      "q": "Can you change an itinerary on this site?",
+      "a": "Yes — most guests do. Send the tour code, tell us what to add, drop or slow down, and we redraw the routing with realistic driving times. Or give us your interests and days and we design from scratch."
+    },
+    {
+      "q": "Is India comfortable for travellers in their sixties?",
+      "a": "Most of our guests are 45 to 65. You are met at arrival and handed between our own teams at each stage — never left to find transport, tickets or a hotel alone, with one number that always answers."
+    },
+    {
+      "q": "How and when do we pay?",
+      "a": "By international bank transfer, with card payments returning shortly. A deposit confirms hotels; the balance is due before or on arrival — only after you approve the full itinerary and quote."
+    }
+  ],
+  "steps": [
+    {
+      "n": "01",
+      "when": "DAY 0",
+      "title": "You write to us",
+      "body": "Dates, rough number of days, what you want to see. Two lines is enough to start."
+    },
+    {
+      "n": "02",
+      "when": "< 24 HRS",
+      "title": "A planner replies",
+      "body": "A named person, asking only the questions that actually change the route."
+    },
+    {
+      "n": "03",
+      "when": "WEEK 1",
+      "title": "We draw the tour",
+      "body": "City order, driving hours, break days and excursions worked out by hand for your party."
+    },
+    {
+      "n": "04",
+      "when": "WEEK 1–2",
+      "title": "One clear quote",
+      "body": "Hotels by name and room type, car, guides, entry fees, meals — itemised in USD."
+    },
+    {
+      "n": "05",
+      "when": "ON TOUR",
+      "title": "We run it",
+      "body": "Met on arrival and handed between our own ground teams in every state, through to departure."
+    },
+    {
+      "n": "06",
+      "when": "AFTER",
+      "title": "You tell your friends",
+      "body": "Six in ten of our guests come from a recommendation. It is the only marketing that works for us."
+    }
+  ],
+  "guideCols": [
+    {
+      "title": "Travelers Guide",
+      "count": "9 topics",
+      "items": [
+        "Geography",
+        "History",
+        "Weather",
+        "Communication",
+        "Shopping",
+        "Music And Dance",
+        "Traditions And Customs",
+        "Art",
+        "Cuisine"
+      ]
+    },
+    {
+      "title": "Attractions of India",
+      "count": "9 themes",
+      "items": [
+        "Ayurveda Tourism",
+        "Yoga Tourism",
+        "Pilgrimage Tourism",
+        "Wildlife Tourism",
+        "Buddha Tourism",
+        "Beaches Tourism",
+        "Hill Stations Tourism",
+        "Adventure Tourism",
+        "Fairs And Festivals"
+      ]
+    },
+    {
+      "title": "Travel Tools",
+      "count": "6 tools",
+      "items": [
+        "Phone Codes",
+        "Maps",
+        "Indian Embassies",
+        "Visa Information",
+        "Traveler's Guide",
+        "Other Guidelines"
+      ]
+    }
+  ],
+  "stateGroups": [
+    {
+      "region": "North India",
+      "img": "/assets/taj-aerial.webp",
+      "states": [
+        [
+          "Rajasthan",
+          "/rajasthan",
+          "/images/rajasthan-state.webp"
+        ],
+        [
+          "Himachal Pradesh",
+          "/Himachal-Pradesh",
+          "/images/himchal.webp"
+        ],
+        [
+          "Uttarakhand",
+          "/uttaranchal",
+          "/images/uttaranchal-state.webp"
+        ],
+        [
+          "Jammu & Kashmir",
+          "/Jammu-Kashmir",
+          "/images/jammu-kash.webp"
+        ],
+        [
+          "Uttar Pradesh",
+          "/Uttar-Pradesh",
+          "/images/uttar-pradesh-state.webp"
+        ],
+        [
+          "Punjab",
+          "/Punjab",
+          "/images/punjab-state.webp"
+        ],
+        [
+          "Ladakh",
+          "/lehladakh_himalaya_travel",
+          "/images/lehladakh-inner.webp"
+        ]
+      ]
+    },
+    {
+      "region": "South India",
+      "img": "/assets/kovalam.webp",
+      "states": [
+        [
+          "Kerala",
+          "/Kerala",
+          "/images/kerala-state.webp"
+        ],
+        [
+          "Tamil Nadu",
+          "/Tamil-Nadu",
+          "/images/tamilnadu.webp"
+        ],
+        [
+          "Karnataka",
+          "/Karnataka",
+          "/images/karnatak-state.webp"
+        ],
+        [
+          "Andhra Pradesh",
+          "/Andhra-Pradesh",
+          "/images/andhra-pradesh.webp"
+        ],
+        [
+          "Telangana",
+          "/south_indiatours_telangna",
+          "/images/telangana.webp"
+        ]
+      ]
+    },
+    {
+      "region": "West India",
+      "img": "/assets/gadisar-lake.webp",
+      "states": [
+        [
+          "Goa",
+          "/Goa",
+          "/images/goa-state.webp"
+        ],
+        [
+          "Gujarat",
+          "/Gujarat",
+          "/images/gujrat-state.webp"
+        ],
+        [
+          "Maharashtra",
+          "/Maharashtra",
+          "/images/maharashtra-state.webp"
+        ],
+        [
+          "Madhya Pradesh",
+          "/Madhya-Pradesh",
+          "/images/madhya-pradesh-state.webp"
+        ]
+      ]
+    },
+    {
+      "region": "East India",
+      "img": "/images/eastindia-state.webp",
+      "states": [
+        [
+          "Sikkim",
+          "/Sikkim",
+          "/images/sikkim-state.webp"
+        ],
+        [
+          "Odisha",
+          "/Orissa",
+          "/images/orissa-state.webp"
+        ],
+        [
+          "Assam",
+          "/Assam",
+          "/images/assam-state.webp"
+        ],
+        [
+          "West Bengal",
+          "/West-Bengal",
+          "/images/west-bengal-state.webp"
+        ],
+        [
+          "Bihar",
+          "/Bihar",
+          "/images/bihar-state.webp"
+        ]
+      ]
+    }
+  ]
+}

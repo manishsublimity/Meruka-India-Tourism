@@ -1,0 +1,67 @@
+<%- include('_top', { pageTitle: 'Price log' }) %>
+<%# (4 Nov 2026, client) every change of a tour's prices in one table: when, the tour, the hotel class, the old and the
+    new price per person per day, how much it changed, the whole-tour price before and after, how and by whom %>
+<%
+  const usd = n => n == null ? '—' : 'USD ' + Number(n).toLocaleString('en-US');
+  const range = (lo, hi) => lo == null ? '—' : '$' + Number(lo).toLocaleString('en-US') + (hi != null && hi !== lo ? ' – $' + Number(hi).toLocaleString('en-US') : '');
+  const num = s => { const m = String(s || '').match(/\$\s*([\d,]+)/); return m ? +m[1].replace(/,/g, '') : null; };
+  const rows = [];
+  items.forEach(it => (it.changes || []).forEach(c => {
+    const fromLo = c.fromLo != null ? c.fromLo : num(c.from), toLo = c.toLo != null ? c.toLo : num(c.to);
+    const n = it.nights || it.nightsNow || 0, diff = fromLo != null && toLo != null ? toLo - fromLo : null;
+    rows.push({ it, c, fromLo, toLo, n, diff, pct: diff != null && fromLo ? Math.round(diff / fromLo * 1000) / 10 : null });
+  }));
+  const tours = new Set(items.map(it => it.id)).size, ups = rows.filter(r => r.diff > 0).length, downs = rows.filter(r => r.diff < 0).length;
+  const hows = [...new Set(items.map(it => String(it.how || '').replace(/:.*$/, '')))];
+  const when = s => { const d = new Date(s); return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) + '<small>' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + '</small>'; };
+%>
+<div class="ad-top ad-head pr-head2">
+  <div><h1>Price log</h1>
+  <p class="lead">Every change of a tour’s prices: the old and the new price, how much it changed, and who changed it when.</p></div>
+  <a class="btn" href="/admin/pricing">← Prices &amp; notes</a>
+</div>
+<div class="pl-stats">
+  <div class="card pl-stat"><b><%= items.length %></b><span>Changes saved</span></div>
+  <div class="card pl-stat"><b><%= tours %></b><span>Tours changed</span></div>
+  <div class="card pl-stat pl-up"><b><%= ups %></b><span>Prices raised</span></div>
+  <div class="card pl-stat pl-down"><b><%= downs %></b><span>Prices lowered</span></div>
+</div>
+<% if (!rows.length) { %>
+<div class="card empty-state"><p><b>No price has changed yet.</b></p><p class="muted">From now on every change made on Prices &amp; notes, by Edit All Package Prices, or in a tour’s own editor shows here.</p></div>
+<% } else { %>
+<div class="pr-bar2">
+  <div class="pr-l">
+    <input class="in lst-q" type="search" placeholder="Search a tour, a code or a name…" data-q>
+    <select class="in lst-sel" data-how><option value="">All changes</option><% hows.forEach(h => { %><option><%= h %></option><% }) %></select>
+    <span class="muted pr-count" data-count><%= rows.length %> price lines</span>
+  </div>
+</div>
+<div class="lst-wrap">
+<table class="tbl lst lst-clean pl-tbl">
+  <thead><tr><th>When</th><th>Tour</th><th>Hotel</th><th>Per person per day</th><th>Change</th><th>Whole tour from</th><th>How · by</th></tr></thead>
+  <tbody>
+  <% rows.forEach(r => { const it = r.it, c = r.c, s = (it.name + ' ' + (it.code || '') + ' ' + (it.by || '') + ' ' + c.label).toLowerCase(); %>
+  <tr data-s="<%= s %>" data-how="<%= String(it.how || '').replace(/:.*$/, '') %>">
+    <td class="pl-when"><%- when(it.at) %></td>
+    <td><a class="pl-tour" href="/admin/pricing#<%= encodeURIComponent(it.id) %>"><%= it.name %></a><% if (it.code) { %> <span class="code"><%= it.code %></span><% } %><% if (r.n) { %><small class="muted"><%= r.n %> nights</small><% } %></td>
+    <td><b><%= c.label %></b></td>
+    <td class="pl-pp"><s><%= c.fromLo != null ? range(c.fromLo, c.fromHi) : c.from || '—' %></s><i aria-hidden="true">→</i><b><%= c.toLo != null ? range(c.toLo, c.toHi) : c.to || 'removed' %></b></td>
+    <td><% if (r.diff != null) { %><span class="pl-chg <%= r.diff > 0 ? 'up' : r.diff < 0 ? 'down' : '' %>"><%= r.diff > 0 ? '▲ +' : r.diff < 0 ? '▼ −' : '' %>$<%= Math.abs(r.diff) %><% if (r.pct != null) { %> (<%= r.diff > 0 ? '+' : r.diff < 0 ? '−' : '' %><%= Math.abs(r.pct) %>%)<% } %></span><% } else { %>—<% } %></td>
+    <td class="pl-pp"><% if (r.n && (r.fromLo != null || r.toLo != null)) { %><s><%= usd(r.fromLo != null ? r.fromLo * r.n : null) %></s><i aria-hidden="true">→</i><b><%= usd(r.toLo != null ? r.toLo * r.n : null) %></b><% } else { %>—<% } %></td>
+    <td class="pl-how2"><%= it.how %><% if (it.by) { %><small class="muted">by <%= it.by %></small><% } %></td>
+  </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<p class="pl-none" data-none hidden>No price change for this search.</p>
+<% } %>
+<script>
+(function () {
+  var q = document.querySelector('[data-q]'), how = document.querySelector('[data-how]'), rows = [].slice.call(document.querySelectorAll('.pl-tbl tbody tr')), n = document.querySelector('[data-count]'), none = document.querySelector('[data-none]');
+  if (!q) return;
+  var f = function () { var v = q.value.trim().toLowerCase(), h = how.value, k = 0; rows.forEach(function (r) { r.hidden = (!!v && r.dataset.s.indexOf(v) < 0) || (!!h && r.dataset.how !== h); if (!r.hidden) k++; }); n.textContent = k + ' price line' + (k === 1 ? '' : 's'); none.hidden = k > 0; };
+  q.oninput = f; how.onchange = f;
+})();
+</script>
+<%- include('_bottom') %>

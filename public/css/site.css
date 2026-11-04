@@ -2181,3 +2181,12 @@ select.pv-in{cursor:pointer}
 /* the tour on a review card is never faded or cut (desktop too) */
 #mk-frame#mk-frame .rv-tour{-webkit-mask-image:none !important;mask-image:none !important}
 @media (max-width:1099.98px){ html.mh-lock #mk-frame .mb-nav,html.mh-lock .mk-adminbar{display:none !important} #mk-frame#mk-frame .mh-drawer-plan{display:flex;justify-content:center;width:100%;height:46px;align-items:center} }
+/* (4 Nov 2026, client PDF "Mobile version") phones and tablets: the flag and the menu button without a box; the menu
+   (and the languages) slide out as smoothly as they slide in — hidden only once the slide has finished */
+@media (max-width:1099.98px){
+  #mk-frame#mk-frame#mk-frame .mh .mh-lang-btn,#mk-frame#mk-frame#mk-frame .mh .mh-burger{background:transparent !important;border:0 !important;box-shadow:none !important}
+  #mk-frame#mk-frame#mk-frame .mh-drawer,#mk-frame#mk-frame#mk-frame .mh-lang-menu{transition:transform .3s ease,visibility 0s linear .3s !important}
+  #mk-frame#mk-frame#mk-frame .mh-drawer:not(.is-hidden),#mk-frame#mk-frame#mk-frame .mh-lang-menu:not(.is-hidden){transition:transform .3s ease,visibility 0s linear 0s !important}
+  #mk-frame#mk-frame .mh-scrim:not([hidden]){animation:mh-fade .3s ease}
+}
+@keyframes mh-fade{from{opacity:0}to{opacity:1}}

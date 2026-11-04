@@ -1,0 +1,2 @@
+// Added in the admin panel (2026-11-04). Starts from india-golden-triangle-tour; its content is in data/cms/tour-lists/manish-catg.json
+module.exports = Object.assign({}, require('./india-golden-triangle-tour'), { file: 'manish-catg.html', url: '/manish-catg', __cmsNew: true, unpublished: true, groups: [], intro: [], outro: [], tourType: '', heroSrc: '', heroAlt: '', description: '', keywords: '' });

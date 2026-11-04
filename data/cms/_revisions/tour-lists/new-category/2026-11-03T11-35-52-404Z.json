@@ -1,0 +1,63 @@
+{
+  "_meta": {
+    "at": "2026-11-03T11:35:52.405Z",
+    "note": "Published",
+    "by": "Main owner",
+    "byId": "owner"
+  },
+  "heading": "new category",
+  "navGroup": "Special Interest Tours",
+  "tourType": "",
+  "intro": [
+    [
+      {
+        "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum.",
+        "bold": false
+      }
+    ]
+  ],
+  "outro": [],
+  "breadcrumb": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "India Tour Packages",
+      "href": "/itineraries"
+    },
+    {
+      "label": "new category"
+    }
+  ],
+  "heroSrc": "/uploads/day1-intro-1080x1350.png",
+  "heroAlt": "new category",
+  "title": "new category — Meruka India Tourism",
+  "description": "",
+  "keywords": "",
+  "focusKeyword": "",
+  "noindex": false,
+  "ogImage": "",
+  "nofollow": false,
+  "canonical": "",
+  "ogTitle": "",
+  "ogDescription": "",
+  "twTitle": "",
+  "twDescription": "",
+  "twImage": "",
+  "unpublished": false,
+  "groups": [
+    {
+      "title": "",
+      "href": "",
+      "tours": [
+        {
+          "name": "g fjksdanm gsdf",
+          "href": "/g-fjksdanm-gsdf",
+          "route": "",
+          "duration": ""
+        }
+      ]
+    }
+  ]
+}

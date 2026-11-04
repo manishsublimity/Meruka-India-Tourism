@@ -19,9 +19,10 @@
     const label = boldLabel || (whole.match(/^[^:]+:/) || [''])[0];
     const rest = boldLabel ? it.filter(x => !x.bold).map(x => x.text).join('').trim() : whole.slice(label.length).trim();
     // also "USD 90-100", "US$90–100" and "$90–$100" (the itinerary documents of Oct 2026)
-    const m = rest.match(/^((?:US\$\s*|\$\s*|USD\s*)(\d+)\s*[-–]\s*(?:US\$\s*|\$\s*|USD\s*)?(\d+)\s*\+?)\s*(.*)$/);
+    // (4 Nov 2026, client) one price alone ("$150 per person per day", a new tour) counts too: low and high are the same
+    const m = rest.match(/^((?:US\$\s*|\$\s*|USD\s*)([\d,]+)(?:\s*[-–]\s*(?:US\$\s*|\$\s*|USD\s*)?([\d,]+))?\s*\+?)\s*(.*)$/);
     const toUsd = s => String(s).replace(/US\$\s*/g, '$').replace(/(\$|USD)\s*([\d,]+)\s*[-–]\s*(?:\$|USD)?\s*([\d,]+)/g, 'USD $2 - $3').replace(/\$\s*/g, 'USD ');
-    return { label, rest: toUsd(rest), range: toUsd(m ? m[1].trim() : rest), unit: m ? m[4] : '', priced: !!m, lo: m ? +m[2] : 0, hi: m ? +m[3] : 0, stars: parseInt(label, 10) || 0 };
+    return { label, rest: toUsd(rest), range: toUsd(m ? m[1].trim() : rest), unit: m ? m[4] : '', priced: !!m, lo: m ? +m[2].replace(/,/g, '') : 0, hi: m ? +(m[3] || m[2]).replace(/,/g, '') : 0, stars: parseInt(label, 10) || 0 };
   }).filter(t => t.label || t.rest);
   const priced = tiers.filter(t => t.priced);
   const tierMin = priced.length ? Math.min(...priced.map(t => t.lo)) : 0, tierMax = priced.length ? Math.max(...priced.map(t => t.hi)) : 0;
@@ -65,7 +66,8 @@
   const ownHero = d.heroSrc && d.heroSrc !== GENERIC_HERO ? d.heroSrc : '';
   const catOf = tourNav.inCategory(d.url, ((d.breadcrumb || [])[(d.breadcrumb || []).length - 2] || {}).href);
   const catHero = catOf && catOf.hero && catOf.hero !== GENERIC_HERO ? catOf.hero : '';
-  const heroImg = ownHero || catHero || d.photo || photoFor([d.heading, d.url, d.route]);
+  // (4 Nov 2026, client) else the tour's photo — the same one its cards show everywhere — so the card and the page match
+  const heroImg = ownHero || tourPhoto(d.url, String(d.heading || '').replace(/<[^>]+>/g, ''), d.route) || catHero;
   const jump = [['#itinerary', 'Itinerary', d.days.length]];
   if (pricing.title) jump.push(['#pricing', pricing.title]);
   if (d.hotels) jump.push(['#hotels', d.hotels.title]);
@@ -121,8 +123,9 @@
   const tdUsd = v => 'USD ' + Number(v).toLocaleString('en-US');
   priced.forEach(t => {
     t.totalLo = t.lo * tdNights; t.totalHi = t.hi * tdNights; t.plus = /\+/.test(t.range);
-    t.total = tdUsd(t.totalLo) + ' – ' + Number(t.totalHi).toLocaleString('en-US') + (t.plus ? '+' : '');
-    t.perDay = tdUsd(t.lo) + ' – ' + t.hi + (t.plus ? '+' : '') + ' a day';
+    // one price alone shows once ("USD 1,650", not "USD 1,650 – 1,650")
+    t.total = tdUsd(t.totalLo) + (t.totalHi !== t.totalLo ? ' – ' + Number(t.totalHi).toLocaleString('en-US') : '') + (t.plus ? '+' : '');
+    t.perDay = tdUsd(t.lo) + (t.hi !== t.lo ? ' – ' + t.hi : '') + (t.plus ? '+' : '') + ' a day';
   });
   const tdFrom = priced.length && tdNights ? Math.min(...priced.map(t => t.totalLo)) : 0;
   const tdUnit = 'per person · ' + tdNights + ' nights';
@@ -162,7 +165,7 @@
   const it2Sub = para => para && para.length === 1 && para[0].bold && para[0].text.length < 70 && /home\s*town|by air|departure/i.test(para[0].text);
   const it2Txt = day => (day.paras || []).map(p => p.map(x => x.text).join('')).join(' ');
   // how the guest leaves on the last day: by air (airport / flight), by train (railway station / train) or by bus
-  const it2Mode = day => { const t = it2Txt(day); return /airport|flight|by air/i.test(t) ? 'Air' : /railway|train/i.test(t) ? 'Train' : /bus/i.test(t) ? 'Bus' : ''; };
+  const it2Mode = day => { const t = it2Txt(day); return /airport|flight|by air/i.test(t) ? 'Air' : /railway|train/i.test(t) ? 'Train' : /\bbus\b/i.test(t) ? 'Bus' : ''; };
   const it2Title = (day, i) => { const m = i === d.days.length - 1 && !/home\s*town/i.test(day.title) ? it2Mode(day) : ''; return m ? day.title + ' - Hometown by ' + m : day.title; };
 %>
 <%- include('partials/photo-hero', { title: d.heading, img: heroImg, alt: d.heroAlt || d.heading, part: 'media' }) %>
@@ -175,6 +178,8 @@
       <header id="top" class="it2-hd it2-card">
   <div class="it2-tt"><h1><%= words.join(' ') %> <em><%= lastWord %></em></h1></div>
   <%- pvtLineFull %>
+  <%# (4 Nov 2026, client PDF "Mobile version") phones: the tour code under the private-tour line, not in the blue band %>
+  <% if (it2Code) { %><p class="it2-code-m">Tour Code: <b class="notranslate" translate="no"><%= it2Code %></b></p><% } %>
   <% if (tdOwn) { %><div class="it2-ds it2-dsh"><%- /</.test(tdOwn) ? tdOwn : '<p>' + escapeFn(tdOwn) + '</p>' %></div><% } else { %><p class="it2-ds"><%= tdDesc %></p><% } %>
   <div class="it2-rt"><%- it2Sym.pin %><div><b>Route:</b> <% stops.forEach((s, j) => { %><%= s %><% if (j < stops.length - 1) { %> <i aria-hidden="true">→</i> <% } %><% }) %></div></div>
   <div class="it2-fx">
@@ -202,8 +207,10 @@
         <div class="it2-sec it2-pg">
           <div class="it2-pl"><small>Starts from</small><div><strong><%= tdUsd(it2Sel.totalLo) %></strong></div><span>per person</span></div>
           <%# the usual wording (also what the panel shows by default) keeps its bold words %>
-          <% if (String(d.priceLine || '').trim() && String(d.priceLine).trim() !== 'The price quote includes a private tour with {hotel} hotels, a private car with driver, and other services as mentioned below.') { const pl = escapeFn(String(d.priceLine).trim()); %>
-          <div class="it2-pd"><p class="it2-pin"><span data-it2-line><%- pl.includes('{hotel}') ? pl.split('{hotel}').join('<b data-it2-pl>' + escapeFn(it2Hotel(it2Sel) || '3-Star') + '</b>') : pl %></span></p></div>
+          <%# (4 Nov 2026, client) the line is written in the full text editor now (bold, links …); an old plain line still works %>
+          <% const plRaw = String(d.priceLine || '').trim(), plText = plRaw.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+             if (plText && plText !== 'The price quote includes a private tour with {hotel} hotels, a private car with driver, and other services as mentioned below.') { const plH = /</.test(plRaw), pl = plH ? plRaw : escapeFn(plRaw), hot = '<b data-it2-pl>' + escapeFn(it2Hotel(it2Sel) || '3-Star') + '</b>'; %>
+          <div class="it2-pd"><<%= plH ? 'div' : 'p' %> class="it2-pin<%= plH ? ' it2-pin-rt' : '' %>"><span data-it2-line><%- pl.split('{hotel}').join(hot) %></span></<%= plH ? 'div' : 'p' %>></div>
           <% } else { %>
           <div class="it2-pd"><p class="it2-pin"><span>The price quote includes a <b>private tour</b> with <b data-it2-pl><%= it2Hotel(it2Sel) || '3-Star' %></b><b> hotels</b>, a <b>private car with driver</b>, and other services as mentioned below.</span></p></div>
           <% } %>

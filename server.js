@@ -82,11 +82,16 @@ function buildSite() {
         const first = (String(a.html || '').match(/<p[^>]*>([\s\S]*?)<\/p>/i) || [])[1] || '';
         let text = first.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
         if (text.length > 160) text = text.slice(0, 160).replace(/\s+\S*$/, '') + '..';
-        const img = a.heroSrc && !/india-tours-main/.test(a.heroSrc) ? a.heroSrc : app.locals.photoFor([a.heading, a.url]);
-        return { name, url: a.url, img, text };
+        // (4 Nov 2026, client) its own list photo first (chosen in the panel), else its banner, else a photo for its name
+        const banner = app.locals.bannerFor(a.heroSrc, a.heading, a.url), own = a.listPhoto || (app.locals.isGenericBanner(banner) ? '' : banner);
+        const img = own || app.locals.photoFor([a.heading, a.url]);
+        return { name, url: a.url, img, text, listPhoto: own };
       });
   };
   app.locals.autoDesc = require('./data/tour-desc');   // a tour's description when it has none of its own (2 Nov 2026)
+  app.locals.tourPrice = (href, duration) => require('./data/home2').priceOf(href, duration);
+  app.locals.tourPhoto = (href, name, route) => require('./data/home2').tourPhoto(href, name, route);
+  app.locals.tourLine = href => require('./data/home2').tourLine(href);
   app.locals.toursByUrl = urls => (urls || []).map(u => {
     const k = String(u || '').toLowerCase(), t = ALL_TOURS.find(x => String(x.href || '').toLowerCase() === k);
     if (t) return t;
@@ -117,7 +122,7 @@ function buildSite() {
     return Object.values(TOUR_PAGES).map(t => ({ code: app.locals.tourCode(t.url), name: String(t.heading || '').replace(/<[^>]+>/g, '').trim() }))
       .filter(t => t.code && t.code.includes('-')).sort((a, b) => rank(a.code) - rank(b.code));
   })();
-  app.locals.tourPhoto = url => { const t = TOUR_PAGES[String(url || '').toLowerCase()]; return t ? (t.photo || app.locals.photoFor([t.heading, t.url, t.route])) : ''; };
+  // (4 Nov 2026) a tour's photo: app.locals.tourPhoto above (one photo per tour, the same everywhere, search too)
   // (26 Oct 2026, client) a page put in a section of the India Travel Guide (in its editor) shows in that section by itself:
   // on the home page's travel guide cards and on /guide
   const guideExtras = () => {
@@ -207,6 +212,7 @@ function buildSite() {
 
   // Inner pages wear the home-4 design: its classes on #mk-frame, home-4.css, then inner-4.css for the inner-page sections
   const cssV = f => '/css/' + f + '?v=' + Math.round(fs.statSync(path.join(__dirname, 'public/css', f)).mtimeMs);
+  app.locals.siteCss = () => cssV('site.css');
   const inner4 = () => ({ frameClass: 'ux v3 h4 in4', extraCss: [cssV('home-4.css'), cssV('inner-4.css')] });
   // published blog posts, newest first (data/posts; the admin panel's template and drafts stay out)
   const blogPosts = () => {

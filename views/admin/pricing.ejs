@@ -6,8 +6,10 @@
 <%# (3 Nov 2026, client) the title and its line across the page; under it one bar: the search, the category and the
     number of tours on the left, the ticked tours and "Edit All Package Prices" on the right %>
 <div class="ad-top ad-head pr-head2">
-  <h1>Prices &amp; notes</h1>
-  <p class="lead">Prices, what is included and excluded, and the notes of every tour. Changes go on the website at once.</p>
+  <div><h1>Prices &amp; notes</h1>
+  <p class="lead">Prices, what is included and excluded, and the notes of every tour. Changes go on the website at once.</p></div>
+  <%# (4 Nov 2026, client) every price change, who made it and when %>
+  <a class="btn pr-logbtn" href="/admin/pricing/log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v4l3 2"/><path d="M3.05 11a9 9 0 1 1 .5 4"/><path d="M3 4v5h5"/></svg>Price log</a>
 </div>
 <div class="pr-bar2" data-actions>
   <div class="pr-l">
@@ -52,4 +54,4 @@
   </div>
 </div>
 <script>window.PRICING = <%- JSON.stringify(tours).replace(/</g, '\\u003c') %>;</script>
-<%- include('_bottom', { scripts: ['/admin-assets/rte.js?v=1', '/admin-assets/pricing.js?v=6'] }) %>
+<%- include('_bottom', { scripts: ['/admin-assets/rte.js?v=2', '/admin-assets/pricing.js?v=9'] }) %>
