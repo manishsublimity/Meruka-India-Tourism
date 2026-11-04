@@ -12,7 +12,14 @@ html.gt-wait::after{content:"";position:fixed;left:50%;top:50%;width:34px;height
 /* (23 Oct 2026, client doc) page text and photos not easy to copy; form fields work as usual */
 #mk-frame{-webkit-user-select:none;user-select:none}
 #mk-frame :is(input,textarea,select,[contenteditable]){-webkit-user-select:text;user-select:text}
-#mk-frame img{-webkit-user-drag:none;-webkit-touch-callout:none}</style>
+#mk-frame img{-webkit-user-drag:none;-webkit-touch-callout:none}
+/* (4 Nov 2026, client) nothing animates while the page loads: the buttons do not fade in from the plain link colours
+   and the phone menu does not slide across — the hover and menu animations start once the page is ready */
+html.mk-preload *,html.mk-preload *::before,html.mk-preload *::after{transition:none !important}</style>
+<script>
+document.documentElement.classList.add('mk-preload');
+window.addEventListener('load', function () { requestAnimationFrame(function () { requestAnimationFrame(function () { document.documentElement.classList.remove('mk-preload'); }); }); });
+</script>
 <script>
 (function () {
   var lang = (document.cookie.match(/(?:^|; )googtrans=\/en\/([^;]+)/) || [])[1];
@@ -109,7 +116,8 @@ html.gt-wait::after{content:"";position:fixed;left:50%;top:50%;width:34px;height
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&amp;family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Shantell+Sans:wght@400;500&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="<%= typeof cssHref !== 'undefined' ? cssHref : '/css/site.css' %>">
+<%# (4 Nov 2026) the site's stylesheet with its change time, so phones never keep an old copy %>
+<link rel="stylesheet" href="<%= typeof cssHref !== 'undefined' ? cssHref : siteCss() %>">
 <% if (typeof extraCss !== 'undefined') { [].concat(extraCss).forEach(h => { %><link rel="stylesheet" href="<%= h %>"><% }) } %>
 <script src="<%= typeof siteJs !== 'undefined' ? siteJs : '/js/site.js?v=3' %>" defer></script>
 <% if (typeof frameClass !== 'undefined' && frameClass.split(' ').includes('in4')) { %><script src="/js/inner-4.js" defer></script><% } %>

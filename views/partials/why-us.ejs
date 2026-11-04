@@ -24,7 +24,7 @@
       <div class="wn-contact">
         <a href="<%= footer.wa %>" target="_blank" rel="noopener" class="wn-btn wn-wa">WhatsApp</a>
         <a href="mailto:<%= footer.hq.email %>" class="wn-btn">Email us</a>
-        <a href="tel:<%= footer.hq.phones[0].replace(/[^0-9+]/g, '') %>" class="wn-btn">Call <%= footer.hq.phones[0] %></a>
+        <a href="tel:<%= footer.hq.phones[0].replace(/[^0-9+]/g, '') %>" class="wn-btn wn-call">Call<span class="wn-num">&nbsp;<%= footer.hq.phones[0] %></span></a>
       </div>
     </div>
   </div>

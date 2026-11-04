@@ -204,7 +204,9 @@
     };
     drawer.hidden = scrim.hidden = false; body.scrollTop = 0;
   }
-  window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+  // (4 Nov 2026, client) leaving with unsaved changes asks in the panel's own popup (A.leaveGuard)
+  A.leaveGuard(() => dirty);
   draw();
   if (location.hash.length > 1) open(decodeURIComponent(location.hash.slice(1)));
+
 })();

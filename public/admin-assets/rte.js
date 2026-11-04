@@ -122,6 +122,9 @@
     const ed = document.createElement('div'); ed.className = 'rte'; ed.contentEditable = 'true';
     const raw = document.createElement('textarea'); raw.className = 'in rte-src'; raw.rows = 18; raw.hidden = true;
     el.append(bar, ed, raw);
+    // (4 Nov 2026, site check) photos imported with an address without its leading "/" ("images/delhi-state.webp") point
+    // from the site's root, as the website reads them — not from the panel's page (where they did not load)
+    html = String(html == null ? '' : html).replace(/(<img\b[^>]*\bsrc=")(?!\/|https?:|data:|blob:)([^"]+")/gi, '$1/$2');
     ed.innerHTML = html; ed.oninput = () => touch(); raw.oninput = () => touch();
     // a list of points: the text is always one bulleted list (Enter makes the next point)
     if (opts.list) {

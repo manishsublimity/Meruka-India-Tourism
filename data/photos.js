@@ -69,7 +69,7 @@ function photoChoices(text) {
   let best = null, at = Infinity;
   DAY_RULES.forEach(rule => { const m = rule[0].exec(text || ''); if (m && m.index < at) { at = m.index; best = rule; } });
   if (!best) return [];
-  return best[1].filter(f => !/^taj-/.test(f) || /taj|agra/i.test(text)).map(P);
+  return best[1].filter(f => !/^taj-/.test(f) || /\btaj\b|agra/i.test(text)).map(P);
 }
 
 // Every photo whose keyword appears in `text`, earliest keyword first (then the fallbacks), so a page
@@ -81,4 +81,35 @@ function photoCandidates(text) {
   return [...new Set(hits.flatMap(h => h[1]).concat(FALLBACK))].map(P);
 }
 
-module.exports = { photoFor, photoForCard, photoChoices, photoCandidates };
+// (4 Nov 2026, client) the banner of a page that still has the imported, same-everywhere banner: a photo of that very
+// place when the library has one (a strict match on a word of its name; a category gets the photo of its tours), else
+// '' and the page keeps its banner. A banner chosen in the panel is never replaced.
+const GENERIC_BANNER = /india-tours-main/;
+const BANNER_WORD = { delhi: 'delhi-red-fort', goa: 'goa-beach-palms', kerala: 'kerala-backwaters', ladakh: 'ladakh-pangong', leh: 'ladakh-pangong', darjeeling: 'darjeeling',
+  gujarat: 'gujarat', maharashtra: 'maharashtra', madurai: 'madurai', mysore: 'mysore-palace-lit', varanasi: 'varanasi-ghats', jaipur: 'jaipur-amber-fort', jaisalmer: 'jaisalmer-fort-night',
+  jodhpur: 'jodhpur-umaid-bhawan', udaipur: 'udaipur-lake-pichola', bikaner: 'bikaner-junagarh-fort', amritsar: 'golden-temple-amritsar', punjab: 'golden-temple-amritsar',
+  lakshadweep: 'lakshadweep-hd', nagaland: 'nagaland-festival', arunachal: 'arunachal-losar', manali: 'manali-balloon', himachal: 'manali-balloon', pushkar: 'pushkar-fair',
+  diwali: 'diwali', holi: 'holi-festival', onam: 'onam', rajasthan: 'rajasthan-forts', agra: 'taj-mahal-wide', thanjavur: 'brihadeshwara-temple', corbett: 'tiger-pair',
+  ranthambore: 'tiger', ranthambhore: 'tiger', bandhavgarh: 'bengal-tiger', kanha: 'tiger-pair' };
+// a state's or region's full name → its photo (the same photos the region pages used for their place cards)
+const PLACE_FULL = { 'delhi': 'delhi-red-fort', 'himachal pradesh': 'manali-balloon', 'jammu & kashmir': 'ladakh-pangong', 'punjab': 'golden-temple-amritsar',
+  'rajasthan': 'hawa-mahal-dusk', 'uttar pradesh': 'taj-mahal-wide', 'lakshadweep': 'lakshadweep-hd', 'karnataka': 'mysore-palace', 'kerala': 'kerala-backwaters',
+  'tamil nadu': 'brihadeshwara-temple', 'arunachal pradesh': 'arunachal-losar', 'nagaland': 'nagaland-festival', 'west bengal': 'darjeeling', 'gujarat': 'gujarat',
+  'goa': 'goa-beach-palms', 'madhya pradesh': 'bengal-tiger' };
+const BANNER_URL = { '/north_india_tour': 'north-india', '/wildlife_tour': 'tiger-pair', '/uttarakhand_wildlife_pilgrimage_tours': 'hill-station', '/wildlife-medieval-tour': 'tiger-pair' };
+// the photo of a place by its page's name or address ('' when the library has none)
+function placePhoto(heading, url) {
+  const name = String(heading || '').replace(/<[^>]+>/g, '').replace(/\s*Tourism$/i, '').trim().toLowerCase();
+  if (PLACE_FULL[name]) return P(PLACE_FULL[name] + '.webp');
+  const u = BANNER_URL[String(url || '')];
+  if (u) return P(u + '.webp');
+  const word = name.split(/[^a-z]+/).find(w => BANNER_WORD[w]);
+  return word ? P(BANNER_WORD[word] + '.webp') : '';
+}
+const isGenericBanner = s => !s || GENERIC_BANNER.test(s);
+function bannerFor(current, heading, url, category) {
+  if (!isGenericBanner(current)) return current;
+  return placePhoto(heading, url) || (category ? photoFor([heading, url]) : current || '/images/india-tours-main.webp');
+}
+
+module.exports = { photoFor, photoForCard, photoChoices, photoCandidates, bannerFor, placePhoto, isGenericBanner };

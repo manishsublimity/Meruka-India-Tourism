@@ -104,6 +104,24 @@
     } catch (e) { A.toast(e.message, true); return null; }
   };
   A.confirm = async (title, text, ok, danger) => !!(await A.dialog({ title, html: '<p>' + A.esc(text) + '</p>', ok: ok || 'Yes', danger }));
+  // (4 Nov 2026, client) unsaved changes: a click on any link of the panel asks in the panel's own popup — "Leave without
+  // saving" or "Stay on this page" — instead of the browser's box (which cannot be styled and was hard to answer). The
+  // browser's own box stays only for closing the tab or reloading, where nothing else is allowed.
+  A.leaveGuard = isDirty => {
+    let leaving = false;
+    document.addEventListener('click', async e => {
+      const a = e.target.closest('a[href]');
+      if (!a || leaving || !isDirty() || e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || a.target === '_blank' || a.hasAttribute('download')) return;
+      const href = a.getAttribute('href') || '';
+      if (/^(#|javascript:|mailto:|tel:)/i.test(href)) return;
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin || (url.pathname === location.pathname && url.search === location.search)) return;
+      e.preventDefault();
+      const go = await A.dialog({ title: 'Leave without saving?', html: '<p>The changes on this page are not saved yet. If you leave now they are lost.</p>', ok: 'Leave without saving', cancel: 'Stay on this page', danger: true });
+      if (go) { leaving = true; location.href = url.href; }
+    }, true);
+    window.addEventListener('beforeunload', e => { if (!leaving && isDirty()) { e.preventDefault(); e.returnValue = ''; } });
+  };
   // "Rajasthan Desert Tour" → "rajasthan-desert-tour"
   A.slug = s => String(s || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70);
 

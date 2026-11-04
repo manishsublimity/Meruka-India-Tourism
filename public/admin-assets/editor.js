@@ -13,7 +13,7 @@
     heading: 'Page title', photo: 'Tour photo', route: 'Route', duration: 'Length of the tour',
     days: 'Days', day: 'Day number', title: 'Title', eta: 'Distance / drive time', paras: 'What happens this day', note: 'Note for this day',
     details: 'Price box (right side of the tour page)', text: 'Text', items: 'Points', breadcrumb: 'Breadcrumb', label: 'Text', href: 'Link to',
-    heroSrc: 'Banner photo (top of the page)', heroSrc_tours: 'Banner photo (optional)', heroAlt: 'Describe the banner photo in a few words', description: 'Description', keywords: 'Keywords',
+    listPhoto: 'Photo in the list (its card on the region or state page)', heroSrc: 'Banner photo (top of the page)', heroSrc_tours: 'Banner photo (optional)', heroAlt: 'Describe the banner photo in a few words', description: 'Description', keywords: 'Keywords',
     focusKeyword: 'Main search words (optional)', noindex: 'Hide this page from Google', ogImage: 'Picture when shared on WhatsApp / Facebook',
     intro: 'Introduction text', groups: 'Tours on this page', tours: 'Tours', outro: 'Closing text', name: 'Name', html: 'Page text',
     steps: 'How it works (steps)', faqs: 'Questions & answers', q: 'Question', a: 'Answer', guideCols: 'Travel guide links', stateGroups: 'Destinations by state',
@@ -44,6 +44,7 @@
     heroSrc_lists: 'The wide photo at the top of the category page, also its photo on India Tour Packages.',
     summary: 'Starts with the text the tour page shows now.',
     priceLine: '{hotel} becomes the hotel class the visitor picks (3-Star, 4-Star …).',
+    listPhoto: 'The photo of this page’s card on the page above it (its region or state). Leave it to keep the photo shown now; the banner above stays as it is.',
     priceIncludes: 'One point per line.',
     href_pages: 'Click to pick a page of this website.',
     route: 'The places in order, with " - " between them. Example: Delhi - Agra - Jaipur - Delhi',
@@ -97,8 +98,10 @@
     // a category's tours are chosen in each tour (its Categories tab), so the category only needs its text and banner
     // (2 Nov 2026, client) a category: its title, tour type, short description and banner; no closing text, no menu group
     lists: [['Basic info', ['heading', 'intro', 'heroSrc', 'heroAlt'], ''], [SEO_TAB, GOOGLE, '']],
-    pages: [['Text', ['heading', 'html', 'guideSection', 'heroSrc', 'heroAlt'], ''],
-      ['Tours', ['tours'], 'The tour cards under the page text (“Tours that include …”). Leave it empty and the website picks the tours that pass through this place by itself. Choose tours here to show those instead, in this order.'], [SEO_TAB, GOOGLE, '']],
+    // (4 Nov 2026, client) a destination page has two photos: the banner on top of its own page, and the photo of its card
+    // in the list on its region / state page
+    pages: [['Text', ['heading', 'html', 'guideSection', 'heroSrc', 'listPhoto', 'heroAlt'], ''],
+      ['Tours', ['tours'], 'The four tour cards under the page text (“Tours that include …”). Leave it empty and the website picks four tours that pass through this place by itself. Choose up to four tours here to show those instead, in this order.'], [SEO_TAB, GOOGLE, '']],
     posts: [['Post', ['heading', 'category', 'date', 'author', 'photo', 'excerpt'], 'The title, date and summary shown in the list of posts.'], ['Text', ['html'], 'Write the post like in Word: the buttons make headings, bold text, lists, links and photos.'], [SEO_TAB, GOOGLE, '']],
     // (26 Oct 2026, client) the home page section by section, in the order the website shows them
     home: [['Banner', ['heroTitle', 'heroSlides'], 'The big title and the photos at the top of the home page.'], ['Figures', ['stats'], 'The band under the banner.'],
@@ -165,7 +168,7 @@
     if (key === 'tours' && E.kind === 'pages') return tourPicker(value || []);
     // (3 Nov 2026, client) every text box with formatting uses the same full editor
     if (key === 'intro' && E.kind === 'lists') return rte(typeof value === 'string' ? value : (value || []).map(p => '<p>' + window.MKRTE.segHtml(p) + '</p>').join(''), { min: 110 });
-    if (key === 'note' && E.kind === 'tours' && depth > 0) return rte(typeof value === 'string' ? (/</.test(value) ? value : value ? '<p>' + A.esc(value) + '</p>' : '') : (value || []).length ? '<p>' + window.MKRTE.segHtml(value) + '</p>' : '', { min: 70 });
+    if (key === 'note' && E.kind === 'tours' && depth > 0) return rte(typeof value === 'string' ? (/</.test(value) ? value : value ? '<p>' + A.esc(value.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&')) + '</p>' : '') : (value || []).length ? '<p>' + window.MKRTE.segHtml(value) + '</p>' : '', { min: 70 });
     if (key === 'tourType' && E.kind === 'lists') { const c = input(value || '', 'text', x => x.trim()); c.el.placeholder = 'e.g. Private Tour'; c.el.setAttribute('list', 'mk-tourtypes'); if (!document.getElementById('mk-tourtypes')) document.body.insertAdjacentHTML('beforeend', '<datalist id="mk-tourtypes"><option value="Private Tour"><option value="Private Tours · No Sharing"><option value="Group Tour"><option value="Self-drive Tour"></datalist>'); return c; }
     // (2 Nov 2026, client) a category's group in the tour menu (and its place on /itineraries)
     if (key === 'navGroup' && E.kind === 'lists') {
@@ -181,17 +184,36 @@
     if (inList && Array.isArray(value) && value.length >= 2 && value.length <= 4 && value.every(x => typeof x === 'string') && !isLinkRow(value)) return tupleRow(value);
     if (key === 'noindex') return toggle(value);
     if (key === 'date' && typeof value === 'string') return input(value, 'date', x => x);
+    // (4 Nov 2026, client) a tour's route is always one line, the same box on every tour (a long route scrolls in it)
+    // (4 Nov 2026, client) …written in a text area: as wide as every box, one line high, taller by itself when the route
+    // runs onto a second line (Enter does not break it: a route is one line of places)
+    if (key === 'route' && E.kind === 'tours' && typeof value === 'string') {
+      const t = textBox(value, x => x.replace(/\s*\n\s*/g, ' ').trim(), 1), ta = t.input;
+      ta.classList.add('ta-auto');
+      const fit = () => { if (!ta.offsetParent) return; ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 2 + 'px'; };
+      ta.addEventListener('input', fit);
+      ta.addEventListener('keydown', e => { if (e.key === 'Enter') e.preventDefault(); });
+      if ('IntersectionObserver' in window) new IntersectionObserver(es => { if (es.some(x => x.isIntersecting)) fit(); }).observe(ta);
+      window.addEventListener('resize', fit);
+      return t;
+    }
     // a tour's banner: empty means "use its category's banner" (the old shared banner counts as empty)
     // (27 Oct 2026, client) a tour without its own photo shows the one the website picks for it
     if (key === 'photo' && depth === 0 && (E.kind === 'tours' || E.kind === 'lists') && current && current.thumb && !current.isNew) return image(value, () => current.thumb);
     if (key === 'heroSrc' && E.kind === 'tours') return image(value === '/images/india-tours-main.webp' ? '' : value);
+    if (key === 'listPhoto' && E.kind === 'pages') return image(value || '', () => (current && current.listImg) || (getters.heroSrc ? getters.heroSrc() : '') || (current && current.bannerAuto) || '');
+    // (4 Nov 2026, client) a page's banner shows as the website shows it: the imported same-everywhere banner counts as
+    // "not chosen", and the photo of the place shows in its place
+    if (key === 'heroSrc' && E.kind === 'pages' && current && current.group === 'places') return image(/india-tours-main/.test(value || '') ? '' : value || '', () => current.bannerAuto || '');
     // (27 Oct 2026, client) a few lines, one per line ("What is included", "You can also")
     if (/^(included|extras|priceIncludes)$/.test(key) && Array.isArray(value) && value.every(x => typeof x === 'string')) {
       const t = textBox(value.join('\n'), x => x.split('\n').map(l => l.trim()).filter(Boolean), Math.max(3, value.length)); t.input.placeholder = key === 'priceIncludes' ? PRICE_INC.join('\n') : 'One point per line'; return t;
     }
     // the tour's own wording, or (grey) what the website writes by itself
     if (key === 'summary' && E.kind === 'tours') return rte(value || '');
-    if (key === 'priceLine' && E.kind === 'tours') { const t = textBox(value || '', x => x.trim(), 2); t.input.placeholder = PRICE_LINE; return t; }
+    // (4 Nov 2026, client) the line beside "Starts from": the full text editor, like the page text; {hotel} still becomes
+    // the hotel class the visitor picks
+    if (key === 'priceLine' && E.kind === 'tours') { const v = String(value || '').trim() || PRICE_LINE; return rte(/</.test(v) ? v : '<p>' + A.esc(v) + '</p>', { min: 70 }); }
     if (isImg(key, value)) return image(value);
     if (key === 'details' && Array.isArray(value) && value.length && value.every(b => b && typeof b === 'object' && Array.isArray(b.items))) return detailsEditor(value);
     if (isParas(value)) return richText(value, false);
@@ -943,37 +965,60 @@
   // the website's own wording when a tour leaves these empty (views/tour-detail-v2.ejs)
   const PRICE_LINE = 'The price quote includes a private tour with {hotel} hotels, a private car with driver, and other services as mentioned below.';
   const PRICE_INC = ['Hotel accommodation on twin sharing basis', 'Air-conditioned car with driver throughout sightseeing', 'Transport service from arrival until final departure'];
-  // (2 Nov 2026, client) a destination page's own choice of tours: the chosen tours in order (drag to sort, ✕ to take
-  // one out) and "+ Add tours" to tick more from all the tours, with a search
+  // (2 Nov 2026, client) a destination page's own choice of tours; (4 Nov 2026, client) shown as the website shows them:
+  // four cards (photo, name, nights, price). Nothing chosen: the four the website picks now, with "Choose these tours"
+  // to make them your own and change them. Chosen: ✕ to take one out, drag to change the order, "+ Add a tour".
   function tourPicker(urls) {
+    const MAX = 4;
     const el = document.createElement('div'); el.className = 'tp-pick';
-    el.innerHTML = '<div class="tp-list"></div><div class="tp-empty"><p class="tp-auto-h"><b>Shown now, picked by the website</b> — the tours that pass through this place. Add tours to show your own choice instead.</p><div class="tp-auto"><p class="hint">Looking at the page…</p></div></div><button type="button" class="btn btn-s btn-p" data-add>+ Add tours</button>';
-    const listEl = el.querySelector('.tp-list'), empty = el.querySelector('.tp-empty');
-    // (3 Nov 2026, client) with no tours chosen, the tours the page shows now (read from the page itself)
-    if (E.url) fetch(E.url).then(r => r.text()).then(h => {
-      const d = new DOMParser().parseFromString(h, 'text/html'), cards = [...d.querySelectorAll('.dx-tours a.tc')];
-      el.querySelector('.tp-auto').innerHTML = cards.length ? cards.map(c => '<div class="tp-row2 tp-ro"><span class="tp-n">•</span><b>' + A.esc(((c.querySelector('.tc-name') || {}).textContent || '').trim()) + '</b><small>' + A.esc(c.getAttribute('href') || '') + '</small></div>').join('') : '<p class="hint">This page shows no tours now. Add tours to show some.</p>';
-    }).catch(() => { el.querySelector('.tp-auto').innerHTML = ''; });
-    let all = [], chosen = urls.slice(), dragging = null;
-    const nameOf = u => { const it = all.find(x => x.url.toLowerCase() === String(u).toLowerCase()); return it ? lkName(it) : u; };
-    const draw = () => {
-      listEl.innerHTML = chosen.map((u, i) => '<div class="tp-row2" draggable="true" data-i="' + i + '"><span class="it-grip" title="Drag to change the order"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg></span><b>' + A.esc(nameOf(u)) + '</b><small>' + A.esc(u) + '</small><button type="button" title="Take it out" data-x="' + i + '">✕</button></div>').join('');
-      empty.hidden = chosen.length > 0;
+    el.innerHTML = '<div class="tpc-note" data-note></div><div class="tpc-grid" data-grid></div><div class="tpc-acts"><button type="button" class="btn btn-p" data-add>+ Add a tour</button><button type="button" class="btn" data-own hidden>Change these tours</button><button type="button" class="btn btn-link" data-auto hidden>Let the website choose again</button></div>';
+    const grid = el.querySelector('[data-grid]'), note = el.querySelector('[data-note]'), addB = el.querySelector('[data-add]'), ownB = el.querySelector('[data-own]'), autoB = el.querySelector('[data-auto]');
+    let chosen = urls.slice(0, MAX), auto = [], cards = {}, all = [], dragging = null;
+    const card = (c, i, own) => '<div class="tpc' + (own ? '' : ' tpc-ro') + '"' + (own ? ' draggable="true" data-i="' + i + '"' : '') + '>' +
+      '<span class="tpc-img"' + (c.img ? ' style="background-image:url(&quot;' + A.esc(c.img) + '&quot;)"' : '') + '></span>' +
+      '<span class="tpc-b"><b>' + A.esc(c.name || c.href) + '</b>' + (c.code ? '<span class="code">' + A.esc(c.code) + '</span>' : '') +
+      '<small>' + A.esc(c.nights || '') + '</small><em>' + (c.price ? 'From USD ' + Number(c.price).toLocaleString('en-US') : 'Price on request') + '</em></span>' +
+      (own ? '<button type="button" class="tpc-x" data-x="' + i + '" title="Take this tour off the page" aria-label="Take this tour off the page">✕</button><span class="tpc-grip" title="Drag to change the order">⋮⋮</span>' : '') + '</div>';
+    const need = async list => { const miss = list.filter(u => !cards[u.toLowerCase()]); if (!miss.length) return; try { (await A.api('GET', '/admin/api/tour-cards?urls=' + encodeURIComponent(miss.join(',')))).items.forEach(c => { cards[String(c.href).toLowerCase()] = c; }); } catch (e) {} };
+    const draw = async () => {
+      if (chosen.length) {
+        await need(chosen);
+        note.innerHTML = '<b>Your choice</b> — these ' + chosen.length + ' tour' + (chosen.length === 1 ? '' : 's') + ' show under the page text, in this order. Drag a card to move it; ✕ takes it off.';
+        grid.innerHTML = chosen.map((u, i) => card(cards[u.toLowerCase()] || { href: u, name: u }, i, true)).join('');
+      } else {
+        note.innerHTML = '<b>Picked by the website</b> — the tours that pass through this place. To change them, press “Change these tours”.';
+        grid.innerHTML = auto.length ? auto.map((c, i) => card(c, i, false)).join('') : '<p class="hint">This page shows no tours now. Add up to ' + MAX + ' tours to show them.</p>';
+      }
+      addB.hidden = chosen.length >= MAX || (!chosen.length && auto.length > 0);
+      addB.textContent = chosen.length ? '+ Add a tour (' + (MAX - chosen.length) + ' more)' : '+ Add tours (up to ' + MAX + ')';
+      ownB.hidden = chosen.length > 0 || !auto.length; autoB.hidden = !chosen.length;
     };
-    listEl.onclick = e => { const x = e.target.closest('[data-x]'); if (x) { chosen.splice(+x.dataset.x, 1); draw(); touch(); } };
-    listEl.ondragstart = e => { dragging = e.target.closest('.tp-row2'); if (dragging) dragging.classList.add('dragging'); };
-    listEl.ondragend = () => { if (!dragging) return; dragging.classList.remove('dragging'); chosen = [...listEl.children].map(r => chosen[+r.dataset.i]); dragging = null; draw(); touch(); };
-    listEl.ondragover = e => { if (!dragging) return; e.preventDefault(); const after = [...listEl.children].find(c => c !== dragging && e.clientY < c.getBoundingClientRect().top + c.offsetHeight / 2); listEl.insertBefore(dragging, after || null); };
-    el.querySelector('[data-add]').onclick = async () => {
+    // the four the website shows now (read from the page itself, so it is exactly what visitors see)
+    if (E.url) fetch(E.url).then(r => r.text()).then(h => {
+      const d = new DOMParser().parseFromString(h, 'text/html');
+      auto = [...d.querySelectorAll('.dx-pq .pq-card')].map(c => { const a = c.querySelector('.pq-name a'); return { href: a ? a.getAttribute('href') : '', name: a ? a.textContent.trim() : '', img: (c.querySelector('.pq-img img') || {}).getAttribute ? c.querySelector('.pq-img img').getAttribute('src') : '', nights: ((c.querySelector('.pq-nd') || {}).textContent || '').trim(), price: +(((c.querySelector('.pq-price b') || {}).textContent || '').replace(/[^\d]/g, '')) || 0 }; });
+      auto.forEach(c => { cards[String(c.href).toLowerCase()] = cards[String(c.href).toLowerCase()] || c; });
+      draw();
+    }).catch(() => draw());
+    grid.onclick = e => { const x = e.target.closest('[data-x]'); if (x) { chosen.splice(+x.dataset.x, 1); draw(); touch(); } };
+    grid.ondragstart = e => { dragging = e.target.closest('.tpc[draggable]'); if (dragging) dragging.classList.add('dragging'); };
+    grid.ondragend = () => { if (!dragging) return; dragging.classList.remove('dragging'); chosen = [...grid.children].map(r => chosen[+r.dataset.i]); dragging = null; draw(); touch(); };
+    grid.ondragover = e => { if (!dragging) return; e.preventDefault(); const after = [...grid.children].find(c => c !== dragging && e.clientX < c.getBoundingClientRect().left + c.offsetWidth / 2 && e.clientY < c.getBoundingClientRect().bottom); grid.insertBefore(dragging, after || null); };
+    ownB.onclick = () => { chosen = auto.map(c => c.href).filter(Boolean).slice(0, MAX); draw(); touch(); };
+    autoB.onclick = async () => { if (await A.confirm('Let the website choose?', 'Your choice is cleared; the page shows the tours that pass through this place.', 'Yes, clear my choice', false)) { chosen = []; draw(); touch(); } };
+    addB.onclick = async () => {
+      if (!all.length) all = await loadLinks();
       const tours = all.filter(it => lkKind(it) === 'Tour');
-      const box = await A.dialog({ title: 'Add tours', ok: 'Add the ticked tours',
-        html: '<input class="in" type="search" data-q placeholder="Search a tour, e.g. Golden Triangle, Kerala"><div class="tp-opts">' + tours.map(it => '<label class="tp-opt" data-s="' + A.esc((lkName(it) + ' ' + it.url).toLowerCase()) + '"><input type="checkbox" value="' + A.esc(it.url) + '"' + (chosen.some(u => u.toLowerCase() === it.url.toLowerCase()) ? ' checked disabled' : '') + '><span><b>' + A.esc(lkName(it)) + '</b><small>' + A.esc(it.url) + '</small></span></label>').join('') + '</div>',
+      const box = await A.dialog({ title: 'Add tours', ok: 'Add the ticked tours', wide: true,
+        html: '<p class="hint" style="margin:0 0 8px">Up to ' + MAX + ' tours show on the page (' + (MAX - chosen.length) + ' more can be added).</p><input class="in" type="search" data-q placeholder="Search a tour, e.g. Golden Triangle, Kerala"><div class="tp-opts">' + tours.map(it => '<label class="tp-opt" data-s="' + A.esc((lkName(it) + ' ' + it.url).toLowerCase()) + '"><input type="checkbox" value="' + A.esc(it.url) + '"' + (chosen.some(u => u.toLowerCase() === it.url.toLowerCase()) ? ' checked disabled' : '') + '><span><b>' + A.esc(lkName(it)) + '</b><small>' + A.esc(it.url) + '</small></span></label>').join('') + '</div>',
         onOpen: b => { const q = b.querySelector('[data-q]'); q.oninput = () => { const v = q.value.trim().toLowerCase(); b.querySelectorAll('.tp-opt').forEach(o => { o.hidden = !!v && !o.dataset.s.includes(v); }); }; } });
       if (!box) return;
-      box.querySelectorAll('.tp-opt input:checked:not(:disabled)').forEach(c => chosen.push(c.value));
+      const picked = [...box.querySelectorAll('.tp-opt input:checked:not(:disabled)')].map(c => c.value), room = MAX - chosen.length;
+      if (picked.length > room) A.toast('Only ' + MAX + ' tours show on the page: the first ' + room + ' ticked are added.', true);
+      picked.slice(0, room).forEach(u => chosen.push(u));
       draw(); touch();
     };
-    draw(); loadLinks().then(x => { all = x; draw(); });
+    draw();
     return { el, get: () => chosen.slice() };
   }
   // ---------- Google: counters, preview, checks ----------
@@ -1121,7 +1166,8 @@
     // (26 Oct 2026, client) each day of a tour can have its own photo: the box sits under the day's title
     if (E.kind === 'tours' && Array.isArray(data.days)) data.days = data.days.map(d => d && typeof d === 'object' && !('photo' in d) ? Object.fromEntries(Object.entries(d).flatMap(([k, v]) => k === 'eta' ? [[k, v], ['photo', '']] : [[k, v]]).concat('eta' in d ? [] : [['photo', '']])) : d);
     let tabs = TABS[E.mode === 'single' ? E.id : E.kind];
-    if (E.kind === 'pages') tabs = tabs.filter(t => t[0] !== 'Tours');
+    // (4 Nov 2026, client) a destination page (Four Regions) has its Tours tab again: up to four tours, chosen by hand
+    if (E.kind === 'pages' && !(current && current.group === 'places')) tabs = tabs.filter(t => t[0] !== 'Tours');
     if (!tabs) tabs = res.fields.filter(k => k in data).map(k => [label(k), [k], HELP[k] || '']);   // settings: one tab per part
     singleSeo = E.mode === 'single' && data.seo && typeof data.seo === 'object';
     if (singleSeo) { const sv = data.seo; delete data.seo; GOOGLE.forEach(k => { data[k] = k in sv ? sv[k] : (k === 'noindex' || k === 'nofollow' ? false : ''); }); tabs = tabs.concat([[SEO_TAB, GOOGLE, 'How this page shows in Google and when it is shared. Leave a box empty to keep the text the website uses now (shown in grey).']]); }
@@ -1144,12 +1190,22 @@
       keys.forEach(k => {
         // (3 Nov 2026, client) a destination page is not put in the India Travel Guide
         if (k === 'guideSection' && current && current.group === 'places') return;
+        if (k === 'listPhoto' && !(current && current.group === 'places' && (current.data.breadcrumb || []).length > 2)) return;
+        const twoPhotos = (k === 'heroSrc' || k === 'listPhoto') && current && current.group === 'places' && (current.data.breadcrumb || []).length > 2;
         const c = field(k, data[k], 0);
         // (26 Oct 2026, client video II) a tab with one thing in it needs no second title for it
         const f = keys.length === 1 && name !== SEO_TAB ? Object.assign(document.createElement('div'), { className: 'f' }) : fieldBox(k, c, true);
         if (E.mode === 'single' && /^sec[A-Z]/.test(k) && f.querySelector(':scope > .lb')) f.querySelector(':scope > .lb').remove();
         if (keys.length === 1 && name !== SEO_TAB) f.appendChild(c.el);
         if (GHELP[k] && name === SEO_TAB) f.querySelector('.lb').insertAdjacentHTML('afterend', '<p class="fhelp">' + A.esc(GHELP[k]) + '</p>');
+        if (typeof twoPhotos !== 'undefined' && twoPhotos) {
+          f.classList.add('half', 'two-ph');
+          const where = current.parentName || 'its region or state page', me = String(current.data.heading || '').replace(/<[^>]+>/g, '');
+          const lb = f.querySelector(':scope > .lb'), help = f.querySelector(':scope > .fhelp');
+          if (lb) lb.textContent = k === 'heroSrc' ? '1 · Banner photo' : '2 · Photo in the list';
+          const say = k === 'heroSrc' ? 'The wide photo at the top of the ' + me + ' page itself.' : 'The photo of the ' + me + ' card on the ' + where + ' page. Not chosen: the banner photo shows there too.';
+          if (help) help.textContent = say; else if (lb) lb.insertAdjacentHTML('afterend', '<p class="fhelp">' + A.esc(say) + '</p>');
+        }
         card.appendChild(f); getters[k] = c.get; comps[k] = c;
         if ((k === 'title' || k === 'description') && name === SEO_TAB) counter(k, c);
       });
@@ -1193,30 +1249,44 @@
   }
   // (26 Oct 2026, client) a tour's route and length fill in by themselves from its days: the length from how many days
   // there are, the route from the places in the day titles (a place repeated one after the other is written once)
-  const DROP = /(arrival|arrive|departure|depart|sightseeing|sight seeing|local|excursion|drive|hometown|home town|onward|journey|full day|half day|day|tour|by air|by train|by road|fly|flight|train|via)/gi;
+  const DROP = /\b(arrival|arrive|departure|depart|sightseeing|sight seeing|local|excursion|drive|hometown|home town|onward|journey|full day|half day|day|tour|by air|by train|by road|fly|flight|train|via)\b/gi;
   function routeOf(days) {
     const out = [];
-    days.forEach(d => String(d.title || '').split(/\s*[–—-]\s*|\s+to\s+|,|\//i).forEach(p => {
+    // (4 Nov 2026, client) a date or "Day 3" in front of a day's title ("14 Nov: Delhi") is not a place
+    days.forEach(d => String(d.title || '').replace(/^\s*(day\s*\d+|\d{1,2}(st|nd|rd|th)?\s+[a-z]{3,9}\.?(\s+\d{2,4})?|[a-z]{3,9}\s+\d{1,2})\s*[:.\-–]\s*/i, '').split(/\s*[–—-]\s*|\s+to\s+|,|\//i).forEach(p => {
       const n = p.replace(/\(.*?(\)|$)/g, '').replace(DROP, ' ').replace(/\s+/g, ' ').trim().replace(/^(in|at|to|from|and|of)\s+/i, '');
       if (n && /[a-z]/i.test(n) && (!out.length || out[out.length - 1].toLowerCase() !== n.toLowerCase())) out.push(n);
     }));
     return out.join(' - ');
   }
   const two = n => String(n).padStart(2, '0');
+  // (4 Nov 2026, client) the route is typed by hand (left empty, it is made from the days, as before); the length still
+  // comes from how many days there are
   function autoFromDays() {
-    const route = comps.route && comps.route.el, dur = comps.duration && comps.duration.el;
+    const route = comps.route && (comps.route.input || comps.route.el), dur = comps.duration && comps.duration.el;
     const pane = comps.days.el.closest('section') || comps.days.el;
-    // (26 Oct 2026, client video II) not typed by hand: shown as one line, made from the days
-    [route, dur].forEach(x => { const f = x && x.closest('.f'); if (f) f.hidden = true; });
+    const durF = dur && dur.closest('.f'); if (durF) durF.hidden = true;
     const sum = document.createElement('div'); sum.className = 'auto-sum';
-    const show = () => { sum.innerHTML = '<span>Route &amp; length <small>made from the days</small></span><b>' + A.esc(route ? route.value : '') + '</b><em>' + A.esc(dur ? dur.value : '') + '</em>'; };
-    const anchor = (route || dur).closest('.f'); anchor.parentNode.insertBefore(sum, anchor); show();
+    const show = () => { sum.innerHTML = '<span>Length <small>made from the days</small></span><em>' + A.esc(dur ? dur.value : '') + '</em>'; };
+    if (durF) { durF.parentNode.insertBefore(sum, durF); show(); }
+    const rf = route && route.closest('.f');
+    // (4 Nov 2026, client) the route box as wide as every other box (it was half, beside the hidden length)
+    if (rf) rf.classList.remove('half'); if (durF) durF.classList.remove('half');
+    let auto = route ? routeOf(getters.days() || []) : '';
+    if (rf) {
+      if (!rf.querySelector('.fhelp')) rf.querySelector('.lb').insertAdjacentHTML('afterend', '<p class="fhelp">The stops, e.g. Delhi - Agra - Jaipur - Delhi. Leave it empty and it is made from the day titles.</p>');
+      route.placeholder = auto || 'Delhi - Agra - Jaipur - Delhi';
+      const mk = document.createElement('button'); mk.type = 'button'; mk.className = 'lnk route-mk'; mk.textContent = 'Make it from the days';
+      mk.onclick = () => { const r = routeOf(getters.days() || []); if (r) { route.value = r; auto = r; route.dispatchEvent(new Event('input', { bubbles: true })); touch(); } };
+      rf.appendChild(mk);
+    }
     let last = JSON.stringify((getters.days() || []).map(d => d.title));
     const run = () => {
       const days = getters.days() || [], key = JSON.stringify(days.map(d => d.title));
       if (key === last) return; last = key;
       if (dur && days.length) dur.value = two(days.length - 1) + ' Nights · ' + two(days.length) + ' Days';
-      if (route) { const r = routeOf(days); if (r) route.value = r; }
+      // a route typed by hand stays; an empty one, or one still as the days made it, follows the days
+      if (route) { const r = routeOf(days); if (!route.value.trim() || route.value === auto) { if (r) route.value = r; } auto = r; route.placeholder = r || route.placeholder; }
       show(); touch();
     };
     pane.addEventListener('input', run); new MutationObserver(() => setTimeout(run, 0)).observe(pane, { childList: true, subtree: true });
@@ -1397,7 +1467,8 @@
     });
   };
   document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); draftBtn.click(); } });
-  window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+  // (4 Nov 2026, client) leaving with unsaved changes asks in the panel's own popup (A.leaveGuard)
+  A.leaveGuard(() => dirty);
 
   // ---------- a tour's categories: one tick per category; "+ New category" makes one here ----------
   // (26 Oct 2026, client) the chosen categories on top as tags, then every category in the groups of the website's menu

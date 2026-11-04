@@ -107,7 +107,7 @@ label.lb{display:block;margin:0 0 5px;font-size:12.5px;font-weight:800;color:var
 .mi:hover .del{display:block}
 .drop{border:2px dashed #BFCDE0;border-radius:var(--r);padding:22px;text-align:center;color:var(--muted);background:var(--surface)}
 .drop.over{border-color:var(--blue);background:var(--soft)}
-.modal{position:fixed;inset:0;z-index:50;background:rgba(11,27,51,.55);display:grid;place-items:center;padding:20px}
+.modal{position:fixed;inset:0;z-index:200;background:rgba(11,27,51,.55);display:grid;place-items:center;padding:20px}
 .modal[hidden]{display:none}
 .modal-box{width:min(1000px,100%);max-height:88vh;overflow:auto;background:var(--surface);border-radius:var(--r);padding:20px}
 .modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
@@ -163,7 +163,7 @@ label.lb{display:block;margin:0 0 5px;font-size:12.5px;font-weight:800;color:var
 .err{padding:10px 12px;border-radius:var(--r);background:#FDF1F0;color:var(--red);font-weight:600;margin:14px 0}
 
 /* toast */
-.toast{position:fixed;right:20px;bottom:20px;z-index:60;padding:12px 16px;border-radius:var(--r);background:var(--ink);color:#fff;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;transform:translateY(10px);transition:opacity .2s,transform .2s;pointer-events:none}
+.toast{position:fixed;right:20px;bottom:20px;z-index:210;padding:12px 16px;border-radius:var(--r);background:var(--ink);color:#fff;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.2);opacity:0;transform:translateY(10px);transition:opacity .2s,transform .2s;pointer-events:none}
 .toast.show{opacity:1;transform:none}
 .toast.bad{background:var(--red)}
 
@@ -2019,3 +2019,101 @@ kbd{display:inline-block;min-width:22px;padding:2px 7px;border:1px solid var(--l
 .pp-here{font-style:normal;font-size:11px;font-weight:800;color:var(--green);background:#E6F4EC;border-radius:20px;padding:2px 8px;white-space:nowrap}
 .pp-none{margin:0;padding:14px;color:var(--muted);text-align:center}
 .pp .ap-path{margin-top:12px}
+
+/* (4 Nov 2026, client) inside the text editor nothing is yellow: quotes, the chosen photo and the photo tools in blue */
+.rt .rte blockquote,.rte blockquote{border-left-color:var(--blue)!important;background:var(--tint)!important;color:var(--text)!important}
+.rte img.im-sel{outline-color:var(--blue)!important}
+.im-bar button.on{background:var(--blue)!important;color:#fff!important}
+/* (4 Nov 2026, client) a tour's route typed by hand, with "Make it from the days" under it */
+.route-mk{display:inline-block;margin-top:6px;font-size:12.5px}
+
+/* (4 Nov 2026, client) Prices & notes: the Price log button and its list */
+.pr-head2{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.pr-logbtn svg{width:17px;height:17px}
+.pl-list{display:flex;flex-direction:column;gap:10px;max-height:60vh;overflow:auto;margin-top:6px;padding-right:2px}
+.pl-row{padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.pl-top{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.pl-top b{color:var(--ink)}
+.pl-top time{margin-left:auto;font-size:12.5px;color:var(--muted)}
+.pl-ch{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.pl-ch li{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;font-size:13.5px}
+.pl-ch li span{min-width:70px;font-weight:700;color:var(--text)}
+.pl-ch s{color:var(--muted)}
+.pl-ch i{font-style:normal;color:var(--muted)}
+.pl-ch b{color:var(--blue)}
+.pl-ch small{color:var(--muted);font-size:12px}
+.pl-how{margin:8px 0 0;font-size:12.5px;color:var(--muted)}
+.pl-none{margin:14px 0 4px;color:var(--muted);text-align:center}
+.pl-n{margin:6px 0 0}
+
+/* (4 Nov 2026, client) a day's note in the panel looks as on the website: light blue, the blue "i" */
+.dna-box{border-color:var(--line);background:var(--surface-2);color:var(--blue-d)}
+.dna-box .dna-ic{color:var(--blue)}
+.dna-b{color:var(--blue-d)}
+/* (4 Nov 2026, client) a destination page's two photos side by side, each saying where it shows */
+.fg .f.two-ph .img-f{max-width:none}
+.fg .f.two-ph .fhelp{min-height:2.9em}
+
+/* (4 Nov 2026, client) the Price log page */
+.pl-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 16px}
+.pl-stat{padding:16px 18px}
+.pl-stat b{display:block;font-family:var(--head);font-size:26px;color:var(--ink);line-height:1.1}
+.pl-stat span{color:var(--muted);font-size:13px}
+.pl-stat.pl-up b{color:var(--green)}
+.pl-stat.pl-down b{color:var(--red)}
+.pl-tbl td{vertical-align:middle}
+.pl-when{white-space:nowrap}
+.pl-when small,.pl-how2 small,.pl-tbl td small.muted{display:block;font-size:12px;color:var(--muted)}
+.pl-tour{font-weight:700;color:var(--ink);text-decoration:none}
+.pl-tour:hover{color:var(--blue);text-decoration:underline}
+.pl-pp{white-space:nowrap}
+.pl-pp s{color:var(--muted)}
+.pl-pp i{margin:0 6px;font-style:normal;color:var(--muted)}
+.pl-pp b{color:var(--blue)}
+.pl-chg{display:inline-block;padding:2px 8px;border-radius:20px;background:var(--surface-2);font-size:12.5px;font-weight:800;white-space:nowrap}
+.pl-chg.up{background:#E6F4EC;color:var(--green)}
+.pl-chg.down{background:#FDF1F0;color:var(--red)}
+@media (max-width:900px){ .pl-stats{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.empty-state{padding:28px 24px;text-align:center}.empty-state p{margin:4px 0}
+/* (4 Nov 2026, client) a day's note: its words in line with the "i", and the pencil and bin as clear white buttons */
+.dna-box{align-items:center}
+.dna-box .dna-ic{display:grid;place-items:center;flex:none}
+.dna-t{flex:1;min-width:0}
+.dna-t > :first-child{margin-top:0}.dna-t > :last-child{margin-bottom:0}
+.dna-t p{margin:0 0 4px}
+.dna-b{background:#fff;border-color:var(--line);color:var(--blue)}
+.dna-b:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.dna-b[data-na="rm"]:hover{background:var(--red);border-color:var(--red)}
+
+/* (4 Nov 2026, client) a destination page's Tours tab: the tours as the website shows them, four cards */
+.tpc-note{margin:0 0 12px;padding:10px 14px;border-radius:8px;background:var(--tint);font-size:13.5px;color:var(--text)}
+.tpc-note b{color:var(--ink)}
+.tpc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tpc{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:8px;background:var(--surface);overflow:hidden}
+.tpc[draggable="true"]{cursor:grab}
+.tpc.dragging{opacity:.5}
+.tpc-img{display:block;height:120px;background:var(--surface-2) center/cover no-repeat}
+.tpc-b{display:flex;flex-direction:column;gap:3px;padding:10px 12px 12px}
+.tpc-b b{font-size:14px;color:var(--ink);line-height:1.3}
+.tpc-b .code{align-self:flex-start}
+.tpc-b small{font-size:12.5px;font-weight:700;color:var(--blue)}
+.tpc-b em{font-style:normal;font-size:13px;font-weight:800;color:var(--ink)}
+.tpc-x{position:absolute;top:8px;right:8px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:#fff;color:var(--red);font-size:13px;cursor:pointer;box-shadow:0 2px 6px rgba(18,63,109,.2)}
+.tpc-x:hover{background:var(--red);color:#fff}
+.tpc-grip{position:absolute;top:8px;left:8px;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,.9);color:var(--muted);font-size:12px;letter-spacing:-2px}
+.tpc-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+@media (max-width:1100px){ .tpc-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px){ .tpc-grid{grid-template-columns:minmax(0,1fr)} }
+/* (4 Nov 2026, client) Photos page and photo picker: a simple grid — each photo with round corners and its name under it,
+   no boxes inside boxes; a clear Upload button with its icon */
+.mm-grid .mi{padding:0;border:0;background:none;gap:8px;box-shadow:none}
+.mm-grid .mi:hover{border:0;box-shadow:none}
+.mm-grid .mi .mi-ph{padding:0;border-radius:10px;box-shadow:0 1px 3px rgba(15,25,40,.1);transition:transform .15s,box-shadow .15s}
+.mm-grid .mi:hover .mi-ph,.mm-grid .mi:focus-visible .mi-ph{transform:translateY(-2px);box-shadow:0 0 0 2px var(--blue),0 10px 20px rgba(15,25,40,.14)}
+.mm-grid .mi .mi-n{padding:0 2px;border:0}
+.mm-up{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:8px}
+.mm-up::before{content:"";flex:none;width:18px;height:18px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 16V4M7 9l5-5 5 5'/%3E%3Cpath d='M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 16V4M7 9l5-5 5 5'/%3E%3Cpath d='M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3'/%3E%3C/svg%3E") center/contain no-repeat}
+.mm-up:hover{box-shadow:0 6px 16px rgba(240,168,0,.35)}
+
+/* (4 Nov 2026, client) a text area that grows with its words (the tour's route): one line at first, never a scroll bar */
+textarea.in.ta-auto{min-height:46px;resize:none;overflow:hidden;line-height:1.5;field-sizing:content}

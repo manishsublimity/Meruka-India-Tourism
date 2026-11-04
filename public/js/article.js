@@ -284,8 +284,11 @@
     var lead = s && txt.indexOf(clean(s.textContent)) <= 2;
     return { title: lead ? clean(s.textContent.replace(/:\s*$/, '')) : '', rest: lead ? clean(txt.slice(txt.indexOf(clean(s.textContent)) + clean(s.textContent).length)) : txt };
   };
-  var block = function (p) {
+  // (4 Nov 2026, client) a point written in the panel ("Chandni Chowk: the old bazaar of spices, silver and sweets") is
+  // a name and its words, never cut into a list at its commas
+  var block = function (p, typed) {
     var x = labelled(p), b;
+    if (typed) { if (x.title) { b = el('div', 'dx-spot'); b.appendChild(el('p', 'dx-spot-t')).textContent = x.title; b.appendChild(el('p', 'dx-spot-d')).textContent = x.rest; } else b = p.cloneNode(true); return b; }
     if (isList(x.rest)) { b = el('div', 'dx-cat'); if (x.title) b.appendChild(el('p', 'dx-cat-t')).textContent = x.title; b.appendChild(listOf(listItems(x.rest), true)); }
     else if (x.title) { b = el('div', 'dx-spot'); b.appendChild(el('p', 'dx-spot-t')).textContent = x.title; b.appendChild(el('p', 'dx-spot-d')).textContent = x.rest; }
     else { b = p.cloneNode(true); }
@@ -301,7 +304,8 @@
     var box;
     if (type === 'places' || type === 'excursions') {
       box = el('div', 'dx-sec dx-' + type);
-      body.forEach(function (p) { box.appendChild(block(p)); });
+      var typed = h.getAttribute('data-type') === 'points';
+      body.forEach(function (p) { box.appendChild(block(p, typed)); });
     } else if (type === 'reach') {
       box = el('div', 'dx-sec dx-reach');
       body.forEach(function (p) {

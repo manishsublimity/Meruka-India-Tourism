@@ -76,3 +76,28 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
   fitAll();
 })();
+
+// (4 Nov 2026, client) phones: the tour finder opens as a sheet from the bottom, as the filters of a tour category
+// page — a dimmed page behind, "Filters" and Reset on top, "Show tours" at the foot; a tap outside or Escape closes it
+(function () {
+  var b = document.querySelector('[data-tf-toggle]'), f = document.getElementById('tf');
+  if (!b || !f) return;
+  var scrim = document.createElement('div'); scrim.className = 'tf-scrim'; scrim.hidden = true; f.parentNode.insertBefore(scrim, f);
+  var head = document.createElement('div'); head.className = 'tf-sheet-top';
+  head.innerHTML = '<span>Filters</span><button type="button" class="tf-sheet-reset">Reset</button>';
+  var done = document.createElement('button'); done.type = 'button'; done.className = 'tf-done'; done.textContent = 'Show tours';
+  f.insertBefore(head, f.firstChild); f.appendChild(done);
+  var set = function (open) {
+    f.classList.toggle('tf-open', open); scrim.hidden = !open; b.setAttribute('aria-expanded', open); b.classList.toggle('on', open);
+    document.documentElement.classList.toggle('tf-lock', open);
+  };
+  b.addEventListener('click', function () { set(!f.classList.contains('tf-open')); });
+  scrim.addEventListener('click', function () { set(false); });
+  head.querySelector('.tf-sheet-reset').addEventListener('click', function () { var r = document.getElementById('tf-reset'); if (r) r.click(); });
+  done.addEventListener('click', function () {
+    set(false);
+    var g = document.getElementById('tf-grid'); if (g) window.scrollTo({ top: g.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && f.classList.contains('tf-open')) set(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth >= 768 && f.classList.contains('tf-open')) set(false); });
+})();
