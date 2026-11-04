@@ -1,15 +1,17 @@
   </main>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<%# (3 Nov 2026, client) the photo picker: a search and an upload button on top, every photo in one grid (no tabs);
+    drop files anywhere on it to upload them %>
 <div class="modal" id="media-modal" hidden>
-  <div class="modal-box">
-    <div class="modal-head"><h2>Choose a photo</h2><button type="button" class="btn btn-s" data-close>Close</button></div>
-    <div class="drop" data-drop>Drop an image here, or <label style="color:var(--blue);font-weight:700;cursor:pointer">choose a file<input type="file" accept="image/*" hidden data-file multiple></label> — WebP, JPG, PNG up to 10 MB</div>
-    <div class="tabs" data-tabs style="margin-top:14px"></div>
-    <div class="media-grid" data-grid></div>
+  <div class="modal-box mm-box" data-drop>
+    <div class="mm-head"><div><h2>Choose a photo</h2><small class="muted" data-mcount></small></div><button type="button" class="mm-x" data-close aria-label="Close">✕</button></div>
+    <div class="mm-tools"><label class="mm-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" data-mq placeholder="Search photos by name, e.g. delhi, taj, kerala" aria-label="Search photos"></label><label class="btn btn-p mm-up">Upload photos<input type="file" accept="image/*" hidden data-file multiple></label></div>
+    <div class="mm-grid" data-grid></div>
+    <p class="mm-drop-hint">Drop photos here to upload them — WebP, JPG or PNG, up to 10 MB each</p>
   </div>
 </div>
-<script src="/admin-assets/admin.js?v=8"></script>
+<script src="/admin-assets/admin.js?v=15"></script>
 <% if (typeof scripts !== 'undefined') scripts.forEach(s => { %><script src="<%= s %>"></script><% }) %>
 </body>
 </html>

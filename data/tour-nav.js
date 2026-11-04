@@ -20,7 +20,7 @@ const LISTS = {};
 for (const f of fs.readdirSync(path.join(__dirname, 'tour-lists')).filter(f => f.endsWith('.js'))) {
   const l = require('./tour-lists/' + f);
   const seen = new Set();
-  LISTS[l.url.toLowerCase()] = { title: l.heading, url: l.url, hero: l.heroSrc || '', tours: (l.groups || []).flatMap(g => g.tours || []).filter(t => t.href && !seen.has(t.href.toLowerCase()) && seen.add(t.href.toLowerCase())) };
+  LISTS[l.url.toLowerCase()] = { title: l.heading, url: l.url, navGroup: l.navGroup || '', added: !!l.__cmsNew, live: !l.unpublished, hero: l.heroSrc || '', tours: (l.groups || []).flatMap(g => g.tours || []).filter(t => t.href && !seen.has(t.href.toLowerCase()) && seen.add(t.href.toLowerCase())) };
 }
 const tourPages = new Set(fs.readdirSync(path.join(__dirname, 'tours')).filter(f => f.endsWith('.js')).map(f => require('./tours/' + f).url.toLowerCase()));
 
@@ -33,5 +33,12 @@ function inCategory(tourUrl, listUrl) {
   const i = tours.findIndex(t => t.href.toLowerCase() === String(tourUrl).toLowerCase());
   return { title: l.title, url: l.url, hero: l.hero, tours, index: i, prev: i > 0 ? tours[i - 1] : null, next: i >= 0 && i < tours.length - 1 ? tours[i + 1] : null };
 }
+
+// (2 Nov 2026, client) a category added in the admin panel shows in the group chosen for it, once it is published
+GROUPS.forEach(g => Object.values(LISTS).filter(x => x.navGroup === g.title && x.live && !g.cats.some(c => c.href.toLowerCase() === x.url.toLowerCase()))
+  .forEach(x => g.cats.push({ name: String(x.title || '').replace(/<[^>]+>/g, '').trim(), href: x.url })));
+// the categories added without a group: a group of their own, after the others
+const more = Object.values(LISTS).filter(x => x.added && !x.navGroup && x.live).map(x => ({ name: String(x.title || '').replace(/<[^>]+>/g, '').trim(), href: x.url }));
+if (more.length) GROUPS.push({ title: 'More Tour Packages', cats: more });
 
 module.exports = { groups: GROUPS, inCategory };

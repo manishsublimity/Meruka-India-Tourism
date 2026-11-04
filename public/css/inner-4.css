@@ -3649,3 +3649,53 @@ body,div:has(> #mk-frame.in4),#mk-frame.in4{background:#fff !important}
 @media (max-width:599.98px){ #mk-frame#mk-frame .fx-how .fx-steps{grid-template-columns:minmax(0,1fr)} }
 /* phones: no "On this page" box on the guide and destination pages */
 @media (max-width:767.98px){ #mk-frame#mk-frame .ar-toc-box,#mk-frame#mk-frame .ar-toc{display:none !important} }
+/* (2 Nov 2026, client) a photo placed in the page text from the panel: left / right with the text around it, centre, full width; S / M / L size */
+#mk-frame .prose img.im-left{float:left;max-width:50%;margin:6px 22px 14px 0}
+#mk-frame .prose img.im-right{float:right;max-width:50%;margin:6px 0 14px 22px}
+#mk-frame .prose img.im-center{display:block;margin:14px auto}
+#mk-frame .prose img.im-full{display:block;width:100%;margin:14px 0}
+#mk-frame .prose img[style*="width"]{max-width:100%}
+#mk-frame .prose img.im-left[style*="width"],#mk-frame .prose img.im-right[style*="width"]{max-width:none}
+#mk-frame .prose::after{content:"";display:table;clear:both}
+@media (max-width:640px){ #mk-frame .prose img.im-left,#mk-frame .prose img.im-right{float:none;display:block;width:100%!important;max-width:100%;margin:12px 0} }
+/* (2 Nov 2026, client) a day's note: a box with an "i" */
+#mk-frame#mk-frame.it2 .it2-note{display:flex;align-items:flex-start;gap:8px;font-weight:600}
+#mk-frame#mk-frame.it2 .it2-note svg{flex:none;width:17px;height:17px;margin-top:2px}
+/* (2 Nov 2026, client) a tour's own description from the panel's text editor: its paragraphs, lists, headings, tables */
+#mk-frame#mk-frame.it2 .it2-dsh > :first-child{margin-top:0}
+#mk-frame#mk-frame.it2 .it2-dsh > :last-child{margin-bottom:0}
+#mk-frame#mk-frame.it2 .it2-dsh p{margin:0 0 10px}
+#mk-frame#mk-frame.it2 .it2-dsh :is(h1,h2,h3,h4){margin:14px 0 8px;line-height:1.3;color:var(--mk-blue-d,#1F3A5F)}
+#mk-frame#mk-frame.it2 .it2-dsh :is(ul,ol){margin:0 0 10px;padding-left:22px}
+#mk-frame#mk-frame.it2 .it2-dsh table{width:100%;margin:10px 0;border-collapse:collapse;font-size:14px}
+#mk-frame#mk-frame.it2 .it2-dsh :is(td,th){padding:7px 10px;border:1px solid #d3e0ee;text-align:left;vertical-align:top}
+#mk-frame#mk-frame.it2 .it2-dsh blockquote{margin:10px 0;padding:8px 14px;border-left:3px solid #FFB81C;background:#FBF6E9}
+#mk-frame#mk-frame.it2 .it2-dsh img{max-width:100%;height:auto;border-radius:8px}
+#mk-frame#mk-frame.it2 .it2-dsh img.im-left{float:left;max-width:50%;margin:4px 16px 10px 0}
+#mk-frame#mk-frame.it2 .it2-dsh img.im-right{float:right;max-width:50%;margin:4px 0 10px 16px}
+#mk-frame#mk-frame.it2 .it2-dsh img.im-center{display:block;margin:10px auto}
+#mk-frame#mk-frame.it2 .it2-dsh::after{content:"";display:table;clear:both}
+#mk-frame .prose table{width:100%;border-collapse:collapse}
+#mk-frame .prose :is(td,th){padding:7px 10px;border:1px solid #d3e0ee;vertical-align:top}
+
+/* (3 Nov 2026) text from the panel's full editor inside the tour page's small boxes */
+#mk-frame#mk-frame.it2 .it2-note-t > :first-child{margin-top:0}
+#mk-frame#mk-frame.it2 .it2-note-t > :last-child{margin-bottom:0}
+#mk-frame#mk-frame.it2 .it2-note-t p{margin:0 0 6px}
+#mk-frame#mk-frame.it2 .it2-small p,#mk-frame#mk-frame.it2 .it2-ptext p{margin:0 0 8px}
+
+/* (3 Nov 2026) a section's "per row" choice from the panel */
+#mk-frame.in4 .ar-dest .dx-sec.dx-cols{display:grid !important;gap:18px 22px}
+#mk-frame.in4 .ar-dest .dx-sec.dx-cols > *{margin:0 !important}
+#mk-frame.in4 .ar-dest .dx-sec.dx-cols-1{grid-template-columns:minmax(0,1fr)}
+#mk-frame.in4 .ar-dest .dx-sec.dx-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+#mk-frame.in4 .ar-dest .dx-sec.dx-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){ #mk-frame.in4 .ar-dest .dx-sec.dx-cols{grid-template-columns:minmax(0,1fr)} }
+/* (4 Nov 2026) a list part from the panel on a travel guide page: its rows as boxes */
+#mk-frame .prose .px-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:6px 0 22px}
+#mk-frame .prose .px-grid-1{grid-template-columns:minmax(0,1fr)}
+#mk-frame .prose .px-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+#mk-frame .prose .px-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+#mk-frame .prose .px-item{margin:0;padding:14px 16px;border:1px solid #DCE5F0;border-radius:var(--mk-radius,10px);background:#fff;text-align:left}
+#mk-frame .prose .px-item > strong:first-child{display:block;margin-bottom:4px;color:#1F3A5F}
+@media (max-width:760px){ #mk-frame .prose .px-grid{grid-template-columns:minmax(0,1fr)} }

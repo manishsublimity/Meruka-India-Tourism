@@ -7,5 +7,13 @@
   <a class="task" href="/admin/settings/plan"><i>✎</i><span><b>Enquiry form</b>The Plan My Trip form: its fields and the choices people pick.</span></a>
   <a class="task" href="/admin/look"><i>◐</i><span><b>Look of the panel</b>Light or dark, and the panel’s colour.</span></a>
   <% if (can('users')) { %><a class="task" href="/admin/users"><i>👥</i><span><b>Users and roles</b>Who can log in, and what they may change.</span></a><% } %>
+  <%# (4 Nov 2026, client) the other settings of the panel, in the same place %>
+  <% if (can('menus')) { %><a class="task" href="/admin/settings/header"><i>☰</i><span><b>Header menu</b>The links at the top of every page.</span></a>
+  <a class="task" href="/admin/settings/footer"><i>▤</i><span><b>Footer menu and logo</b>The logo, the link columns and the social media icons at the bottom.</span></a><% } %>
+  <% if (can('content')) { %><a class="task" href="/admin/seo"><i>G</i><span><b>Google &amp; SEO</b>How each page shows in Google, and what to fix.</span></a>
+  <a class="task" href="/admin/media"><i>▣</i><span><b>Photos</b>Every photo of the website: upload, search, delete.</span></a><% } %>
+  <% if (can('users')) { %><a class="task" href="/admin/activity"><i>↻</i><span><b>Activity log</b>Who changed what, and when.</span></a><% } %>
+  <% if (can('delete')) { %><a class="task" href="/admin/trash"><i>🗑</i><span><b>Deleted items</b>Put back a deleted page, or delete it for good.</span></a><% } %>
+  <a class="task" href="/admin/shortcuts"><i>⌨</i><span><b>Keyboard shortcuts</b>Every shortcut of the panel and the text editor. Press ? on any page.</span></a>
 </div>
 <%- include('_bottom') %>

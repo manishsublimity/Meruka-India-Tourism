@@ -79,7 +79,9 @@ const li = arr => arr.map(([label, href]) => ({ label, href: link(href) }));
 
 // Images are served from /images (downloaded by scripts/fetch-images.js).
 const IMG = f => '/images/' + f.replace(/^\/?images\//, '');
-const localSrc = src => /^https?:/i.test(src) && !/india-tourism\.net/i.test(src) ? src
+// (2 Nov 2026, client) a photo added in the panel (/uploads/…, /photos/…) keeps its address; only the old site's
+// relative "images/…" addresses move under /images/
+const localSrc = src => (/^https?:/i.test(src) && !/india-tourism\.net/i.test(src)) || /^\/(?!images\/)[a-z]/i.test(src) || /^data:/i.test(src) ? src
   : '/images/' + src.replace(/^https?:\/\/(www\.)?india-tourism\.net/i, '').replace(/^\/+/, '').replace(/^images\//, '');
 
 // Rewrite links and image sources inside imported HTML to their local addresses.
@@ -93,6 +95,11 @@ const rewriteHtml = html => html
     return 'href="' + to.replace(/&/g, '&amp;') + '"' + (/^https?:/i.test(to) ? ' target="_blank" rel="noopener"' : '');
   })
   .replace(/src="([^"]*)"/g, (m, s) => 'src="' + localSrc(s) + '"')
+  // (4 Nov 2026, site check) a photo without alt text gets one from its file name ("andhra_pradesh.webp" → "Andhra pradesh")
+  .replace(/<img\b(?![^>]*\balt=)([^>]*?)\s*\/?>/gi, (m, a) => {
+    const f = ((a.match(/src="([^"]*)"/) || [])[1] || '').split('/').pop().replace(/\.[a-z0-9]+$/i, '').replace(/[-_]+/g, ' ').trim();
+    return '<img' + a + ' alt="' + (f ? f.charAt(0).toUpperCase() + f.slice(1) : '').replace(/"/g, '') + '">';
+  })
   // plain-text addresses: only in text between tags, and not already inside a link
   .split(/(<a\b[\s\S]*?<\/a>|<[^>]+>)/i)
   .map(part => part.startsWith('<') ? part : part.replace(TEXT_URL, u => '<a href="' + link(u) + '">' + u + '</a>'))

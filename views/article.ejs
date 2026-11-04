@@ -12,6 +12,26 @@
     body = body.slice(m[0].length);
   }
   if (facts.length < 2) { facts.length = 0; body = d.html; }
+  // (3 Nov 2026, client) the pages under this one that its text does not list yet (added in the panel) are added by
+  // themselves: as place cards on a region page, as city sections (heading, text, Read More) on a state page
+  const baseOf = h => String(h || '').replace(/^https?:\/\/[^/]+/i, '').replace(/^\/+/, '').replace(/\.(html?|aspx)$/i, '').toLowerCase();
+  const linked = new Set([...body.matchAll(/href="([^"]*)"/g)].map(m => baseOf(m[1])));
+  // (4 Nov 2026, site check) any page with pages under it (a guide page like Pilgrimage too) shows a new one by itself
+  const extraKids = childPages(d.url).filter(c => !linked.has(baseOf(c.url)));
+  const escA = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  if (extraKids.length) {
+    const ulEnd = body.lastIndexOf('</ul>'), cardList = ulEnd > 0 && /<li>\s*<a[^>]*>\s*<img/i.test(body.slice(0, ulEnd));
+    if (facts.length && cardList) {
+      body = body.slice(0, ulEnd) + extraKids.map(c => '<li> <a href="' + escA(c.url) + '"><img src="' + escA(c.img) + '" alt="' + escA(c.name) + '" /></a> <a href="' + escA(c.url) + '">' + escA(c.name) + '</a>\n<p>' + escA(c.text) + '</p>\n<a href="' + escA(c.url) + '">Read More</a> </li>').join('\n') + body.slice(ulEnd);
+    } else {
+      const secs = extraKids.map(c => '<h3>' + escA(c.name) + '</h3>\n<p>' + escA(c.text) + ' <a href="' + escA(c.url) + '">Read More</a></p>').join('\n');
+      const lastCity = [...body.matchAll(/<h3[^>]*>[\s\S]*?Read More<\/a>\s*<\/p>/gi)].pop(), firstH4 = body.search(/<h4[\s>]/i), firstH3 = body.search(/<h3[\s>]/i);
+      // after the last city part; else before the page's closing parts (h4), unless an h4 belongs to a part (an h3
+      // above it, as on Pilgrimage): then at the end
+      const at = lastCity ? lastCity.index + lastCity[0].length : firstH4 >= 0 && (firstH3 < 0 || firstH3 > firstH4) ? firstH4 : body.replace(/<div\s*$/i, '').length;
+      body = body.slice(0, at) + '\n' + secs + '\n' + body.slice(at);
+    }
+  }
   // a "Read More" link at the end of a paragraph becomes the site's blue outline button
   body = body.replace(/<a ([^>]*)>\s*Read More\s*<\/a>(\s*<\/p>)/gi, '<a class="ar-more" $1>Read More</a>$2');
   // loose text between paragraphs on some originals (Goa) becomes a paragraph of its own
@@ -30,7 +50,8 @@
   const DEST_STATES = ['/Jammu-Kashmir', '/Madhya-Pradesh', '/rajasthan', '/Lakshadweep'];
   const isDest = !facts.length && (/Places of Interest/i.test(d.html) || /<h[34][^>]*>\s*(Excursions|Reach)/i.test(d.html) || DEST_STATES.includes(d.url));
   const place = String(d.heading).replace(/\s*Tourism$/i, '').trim();
-  const tours = isDest ? toursFor(place) : [];
+  // (2 Nov 2026, client) the tours chosen in the panel (the page's "Tours" tab) replace the automatic choice
+  const tours = d.tours && d.tours.length ? toursByUrl(d.tours) : isDest ? toursFor(place) : [];
   // a different photo for every tour card (and none that the page already shows): the tour's own
   // photo, else one for a stop on its route other than this place, else the card photo
   const usedImg = new Set((d.listings && d.listings.regions || []).map(r => r.img));
@@ -119,6 +140,6 @@
 
 </div>
 </div>
-<script src="/js/article.js" defer></script>
+<script src="/js/article.js?v=4" defer></script>
 </body>
 </html>

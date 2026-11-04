@@ -1,0 +1,20 @@
+<%- include('_top', { pageTitle: 'Keyboard shortcuts' }) %>
+<%# (4 Nov 2026, client) every keyboard shortcut of the panel on one page (also: press ? anywhere) %>
+<% const K = (k) => k.split(' + ').map(x => '<kbd>' + x + '</kbd>').join(' + ');
+   const GROUPS = [
+     ['Everywhere in the panel', [['N', 'Quick add: a new tour, category, page, review or user'], ['/', 'Go to the search box of the page'], ['?', 'Show these shortcuts'], ['Esc', 'Close a popup or a menu']]],
+     ['While editing a page', [['Ctrl + S', 'Save a draft'], ['Esc', 'Leave full screen in the text editor']]],
+     ['In the text editor', [['Ctrl + B', 'Bold'], ['Ctrl + I', 'Italic'], ['Ctrl + U', 'Underline'], ['Ctrl + Shift + X', 'Strikethrough'], ['Ctrl + K', 'Add or change a link'],
+       ['Ctrl + Shift + L', 'Align left'], ['Ctrl + Shift + E', 'Align centre'], ['Ctrl + Shift + R', 'Align right'], ['Ctrl + Shift + J', 'Justify'],
+       ['Ctrl + Shift + 8', 'Bullet list'], ['Ctrl + Shift + 7', 'Numbered list'], ['Tab', 'In a list: move the point in (Shift + Tab: out)'],
+       ['Ctrl + Alt + 1', 'Heading 1'], ['Ctrl + Alt + 2', 'Heading 2'], ['Ctrl + Alt + 3', 'Heading 3'], ['Ctrl + Alt + 4', 'Heading 4'], ['Ctrl + Alt + 0', 'Normal text'],
+       ['Ctrl + \\', 'Remove the formatting'], ['Ctrl + Z', 'Undo'], ['Ctrl + Y', 'Redo']]],
+     ['In a list of points (Prices & notes)', [['Enter', 'The next point'], ['Backspace', 'In an empty point: remove it']]]
+   ]; %>
+<div class="ad-top ad-head"><div><h1>Keyboard shortcuts</h1><p class="lead">Work faster with the keyboard. On a Mac use ⌘ instead of Ctrl. Press <kbd>?</kbd> on any page of the panel to see them.</p></div></div>
+<div class="kb-groups">
+  <% GROUPS.forEach(([title, rows]) => { %>
+  <section class="card kb-g"><h2><%= title %></h2><table class="kb-t"><% rows.forEach(([k, w]) => { %><tr><td><%- K(k) %></td><td><%= w %></td></tr><% }) %></table></section>
+  <% }) %>
+</div>
+<%- include('_bottom') %>

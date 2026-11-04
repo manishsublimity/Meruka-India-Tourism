@@ -1,8 +1,12 @@
 <%- include('_top', { pageTitle: 'Photos' }) %>
-<div class="ad-top">
-  <div><h1>Photos</h1><p>Upload photos here, then pick them in any page. Click a photo to copy its address.</p></div>
+<%# (3 Nov 2026, client) every photo of the website in one grid: search by name, upload (or drop files on the page),
+    click a photo to copy its address; uploaded photos can be deleted %>
+<div class="ad-top ad-head">
+  <div><h1>Photos</h1><p class="lead">Every photo of the website. Upload photos here, then pick them in any page. Click a photo to copy its address.</p></div>
 </div>
-<div class="drop" data-page-drop>Drop images here, or <label style="color:var(--blue);font-weight:700;cursor:pointer">choose files<input type="file" accept="image/*" hidden multiple data-page-file></label> — WebP, JPG, PNG up to 10 MB each</div>
-<div class="tabs" data-page-tabs style="margin-top:18px"></div>
-<div class="media-grid" data-page-grid></div>
-<%- include('_bottom', { scripts: ['/admin-assets/media-page.js?v=1'] }) %>
+<div class="mm-page" data-page-drop>
+  <div class="mm-tools"><label class="mm-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" data-mq placeholder="Search photos by name, e.g. delhi, taj, kerala" aria-label="Search photos"></label><span class="muted" data-mcount></span><label class="btn btn-p mm-up">Upload photos<input type="file" accept="image/*" hidden multiple data-page-file></label></div>
+  <div class="mm-grid" data-page-grid></div>
+  <p class="mm-drop-hint">Drop photos here to upload them — WebP, JPG or PNG, up to 10 MB each</p>
+</div>
+<%- include('_bottom', { scripts: ['/admin-assets/media-page.js?v=3'] }) %>

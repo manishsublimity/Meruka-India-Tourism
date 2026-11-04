@@ -33,7 +33,8 @@
   });
   // Enquiry link that also carries the chosen hotel category
   const withHotel = (href, hotel) => href.replace(/(#|$)/, m => (href.includes('?') ? '&' : '?') + 'hotel=' + encodeURIComponent(hotel) + m);
-  const rest = d.details.filter(b => b !== pricing);
+  // (3 Nov 2026, client) a list with nothing in it (includes, excludes, notes) is not shown at all, not even its heading
+  const rest = d.details.filter(b => b !== pricing && (b.items || []).some(it => (Array.isArray(it) ? it.map(x => x.text || '').join('') : String(it || '')).trim()));
   const incl = rest.find(b => /includes/i.test(b.title));
   const excl = rest.find(b => /excludes/i.test(b.title));
   const notes = rest.filter(b => b !== incl && b !== excl);
@@ -128,35 +129,10 @@
   const tdDays = d.days.length;
   // the tour's category (its breadcrumb's list page): the other tours in it, and the tours before and after this one
   const tdCat = tourNav.inCategory(d.url, (d.breadcrumb[d.breadcrumb.length - 2] || {}).href);
-  // the short description under the title: written by hand for some tours, otherwise built from the route
-  const TD_DESC = {
-    '/rajasthan_holiday_tour_packages': 'A private 11-day journey from Delhi to the Taj Mahal at Agra and on through the royal cities of Rajasthan — Jaipur, Pushkar, Jodhpur and Udaipur — with forts, palaces, lakes and temples along the way, and the great fort of Chittorgarh on the last day.'
-  };
-  const tdMid = [...new Set(stops.slice(1, -1).map(x => x.replace(/\(.*?\)/g, '').trim()).filter(x => x && !/home\s*town/i.test(x) && x !== stops[0] && x !== stops[stops.length - 1]))];
-  const tdList = a => a.length > 1 ? a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1] : (a[0] || '');
-  const tdReal = stops.filter(x => !/home\s*town/i.test(x));
-  const tdEnd = tdReal[tdReal.length - 1], tdStart = tdReal[0];
-  if (tdMid[tdMid.length - 1] === tdEnd) tdMid.pop();
-  // highlights: the sights named in bold in the day texts (a couple per day, spread over the tour)
-  const tdStopRe = new RegExp('^(' + stops.map(x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')$', 'i');
-  const tdSkip = /home ?town|airport|railway|station|hotel|emporium|show|mohabbat|market|bazaar|^old and new|cruise|flight|ride|^day\b|resort/i;
-  // one sight per day, then up to seven spread evenly over the whole tour
-  const tdPer = d.days.map(day => { for (const p of (day.paras || [])) for (const seg of p) {
-      const t = String(seg.text || '').replace(/\s+/g, ' ').trim().replace(/[,.:;]+$/, '');
-      if (seg.bold && t.length >= 4 && t.length <= 40 && !tdSkip.test(t) && !tdStopRe.test(t)) return t; } return null; }).filter(Boolean)
-    .filter((x, i, arr) => arr.indexOf(x) === i);
-  const tdHl = tdPer.length > 7 ? [0, 1, 2, 3, 4, 5, 6].map(i => tdPer[Math.round(i * (tdPer.length - 1) / 6)]) : tdPer;
-  const tdLead = TD_DESC[d.url] || ('A private ' + tdDays + '-day tour from ' + tdStart
-      + (tdMid.length ? ' through ' + tdList(tdMid.slice(0, 6)) + (tdMid.length > 6 ? ' and more' : '') : '')
-      + (tdEnd && tdEnd !== tdStart ? ', ending in ' + tdEnd : (tdEnd ? ' and back to ' + tdEnd : '')) + '.');
-  const tdTail = ' You travel in your own air-conditioned car with an English-speaking driver, stay in hand-picked hotels, and every part of the plan can be changed to suit you.';
-  // two to three lines on a laptop: fewer highlights when the lead is long
-  let tdDesc = tdLead + tdTail;
-  for (let k = Math.min(7, tdHl.length); k >= 3; k--) {
-    const pick = k === tdHl.length ? tdHl : [...Array(k).keys()].map(i => tdHl[Math.round(i * (tdHl.length - 1) / (k - 1))]);
-    const t = tdLead + ' Highlights include ' + tdList(pick) + '.' + tdTail;
-    if (t.length <= 440) { tdDesc = t; break; }
-  }
+  // the short description under the title (data/tour-desc.js: by hand for some tours, else from the route and the days);
+  // (2 Nov 2026, client) the tour's own description, written in the panel's text editor, comes first
+  const tdOwn = String(d.summary || '').trim();
+  const tdDesc = tdOwn ? '' : autoDesc(d);
 %>
 <% const topPics = [heroImg]; %>
 <%# (21 Oct 2026, client) the tour page in the reference layout (meruka-india-testing.netlify.app/itin_2, its default
@@ -199,31 +175,41 @@
       <header id="top" class="it2-hd it2-card">
   <div class="it2-tt"><h1><%= words.join(' ') %> <em><%= lastWord %></em></h1></div>
   <%- pvtLineFull %>
-  <p class="it2-ds"><%= tdDesc %></p>
+  <% if (tdOwn) { %><div class="it2-ds it2-dsh"><%- /</.test(tdOwn) ? tdOwn : '<p>' + escapeFn(tdOwn) + '</p>' %></div><% } else { %><p class="it2-ds"><%= tdDesc %></p><% } %>
   <div class="it2-rt"><%- it2Sym.pin %><div><b>Route:</b> <% stops.forEach((s, j) => { %><%= s %><% if (j < stops.length - 1) { %> <i aria-hidden="true">→</i> <% } %><% }) %></div></div>
   <div class="it2-fx">
     <div class="it2-f"><span><%- it2Sym.clock %><%= tdNights %> Nights / <%= tdDays %> Days</span><span><%- it2Sym.pin %><%= it2Real.length %> Stops</span><% if (it2Code) { %><span class="it2-fcode">Tour Code: <b class="notranslate" translate="no"><%= it2Code %></b></span><% } %></div>
     <% if (tdFrom) { %><div class="it2-pr"><small>Starts from</small><strong><%= tdUsd(tdFrom) %></strong><span>per person</span></div><% } %>
   </div>
 </header>
-      <% let it2Side = 0; d.days.forEach((day, i) => { const ph = dayPhotos[i]; const flip = ph && (it2Side++ % 2 === 1); %>
+      <%# (3 Nov 2026, client) a day with nothing in it (no title, no text) is not shown %>
+      <% let it2Side = 0; d.days.forEach((day, i) => { const dayText = typeof day.html === 'string' ? day.html.replace(/<[^>]+>|&nbsp;/g, '').trim() : (day.paras || []).map(p => (p || []).map(x => x.text || '').join('')).join('').trim(); if (!String(day.title || '').trim() && !dayText) return; const ph = dayPhotos[i]; const flip = ph && (it2Side++ % 2 === 1); %>
       <section class="it2-day">
         <div class="it2-dh"><span class="it2-badge"><%= day.day %></span><h3><%= it2Title(day, i) %></h3><% if (day.eta) { %><span class="it2-dist"><%= day.eta %></span><% } %></div>
         <div class="it2-db"><% if (ph) { %><img class="it2-pic<%= flip ? ' r' : '' %>" src="<%= ph %>" alt="" loading="lazy"><% } %>
+          <% if (typeof day.html === 'string') { %><%- i === d.days.length - 1 && it2Sub((day.paras || [])[0]) ? day.html.replace(/^\s*<p>\s*<(?:b|strong)>[^<]*<\/(?:b|strong)>\s*<\/p>/i, '') : day.html %><% } else { %>
           <% (day.paras || [day.body]).forEach((para, k) => { if (isInfo(para, k) || (i === d.days.length - 1 && k === 0 && it2Sub(para))) return; %><p><%- rs(para, '') %></p><% }) %>
-          <% if (day.note) { %><p class="it2-note"><%- rs(day.note, '') %></p><% } %>
+          <% } %>
+          <% if (day.note && (typeof day.note !== 'string' || day.note.replace(/<[^>]+>|&nbsp;/g, '').trim())) { %><div class="it2-note"><%- it2Sym.info %><div class="it2-note-t"><%- typeof day.note === 'string' && /</.test(day.note) ? day.note : rs(day.note, '') %></div></div><% } %>
         </div>
       </section>
       <% }) %>
 
+      <%# (3 Nov 2026, client) nothing to show under the days (no price, no lists): no empty box %>
+      <% if ((it2Sel && it2Sel.totalLo) || (pricing.title && (String(pricing.text || '').trim() || it2Other.length)) || d.hotels || d.flights || incl || excl || notes.length) { %>
       <section class="it2-info" id="pricing">
         <% if (it2Sel && it2Sel.totalLo) { %>
         <div class="it2-sec it2-pg">
           <div class="it2-pl"><small>Starts from</small><div><strong><%= tdUsd(it2Sel.totalLo) %></strong></div><span>per person</span></div>
-          <div class="it2-pd"><p class="it2-pin"><span>The price quote includes a <b>private tour</b> with <b><%= it2Hotel(it2Sel) || '3-Star' %> hotels</b>, a <b>private car with driver</b>, and other services as mentioned below.</span></p></div>
+          <%# the usual wording (also what the panel shows by default) keeps its bold words %>
+          <% if (String(d.priceLine || '').trim() && String(d.priceLine).trim() !== 'The price quote includes a private tour with {hotel} hotels, a private car with driver, and other services as mentioned below.') { const pl = escapeFn(String(d.priceLine).trim()); %>
+          <div class="it2-pd"><p class="it2-pin"><span data-it2-line><%- pl.includes('{hotel}') ? pl.split('{hotel}').join('<b data-it2-pl>' + escapeFn(it2Hotel(it2Sel) || '3-Star') + '</b>') : pl %></span></p></div>
+          <% } else { %>
+          <div class="it2-pd"><p class="it2-pin"><span>The price quote includes a <b>private tour</b> with <b data-it2-pl><%= it2Hotel(it2Sel) || '3-Star' %></b><b> hotels</b>, a <b>private car with driver</b>, and other services as mentioned below.</span></p></div>
+          <% } %>
         </div>
-        <% } else if (pricing.title) { %>
-        <div class="it2-sec"><h3><%= pricing.title %></h3><% if (pricing.text) { %><p><%= pricing.text %></p><% } %><% if (it2Other.length) { %><ul class="it2-list it2-yes"><% it2Other.forEach(t => { %><li><%- it2Sym.info %><span><b><%= it2Hotel(t) || 'Price' %>:</b> <%= t.rest %></span></li><% }) %></ul><% } %></div>
+        <% } else if (pricing.title && (String(pricing.text || '').trim() || it2Other.length)) { %>
+        <div class="it2-sec"><h3><%= pricing.title %></h3><% if (pricing.text) { %><div class="it2-ptext"><%- /</.test(pricing.text) ? pricing.text : '<p>' + escapeFn(pricing.text) + '</p>' %></div><% } %><% if (it2Other.length) { %><ul class="it2-list it2-yes"><% it2Other.forEach(t => { %><li><%- it2Sym.info %><span><b><%= it2Hotel(t) || 'Price' %>:</b> <%= t.rest %></span></li><% }) %></ul><% } %></div>
         <% } %>
         <% [['hotels', d.hotels], ['flights', d.flights]].forEach(([key, tb]) => { if (!tb) return; %>
         <div class="it2-sec" id="<%= key %>">
@@ -249,12 +235,13 @@
         </div>
         <% }) %>
       </section>
+      <% } %>
     </main>
 
     <aside class="it2-side">
       <div class="it2-price" data-it2-price>
         <div class="it2-ph"><span class="it2-ico"><%- it2Sym.tag %></span><h4><%= pricing.title || 'Tour Pricing Details' %></h4></div>
-        <% if (pricing.text) { %><p class="it2-small"><%= pricing.text %></p><% } %>
+        <% if (pricing.text) { %><div class="it2-small"><%- /</.test(pricing.text) ? pricing.text : escapeFn(pricing.text) %></div><% } %>
         <% if (priced.length) { %>
         <div class="it2-total"><div class="it2-stars" data-it2-stars><%= '★'.repeat(it2Sel.stars) %></div><p class="it2-amt" data-it2-amt><%= it2Sel.total %></p><p class="it2-per"><%= tdUnit %></p></div>
         <p class="it2-lab">Choose your hotels</p>
@@ -266,10 +253,11 @@
         <% } %>
         <% if (it2Other.length && priced.length) { %><ul class="it2-other"><% it2Other.forEach(t => { %><li><b><%= it2Hotel(t) || 'Price' %>:</b> <%= t.rest %></li><% }) %></ul><% } %>
         <p class="it2-lab">Price includes</p>
+        <%# (2 Nov 2026, client) the tour's own points from the panel; without them the three usual points %>
         <ul class="it2-inc">
-          <li><%- it2Sym.check %><span>Hotel accommodation on twin sharing basis</span></li>
-          <li><%- it2Sym.check %><span>Air-conditioned car with driver throughout sightseeing</span></li>
-          <li><%- it2Sym.check %><span>Transport service from arrival until final departure</span></li>
+          <% ((d.priceIncludes || []).filter(x => String(x).trim()).length ? d.priceIncludes.filter(x => String(x).trim()) : ['Hotel accommodation on twin sharing basis', 'Air-conditioned car with driver throughout sightseeing', 'Transport service from arrival until final departure']).forEach(p => { %>
+          <li><%- it2Sym.check %><span><%= p %></span></li>
+          <% }) %>
         </ul>
         <a class="it2-btn ph-btn ph-btn-gold" data-it2-cta data-base="<%= d.enquire.href %>" href="<%= it2Sel ? withHotel(d.enquire.href, it2Hotel(it2Sel)) : d.enquire.href %>"><%= d.enquire.label %></a>
         <p class="it2-fine">The above quote may vary 10–15% according to travel period, season, festivals, etc.</p>
@@ -302,6 +290,7 @@
     if (amt) amt.textContent = b.dataset.total;
     if (st) st.textContent = '★★★★★'.slice(0, +b.dataset.stars);
     if (inc) inc.textContent = b.dataset.hotel;
+    document.querySelectorAll('[data-it2-pl]').forEach(function (x) { x.textContent = b.dataset.hotel; });   // the line under the price
     if (cta) { var base = cta.dataset.base, h = encodeURIComponent(b.dataset.hotel); cta.href = base.replace(/(#|$)/, function (m) { return (base.indexOf('?') > -1 ? '&' : '?') + 'hotel=' + h + m; }); }
   }); });
 })();
