@@ -73,11 +73,11 @@
       <% if (kind === 'posts') { %><td class="muted"><%= it.date %></td><% } %>
       <td><% if (!it.published) { %><span class="pill pill-off">Draft</span><% } else if (it.hasDraft) { %><span class="pill pill-draft">Live + changes</span><% } else { %><span class="pill pill-live">Live</span><% } %></td>
       <td class="muted"><%= it.savedAt ? new Date(it.savedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' }) : 'Original' %></td>
-      <td class="acts"><a class="btn btn-s btn-p" href="/admin/<%= it.editKind || kind %>/<%= it.id %>">Edit</a><% if (it.textTour) { %></td><% } else { %><button class="btn btn-s" type="button" data-copy="<%= it.id %>" data-name="<%= it.name %>">Copy</button><% if (mayDelete) { %><button class="btn btn-s btn-d" type="button" data-del="<%= it.id %>" data-name="<%= it.name %>">Delete</button><% } %></td><% } %>
+      <td class="acts"><a class="btn btn-s btn-p" href="/admin/<%= it.editKind || kind %>/<%= it.id %>">Edit</a><% if (it.textTour) { %></td><% } else { %><% if (mayDelete) { %><button class="btn btn-s btn-d" type="button" data-del="<%= it.id %>" data-name="<%= it.name %>">Delete</button><% } %></td><% } %>
     </tr>
     <% }) %>
   </tbody>
 </table>
 </div>
-<script>window.LIST = { kind: <%- JSON.stringify(kind) %>, one: <%- JSON.stringify(k.one) %> };</script>
-<%- include('_bottom', { scripts: ['/admin-assets/list.js?v=11'] }) %>
+<script>window.LIST = { kind: <%- JSON.stringify(kind) %>, one: <%- JSON.stringify(k.one) %>, navGroups: <%- JSON.stringify(typeof navGroups !== 'undefined' ? navGroups : []) %> };</script>
+<%- include('_bottom', { scripts: ['/admin-assets/itinerary-import.js?v=1', '/admin-assets/list.js?v=15'] }) %>

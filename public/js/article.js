@@ -59,7 +59,8 @@
       var name = (($$(':scope > a', li)[1] || {}).textContent || '').trim().toLowerCase(), img = $(':scope > a > img', li);
       var big = BIG_PHOTO[name];
       // never show a photo twice on a page
-      if (img && big && !$$('img').some(function (x) { return x.getAttribute('src') === big; })) img.setAttribute('src', big);
+      // (2 Nov 2026) only the imported small thumbnails: a photo chosen in the panel stays as chosen
+      if (img && big && /^\/images\//.test(img.getAttribute('src') || '') && !$$('img').some(function (x) { return x.getAttribute('src') === big; })) img.setAttribute('src', big);
     });
     // the places get their own full-width section after the article (as in the client's
     // reference), and the article gets a sidebar: the places as quick links + Plan My Trip
@@ -256,6 +257,8 @@
   // 3) sections that start with an h4
   var sectionOf = function (h) {
     var t = h.textContent;
+    if (h.getAttribute('data-type') === 'points') return /reach|getting there|how to get/i.test(t) ? 'reach' : /excursion/i.test(t) ? 'excursions' : 'places';
+    if (h.getAttribute('data-type') === 'text') return /how to plan/i.test(t) ? 'plan' : '';
     return /places of interest|attractions|sightseeing/i.test(t) ? 'places' : /excursion/i.test(t) ? 'excursions' : /reach|getting there|how to get/i.test(t) ? 'reach' : /how to plan/i.test(t) ? 'plan' : '';
   };
   // never drop words: a text becomes chips only when every piece is a short name
@@ -316,6 +319,9 @@
       box.appendChild(el('div', 'dx-acts', '<a href="/plan-my-trip" class="dx-btn dx-btn-gold">Plan My Trip</a><a href="/contactus#enquiry" class="dx-btn dx-btn-line">Enquire Now</a>'));
     }
     body.forEach(function (p) { p.remove(); });
+    // (3 Nov 2026) the panel's "per row" choice
+    var cols = +h.getAttribute('data-cols');
+    if (cols >= 1 && cols <= 3) { box.classList.add('dx-cols', 'dx-cols-' + cols); }
     h.parentNode.insertBefore(box, h.nextSibling);
   });
 
@@ -388,4 +394,18 @@
     links.forEach(function (a, k) { a.classList.toggle('on', k === i); });
   }, { rootMargin: '-90px 0px -65% 0px' });
   heads.forEach(function (h) { io.observe(h); });
+})();
+
+// (4 Nov 2026) a list part written in the panel ("Places to see" with rows of a name and its words), on the pages that
+// do not use the destination layout (the travel guide): its rows as boxes, 1, 2 or 3 in a row as chosen
+(function () {
+  document.querySelectorAll('.prose [data-type="points"]').forEach(function (h) {
+    if (h.classList.contains('dx-h')) return;
+    var n = +h.getAttribute('data-cols'), items = [];
+    for (var x = h.nextElementSibling; x && !/^H[1-6]$/.test(x.tagName); x = x.nextElementSibling) if (x.tagName === 'P' && x.textContent.trim()) items.push(x);
+    if (!items.length) return;
+    var g = document.createElement('div'); g.className = 'px-grid' + (n >= 1 && n <= 3 ? ' px-grid-' + n : '');
+    h.parentNode.insertBefore(g, items[0]);
+    items.forEach(function (p) { p.classList.add('px-item'); g.appendChild(p); });
+  });
 })();

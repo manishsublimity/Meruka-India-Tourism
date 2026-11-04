@@ -22,7 +22,7 @@
   A.dialog = function (o) {
     return new Promise(resolve => {
       const m = document.createElement('div'); m.className = 'modal';
-      m.innerHTML = '<div class="modal-box" style="width:min(560px,100%)" role="dialog" aria-modal="true"><div class="modal-head"><h2></h2></div><div class="dlg-body"></div><p class="err" hidden></p><div class="dlg-foot"><button type="button" class="btn" data-x></button><button type="button" class="btn" data-ok></button></div></div>';
+      m.innerHTML = '<div class="modal-box" style="width:min(' + (o.wide ? 640 : 560) + 'px,100%)" role="dialog" aria-modal="true"><div class="modal-head"><h2></h2></div><div class="dlg-body"></div><p class="err" hidden></p><div class="dlg-foot"><button type="button" class="btn" data-x></button><button type="button" class="btn" data-ok></button></div></div>';
       m.querySelector('h2').textContent = o.title || '';
       m.querySelector('.dlg-body').innerHTML = o.html || '';
       const okb = m.querySelector('[data-ok]'), xb = m.querySelector('[data-x]'), err = m.querySelector('.err');
@@ -39,6 +39,69 @@
       if (o.onOpen) o.onOpen(box, close);
       const first = box.querySelector('input,select,textarea'); (first || okb).focus();
     });
+  };
+  // (4 Nov 2026, client) where a page goes, in two plain steps: 1 the region (or part of the travel guide) as buttons,
+  // 2 the page it belongs to, from a list of plain names (cities a step in, under their state) with a search; the path
+  // it gets on the website shows below. Used by Add and Move. o: { secs, guide, si, ri, cur: {si, ri}, ok(row), name }
+  A.placePicker = (b, o) => {
+    const secs = o.secs, guide = !!o.guide, lc = s => String(s || '').toLowerCase(), nm = s => String(s || '').replace(/\s*Tourism$/i, '');
+    let si = o.si || 0, sel = o.ri == null ? '' : String(o.ri);
+    const el = b.querySelector('[data-pp]');
+    el.className = 'pp';
+    el.innerHTML = '<div class="pp-step"><b>1</b>' + (guide ? 'Part of the travel guide' : 'Region') + '</div><div class="pp-tabs" data-tabs></div>' +
+      '<div class="pp-step"><b>2</b>' + (guide ? 'Where it goes in it' : 'The state or city it belongs to') + '</div>' +
+      '<div class="pp-box"><input class="pp-q" type="search" placeholder="Find a ' + (guide ? 'page' : 'state or city') + '…" data-q><div class="pp-list" data-list></div></div>' +
+      '<p class="ap-path" data-path></p>';
+    const tabs = el.querySelector('[data-tabs]'), list = el.querySelector('[data-list]'), q = el.querySelector('[data-q]'), path = el.querySelector('[data-path]');
+    const here = (j, i) => o.cur && o.cur.si === (i == null ? si : i) && String(o.cur.ri) === String(j) ? '<em class="pp-here">Now here</em>' : '';
+    const kind = x => guide ? (x.depth ? 'Sub-page' : 'Page') : (x.depth ? 'City / place' : 'State');
+    const show = () => {
+      const s = secs[si], x = sel === '' ? null : s.rows[+sel], chain = s.parents.concat(x ? x.chain.concat([{ label: x.label }]) : []);
+      const name = (typeof o.name === 'function' ? o.name() : o.name) || 'the new page';
+      path.innerHTML = 'On the website: <span>' + ['Home'].concat(chain.map(c => c.label)).map(A.esc).join(' › ') + ' › <b>' + A.esc(name) + '</b></span>' + (guide && !x ? '<small>Listed in the ' + A.esc(s.title) + ' menu</small>' : '');
+    };
+    const draw = () => {
+      tabs.innerHTML = secs.map((s, i) => '<button type="button" class="pp-tab' + (i === si ? ' on' : '') + '" data-i="' + i + '">' + A.esc(nm(s.title)) + '</button>').join('');
+      const s = secs[si], v = lc(q.value.trim());
+      // a search looks in every region; a row found in another region says which
+      const rows = (v ? secs : [s]).flatMap(z => z.rows.map((x, j) => [x, j, secs.indexOf(z)])).filter(([x]) => (!o.ok || o.ok(x)) && (!v || lc(x.label).includes(v)));
+      list.innerHTML = (v ? '' : '<button type="button" class="pp-row pp-top' + (sel === '' ? ' on' : '') + '" data-j=""><span class="pp-nm">Directly in ' + A.esc(nm(s.title)) +
+          '<small>' + (guide ? 'A main page of this part of the guide' : 'It becomes a new state of ' + A.esc(nm(s.title))) + '</small></span>' + here('') + '</button>') +
+        rows.map(([x, j, i]) => '<button type="button" class="pp-row' + (i === si && sel === String(j) ? ' on' : '') + '" data-j="' + j + '" data-s="' + i + '" style="--d:' + (v ? 0 : x.depth) + '"><span class="pp-nm">' + A.esc(nm(x.label)) +
+          (v ? '<small>in ' + A.esc([nm(secs[i].title)].concat(x.chain.map(c => nm(c.label))).join(' › ')) + '</small>' : '') + '</span>' + here(j, i) + '<span class="pp-k">' + kind(x) + '</span></button>').join('') +
+        (rows.length || !v ? '' : '<p class="pp-none">Nothing found for “' + A.esc(q.value.trim()) + '”.</p>');
+      const on = list.querySelector('.on'); if (on) on.scrollIntoView({ block: 'nearest' });
+      show();
+    };
+    tabs.onclick = e => { const t = e.target.closest('[data-i]'); if (!t) return; si = +t.dataset.i; sel = ''; q.value = ''; draw(); };
+    list.onclick = e => { const r = e.target.closest('[data-j]'); if (!r) return; sel = r.dataset.j; if (r.dataset.s) { si = +r.dataset.s; tabs.querySelectorAll('.pp-tab').forEach((t, i) => t.classList.toggle('on', i === si)); } list.querySelectorAll('.pp-row').forEach(x => x.classList.toggle('on', x === r)); show(); };
+    q.oninput = draw;
+    q.onkeydown = e => { if (e.key !== 'Enter') return; e.preventDefault(); e.stopPropagation(); const r = list.querySelector('.pp-row'); if (r) r.click(); };
+    draw();
+    return { get: () => ({ sec: secs[si], x: sel === '' ? null : secs[si].rows[+sel], si, ri: sel }), refresh: show };
+  };
+  // (4 Nov 2026, client) move a text page to another place; the pages under it go with it. Resolves with the page, or null.
+  A.movePage = async ({ id, url, name, group, now }) => {
+    let data; try { data = await A.api('GET', '/admin/api/page-places'); } catch (e) { A.toast(e.message, true); return null; }
+    const guide = group === 'guide', lc = s => String(s || '').toLowerCase();
+    const secs = (guide ? data.guide : data.places.filter(s => s.parents.length));
+    // never under itself or under one of its own pages
+    const ok = r => lc(r.href) !== lc(url) && !r.chain.some(c => lc(c.href) === lc(url));
+    const last = lc((now || [])[(now || []).length - 1] || '');
+    let si = 0, ri = '';
+    secs.forEach((s, i) => { if (s.parents.some(p => lc(p.href) === last)) si = i; s.rows.forEach((r, j) => { if (lc(r.href) === last) { si = i; ri = String(j); } if (lc(r.href) === lc(url) && !last) si = i; }); });
+    let pk;
+    const box = await A.dialog({ title: 'Move “' + name + '”', ok: 'Move here', wide: true,
+      html: '<p class="hint" style="margin:0">Choose the new place of the page. The pages under it move with it.</p><div data-pp></div>',
+      onOpen: b => { pk = A.placePicker(b, { secs, guide, si, ri, cur: { si, ri }, ok, name }); },
+      validate: () => { const g = pk.get(); return g.si === si && g.ri === ri ? 'The page is already here. Choose another place.' : ''; } });
+    if (!box) return null;
+    const { sec, x } = pk.get();
+    const parents = sec.parents.concat(x ? x.chain.concat([{ label: x.label, href: x.href }]) : []);
+    try {
+      const res = await A.api('POST', '/admin/api/item/pages/' + encodeURIComponent(id) + '/move', { parents, guideSection: guide && !x ? sec.guideSection : undefined });
+      A.toast('Moved — ' + ['Home'].concat(parents.map(p => p.label), [name]).join(' › ')); return res;
+    } catch (e) { A.toast(e.message, true); return null; }
   };
   A.confirm = async (title, text, ok, danger) => !!(await A.dialog({ title, html: '<p>' + A.esc(text) + '</p>', ok: ok || 'Yes', danger }));
   // "Rajasthan Desert Tour" → "rajasthan-desert-tour"
@@ -97,29 +160,38 @@
   A.media = async () => (await A.api('GET', '/admin/api/media')).groups;
 
   // the picker: resolves with the chosen photo's address, or null
+  // (3 Nov 2026, client) every photo in one list (the uploaded ones first), each once; a search keeps only the photos
+  // whose name has all the words typed
+  A.allPhotos = groups => {
+    const seen = new Set(), out = [];
+    groups.forEach(g => g.files.forEach(f => { if (seen.has(f.src)) return; seen.add(f.src); out.push(Object.assign({ dir: g.dir, group: g.label }, f)); }));
+    return out;
+  };
+  A.photoMatch = (f, q) => { const name = (f.name + ' ' + f.src).toLowerCase().replace(/[-_.\/]+/g, ' '); return String(q || '').toLowerCase().split(/[\s,]+/).filter(Boolean).every(w => name.includes(w)); };
+  A.photoTile = (f, extra) => '<div class="mi" data-src="' + A.esc(f.src) + '" title="' + A.esc(f.name) + '"><span class="mi-ph"><img src="' + A.esc(f.src) + '" alt="" loading="lazy"></span><span class="mi-n">' + A.esc(f.name) + '</span>' + (f.dir === 'uploads' ? '<i class="mi-tag">Uploaded</i>' : '') + (extra || '') + '</div>';
   A.pickImage = function () {
     const m = document.getElementById('media-modal');
-    const grid = m.querySelector('[data-grid]'), tabs = m.querySelector('[data-tabs]'), drop = m.querySelector('[data-drop]'), file = m.querySelector('[data-file]');
-    let groups = [], cur = 0;
+    const grid = m.querySelector('[data-grid]'), drop = m.querySelector('[data-drop]'), file = m.querySelector('[data-file]'), mq = m.querySelector('[data-mq]'), count = m.querySelector('[data-mcount]');
+    let all = [];
     return new Promise(resolve => {
-      const done = v => { m.hidden = true; m.onclick = null; file.onchange = null; drop.ondrop = drop.ondragover = drop.ondragleave = null; resolve(v); };
       const draw = () => {
-        tabs.innerHTML = groups.map((g, i) => `<button type="button" class="${i === cur ? 'on' : ''}" data-t="${i}">${A.esc(g.label)} (${g.files.length})</button>`).join('');
-        const g = groups[cur] || { files: [] };
-        grid.innerHTML = g.files.length ? g.files.map(f => `<div class="mi" data-src="${A.esc(f.src)}"><img src="${A.esc(f.src)}" alt="" loading="lazy"><span>${A.esc(f.name)}</span></div>`).join('') : '<p class="hint">No photos here yet.</p>';
+        const q = mq.value.trim(), list = q ? all.filter(f => A.photoMatch(f, q)) : all;
+        count.textContent = q ? list.length + ' of ' + all.length + ' photos' : all.length + ' photos';
+        grid.innerHTML = list.length ? list.map(f => A.photoTile(f)).join('') : '<p class="mm-empty">' + (q ? 'No photo has “' + A.esc(q) + '” in its name.' : 'No photos yet. Upload one.') + '</p>';
       };
-      const load = async () => { groups = await A.media(); draw(); };
+      const done = v => { m.hidden = true; m.onclick = null; file.onchange = null; mq.oninput = null; drop.ondrop = drop.ondragover = drop.ondragleave = null; resolve(v); };
+      const load = async () => { all = A.allPhotos(await A.media()); draw(); };
+      mq.value = ''; mq.oninput = draw;
       m.onclick = e => {
         if (e.target === m || e.target.closest('[data-close]')) return done(null);
-        const t = e.target.closest('[data-t]'); if (t) { cur = +t.dataset.t; draw(); return; }
         const it = e.target.closest('.mi'); if (it) done(it.dataset.src);
       };
-      const up = async files => { const srcs = await A.upload(files); if (srcs.length) { await load(); cur = 0; draw(); if (srcs.length === 1) done(srcs[0]); } };
+      const up = async files => { const srcs = await A.upload(files); if (srcs.length) { mq.value = ''; await load(); if (srcs.length === 1) done(srcs[0]); } };
       file.onchange = () => up([...file.files]);
       drop.ondragover = e => { e.preventDefault(); drop.classList.add('over'); };
-      drop.ondragleave = () => drop.classList.remove('over');
+      drop.ondragleave = e => { if (!drop.contains(e.relatedTarget)) drop.classList.remove('over'); };
       drop.ondrop = e => { e.preventDefault(); drop.classList.remove('over'); up([...e.dataTransfer.files]); };
-      m.hidden = false; grid.innerHTML = '<p class="hint">Loading…</p>'; load();
+      m.hidden = false; grid.innerHTML = '<p class="mm-empty">Loading…</p>'; load(); setTimeout(() => mq.focus(), 50);
     });
   };
 })();
@@ -144,6 +216,12 @@
   pops.forEach(p => p.addEventListener('toggle', () => { if (p.open) pops.forEach(o => { if (o !== p) o.open = false; }); }));
   document.addEventListener('click', e => { pops.forEach(p => { if (p.open && !p.contains(e.target)) p.open = false; }); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') pops.forEach(p => { p.open = false; }); });
+  // (4 Nov 2026, client) "/" goes to the page's search box; "?" shows the keyboard shortcuts (not while typing)
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest('input,textarea,select,[contenteditable="true"]') || document.querySelector('.modal:not([hidden])')) return;
+    if (e.key === '/') { const q = document.querySelector('input[type="search"]:not([hidden])'); if (q) { e.preventDefault(); q.focus(); } }
+    else if (e.key === '?') { e.preventDefault(); location.href = '/admin/shortcuts'; }
+  });
   // (27 Oct 2026, client video) N opens "Quick add" from any page (not while typing)
   document.addEventListener('keydown', e => {
     if (e.key !== 'n' && e.key !== 'N') return;

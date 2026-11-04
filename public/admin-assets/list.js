@@ -36,32 +36,53 @@
   const create = async (from, fromName) => {
     const options = rows.filter(r => !r.dataset.text).map(r => { const a = r.querySelector('a[href^="/admin/"]'); return [a.getAttribute('href').split('/').pop(), a.textContent]; });
     // (27 Oct 2026, client) a new tour starts empty and its categories are ticked here; "Copy" copies a tour as it is
-    const blank = L.kind === 'tours' && !from;
+    const blank = (L.kind === 'tours' || L.kind === 'lists') && !from;
     let cats = [];
-    if (blank) { try { cats = (await A.api('GET', '/admin/api/tour-categories/_new')).items || []; } catch (e) { cats = []; } }
+    if (blank && L.kind === 'tours') { try { cats = (await A.api('GET', '/admin/api/tour-categories/_new')).items || []; } catch (e) { cats = []; } }
     const groups = [...new Set(cats.map(c => c.group))];
+    let parsed = null;
     const box = await A.dialog({
-      title: fromName ? 'Copy “' + fromName + '”' : 'Add a new ' + L.one, ok: 'Create ' + L.one + ' as a draft',
-      html: '<div class="f"><label class="lb">Name of the ' + L.one + '</label><input class="in" data-n placeholder="e.g. Rajasthan Desert & Forts Tour"></div>' +
-        (blank ? (cats.length ? '<div class="f"><label class="lb">Show it in these categories</label><div class="nc-cats">' + groups.map(g => '<div class="nc-g"><h5>' + A.esc(g) + '</h5>' +
+      title: fromName ? 'Copy “' + fromName + '”' : 'Add a new ' + L.one, ok: L.kind === 'lists' && !from ? 'Create category' : 'Create ' + L.one + ' as a draft',
+      html: '<div class="f"><label class="lb">Name of the ' + L.one + '</label><input class="in" data-n placeholder="' + (L.kind === 'lists' ? 'e.g. Golden Triangle' : 'e.g. Rajasthan Desert & Forts Tour') + '"></div>' +
+        (blank && L.kind === 'tours' ? (cats.length ? '<div class="f"><label class="lb">Show it in these categories</label><div class="nc-cats">' + groups.map(g => '<div class="nc-g"><h5>' + A.esc(g) + '</h5>' +
             cats.filter(c => c.group === g).map(c => '<label><input type="checkbox" value="' + A.esc(c.id) + '"><span>' + A.esc(c.name) + '</span>' + (c.code ? '<i class="code-b">' + A.esc(c.code) + '</i>' : '') + '</label>').join('') + '</div>').join('') + '</div></div>' : '') :
+          L.kind === 'lists' && !from ? '' :
           '<div class="f"><label class="lb">Start from (its text and layout are copied, then you change them)</label><select class="in" data-f>' +
           options.map(([id, n]) => '<option value="' + A.esc(id) + '"' + (id === from ? ' selected' : '') + '>' + A.esc(n) + '</option>').join('') + '</select></div>') +
-        '<p class="hint">' + (blank ? 'The tour starts empty, as a draft: fill in its days and prices, then publish it.' : 'It starts as a draft: visitors see it once it is published.') + '</p>',
+        // (3 Nov 2026, client) a new tour can start from its itinerary file: the days, prices and lists are filled in
+        (blank && L.kind === 'tours' && window.ITIN ? '<div class="f nc-imp"><label class="lb">Import the itinerary (optional)</label><input type="file" class="in" data-imp accept=".docx,.pdf,.txt,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"><p class="hint" data-impres>A Word file (.docx), a PDF or a text file. Its days, description, prices, includes, excludes and notes fill the new tour. Each day starts with “Day 1: …”.</p></div>' : '') +
+        '<p class="hint">' + (blank && L.kind === 'lists' ? 'It is made as a draft with an empty page: then add its title, tour type, short description and banner, and publish it. It is not put in any tour: tick it in a tour’s Categories tab to add that tour.' : blank ? 'The tour starts empty, as a draft: fill in its days and prices, then publish it.' : 'It starts as a draft: visitors see it once it is published.') + '</p>',
       // (26 Oct 2026, client) no address box: the address is made from the name
-      onOpen: box => { const n = box.querySelector('[data-n]'); if (fromName) n.value = fromName + ' (copy)'; },
+      onOpen: box => {
+        const n = box.querySelector('[data-n]'); if (fromName) n.value = fromName + ' (copy)';
+        const imp = box.querySelector('[data-imp]'), res = box.querySelector('[data-impres]');
+        if (imp) imp.onchange = async () => {
+          const f = imp.files[0]; parsed = null; if (!f) return;
+          res.className = 'hint'; res.textContent = 'Reading the file…';
+          try {
+            const p = window.ITIN.parse(await window.ITIN.read(f));
+            if (!p.days.length) throw new Error('No “Day 1: …” line found in this file.');
+            parsed = p; res.className = 'hint imp-res ok'; res.textContent = 'Found: ' + window.ITIN.found(p) + '.';
+            if (!n.value.trim() && p.title) n.value = p.title;
+          } catch (e) { res.className = 'hint imp-res bad'; res.textContent = e.message; }
+        };
+      },
       validate: box => !box.querySelector('[data-n]').value.trim() ? 'Please type a name.' : !A.slug(box.querySelector('[data-n]').value) ? 'Use letters or numbers in the name.' : ''
     });
     if (!box) return;
     try {
       const fsel = box.querySelector('[data-f]');
       const j = await A.api('POST', '/admin/api/item/' + L.kind, { name: box.querySelector('[data-n]').value.trim(), slug: A.slug(box.querySelector('[data-n]').value), from: fsel ? fsel.value : '',
-        blank, categories: [...box.querySelectorAll('.nc-cats input:checked')].map(x => x.value) });
+        blank, categories: [...box.querySelectorAll('.nc-cats input:checked')].map(x => x.value), });
+      const chosen = [...box.querySelectorAll('.nc-cats input:checked')].map(x => x.value);
+      if (parsed) {
+        try { const it = await A.api('GET', '/admin/api/item/tours/' + j.id); await A.api('PUT', '/admin/api/item/tours/' + j.id, { data: window.ITIN.merge(it.data, parsed), categories: chosen }); }
+        catch (e) { A.toast('The tour is made, but the import failed: ' + e.message, true); }
+      }
       location.href = '/admin/' + L.kind + '/' + j.id;
     } catch (e) { A.toast(e.message, true); }
   };
   const newBtn = document.querySelector('[data-new]'); if (newBtn) newBtn.onclick = () => create('', '');
-  document.querySelectorAll('[data-copy]').forEach(b => { b.onclick = () => create(b.dataset.copy, b.dataset.name); });
   const openNew = () => { if (location.hash === '#new') { history.replaceState(null, '', location.pathname); create('', ''); } };
   openNew(); window.addEventListener('hashchange', openNew);   // "Add …" in the menu while already on this list
   document.querySelectorAll('[data-del]').forEach(b => {

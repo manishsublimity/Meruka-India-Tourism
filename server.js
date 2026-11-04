@@ -70,6 +70,29 @@ function buildSite() {
     return ALL_TOURS.map(t => ({ t, s: score(t) })).filter(x => x.s < 9)
       .sort((a, b) => a.s - b.s || nightsOf(a.t) - nightsOf(b.t)).slice(0, n).map(x => x.t);
   };
+  // (2 Nov 2026, client) the tours chosen by hand on a destination page (its "Tours" tab), by their addresses
+  // (3 Nov 2026, client) the pages under a page (a region's states, a state's cities): the region / state page lists
+  // them by itself, so a page added in the panel shows there without touching the text
+  app.locals.childPages = url => {
+    const k = String(url || '').toLowerCase();
+    return fs.readdirSync(path.join(__dirname, 'data', 'articles')).filter(f => f.endsWith('.js')).map(f => require('./data/articles/' + f))
+      .filter(a => a.url && !a.unpublished && (a.breadcrumb || []).length >= 3 && String((a.breadcrumb[a.breadcrumb.length - 2] || {}).href || '').toLowerCase() === k)
+      .map(a => {
+        const name = String(a.heading || '').replace(/<[^>]+>/g, '').replace(/\s*Tourism$/i, '').trim();
+        const first = (String(a.html || '').match(/<p[^>]*>([\s\S]*?)<\/p>/i) || [])[1] || '';
+        let text = first.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+        if (text.length > 160) text = text.slice(0, 160).replace(/\s+\S*$/, '') + '..';
+        const img = a.heroSrc && !/india-tours-main/.test(a.heroSrc) ? a.heroSrc : app.locals.photoFor([a.heading, a.url]);
+        return { name, url: a.url, img, text };
+      });
+  };
+  app.locals.autoDesc = require('./data/tour-desc');   // a tour's description when it has none of its own (2 Nov 2026)
+  app.locals.toursByUrl = urls => (urls || []).map(u => {
+    const k = String(u || '').toLowerCase(), t = ALL_TOURS.find(x => String(x.href || '').toLowerCase() === k);
+    if (t) return t;
+    const p = TOUR_PAGES[k];
+    return p ? { href: p.url, name: String(p.heading || '').replace(/<[^>]+>/g, '').trim(), route: p.route || '', duration: p.duration || '', img: p.photo || '' } : null;
+  }).filter(Boolean);
   // Every inner page ends with the same "explore" block as the original site (partials/explore-india): the four
   // regions, every tour category in its group, and the travel guide — the home page's designs, the home page's data
   app.locals.tourNav = require('./data/tour-nav');

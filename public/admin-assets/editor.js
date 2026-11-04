@@ -10,9 +10,9 @@
 
   // ---------- plain-language names and help ----------
   const LABELS = {
-    heading: 'Page title (the big heading on the page)', photo: 'Tour photo (used in lists and cards)', route: 'Route', duration: 'Length of the tour',
-    days: 'Days', day: 'Day number', title: 'Title', eta: 'Distance / drive time', paras: 'What happens this day', note: 'Extra note (optional)',
-    details: 'Price & what is included', text: 'Text', items: 'Points', breadcrumb: 'Breadcrumb', label: 'Text', href: 'Link to',
+    heading: 'Page title', photo: 'Tour photo', route: 'Route', duration: 'Length of the tour',
+    days: 'Days', day: 'Day number', title: 'Title', eta: 'Distance / drive time', paras: 'What happens this day', note: 'Note for this day',
+    details: 'Price box (right side of the tour page)', text: 'Text', items: 'Points', breadcrumb: 'Breadcrumb', label: 'Text', href: 'Link to',
     heroSrc: 'Banner photo (top of the page)', heroSrc_tours: 'Banner photo (optional)', heroAlt: 'Describe the banner photo in a few words', description: 'Description', keywords: 'Keywords',
     focusKeyword: 'Main search words (optional)', noindex: 'Hide this page from Google', ogImage: 'Picture when shared on WhatsApp / Facebook',
     intro: 'Introduction text', groups: 'Tours on this page', tours: 'Tours', outro: 'Closing text', name: 'Name', html: 'Page text',
@@ -30,7 +30,7 @@
     date: 'Date', author: 'Written by', category: 'Category', guideSection: 'Show in the India Travel Guide', excerpt: 'Short summary (shown in the list of posts)', topics: 'Topic groups', glance: 'Useful information at a glance', seasons: 'Seasons',
     goodToKnow: 'Good to know', tips: 'Travel tips', titles: 'Titles (Mr., Mrs. …)', countries: 'Countries', months: 'Months', years: 'Years', adults: 'Adults', children: 'Children',
     photo_single: 'Photo', note_single: 'Small text under the cards',
-    intro_lists: 'Description (shown above the tours)', outro_lists: 'Closing text (under the list of tours, optional)',
+    photo_pages: 'Photo', href_pages: 'Opens the page', text_pages: 'Short text', navGroup: 'Group in the tour menu', heading_lists: 'Category title', tourType: 'Tour type', heroSrc_lists: 'Banner image', heroAlt_lists: 'Describe the banner image in a few words', summary: 'Package description (under the tour name)', html_tours: 'What happens this day', priceLine: 'Line beside “Starts from” (under the days)', priceIncludes: '“Price includes” points (in the price box)', intro_lists: 'Short description (shown above the tours)', outro_lists: 'Closing text (under the list of tours, optional)',
     secPackages: 'Best Tour Packages', secPopular: 'Most Popular Tours', secOwnTour: 'Chalk out your own tour', secRegions: 'Four Regions', secGuide: 'Travel Guide section', secWhy: 'Why Choose Us', secFaq: 'FAQs section',
     accent: 'Title — second part (accent colour)', sub: 'Paragraph under the title', button: 'Button text', buttonLink: 'Button link', cards: 'Cards', link: 'Opens (page)', price: 'Price (USD, per couple per day)',
     currency: 'Currency', priceNote: 'Text after the price', included: 'What is included (one per line)', extras: 'You can also (one per line)', kicker: 'Small line under the name', cities: 'Popular cities', statesTitle: 'Title above the states',
@@ -41,7 +41,11 @@
     hotelBudget: 'Hotel budget choices', hotelCategory: 'Hotel category choices', '/': 'Home page', '/aboutus': 'About us page', '/contactus': 'Contact us page', '/testimonials': 'Guest Reviews page', '/plan-my-trip': 'Plan My Trip page'
   };
   const HELP = {
-    heading: 'The large title at the top of the page.',
+    heroSrc_lists: 'The wide photo at the top of the category page, also its photo on India Tour Packages.',
+    summary: 'Starts with the text the tour page shows now.',
+    priceLine: '{hotel} becomes the hotel class the visitor picks (3-Star, 4-Star …).',
+    priceIncludes: 'One point per line.',
+    href_pages: 'Click to pick a page of this website.',
     route: 'The places in order, with " - " between them. Example: Delhi - Agra - Jaipur - Delhi',
     duration: 'Example: 06 Nights · 07 Days',
     photo: 'Shown for this tour in tour lists and "Most Popular Tours". Leave empty to use a matching photo automatically.',
@@ -51,7 +55,7 @@
     heroAlt: 'For Google and for people who cannot see the photo. Example: Taj Mahal at sunrise',
     days: 'Click a day to open it. Drag it by its dots to change the order; the bin removes it.',
     paras: 'Write it like in Word: Enter starts a new paragraph. Select words and use the toolbar for bold, italic, underline or a link.',
-    details: 'First the prices per hotel class, then what the tour includes and excludes, and the important notes.',
+    details: '',
     items: 'One point per line (press Enter for the next point).',
     groups: 'The tours this page lists. Open a group to add, remove or reorder its tours. The first tour of a main category is the one shown in "Most Popular Tours".',
     href: 'A page on this website starts with / (example: /golden_triangle_packages). Another website starts with https://',
@@ -71,7 +75,7 @@
     headerMenu: 'The links in the header, left to right. A page on this website starts with / (example: /itineraries).',
     footerCols: 'Each column: its title and its links (name and address).',
     excerpt: 'Two or three lines. Shown on /blog under the title.',
-    photo: 'Shown for this tour or post in lists and cards.',
+    photo: 'Used in the tour lists and cards.',
     outro: 'Shown under the list of tours on the category page. Leave it empty if the page needs no closing text.',
     cards: 'Drag a card by its dots to change the order; the bin removes it.',
     cities: 'Each city: its name and the page it opens.',
@@ -87,11 +91,14 @@
     // (26 Oct 2026, client) the banner sits in Basic info; the breadcrumb is made automatically, so it has no tab
     // (26 Oct 2026, client video II) one photo per tour; the banner is its category's; route and length come from the days
     // (27 Oct 2026, client) no Google tab for now; the prices (the box beside the days) apart from the includes and notes
-    tours: [['Basic info', ['heading', 'photo', 'route', 'duration'], ''], ['Day by day', ['days'], 'Click a day to open it. Drag a day by its dots to change the order.'],
-      ['Prices', ['details'], 'The price box beside the days on the tour page: one line per hotel class.'], [SEO_TAB, GOOGLE, '']],
+    // (2 Nov 2026, client) the tour's description under its title, the line under the prices and the price box's "Price includes"
+    tours: [['Basic info', ['heading', 'photo', 'route', 'duration', 'summary'], ''], ['Day by day', ['days'], ''],
+      ['Prices', ['details', 'priceIncludes', 'priceLine'], ''], [SEO_TAB, GOOGLE, '']],
     // a category's tours are chosen in each tour (its Categories tab), so the category only needs its text and banner
-    lists: [['Basic info', ['heading', 'intro', 'outro', 'heroSrc', 'heroAlt'], ''], [SEO_TAB, GOOGLE, '']],
-    pages: [['Text', ['heading', 'html', 'guideSection', 'heroSrc', 'heroAlt'], 'Write the page like in Word: the buttons make headings, bold text, lists, links and photos.'], [SEO_TAB, GOOGLE, '']],
+    // (2 Nov 2026, client) a category: its title, tour type, short description and banner; no closing text, no menu group
+    lists: [['Basic info', ['heading', 'intro', 'heroSrc', 'heroAlt'], ''], [SEO_TAB, GOOGLE, '']],
+    pages: [['Text', ['heading', 'html', 'guideSection', 'heroSrc', 'heroAlt'], ''],
+      ['Tours', ['tours'], 'The tour cards under the page text (“Tours that include …”). Leave it empty and the website picks the tours that pass through this place by itself. Choose tours here to show those instead, in this order.'], [SEO_TAB, GOOGLE, '']],
     posts: [['Post', ['heading', 'category', 'date', 'author', 'photo', 'excerpt'], 'The title, date and summary shown in the list of posts.'], ['Text', ['html'], 'Write the post like in Word: the buttons make headings, bold text, lists, links and photos.'], [SEO_TAB, GOOGLE, '']],
     // (26 Oct 2026, client) the home page section by section, in the order the website shows them
     home: [['Banner', ['heroTitle', 'heroSlides'], 'The big title and the photos at the top of the home page.'], ['Figures', ['stats'], 'The band under the banner.'],
@@ -149,9 +156,25 @@
   };
   const touch = () => { if (!dirty) { dirty = true; state.textContent = '● Unsaved changes'; state.classList.add('dirty'); } refreshGoogle(); };
 
+  // (3 Nov 2026) the text editor (toolbar, links, photos, tables) lives in rte.js, shared with the other pages of the panel
+  const { rte, toolbar, tbState, keyCmd, askLink, linkAt, loadLinks, LK, lkKind, lkName } = window.MKRTE;
+  window.MKRTE.setTouch(() => touch());
   // ---------- field builders: each returns { el, get } ----------
   function field(key, value, depth, inList) {
     if (key === 'html' && typeof value === 'string') return rte(value);
+    if (key === 'tours' && E.kind === 'pages') return tourPicker(value || []);
+    // (3 Nov 2026, client) every text box with formatting uses the same full editor
+    if (key === 'intro' && E.kind === 'lists') return rte(typeof value === 'string' ? value : (value || []).map(p => '<p>' + window.MKRTE.segHtml(p) + '</p>').join(''), { min: 110 });
+    if (key === 'note' && E.kind === 'tours' && depth > 0) return rte(typeof value === 'string' ? (/</.test(value) ? value : value ? '<p>' + A.esc(value) + '</p>' : '') : (value || []).length ? '<p>' + window.MKRTE.segHtml(value) + '</p>' : '', { min: 70 });
+    if (key === 'tourType' && E.kind === 'lists') { const c = input(value || '', 'text', x => x.trim()); c.el.placeholder = 'e.g. Private Tour'; c.el.setAttribute('list', 'mk-tourtypes'); if (!document.getElementById('mk-tourtypes')) document.body.insertAdjacentHTML('beforeend', '<datalist id="mk-tourtypes"><option value="Private Tour"><option value="Private Tours · No Sharing"><option value="Group Tour"><option value="Self-drive Tour"></datalist>'); return c; }
+    // (2 Nov 2026, client) a category's group in the tour menu (and its place on /itineraries)
+    if (key === 'navGroup' && E.kind === 'lists') {
+      const el = document.createElement('select'); el.className = 'in'; el.onchange = touch;
+      const fixed = current && current.navFixed, opts = (current && current.navGroups) || [];
+      el.innerHTML = fixed ? '<option>' + A.esc(fixed) + '</option>' : opts.map(o => '<option' + (o === value ? ' selected' : '') + '>' + A.esc(o) + '</option>').join('') + '<option value=""' + (!value ? ' selected' : '') + '>Not in the menu: only its own page</option>';
+      if (fixed) { el.disabled = true; el.title = 'The categories of the original website keep their place in the menu'; }
+      return { el, get: () => fixed ? (value || '') : el.value };
+    }
     // (27 Oct 2026, client) a list of words (choices, phone numbers, address lines, paragraphs): one box, one per line
     if (!inList && Array.isArray(value) && value.length && value.every(x => typeof x === 'string') && !isLinkRow(value)) return linesBox(key, value);
     // a short row of words inside a list (e.g. “Visa | e-Visa … | link”): its boxes side by side
@@ -163,9 +186,12 @@
     if (key === 'photo' && depth === 0 && (E.kind === 'tours' || E.kind === 'lists') && current && current.thumb && !current.isNew) return image(value, () => current.thumb);
     if (key === 'heroSrc' && E.kind === 'tours') return image(value === '/images/india-tours-main.webp' ? '' : value);
     // (27 Oct 2026, client) a few lines, one per line ("What is included", "You can also")
-    if (/^(included|extras)$/.test(key) && Array.isArray(value) && value.every(x => typeof x === 'string')) {
-      const t = textBox(value.join('\n'), x => x.split('\n').map(l => l.trim()).filter(Boolean), Math.max(3, value.length)); t.input.placeholder = 'One point per line'; return t;
+    if (/^(included|extras|priceIncludes)$/.test(key) && Array.isArray(value) && value.every(x => typeof x === 'string')) {
+      const t = textBox(value.join('\n'), x => x.split('\n').map(l => l.trim()).filter(Boolean), Math.max(3, value.length)); t.input.placeholder = key === 'priceIncludes' ? PRICE_INC.join('\n') : 'One point per line'; return t;
     }
+    // the tour's own wording, or (grey) what the website writes by itself
+    if (key === 'summary' && E.kind === 'tours') return rte(value || '');
+    if (key === 'priceLine' && E.kind === 'tours') { const t = textBox(value || '', x => x.trim(), 2); t.input.placeholder = PRICE_LINE; return t; }
     if (isImg(key, value)) return image(value);
     if (key === 'details' && Array.isArray(value) && value.length && value.every(b => b && typeof b === 'object' && Array.isArray(b.items))) return detailsEditor(value);
     if (isParas(value)) return richText(value, false);
@@ -212,37 +238,6 @@
     const el = document.createElement('input'); el.className = 'in'; el.type = type; el.value = v; el.oninput = touch;
     return { el, get: () => read(el.value) };
   }
-  // ---------- (26 Oct 2026, client video II) a proper text editor: a toolbar with icons, as in Word / WordPress ----------
-  const TB_ICON = {
-    bold: '<path d="M7 5h6a3.5 3.5 0 0 1 0 7H7zM7 12h7a3.5 3.5 0 0 1 0 7H7z"/>', italic: '<path d="M14 5h-4M14 19h-4M14 5l-4 14"/>',
-    underline: '<path d="M7 4v7a5 5 0 0 0 10 0V4M5 20h14"/>', link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
-    unlink: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/><path d="M4 4l16 16"/>',
-    undo: '<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>', redo: '<path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/>',
-    clear: '<path d="M6 5h12M12 5l-4 14M4 20h8"/><path d="m15 14 5 5M20 14l-5 5"/>', ul: '<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/>',
-    ol: '<path d="M10 6h10M10 12h10M10 18h10M4 4.5h1.5V9M4 9h3M4 14.5c.5-1 3-1 3 .5S4 17 4 19h3"/>', h2: '<path d="M4 5v14M12 5v14M4 12h8"/><path d="M15 9c.5-1.5 5-1.5 5 1s-5 4-5 7h5"/>',
-    h3: '<path d="M4 5v14M12 5v14M4 12h8"/><path d="M15 8h5l-3 4c2 0 3 1 3 3s-3 3-5 1"/>', p: '<path d="M13 4v16M17 4v16M19 4H9.5a4.5 4.5 0 0 0 0 9H13"/>',
-    quote: '<path d="M7 7h4v4c0 3-2 5-4 6M15 7h4v4c0 3-2 5-4 6"/>', img: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 8"/>',
-    src: '<path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/>'
-  };
-  const TB_TITLE = { bold: 'Bold (Ctrl+B)', italic: 'Italic (Ctrl+I)', underline: 'Underline (Ctrl+U)', link: 'Link: select words, then press', unlink: 'Remove the link', undo: 'Undo (Ctrl+Z)', redo: 'Redo (Ctrl+Y)',
-    clear: 'Remove the formatting of the selected words', ul: 'Bullet list', ol: 'Numbered list', h2: 'Heading', h3: 'Small heading', p: 'Normal text', quote: 'Quote', img: 'Add a photo', src: 'Show the HTML code' };
-  // a toolbar: groups of buttons, separated by thin lines
-  function toolbar(groups) {
-    const bar = document.createElement('div'); bar.className = 'tb';
-    bar.innerHTML = groups.map(g => '<span class="tb-g">' + g.map(c => '<button type="button" data-c="' + c + '" title="' + TB_TITLE[c] + '" aria-label="' + TB_TITLE[c] + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + TB_ICON[c] + '</svg></button>').join('') + '</span>').join('');
-    bar.onmousedown = e => { if (e.target.closest('button')) e.preventDefault(); };   // keep the selection in the text
-    return bar;
-  }
-  const tbState = (bar, ed) => {   // light up B / I / U where the cursor is
-    const upd = () => { if (!ed.contains(document.getSelection().anchorNode)) return; ['bold', 'italic', 'underline'].forEach(c => { const b = bar.querySelector('[data-c="' + c + '"]'); if (b) b.classList.toggle('on', document.queryCommandState(c)); }); };
-    document.addEventListener('selectionchange', upd);
-  };
-  const askLink = async (current) => {
-    const box = await A.dialog({ title: 'Add a link', ok: 'Add link', html: '<label class="lb">Link to</label><input class="in" data-l placeholder="Type a page name, e.g. Rajasthan Tours, or paste https://…"><p class="hint">' + HELP.href + '</p>',
-      onOpen: b => { const i = b.querySelector('[data-l]'); i.value = current || ''; pageLink(i); }, validate: b => b.querySelector('[data-l]').value.trim() ? '' : 'Type a page or an address.' });
-    return box ? box.querySelector('[data-l]').value.trim() : '';
-  };
-
   // text with bold, italic, underlined and linked words: what you see is what the website shows.
   // Paragraphs come back as lists of { text, bold, italic?, underline?, href? } pieces; one=true gives one paragraph.
   function richText(paras, one) {
@@ -256,17 +251,25 @@
       const b = e.target.closest('button'); if (!b) return;
       const c = b.dataset.c; ed.focus();
       if (c === 'link') {
-        if (!picked()) return A.toast('First select the words to turn into a link');
-        const r = getSelection().getRangeAt(0).cloneRange(), url = await askLink('');
-        if (url) { const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('createLink', false, url); }
+        const a = linkAt(ed);
+        if (a) { const url = await askLink(a.getAttribute('href') || '', a.textContent); if (url) a.setAttribute('href', url); ed.focus(); }
+        else {
+          if (!picked()) return A.toast('First select the words to turn into a link');
+          const r = getSelection().getRangeAt(0).cloneRange(), url = await askLink('', r.toString());
+          if (url) { ed.focus(); const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('createLink', false, url); }
+        }
       } else if (c === 'clear') { if (!picked()) return A.toast('First select the words'); document.execCommand('removeFormat'); document.execCommand('unlink'); }
       else document.execCommand(c);
       touch();
     };
-    tbState(bar, ed);
+    const st = tbState(bar, ed);
     ed.oninput = touch;
     ed.onpaste = e => { e.preventDefault(); document.execCommand('insertText', false, (e.clipboardData || window.clipboardData).getData('text/plain')); };
-    if (one) ed.onkeydown = e => { if (e.key === 'Enter') e.preventDefault(); };
+    ed.onkeydown = e => {
+      if (one && e.key === 'Enter') e.preventDefault();
+      const c = keyCmd(e); if (!c || !bar.querySelector('[data-c="' + c + '"]')) return;
+      e.preventDefault(); bar.querySelector('[data-c="' + c + '"]').click(); setTimeout(st, 0);
+    };
     const styleOf = (n, block) => {
       const st = { bold: false, italic: false, underline: false, href: '' };
       for (let el = n.parentNode; el && el !== block; el = el.parentNode) {
@@ -315,10 +318,10 @@
     const el = document.createElement('div'); el.className = 'px';
     const isPrice = b => /pric|cost/i.test(b.title || '');
     const pb = blocks.find(isPrice) || { title: 'Tour Pricing Details', text: '', items: [] };
-    el.innerHTML = '<div class="f"><label class="lb">Short text under the price heading (optional)</label><p class="fhelp">Shown in small letters at the top of the price box.</p></div>' +
+    el.innerHTML = '<div class="f"><label class="lb lb-s">Paragraph at the top of the price box</label></div><p class="lb lb-s px-cap">Hotels and prices <span>per person per day — the website multiplies them by the nights</span></p>' +
       '<div class="px-t"><div class="px-hd"><span>Hotel class</span><span>From (USD)</span><span>To (USD)</span><span title="Shows the price as $250+">Add “+”</span><span>The price is</span><span></span></div><div data-rows></div></div>' +
       '<div class="chips"><button type="button" class="btn btn-s" data-add>+ Add a hotel class</button></div>';
-    const intro = textBox(pb.text || '', x => x, 2); intro.input.placeholder = 'e.g. The final cost depends on the hotels, the travel dates and the number of travellers.';
+    const intro = rte(pb.text || '', { min: 70 });
     el.querySelector('.f').appendChild(intro.el);
     const rowsEl = el.querySelector('[data-rows]'), rows = [];
     const num = v => String(v || '').replace(/[^\d]/g, '');
@@ -358,88 +361,240 @@
     // includes, excludes, notes (and any other block): each a heading and its points, in a tab of their own
     const more = document.createElement('div'); more.className = 'px-more';
     const others = blocks.filter(b => b !== pb).map(b => {
-      const sec = document.createElement('div'); sec.className = 'px-sec' + (/includ|exclud/i.test(b.title || '') ? ' px-half' : '');
+      const sec = document.createElement('div'); sec.className = 'px-sec';
       sec.innerHTML = '<h3>' + A.esc(b.title || '') + '</h3>';
       let tx = null;
       if (b.text) { tx = textBox(b.text, x => x, 2); const f = document.createElement('div'); f.className = 'f'; f.innerHTML = '<label class="lb">Text above the points</label>'; f.appendChild(tx.el); sec.appendChild(f); }
-      const t = richText(b.items || [], false); t.input.dataset.ph = 'One point per line: press Enter for the next point'; sec.appendChild(t.el);
+      // (3 Nov 2026, client) the same full editor as everywhere, as a list of points (Enter starts the next point)
+      const t = rte('<ul>' + (b.items || []).map(it => '<li>' + window.MKRTE.segHtml(it) + '</li>').join('') + '</ul>', { list: true, min: 120 }); sec.appendChild(t.el);
       more.appendChild(sec);
-      return { b, get: () => Object.assign({}, b, { text: tx ? tx.get() : b.text, items: t.get() }) };
+      return { b, get: () => Object.assign({}, b, { text: tx ? tx.get() : b.text, items: t.get().map(window.MKRTE.segs) }) };
     });
     const priceOut = () => Object.assign({}, pb, { text: intro.get(), items: rows.filter(o => !(o.empty && o.empty())).map(o => o.get()) });
     return { el, more: others.length ? more : null, get: () => blocks.map(b => b === pb ? priceOut() : others.find(o => o.b === b).get()).concat(blocks.includes(pb) ? [] : [priceOut()]) };
   }
-  // (26 Oct 2026, client) a destination or guide page edited in the same shape the website shows it: "Quick facts"
-  // (Area, Altitude, Climate …), then each heading of the page ("Places of Interest", "Reach" …) with its groups — a list
-  // of places in columns, with the distance where there is one — and its one-line facts (By Air, By Road …).
-  // Every change is written straight into the page text (the same paragraph), so the website lays it out as before.
-  const LABEL_P = p => { const st = p.firstElementChild; return st && /^(STRONG|B)$/.test(st.nodeName) && /:\s*$/.test(st.textContent) && st === p.firstChild ? st : null; };
-  const LIST_P = p => {
-    const st = LABEL_P(p); if (!st) return null;
-    const rest = p.textContent.slice(st.textContent.length).trim().replace(/\.\s*$/, '');
-    const parts = rest.split(/\s*,\s*|\s+and\s+(?=[A-Z])/).map(x => x.trim()).filter(Boolean);
-    if (parts.length < 3 || p.querySelector('a,img')) return null;
-    if (/^(climate|languages?|best season|altitude|area|population|temperature|clothing|currency|religions?|rainfall|season)/i.test(st.textContent.trim())) return null;
-    const sep = /^[^,]*?\s*:\s*\d/.test(rest) ? ': ' : '- ';
-    return { label: st.textContent.trim(), sep, items: parts.map(x => { const m = /^(.*?)\s*[-–:]\s*([\d.]+)\s*(?:kms?|km)?\.?$/i.exec(x); return m ? { name: m[1].trim(), km: m[2] } : { name: x, km: '' }; }) };
+  // (2 Nov 2026, client) a region page's place cards (Delhi, Haryana … each with a photo, its name, a short text and its
+  // page) sit in the page text as a list; they get a tab of their own, as cards with a photo you can change, and the text
+  // keeps only a marker where they show. On saving, the cards go back into the text in the website's own shape.
+  // Imported thumbnails show the large photo the website uses for them (article.js), so what you see is what shows.
+  const BIG_PHOTO = { 'delhi': '/photos/delhi-red-fort.webp', 'himachal pradesh': '/photos/manali-balloon.webp', 'jammu & kashmir': '/photos/ladakh-pangong.webp',
+    'punjab': '/photos/golden-temple-amritsar.webp', 'rajasthan': '/photos/hawa-mahal-dusk.webp', 'uttar pradesh': '/photos/taj-mahal-wide.webp',
+    'lakshadweep': '/photos/lakshadweep-hd.webp', 'karnataka': '/photos/mysore-palace.webp', 'kerala': '/photos/kerala-backwaters.webp', 'tamil nadu': '/photos/brihadeshwara-temple.webp',
+    'arunachal pradesh': '/photos/arunachal-losar.webp', 'nagaland': '/photos/nagaland-festival.webp', 'west bengal': '/photos/darjeeling.webp',
+    'gujarat': '/photos/gujarat.webp', 'goa': '/photos/goa-beach-palms.webp', 'madhya pradesh': '/photos/bengal-tiger.webp' };
+  const cardItems = ul => { const lis = [...ul.children].filter(x => x.tagName === 'LI'); return lis.length >= 2 && lis.length === ul.children.length && lis.every(li => li.querySelector(':scope > a > img') && li.querySelector(':scope > p')) ? lis : null; };
+  const absSrc = x => /^(https?:|\/|data:)/i.test(x) ? x : '/' + x.replace(/^\.?\//, '');
+  // (3 Nov 2026, client) a page's link to the pages under it: by address ("delhi.htm", "/delhi" and "Delhi" all match)
+  const baseOf = h => String(h || '').replace(/^https?:\/\/[^/]+/i, '').replace(/^\/+/, '').replace(/\.(html?|aspx)$/i, '').toLowerCase();
+  const kidOf = href => ((current && current.children) || []).find(c => baseOf(c.url) === baseOf(href));
+  const kidRow = (x, tag) => '<div class="pc-row"><span class="pc-ph">' + (x.photo ? '<img src="' + A.esc(x.photo) + '" alt="" loading="lazy">' : '') + '</span><span class="pc-t"><b>' + A.esc(x.name) + '</b><small>' + A.esc(x.url || '') + (tag ? ' · <i>' + tag + '</i>' : '') + '</small></span>' +
+    (x.id ? '<a class="btn btn-s" href="/admin/pages/' + encodeURIComponent(x.id) + '">Edit its page</a>' : '') + '</div>';
+  // a region page's place cards (Delhi, Haryana …): made by the website from the region's state pages, so here only a
+  // list of them; a state page added under the region shows there by itself
+  function cardsTab(panesAdd) {
+    const ed = comps.html && comps.html.el.querySelector('.rte'); if (!ed) return;
+    const ul = [...ed.querySelectorAll('ul')].find(cardItems); if (!ul) return;
+    const keep = ul.outerHTML;
+    const cards = cardItems(ul).map(li => {
+      const as = li.querySelectorAll(':scope > a'), img = li.querySelector(':scope > a > img'), name = ((as[1] || as[0]).textContent || '').trim(), src = img.getAttribute('src') || '', href = as[0].getAttribute('href') || '', k = kidOf(href);
+      return { photo: (/^\/?images\//.test(src) && BIG_PHOTO[name.toLowerCase()]) || absSrc(src), name, url: k ? k.url : href, id: k ? k.id : '' };
+    });
+    const shown = new Set(cards.map(x => baseOf(x.url)));
+    const extra = ((current && current.children) || []).filter(c => !shown.has(baseOf(c.url)) && c.published !== false);
+    const mark = document.createElement('div'); mark.className = 'rte-cards'; mark.contentEditable = 'false'; mark.innerHTML = '<b>cards</b><span></span>';
+    ul.replaceWith(mark);
+    const card = document.createElement('section'); card.className = 'card'; card.hidden = true;
+    card.innerHTML = '<p class="tab-intro">The places of this region, as the website shows them under “Places to explore”. They come from the state pages of this region: to change a card, edit its page. A state page added under this region shows here by itself.</p>' +
+      '<div class="pc-list">' + cards.map(x => kidRow(x, '')).join('') + extra.map(c => kidRow({ name: c.name, url: c.url, id: c.id, photo: c.img }, 'added by itself')).join('') + '</div>';
+    const get = comps.html.get;
+    comps.html.get = getters.html = () => { const t = get(), m = /<div class="rte-cards"[^>]*>[\s\S]*?<\/span><\/div>/.exec(t); return m ? t.replace(m[0], keep) : t + '\n' + keep; };
+    panesAdd('Places to explore', card);
+  }
+  // (3 Nov 2026, client) a state page's parts after its first text: each heading ("Places of Interest", "Reach",
+  // "How to plan your tours" …) a section of its own — points (a name and its words, 1 / 2 / 3 in a row) or a text —
+  // in order, each with "+ Add a section below"; the city parts (a heading, a few lines, Read More) come from the city
+  // pages under the page, so here they are only listed
+  const LAYOUTS = [['text', '', 'Text', 'A normal text'], ['points', '1', 'List · 1 in a row', 'Wide rows'], ['points', '2', 'List · 2 in a row', 'Two boxes side by side'], ['points', '3', 'List · 3 in a row', 'Three small boxes'], ['points', '', 'List · automatic', 'As many as fit']];
+  const layoutPic = (kind, cols) => {
+    const box = (x, y, w, h) => '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="2"/>';
+    let g = '';
+    if (kind === 'text') g = '<path d="M6 9h36M6 15h36M6 21h28M6 27h32"/>';
+    else { const n = +cols || 2, w = (36 - (n - 1) * 3) / n; for (let r = 0; r < 2; r++) for (let c = 0; c < n; c++) g += box(6 + c * (w + 3), 7 + r * 12, w, 9); }
+    return '<svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">' + g + '</svg>';
   };
-  const FACT_P = p => { const st = LABEL_P(p); if (!st || LIST_P(p) || p.querySelector('img')) return null; const v = p.textContent.slice(st.textContent.length).trim(); return v.length <= 400 ? { label: st.textContent.replace(/:\s*$/, '').trim(), value: v } : null; };
-  const hasSections = html => { const t = document.createElement('div'); t.innerHTML = html || ''; const ps = [...t.querySelectorAll('p')]; return ps.some(LIST_P) || ps.filter(FACT_P).length >= 2; };
-  function placesTab(panesAdd) {
-    const card = document.createElement('section'); card.className = 'card ps'; card.hidden = true;
-    const draw = () => {
-      const ed = comps.html && comps.html.el.querySelector('.rte');
-      card.innerHTML = '';
-      if (!ed || ed.hidden) { card.insertAdjacentHTML('beforeend', '<p class="hint">Switch the HTML view off in the Text tab first.</p>'); return; }
-      // walk the page: headings open a part; label paragraphs are facts or lists
-      const parts = [{ title: 'Quick facts', facts: [], lists: [], after: null }];
-      [...ed.children].forEach(n => {
-        if (/^H[1-6]$/.test(n.nodeName)) { parts.push({ title: n.textContent.replace(/:\s*$/, '').trim(), facts: [], lists: [], after: n }); return; }
-        if (n.nodeName !== 'P') return;
-        const cur = parts[parts.length - 1], l = LIST_P(n), f = !l && FACT_P(n);
-        if (l) cur.lists.push({ p: n, l }); else if (f) cur.facts.push({ p: n, f });
-      });
-      parts.filter(pt => pt.facts.length || pt.lists.length).forEach((pt, pi) => {
-        const box = document.createElement('div'); box.className = 'ps-part' + (pi === 0 && pt.title === 'Quick facts' ? ' ps-facts' : '');
-        box.innerHTML = '<h3 class="ps-h">' + A.esc(pt.title) + '</h3>';
-        // one-line facts: label | value
-        if (pt.facts.length) {
-          const g = document.createElement('div'); g.className = 'ps-fg';
-          pt.facts.forEach(({ p, f }) => {
-            const r = document.createElement('label'); r.className = 'ps-fact';
-            r.innerHTML = '<span>' + A.esc(f.label) + '</span><input class="in">';
-            const i = r.querySelector('input'); i.value = f.value;
-            i.oninput = () => { p.innerHTML = '<strong>' + A.esc(f.label) + ':</strong> ' + A.esc(i.value.trim()); touch(); };
-            g.appendChild(r);
-          });
-          box.appendChild(g);
-        }
-        // lists of places: in columns, with the distance where the list has distances
-        pt.lists.forEach(({ p, l }) => {
-          const withKm = l.items.some(x => x.km);
-          const grp = document.createElement('div'); grp.className = 'ps-list';
-          grp.innerHTML = '<h4>' + A.esc(l.label.replace(/:\s*$/, '')) + ' <small>' + l.items.length + '</small></h4><div class="ps-items' + (withKm ? ' km' : '') + '"></div><button type="button" class="btn btn-s">+ Add a place</button>';
-          const itemsEl = grp.querySelector('.ps-items');
-          const write = () => {
-            const items = [...itemsEl.children].map(r => ({ name: r.querySelector('[data-n]').value.trim(), km: (r.querySelector('[data-k]') || { value: '' }).value.trim() })).filter(x => x.name);
-            p.innerHTML = '<strong>' + A.esc(l.label) + '</strong> ' + A.esc(items.map(x => x.km ? x.name + l.sep + x.km + ' kms' : x.name).join(', ') + '.');
-            grp.querySelector('h4 small').textContent = items.length; touch();
-          };
-          const add = (x, focus) => {
-            const r = document.createElement('div'); r.className = 'ps-it';
-            r.innerHTML = '<input class="in" data-n placeholder="Place">' + (withKm ? '<input class="in" data-k inputmode="decimal" placeholder="km" title="Distance in km">' : '') + '<button type="button" title="Remove">✕</button>';
-            r.querySelector('[data-n]').value = x.name; if (withKm) r.querySelector('[data-k]').value = x.km;
-            r.querySelector('button').onclick = () => { r.remove(); write(); };
-            r.oninput = write; itemsEl.appendChild(r); if (focus) r.querySelector('[data-n]').focus();
-          };
-          l.items.forEach(x => add(x));
-          grp.querySelector('.btn').onclick = () => add({ name: '', km: '' }, true);
-          box.appendChild(grp);
-        });
-        card.appendChild(box);
-      });
+  const layoutName = (kind, cols) => (LAYOUTS.find(l => l[0] === kind && l[1] === (cols || '')) || LAYOUTS[0])[2];
+  // the layouts as tiles to pick from; resolves with [kind, cols] or null
+  const pickLayout = async (title, now, withHeading) => {
+    let pick = now || ['points', '2'];
+    const box = await A.dialog({ title, ok: withHeading ? 'Add the part' : 'Use this layout',
+      html: (withHeading ? '<label class="lb">Heading of the part</label><input class="in" data-h placeholder="e.g. Shopping, Food to try, Festivals"><label class="lb" style="margin-top:14px">How it looks on the website</label>' : '') +
+        '<div class="lay-grid">' + LAYOUTS.filter(l => !now || l[0] === now[0] || withHeading).map(([k, c, n, d]) => '<button type="button" class="lay-tile" data-k="' + k + '" data-c="' + c + '">' + layoutPic(k, c) + '<b>' + n + '</b><small>' + d + '</small></button>').join('') + '</div>',
+      onOpen: b => { const mark = () => b.querySelectorAll('.lay-tile').forEach(t => t.classList.toggle('on', t.dataset.k === pick[0] && t.dataset.c === pick[1])); b.querySelectorAll('.lay-tile').forEach(t => { t.onclick = () => { pick = [t.dataset.k, t.dataset.c]; mark(); }; }); mark(); b.closest('.modal-box').classList.add('lay-modal'); },
+      validate: b => withHeading && !b.querySelector('[data-h]').value.trim() ? 'Write a heading for the part.' : '' });
+    return box ? { kind: pick[0], cols: pick[1], heading: withHeading ? box.querySelector('[data-h]').value.trim() : '' } : null;
+  };
+  function sectionsTab(panesAdd) {
+    const ed = comps.html && comps.html.el.querySelector('.rte'); if (!ed) return;
+    const kids = [...ed.children], first = kids.findIndex(n => /^H[2-4]$/.test(n.nodeName));
+    if (first < 0) return;
+    const parts = [];
+    let cur = null;
+    kids.slice(first).forEach(n => {
+      if (/^H[2-4]$/.test(n.nodeName)) { cur = { tag: n.nodeName.toLowerCase(), heading: n.textContent.trim(), cols: n.getAttribute('data-cols') || '', nodes: [] }; parts.push(cur); return; }
+      if (cur && (n.textContent.trim() || n.querySelector('img'))) cur.nodes.push(n);
+    });
+    kids.slice(first).forEach(n => n.remove());
+    const cityOf = pt => pt.nodes.length === 1 && pt.nodes[0].nodeName === 'P' && [...pt.nodes[0].querySelectorAll('a')].some(a => /read more/i.test(a.textContent));
+    const pointsOf = pt => pt.nodes.length && pt.nodes.every(n => factOf(n) || (n.nodeName === 'P' && /^(STRONG|B)$/.test((n.firstElementChild || {}).nodeName || '') && /:\s*$/.test(n.firstElementChild.textContent)));
+    const rowOf = n => { const st = n.firstElementChild; return { label: st.textContent.replace(/:\s*$/, '').trim(), value: n.textContent.slice(st.textContent.length).replace(/\s+/g, ' ').trim() }; };
+    const card = document.createElement('section'); card.className = 'card'; card.hidden = true;
+    card.innerHTML = '<p class="tab-intro">The parts of the page after its text, in order. A list part has rows (a name and its words) and a choice of how many boxes in a row; a text part is a normal text. Drag a part by its dots to move it.</p><div class="sx-list"></div>';
+    const listEl = card.querySelector('.sx-list');
+    const GRIP = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg>';
+    const secs = [];
+    const addRowTo = (rows, r, focus) => {
+      const el = document.createElement('div'); el.className = 'sx-row';
+      el.innerHTML = '<input class="in" data-l placeholder="e.g. Moghul Monuments"><input class="in" data-v placeholder="e.g. Red Fort, Qutub Minar, Humayun’s Tomb"><button type="button" class="gl-x" title="Remove this row" aria-label="Remove this row">✕</button>';
+      el.querySelector('[data-l]').value = r.label; el.querySelector('[data-v]').value = r.value;
+      el.querySelectorAll('input').forEach(i => { i.oninput = touch; });
+      el.querySelector('.gl-x').onclick = () => { el.remove(); touch(); };
+      rows.appendChild(el); if (focus) el.querySelector('[data-l]').focus();
     };
-    panesAdd('Facts & places', card, draw);
+    const makeSec = (pt, after) => {
+      const box = document.createElement('div'); box.className = 'sx-sec sx-' + pt.kind; box.draggable = true;
+      const sec = { box, pt };
+      if (pt.kind === 'cities') {
+        box.innerHTML = '<div class="sx-h"><span class="sx-grip" title="Drag to move">' + GRIP + '</span><b class="sx-title">Places on this page</b><span class="sx-kind sx-k-auto">From their own pages</span></div><p class="hint" style="margin:0 0 8px">Each place shows with its heading, a few lines and “Read More”. To change one, edit its page; a page added under this page shows here by itself.</p><div class="pc-list"></div>';
+        const items = pt.items.map(x => { const k = kidOf(x.href); return { name: x.name, url: k ? k.url : x.href, id: k ? k.id : '', photo: k ? k.img : '' }; });
+        const seen = new Set(items.map(x => baseOf(x.url)));
+        const extra = ((current && current.children) || []).filter(c => !seen.has(baseOf(c.url)) && c.published !== false);
+        box.querySelector('.pc-list').innerHTML = items.map(x => kidRow(x, '')).join('') + extra.map(c => kidRow({ name: c.name, url: c.url, id: c.id, photo: c.img }, 'added by itself')).join('');
+        sec.get = () => pt.html;
+      } else {
+        box.innerHTML = '<div class="sx-h"><span class="sx-grip" title="Drag to move">' + GRIP + '</span><input class="in sx-title" placeholder="Heading of this part, e.g. Places of Interest">' +
+          '<button type="button" class="sx-lay" title="' + (pt.kind === 'points' ? 'Change how the list looks' : 'A text part') + '"' + (pt.kind === 'points' ? '' : ' disabled') + '></button>' +
+          '<span class="sx-more"><button type="button" class="sx-more-b" title="More" aria-label="More">⋯</button><span class="sx-menu" hidden><button type="button" data-m="up">Move up</button><button type="button" data-m="down">Move down</button><button type="button" data-m="below">Add a part below</button><button type="button" data-m="rm" class="x">Remove this part</button></span></span></div><div class="sx-b"></div><button type="button" class="sx-add-below">+ Add a part below</button>';
+        const title = box.querySelector('.sx-title'); title.value = pt.heading; title.oninput = touch;
+        title.addEventListener('mousedown', () => { box.draggable = false; }); title.addEventListener('blur', () => { box.draggable = true; });
+        const b = box.querySelector('.sx-b');
+        const lay = box.querySelector('.sx-lay');
+        if (pt.kind === 'points') {
+          let cols = pt.cols || '';
+          const mark = () => { lay.innerHTML = layoutPic('points', cols) + '<span>' + layoutName('points', cols) + '</span>'; };
+          lay.onclick = async () => { const r = await pickLayout('How “' + (title.value.trim() || 'this list') + '” looks', ['points', cols]); if (r) { cols = r.cols; mark(); touch(); } }; mark();
+          b.innerHTML = '<div class="gl-head sx-gh"><span>Name</span><span>Its words</span></div><div class="sx-rows"></div><button type="button" class="btn btn-s" data-addrow>+ Add a row</button>';
+          const rows = b.querySelector('.sx-rows');
+          rows.addEventListener('mousedown', () => { box.draggable = false; }); rows.addEventListener('mouseup', () => { box.draggable = true; });
+          pt.rows.forEach(r => addRowTo(rows, r));
+          b.querySelector('[data-addrow]').onclick = () => { addRowTo(rows, { label: '', value: '' }, true); touch(); };
+          sec.get = () => { const h = title.value.trim(); const rs = [...rows.children].map(r => ({ l: r.querySelector('[data-l]').value.trim(), v: r.querySelector('[data-v]').value.trim() })).filter(x => x.l || x.v);
+            return h || rs.length ? '<' + pt.tag + ' data-type="points"' + (cols ? ' data-cols="' + cols + '"' : '') + '>' + A.esc(h) + '</' + pt.tag + '>\n' + rs.map(x => '<p>' + (x.l ? '<strong>' + A.esc(x.l) + ':</strong> ' : '') + A.esc(x.v) + '</p>').join('\n') : ''; };
+        } else {
+          lay.innerHTML = layoutPic('text') + '<span>Text</span>';
+          const t = rte(pt.html || '', { min: 90 }); b.appendChild(t.el);
+          b.addEventListener('mousedown', () => { box.draggable = false; }); b.addEventListener('mouseup', () => { box.draggable = true; });
+          sec.get = () => { const h = title.value.trim(), x = t.html(); return h || x.replace(/<[^>]+>|&nbsp;/g, '').trim() ? '<' + pt.tag + (pt.typed ? ' data-type="text"' : '') + '>' + A.esc(h) + '</' + pt.tag + '>\n' + x : ''; };
+        }
+        const menu = box.querySelector('.sx-menu');
+        box.querySelector('.sx-more-b').onclick = e => { e.stopPropagation(); document.querySelectorAll('.sx-menu').forEach(m => { if (m !== menu) m.hidden = true; }); menu.hidden = !menu.hidden; };
+        menu.onclick = async e => {
+          const m = (e.target.closest('[data-m]') || {}).dataset; if (!m || !m.m) return; menu.hidden = true;
+          const i = secs.indexOf(sec);
+          if (m.m === 'up' && i > 0) { secs[i - 1].box.before(box); secs.splice(i, 1); secs.splice(i - 1, 0, sec); touch(); }
+          else if (m.m === 'down' && i < secs.length - 1) { secs[i + 1].box.after(box); secs.splice(i, 1); secs.splice(i + 1, 0, sec); touch(); }
+          else if (m.m === 'below') addNew(sec);
+          else if (m.m === 'rm') { if (!(await A.confirm('Remove “' + (title.value.trim() || 'this part') + '”?', 'This part goes away from the page when you save.', 'Remove', true))) return; box.remove(); secs.splice(i, 1); touch(); }
+        };
+        box.querySelector('.sx-add-below').onclick = () => addNew(sec);
+      }
+      if (after) after.box.after(box); else listEl.appendChild(box);
+      if (after) secs.splice(secs.indexOf(after) + 1, 0, sec); else secs.push(sec);
+      return sec;
+    };
+    const addNew = async after => {
+      const r = await pickLayout('Add a part', null, true);
+      if (!r) return;
+      const sec = makeSec({ kind: r.kind, tag: 'h4', heading: r.heading, cols: r.kind === 'points' ? r.cols : '', rows: [{ label: '', value: '' }], html: '', typed: true }, after);
+      touch(); sec.box.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      const f = sec.box.querySelector('[data-l], .rte'); if (f) setTimeout(() => f.focus(), 300);
+    };
+    // the parts as they are: the city parts in a row together become one list
+    let cityRun = null;
+    parts.forEach(pt => {
+      const html = pt.nodes.map(n => n.outerHTML).join('\n'), headHtml = '<' + pt.tag + (pt.cols ? ' data-cols="' + pt.cols + '"' : '') + '>' + A.esc(pt.heading) + '</' + pt.tag + '>';
+      if (cityOf(pt)) {
+        const a = [...pt.nodes[0].querySelectorAll('a')].find(x => /read more/i.test(x.textContent));
+        if (!cityRun) { cityRun = { kind: 'cities', items: [], html: '' }; makeSec(cityRun); }
+        cityRun.items.push({ name: pt.heading, href: a.getAttribute('href') || '' }); cityRun.html += (cityRun.html ? '\n' : '') + headHtml + '\n' + html;
+        return;
+      }
+      cityRun = null;
+      if (pointsOf(pt)) makeSec({ kind: 'points', tag: pt.tag, heading: pt.heading, cols: pt.cols, rows: pt.nodes.map(rowOf) });
+      else makeSec({ kind: 'text', tag: pt.tag, heading: pt.heading, html });
+    });
+    const tail = document.createElement('button'); tail.type = 'button'; tail.className = 'sx-add'; tail.innerHTML = '<b>+ Add a part</b><small>A heading with a text, or a list shown as boxes</small>';
+    document.addEventListener('click', e => { if (!e.target.closest('.sx-more')) card.querySelectorAll('.sx-menu').forEach(m => { m.hidden = true; }); });
+    tail.onclick = () => addNew(secs[secs.length - 1]); card.appendChild(tail);
+    let drag = null;
+    listEl.ondragstart = e => { drag = e.target.closest('.sx-sec'); if (drag) drag.classList.add('dragging'); };
+    listEl.ondragend = () => { if (!drag) return; drag.classList.remove('dragging'); const order = [...listEl.children]; secs.sort((x, y) => order.indexOf(x.box) - order.indexOf(y.box)); drag = null; touch(); };
+    listEl.ondragover = e => { if (!drag) return; e.preventDefault(); const after = [...listEl.children].find(c => c !== drag && e.clientY < c.getBoundingClientRect().top + c.offsetHeight / 2); listEl.insertBefore(drag, after || null); };
+    const get = comps.html.get;
+    comps.html.get = getters.html = () => get() + '\n' + secs.map(x => x.get()).filter(Boolean).join('\n');
+    panesAdd('Sections', card);
+  }
+  // (3 Nov 2026, client) "At a glance": the short "Label: value" lines of a page (a region's Location, Major Cities,
+  // Holy Destinations …; a state's Area, Altitude, Climate …) in a tab of their own, one row each; the text keeps a
+  // marker where they sit and gets them back, in the website's own shape, when it is saved
+  const GLANCE_IC = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg>';
+  const factOf = p => {
+    if (p.nodeName !== 'P') return null;
+    const st = p.firstElementChild, first = [...p.childNodes].find(n => n.nodeType !== 3 || n.textContent.trim());
+    if (!st || st !== first || !/^(STRONG|B)$/.test(st.nodeName) || !/:\s*$/.test(st.textContent) || p.querySelector('a,img')) return null;
+    const label = st.textContent.replace(/:\s*$/, '').trim(), value = p.textContent.slice(st.textContent.length).replace(/\s+/g, ' ').trim();
+    return label && label.length <= 40 && value && value.length <= 300 ? { label, value } : null;
+  };
+  function glanceTab(panesAdd) {
+    const ed = comps.html && comps.html.el.querySelector('.rte'); if (!ed) return;
+    // the first run of two or more fact lines before the page's first heading
+    let run = [], best = null;
+    for (const n of [...ed.children]) {
+      if (/^H[1-6]$/.test(n.nodeName)) break;
+      if (factOf(n)) { run.push(n); continue; }
+      if (n.nodeName === 'P' && !n.textContent.trim()) continue;
+      if (run.length >= 2) { best = run; break; }
+      run = [];
+    }
+    if (!best && run.length >= 2) best = run;
+    if (!best) return;
+    const facts = best.map(factOf);
+    const mark = document.createElement('div'); mark.className = 'rte-glance'; mark.contentEditable = 'false';
+    best[0].before(mark); best.forEach(n => n.remove());
+    const card = document.createElement('section'); card.className = 'card'; card.hidden = true;
+    card.innerHTML = '<p class="tab-intro">The short facts in the “At a glance” box of the page: a name on the left, its words on the right. Drag a row by its dots to change the order.</p><div class="gl-head"><span>Name</span><span>Shows as</span></div><div class="gl-rows"></div><button type="button" class="btn btn-s" data-gl-add>+ Add a fact</button>';
+    const rows = card.querySelector('.gl-rows'); let drag = null;
+    const count = () => { const n = rows.children.length; mark.innerHTML = '<b>At a glance · ' + n + (n === 1 ? ' fact' : ' facts') + '</b><span>Change them in the “At a glance” tab</span>'; };
+    const add = (f, focus) => {
+      const r = document.createElement('div'); r.className = 'gl-row'; r.draggable = true;
+      r.innerHTML = '<span class="gl-grip" title="Drag to change the order">' + GLANCE_IC + '</span><input class="in" data-l placeholder="e.g. Major Cities"><input class="in" data-v placeholder="e.g. Delhi, Jaipur, Lucknow, Shimla"><button type="button" class="gl-x" title="Remove this fact" aria-label="Remove this fact">✕</button>';
+      r.querySelector('[data-l]').value = f.label; r.querySelector('[data-v]').value = f.value;
+      r.querySelectorAll('input').forEach(i => { i.oninput = touch; i.addEventListener('mousedown', () => { r.draggable = false; }); i.addEventListener('blur', () => { r.draggable = true; }); });
+      r.querySelector('.gl-x').onclick = () => { r.remove(); count(); touch(); };
+      rows.appendChild(r); count(); if (focus) r.querySelector('[data-l]').focus();
+    };
+    rows.ondragstart = e => { drag = e.target.closest('.gl-row'); if (drag) drag.classList.add('dragging'); };
+    rows.ondragend = () => { if (drag) { drag.classList.remove('dragging'); drag = null; touch(); } };
+    rows.ondragover = e => { if (!drag) return; e.preventDefault(); const after = [...rows.children].find(c => c !== drag && e.clientY < c.getBoundingClientRect().top + c.offsetHeight / 2); rows.insertBefore(drag, after || null); };
+    card.querySelector('[data-gl-add]').onclick = () => { add({ label: '', value: '' }, true); touch(); };
+    facts.forEach(f => add(f));
+    mark.onclick = () => { const t = [...document.querySelectorAll('.etabs button')].find(x => x.textContent === 'At a glance'); if (t) t.click(); };
+    const get = comps.html.get;
+    comps.html.get = getters.html = () => {
+      const html = [...rows.children].map(r => ({ l: r.querySelector('[data-l]').value.trim(), v: r.querySelector('[data-v]').value.trim() })).filter(x => x.l && x.v).map(x => '<p><strong>' + A.esc(x.l) + ':</strong> ' + A.esc(x.v) + '</p>').join('\n');
+      const t = get(), m = /<div class="rte-glance"[^>]*>[\s\S]*?<\/span><\/div>/.exec(t);
+      return m ? t.replace(m[0], html) : (html ? html + '\n' + t : t);
+    };
+    panesAdd('At a glance', card);
   }
   // a link the client fills in as "Text" and "Link to" (the link box suggests the website's own pages)
   function linkRow(v) {
@@ -455,11 +610,6 @@
   // the website's pages, offered in every "Link to" box (like WordPress menus: pick a page instead of typing it)
   // (26 Oct 2026, client) a "Link to" box opens the same page picker as "+ Add pages from the website": a search, the
   // kinds of pages as tabs, and the pages as a list — click one to use it. Typing an address by hand still works.
-  let linkIndex = null;
-  const loadLinks = () => linkIndex || (linkIndex = A.api('GET', '/admin/api/link-index').then(r => r.items || []).catch(() => []));
-  const LK = [['', 'All'], ['main', 'Main pages'], ['Category', 'Categories'], ['Tour', 'Tours'], ['Page', 'Pages']];
-  const lkKind = it => (/^(Category|Tour|Page|Blog): /.exec(it.name) || [, 'main'])[1];
-  const lkName = it => it.name.replace(/^(Category|Tour|Page|Blog): /, '');
   let lkPop = null;
   function pageLink(inp) {
     inp.placeholder = inp.placeholder || 'Click to choose a page, or paste https://…';
@@ -501,6 +651,7 @@
     };
     const close = () => { if (lkPop) { lkPop.remove(); lkPop = null; } };
     inp.addEventListener('focus', open);
+    inp.addEventListener('click', () => { if (!lkPop) open(); });   // also when the box already had the cursor
     // it stays open while you search in it; a click anywhere else closes it
     inp.addEventListener('blur', () => setTimeout(() => { if (lkPop && !lkPop.contains(document.activeElement)) close(); }, 150));
     document.addEventListener('mousedown', e => { if (lkPop && e.target !== inp && !lkPop.contains(e.target)) close(); });
@@ -568,7 +719,7 @@
     [...box.children].forEach(ch => { if (ch.classList && ch.classList.contains('half')) run.push(ch); else flush(); }); flush(); };
   function group(obj, depth) {
     const el = document.createElement('div'), gets = {};
-    const isDay = 'paras' in obj && 'title' in obj;
+    const isDay = ('paras' in obj || ('html' in obj && 'day' in obj)) && 'title' in obj;
     const isForm = 'showPeriod' in obj;   // the enquiry form's words
     // (26 Oct 2026, client) what the website never shows is not asked for (it is kept as it is)
     const hide = 'src' in obj && 'pos' in obj ? ['alt', 'place', 'region', 'href', 'pos', 'flip'] : [];
@@ -594,7 +745,7 @@
       if (k === 'items' && Array.isArray(v) && v.some(isLinkRow)) { fb.querySelector('.lb').textContent = 'Links'; const h = fb.querySelector('.fhelp'); if (h) h.remove(); }
       if (isDay && k === 'photo') fb.querySelector('.lb').textContent = 'Photo for this day (optional)';
       // (27 Oct 2026, client) an empty day shows examples, not someone else's text
-      const ph = isDay && { day: 'e.g. 01 Day', title: 'e.g. Delhi - Agra', eta: 'e.g. 210 km · about 4 hours', note: 'Optional' }[k], inp = ph && fb.querySelector('input.in, textarea.in');
+      const ph = isDay && { day: 'e.g. 01 Day', title: 'e.g. Delhi - Agra', eta: 'e.g. 210 km · about 4 hours', note: 'e.g. The Taj Mahal is closed on Fridays.' }[k], inp = ph && fb.querySelector('input.in, textarea.in');
       if (inp) inp.placeholder = ph;
       if (isDay && k === 'paras' && c.input) c.input.dataset.ph = 'What happens this day: the sights, the drive, the overnight stay';
       if (/^(included|extras)$/.test(k)) fb.classList.add('half');
@@ -602,7 +753,7 @@
     pairHalves(el);
     // (27 Oct 2026, client video) a card with a photo: the photo on the left, its fields beside it (no empty space)
     const ph = [...el.children].filter(f => f.querySelector(':scope > .img-f'));
-    if (ph.length === 1 && el.children.length >= 3 && !obj.paras) { el.classList.add('fg-media'); ph[0].classList.add('f-photo'); ph[0].classList.remove('half'); }
+    if (ph.length === 1 && el.children.length >= 3 && !obj.paras && !isDay) { el.classList.add('fg-media'); ph[0].classList.add('f-photo'); ph[0].classList.remove('half'); }
     [...el.children].forEach(f => { const n = f.nextElementSibling; if (f.querySelector(':scope > .img-f') && n && n.querySelector(':scope > div > textarea.in') && !f.classList.contains('half') && !n.classList.contains('half')) { f.classList.add('half', 'f-img'); n.classList.add('half'); } });
     return { el, isGroup: true, get: () => Object.fromEntries(Object.entries(gets).map(([k, g]) => [k, g()])) };
   }
@@ -647,7 +798,7 @@
     const simple = linkList || tupleList || (arr.length ? arr.every(x => typeof x !== 'object' || x === null) : typeof tmpl !== 'object');
     const renum = () => rows.forEach((r, i) => { r.n.textContent = key === 'days' ? '' : i + 1; });
     // (27 Oct 2026, client) small things side by side, all open: figures, banner photos, cards, points, steps
-    const gridCols = !simple && { stats: 5, heroSlides: 4, cards: key === 'cards' && E.id === 'home' && arr[0] ? ('price' in arr[0] ? 4 : 'cities' in arr[0] ? 2 : 0) : 0, points: arr.length === 4 ? 4 : 3, steps: 4, seasons: 3, glance: 3, guideCols: 3, footerCols: 2, offices: 2, tips: 3 }[key];
+    const gridCols = !simple && { stats: 5, heroSlides: 4, cards: key === 'cards' && E.id === 'home' && arr[0] ? ('price' in arr[0] ? 4 : 'cities' in arr[0] ? 2 : 0) : 0, points: arr.length === 4 ? 4 : 3, steps: 4, seasons: 3, glance: 3, guideCols: 3, footerCols: 2, offices: 2, tips: 3, placeCards: 3 }[key];
     if (gridCols) { box.classList.add('arr-grid'); box.style.setProperty('--cols', gridCols); }
     // (27 Oct 2026, client video) no up / down arrows: each item has a grip to drag it where it should go; a bin removes it
     const ICO = { down: '<path d="m6 9 6 6 6-6"/>', x: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>', grip: '<circle cx="9" cy="6" r="1.4"/><circle cx="15" cy="6" r="1.4"/><circle cx="9" cy="12" r="1.4"/><circle cx="15" cy="12" r="1.4"/><circle cx="9" cy="18" r="1.4"/><circle cx="15" cy="18" r="1.4"/>' };
@@ -677,7 +828,7 @@
       x.onclick = async () => { if (!(await A.confirm('Remove this?', '"' + (summary(c.get()) || 'This item') + '" will be removed when you save.', 'Remove', true))) return; rows.splice(rows.indexOf(r), 1); it.remove(); renum(); touch(); };
       rows.push(r); box.appendChild(it); renum();
       if (open && !simple) it.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      if (gridCols) b.textContent = { stats: 'Figure', heroSlides: 'Photo', cards: 'Card', points: 'Point', steps: 'Step', guideCols: 'Card', footerCols: 'Column', offices: 'Office', topics: 'Topic', tips: 'Group', seasons: 'Season', glance: 'Box' }[key] || 'Item';
+      if (gridCols) b.textContent = { stats: 'Figure', heroSlides: 'Photo', cards: 'Card', points: 'Point', steps: 'Step', guideCols: 'Card', placeCards: 'Card', footerCols: 'Column', offices: 'Office', topics: 'Topic', tips: 'Group', seasons: 'Season', glance: 'Box' }[key] || 'Item';
     };
     arr.forEach(v => add(v, false));
     // a long list gets a search box (the reviews, the days of a long tour, the footer links …)
@@ -789,39 +940,42 @@
       }
     });
   }
-  // a simple word processor for page text (HTML), with a switch to edit the HTML itself
-  // a page's whole text (HTML): the same toolbar, plus headings, lists, quote, photo and the HTML code
-  function rte(html) {
-    const el = document.createElement('div'); el.className = 'rt';
-    const bar = toolbar([['p', 'h2', 'h3'], ['bold', 'italic', 'underline'], ['ul', 'ol', 'quote'], ['link', 'unlink', 'img'], ['undo', 'redo', 'clear'], ['src']]);
-    const ed = document.createElement('div'); ed.className = 'rte'; ed.contentEditable = 'true';
-    const raw = document.createElement('textarea'); raw.className = 'in rte-src'; raw.rows = 18; raw.hidden = true;
-    el.append(bar, ed, raw);
-    ed.innerHTML = html; ed.oninput = touch; raw.oninput = touch;
-    tbState(bar, ed);
-    const cmd = (c, v) => { ed.focus(); document.execCommand(c, false, v); touch(); };
-    bar.onclick = async e => {
-      const b = e.target.closest('button'); if (!b) return;
-      const c = b.dataset.c;
-      if (c === 'src') { if (raw.hidden) { raw.value = ed.innerHTML; raw.hidden = false; ed.hidden = true; b.classList.add('on'); } else { ed.innerHTML = raw.value; raw.hidden = true; ed.hidden = false; b.classList.remove('on'); } return; }
-      if (!raw.hidden) return A.toast('Press the </> button again to go back to the normal view');
-      if (['bold', 'italic', 'underline', 'unlink', 'undo', 'redo'].includes(c)) cmd(c);
-      else if (c === 'clear') cmd('removeFormat');
-      else if (c === 'h2' || c === 'h3' || c === 'p') cmd('formatBlock', c.toUpperCase());
-      else if (c === 'quote') cmd('formatBlock', 'BLOCKQUOTE');
-      else if (c === 'ul') cmd('insertUnorderedList');
-      else if (c === 'ol') cmd('insertOrderedList');
-      else if (c === 'link') {
-        const sel = window.getSelection(), range = sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
-        if (!range || range.collapsed) return A.toast('First select the words to turn into a link');
-        const url = await askLink('');
-        if (url) { sel.removeAllRanges(); sel.addRange(range); cmd('createLink', url); }
-      }
-      else if (c === 'img') { const sel = window.getSelection(), range = sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null; const src = await A.pickImage(); if (src) { if (range) { sel.removeAllRanges(); sel.addRange(range); } cmd('insertHTML', '<img src="' + src + '" alt="">'); } }
+  // the website's own wording when a tour leaves these empty (views/tour-detail-v2.ejs)
+  const PRICE_LINE = 'The price quote includes a private tour with {hotel} hotels, a private car with driver, and other services as mentioned below.';
+  const PRICE_INC = ['Hotel accommodation on twin sharing basis', 'Air-conditioned car with driver throughout sightseeing', 'Transport service from arrival until final departure'];
+  // (2 Nov 2026, client) a destination page's own choice of tours: the chosen tours in order (drag to sort, ✕ to take
+  // one out) and "+ Add tours" to tick more from all the tours, with a search
+  function tourPicker(urls) {
+    const el = document.createElement('div'); el.className = 'tp-pick';
+    el.innerHTML = '<div class="tp-list"></div><div class="tp-empty"><p class="tp-auto-h"><b>Shown now, picked by the website</b> — the tours that pass through this place. Add tours to show your own choice instead.</p><div class="tp-auto"><p class="hint">Looking at the page…</p></div></div><button type="button" class="btn btn-s btn-p" data-add>+ Add tours</button>';
+    const listEl = el.querySelector('.tp-list'), empty = el.querySelector('.tp-empty');
+    // (3 Nov 2026, client) with no tours chosen, the tours the page shows now (read from the page itself)
+    if (E.url) fetch(E.url).then(r => r.text()).then(h => {
+      const d = new DOMParser().parseFromString(h, 'text/html'), cards = [...d.querySelectorAll('.dx-tours a.tc')];
+      el.querySelector('.tp-auto').innerHTML = cards.length ? cards.map(c => '<div class="tp-row2 tp-ro"><span class="tp-n">•</span><b>' + A.esc(((c.querySelector('.tc-name') || {}).textContent || '').trim()) + '</b><small>' + A.esc(c.getAttribute('href') || '') + '</small></div>').join('') : '<p class="hint">This page shows no tours now. Add tours to show some.</p>';
+    }).catch(() => { el.querySelector('.tp-auto').innerHTML = ''; });
+    let all = [], chosen = urls.slice(), dragging = null;
+    const nameOf = u => { const it = all.find(x => x.url.toLowerCase() === String(u).toLowerCase()); return it ? lkName(it) : u; };
+    const draw = () => {
+      listEl.innerHTML = chosen.map((u, i) => '<div class="tp-row2" draggable="true" data-i="' + i + '"><span class="it-grip" title="Drag to change the order"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg></span><b>' + A.esc(nameOf(u)) + '</b><small>' + A.esc(u) + '</small><button type="button" title="Take it out" data-x="' + i + '">✕</button></div>').join('');
+      empty.hidden = chosen.length > 0;
     };
-    return { el, get: () => (raw.hidden ? ed.innerHTML : raw.value).trim() };
+    listEl.onclick = e => { const x = e.target.closest('[data-x]'); if (x) { chosen.splice(+x.dataset.x, 1); draw(); touch(); } };
+    listEl.ondragstart = e => { dragging = e.target.closest('.tp-row2'); if (dragging) dragging.classList.add('dragging'); };
+    listEl.ondragend = () => { if (!dragging) return; dragging.classList.remove('dragging'); chosen = [...listEl.children].map(r => chosen[+r.dataset.i]); dragging = null; draw(); touch(); };
+    listEl.ondragover = e => { if (!dragging) return; e.preventDefault(); const after = [...listEl.children].find(c => c !== dragging && e.clientY < c.getBoundingClientRect().top + c.offsetHeight / 2); listEl.insertBefore(dragging, after || null); };
+    el.querySelector('[data-add]').onclick = async () => {
+      const tours = all.filter(it => lkKind(it) === 'Tour');
+      const box = await A.dialog({ title: 'Add tours', ok: 'Add the ticked tours',
+        html: '<input class="in" type="search" data-q placeholder="Search a tour, e.g. Golden Triangle, Kerala"><div class="tp-opts">' + tours.map(it => '<label class="tp-opt" data-s="' + A.esc((lkName(it) + ' ' + it.url).toLowerCase()) + '"><input type="checkbox" value="' + A.esc(it.url) + '"' + (chosen.some(u => u.toLowerCase() === it.url.toLowerCase()) ? ' checked disabled' : '') + '><span><b>' + A.esc(lkName(it)) + '</b><small>' + A.esc(it.url) + '</small></span></label>').join('') + '</div>',
+        onOpen: b => { const q = b.querySelector('[data-q]'); q.oninput = () => { const v = q.value.trim().toLowerCase(); b.querySelectorAll('.tp-opt').forEach(o => { o.hidden = !!v && !o.dataset.s.includes(v); }); }; } });
+      if (!box) return;
+      box.querySelectorAll('.tp-opt input:checked:not(:disabled)').forEach(c => chosen.push(c.value));
+      draw(); touch();
+    };
+    draw(); loadLinks().then(x => { all = x; draw(); });
+    return { el, get: () => chosen.slice() };
   }
-
   // ---------- Google: counters, preview, checks ----------
   const LIMITS = { title: [30, 60, 65], description: [120, 160, 170] };
   function counter(k, c) {
@@ -967,12 +1121,14 @@
     // (26 Oct 2026, client) each day of a tour can have its own photo: the box sits under the day's title
     if (E.kind === 'tours' && Array.isArray(data.days)) data.days = data.days.map(d => d && typeof d === 'object' && !('photo' in d) ? Object.fromEntries(Object.entries(d).flatMap(([k, v]) => k === 'eta' ? [[k, v], ['photo', '']] : [[k, v]]).concat('eta' in d ? [] : [['photo', '']])) : d);
     let tabs = TABS[E.mode === 'single' ? E.id : E.kind];
+    if (E.kind === 'pages') tabs = tabs.filter(t => t[0] !== 'Tours');
     if (!tabs) tabs = res.fields.filter(k => k in data).map(k => [label(k), [k], HELP[k] || '']);   // settings: one tab per part
     singleSeo = E.mode === 'single' && data.seo && typeof data.seo === 'object';
     if (singleSeo) { const sv = data.seo; delete data.seo; GOOGLE.forEach(k => { data[k] = k in sv ? sv[k] : (k === 'noindex' || k === 'nofollow' ? false : ''); }); tabs = tabs.concat([[SEO_TAB, GOOGLE, 'How this page shows in Google and when it is shared. Leave a box empty to keep the text the website uses now (shown in grey).']]); }
     const used = new Set(tabs.flatMap(t => t[1]));
     // made automatically or chosen elsewhere: the breadcrumb, and a category's tours (ticked in each tour)
-    const AUTO = E.mode === 'item' ? ['breadcrumb'].concat(E.kind === 'lists' && E.id !== 'itineraries' ? ['groups'] : E.kind === 'tours' ? ['heroSrc', 'heroAlt'] : []) : E.id === 'reviews' ? ['all'] : [];
+    // (3 Nov 2026, client) a category has no menu group or closing text any more: no "More" tab for them
+    const AUTO = E.mode === 'item' ? ['breadcrumb'].concat(E.kind === 'lists' && E.id !== 'itineraries' ? ['groups', 'navGroup', 'outro', 'tourType'] : E.kind === 'tours' ? ['heroSrc', 'heroAlt'] : E.kind === 'pages' ? ['tours'] : []) : E.id === 'reviews' ? ['all'] : [];
     const rest = res.fields.filter(k => k in data && !used.has(k) && !AUTO.includes(k));
     if (rest.length) tabs = tabs.concat([['More', rest, '']]);
     const panes = [];
@@ -986,6 +1142,8 @@
       if (E.mode === 'single' && tabs.length > 1 && intro) card.insertAdjacentHTML('beforeend', '<div class="tab-head"><p>' + A.esc(intro) + '</p></div>');
       else if (intro) card.insertAdjacentHTML('beforeend', '<p class="tab-intro">' + A.esc(intro) + '</p>');
       keys.forEach(k => {
+        // (3 Nov 2026, client) a destination page is not put in the India Travel Guide
+        if (k === 'guideSection' && current && current.group === 'places') return;
         const c = field(k, data[k], 0);
         // (26 Oct 2026, client video II) a tab with one thing in it needs no second title for it
         const f = keys.length === 1 && name !== SEO_TAB ? Object.assign(document.createElement('div'), { className: 'f' }) : fieldBox(k, c, true);
@@ -1025,12 +1183,12 @@
     if (start) start.b.click();
     if (panes.length < 2) tabsEl.hidden = true;
     if (E.kind === 'tours' && E.mode === 'item') { catState = null; categoriesTab(addPane).then(() => { tabsEl.hidden = false; }); }
-    if (E.kind === 'tours' && comps.days) autoFromDays();
+    if (E.kind === 'tours' && comps.days) { autoFromDays(); dayNotes(comps.days.el); const dl = comps.days.el; new MutationObserver(() => dayNotes(dl)).observe(dl, { childList: true, subtree: true }); }
     // Footer menu ?col=2: that column opens, the others stay closed
     const col = +new URLSearchParams(location.search).get('col');
     if (E.id === 'footer' && col && comps.footerCols) { const its = [...comps.footerCols.el.querySelectorAll(':scope > .arr > .it')]; its.forEach((it, i) => it.classList.toggle('closed', i !== col - 1)); if (its[col - 1]) setTimeout(() => its[col - 1].scrollIntoView({ block: 'start', behavior: 'smooth' }), 50); }
-    // a destination / guide page with facts and lists opens on "Page sections", in the website's shape
-    if (E.kind === 'pages' && comps.html && hasSections(data.html)) { placesTab(addPane); tabsEl.hidden = false; if (!h) { const b = [...tabsEl.children].find(x => x.textContent === 'Facts & places'); if (b) b.click(); } }
+    // a region page: its place cards in a tab of their own
+    if (E.kind === 'pages' && comps.html) { if (current && /^(places|guide)$/.test(current.group || '')) sectionsTab(addPane); cardsTab(addPane); glanceTab(addPane); if (panes.length > 1) tabsEl.hidden = false; const pc = h && panes.find(p => p.slug === h); if (pc) pc.b.click(); }
     dirty = false; state.textContent = ''; state.classList.remove('dirty');
   }
   // (26 Oct 2026, client) a tour's route and length fill in by themselves from its days: the length from how many days
@@ -1039,7 +1197,7 @@
   function routeOf(days) {
     const out = [];
     days.forEach(d => String(d.title || '').split(/\s*[–—-]\s*|\s+to\s+|,|\//i).forEach(p => {
-      const n = p.replace(/\(.*?(\)|$)/g, '').replace(DROP, ' ').replace(/\s+/g, ' ').trim();
+      const n = p.replace(/\(.*?(\)|$)/g, '').replace(DROP, ' ').replace(/\s+/g, ' ').trim().replace(/^(in|at|to|from|and|of)\s+/i, '');
       if (n && /[a-z]/i.test(n) && (!out.length || out[out.length - 1].toLowerCase() !== n.toLowerCase())) out.push(n);
     }));
     return out.join(' - ');
@@ -1061,7 +1219,88 @@
       if (route) { const r = routeOf(days); if (r) route.value = r; }
       show(); touch();
     };
-    pane.addEventListener('input', run); new MutationObserver(() => setTimeout(run, 0)).observe(comps.days.el, { childList: true, subtree: true });
+    pane.addEventListener('input', run); new MutationObserver(() => setTimeout(run, 0)).observe(pane, { childList: true, subtree: true });
+  }
+  // (3 Nov 2026, client, option A) a day's note shows as on the tour page: a yellow box with an "i", under the day's
+  // text, with a pencil (the full editor in a popup) and a bin. Without a note: "+ Add a note for this day".
+  const NOTE_IC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>';
+  const PEN_IC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+  const BIN_IC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>';
+  function dayNotes(root) {
+    root.querySelectorAll('.f[data-k="note"]:not([data-dn])').forEach(nf => {
+      nf.dataset.dn = '1';
+      const it = nf.closest('.it'), ed = nf.querySelector('.rte');
+      if (!it || !ed) return;
+      nf.hidden = true;
+      const wrap = document.createElement('div'); wrap.className = 'dna';
+      const tf = nf.parentNode.querySelector(':scope > .f[data-k="html"]');
+      (tf || nf).after(wrap);
+      const dayName = () => { const t = it.querySelector('.f[data-k="title"] input'), d = it.querySelector('.f[data-k="day"] input'); return [(d && d.value) || '', (t && t.value) || ''].filter(Boolean).join(' — '); };
+      const draw = () => {
+        const has = !!ed.textContent.replace(/\s+/g, ' ').trim();
+        wrap.innerHTML = '<label class="lb">Note for this day <span class="lb-opt">(optional)</span></label>' + (has
+          ? '<div class="dna-box"><span class="dna-ic">' + NOTE_IC + '</span><div class="dna-t">' + ed.innerHTML + '</div><span class="dna-acts"><button type="button" class="dna-b" data-na="edit" title="Change the note" aria-label="Change the note">' + PEN_IC + '</button><button type="button" class="dna-b dna-rm" data-na="rm" title="Remove the note" aria-label="Remove the note">' + BIN_IC + '</button></span></div>'
+          : '<button type="button" class="dna-add" data-na="edit"><b>+ Add a note for this day</b><small>E.g. “The Taj Mahal is closed on Fridays.” It shows in a yellow box under the day.</small></button>');
+      };
+      const save = html => { ed.innerHTML = html; ed.dispatchEvent(new Event('input', { bubbles: true })); touch(); draw(); };
+      const edit = async () => {
+        let ne = null;
+        const box = await A.dialog({ title: 'Note for ' + (dayName() || 'this day'), ok: 'Save note',
+          html: '<div data-ne></div><p class="hint" style="margin:8px 0 0">It shows in a yellow box under this day on the tour page.</p>',
+          onOpen: b => {
+            b.closest('.modal-box').classList.add('dc-modal');
+            ne = rte(ed.innerHTML, { min: 140 }); b.querySelector('[data-ne]').appendChild(ne.el);
+            setTimeout(() => { const r = ne.el.querySelector('.rte'); if (r) r.focus(); }, 30);
+          } });
+        if (box && ne) save(ne.html().replace(/^(<p><br><\/p>|<br>)$/i, ''));
+      };
+      wrap.onclick = async e => {
+        const b = e.target.closest('[data-na]'); if (!b) return;
+        if (b.dataset.na === 'edit') return edit();
+        if (await A.confirm('Remove the note of ' + (dayName() || 'this day') + '?', 'The yellow note box goes away from this day. You can add it again later.', 'Remove', true)) save('');
+      };
+      draw();
+    });
+  }
+
+  // ---------- (3 Nov 2026, client) the whole itinerary from a file: a Word file (.docx), a PDF, a text file or pasted
+  // text (itinerary-import.js reads and understands it). It fills the days, the description, the prices and the lists,
+  // is saved as a draft, and the editor opens again with it: check it, then publish. ----------
+  const IMP_FMT = '<div class="imp-fmt"><b>How the file should look</b><pre>Golden Triangle Tour\nA short description of the tour …\n\nDay 1: Arrival in Delhi\nWelcome to India! …\n\nDay 2: Delhi – Agra (210 km / 4 hrs)\nAfter breakfast, drive to Agra …\nNote: The Taj Mahal is closed on Fridays.\n\nTour Pricing\n3-Star: $85 - $100 per person per day\n4-Star: $110 - $170 per person per day\n\nThis Tour Includes\nHotel accommodation with breakfast\n\nThis Tour Excludes\nAir fare\n\nImportant Notes\nPrices may change in festival weeks.</pre><small>“Day 1”, “Day 01 -” or “01 Day” all work. The text before Day 1 becomes the description. A line that starts with “Note:” is that day’s note.</small></div>';
+  const impDialog = async opts => {
+    let parsed = null;
+    const box = await A.dialog({ title: 'Import the itinerary', ok: 'Import',
+      html: IMP_FMT + '<label class="lb">The file: Word (.docx), PDF or text (.txt)</label><input type="file" class="in" data-file accept=".docx,.pdf,.txt,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain">' +
+        '<label class="lb" style="margin-top:10px">Or paste the text</label><textarea class="in" data-text rows="6" placeholder="Day 1: Arrival in Delhi …"></textarea>' +
+        (opts.keep ? '<label class="lb" style="margin-top:10px">The days the tour has now</label><select class="in" data-how><option value="replace">Replace them with the imported days</option><option value="add">Keep them; add the imported days after them</option></select>' : '') + '<p class="imp-res hint"></p>',
+      onOpen: b => {
+        const res = b.querySelector('.imp-res');
+        const show = p => { parsed = p; const f = window.ITIN.found(p); res.className = 'imp-res ' + (p.days.length ? 'ok' : 'bad'); res.textContent = p.days.length ? 'Found: ' + f + '.' : 'No “Day 1: …” line found. Check the format above.'; };
+        b.querySelector('[data-file]').onchange = async e => {
+          const f = e.target.files[0]; if (!f) return;
+          res.className = 'imp-res hint'; res.textContent = 'Reading the file…';
+          try { show(window.ITIN.parse(await window.ITIN.read(f))); } catch (err) { parsed = null; res.className = 'imp-res bad'; res.textContent = err.message; }
+        };
+        b.querySelector('[data-text]').oninput = e => show(window.ITIN.parse(window.ITIN.textParas(e.target.value)));
+      },
+      validate: () => parsed && parsed.days.length ? '' : 'Choose a file or paste the text first (with “Day 1: …” lines).' });
+    return box && parsed ? { parsed, keep: !!(box.querySelector('[data-how]') && box.querySelector('[data-how]').value === 'add') } : null;
+  };
+  window.MK_IMPORT = impDialog;   // the "Add a tour" popup uses it too
+  function importDays(card) {
+    const bar = document.createElement('div'); bar.className = 'imp-bar';
+    bar.innerHTML = '<div><b>Import the itinerary</b><small>From a Word file, a PDF or text: the days, description, prices, includes, excludes and notes are filled in.</small></div><button type="button" class="btn btn-s btn-p" data-imp>Import a file…</button>';
+    card.insertBefore(bar, card.querySelector('.f') || card.firstChild.nextSibling);
+    bar.querySelector('[data-imp]').onclick = async () => {
+      const r = await impDialog({ keep: true }); if (!r) return;
+      try {
+        const body = { data: window.ITIN.merge(collect(), r.parsed, r.keep) };
+        if (catState) body.categories = catState();
+        await A.api('PUT', apiUrl, body);
+        dirty = false; await load();
+        A.toast('Imported: ' + window.ITIN.found(r.parsed) + '. Saved as a draft: check it, then publish.');
+      } catch (e) { A.toast(e.message, true); }
+    };
   }
   const collect = () => {
     const out = Object.fromEntries(Object.entries(getters).map(([k, g]) => [k, g()]));
@@ -1071,8 +1310,21 @@
 
   // ---------- status, draft, publish (23 Oct 2026) ----------
   const when = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); };
+  // (4 Nov 2026, client) a destination or guide page: where it is, and "Move" to put it somewhere else
+  function showPlace(res) {
+    const el = document.querySelector('[data-place]'); if (!el) return;
+    if (E.kind !== 'pages' || !/^(places|guide)$/.test(res.group || '') || !res.data || !Array.isArray(res.data.breadcrumb)) { el.hidden = true; return; }
+    const mid = res.data.breadcrumb.slice(1, -1);
+    el.hidden = false;
+    el.innerHTML = '<span class="muted">In:</span> ' + (mid.length ? mid.map(b => A.esc(b.label)).join(' › ') : res.group === 'guide' ? A.esc(el.dataset.part || 'the India Travel Guide') : 'its region') + ' <button type="button" class="lnk addr-edit" data-moveit>Move</button>';
+    el.querySelector('[data-moveit]').onclick = async () => {
+      if (dirty && !(await A.confirm('Save first?', 'The page has changes that are not saved. Moving it does not save them.', 'Move anyway', false))) return;
+      const out = await A.movePage({ id: E.id, url: res.url, name: (res.data.heading || '').replace(/<[^>]+>/g, ''), group: res.group, now: mid.map(b => b.href).filter(Boolean) });
+      if (out) showPlace(Object.assign({}, res, { data: Object.assign({}, res.data, { breadcrumb: out.data.breadcrumb }) }));
+    };
+  }
   function showStatus(res) {
-    current = res;
+    current = res; showPlace(res);
     const live = res.published !== false;
     statusEl.className = 'pill ' + (res.draft ? 'pill-draft' : live ? 'pill-live' : 'pill-off');
     statusEl.textContent = res.draft ? (live ? 'Live — with unpublished changes' : 'Draft — not on the website yet') : live ? 'Live on the website' : 'Not on the website';

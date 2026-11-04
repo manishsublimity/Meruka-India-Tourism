@@ -1,30 +1,32 @@
-// Meruka admin: the Photos page — upload, browse, copy an address, delete uploaded photos
+// Meruka admin: the Photos page (3 Nov 2026) — every photo in one grid: search by name, upload or drop files, click to
+// copy a photo's address, delete an uploaded one
 (function () {
   const A = window.ADMIN;
-  const grid = document.querySelector('[data-page-grid]'), tabs = document.querySelector('[data-page-tabs]');
-  const drop = document.querySelector('[data-page-drop]'), file = document.querySelector('[data-page-file]');
-  let groups = [], cur = 0;
+  const grid = document.querySelector('[data-page-grid]'), drop = document.querySelector('[data-page-drop]'), file = document.querySelector('[data-page-file]');
+  const mq = document.querySelector('[data-mq]'), count = document.querySelector('[data-mcount]');
+  let all = [];
+  const DEL = '<button class="mi-del" type="button" data-del title="Delete this photo" aria-label="Delete this photo">✕</button>';
   const draw = () => {
-    tabs.innerHTML = groups.map((g, i) => `<button type="button" class="${i === cur ? 'on' : ''}" data-t="${i}">${A.esc(g.label)} (${g.files.length})</button>`).join('');
-    const g = groups[cur] || { files: [], dir: '' };
-    grid.innerHTML = g.files.length ? g.files.map(f => `<div class="mi" data-src="${A.esc(f.src)}" title="Click to copy the address"><img src="${A.esc(f.src)}" alt="" loading="lazy"><span>${A.esc(f.name)}</span>${g.dir === 'uploads' ? `<button class="del" type="button" data-del="${A.esc(f.name)}" title="Delete">✕</button>` : ''}</div>`).join('') : '<p class="hint">No photos here yet.</p>';
+    const q = mq.value.trim(), list = q ? all.filter(f => A.photoMatch(f, q)) : all;
+    count.textContent = q ? list.length + ' of ' + all.length + ' photos' : all.length + ' photos';
+    grid.innerHTML = list.length ? list.map(f => A.photoTile(f, f.dir === 'uploads' ? DEL : '')).join('') : '<p class="mm-empty">' + (q ? 'No photo has “' + A.esc(q) + '” in its name.' : 'No photos yet.') + '</p>';
   };
-  const load = async () => { groups = await A.media(); draw(); };
-  tabs.onclick = e => { const t = e.target.closest('[data-t]'); if (t) { cur = +t.dataset.t; draw(); } };
+  const load = async () => { all = A.allPhotos(await A.media()); draw(); };
+  mq.oninput = draw;
   grid.onclick = async e => {
-    const d = e.target.closest('[data-del]');
-    if (d) {
-      if (!confirm('Delete ' + d.dataset.del + '? Pages that use it will show no photo.')) return;
-      try { await A.api('DELETE', '/admin/api/media/' + encodeURIComponent(d.dataset.del)); A.toast('Deleted'); load(); } catch (err) { A.toast(err.message, true); }
+    const it = e.target.closest('.mi'); if (!it) return;
+    if (e.target.closest('[data-del]')) {
+      const name = it.dataset.src.split('/').pop();
+      if (!(await A.confirm('Delete ' + name + '?', 'Pages that use it will show no photo.', 'Delete', true))) return;
+      try { await A.api('DELETE', '/admin/api/media/' + encodeURIComponent(name)); A.toast('Deleted'); load(); } catch (err) { A.toast(err.message, true); }
       return;
     }
-    const it = e.target.closest('.mi'); if (!it) return;
     try { await navigator.clipboard.writeText(it.dataset.src); A.toast('Copied: ' + it.dataset.src); } catch (err) { prompt('Photo address:', it.dataset.src); }
   };
-  const up = async files => { if ((await A.upload(files)).length) { cur = 0; load(); } };
+  const up = async files => { if ((await A.upload(files)).length) { mq.value = ''; load(); } };
   file.onchange = () => up([...file.files]);
   drop.ondragover = e => { e.preventDefault(); drop.classList.add('over'); };
-  drop.ondragleave = () => drop.classList.remove('over');
+  drop.ondragleave = e => { if (!drop.contains(e.relatedTarget)) drop.classList.remove('over'); };
   drop.ondrop = e => { e.preventDefault(); drop.classList.remove('over'); up([...e.dataTransfer.files]); };
   load();
 })();

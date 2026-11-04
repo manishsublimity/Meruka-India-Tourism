@@ -50,6 +50,17 @@ html.gt-wait::after{content:"";position:fixed;left:50%;top:50%;width:34px;height
   const robotsTag = pdx.noindex || pdx.nofollow ? (pdx.noindex ? 'noindex' : 'index') + ', ' + (pdx.nofollow ? 'nofollow' : 'follow') : (typeof meta !== 'undefined' && meta && meta.robots);
   // (28 Oct 2026) a page's own canonical address, set in its SEO panel, wins over the built-in one
   if (pdx.canonical && typeof meta !== 'undefined' && meta) meta = Object.assign({}, meta, { canonical: pdx.canonical });
+  // (4 Nov 2026, site check) a page without its own Google description gets one from the start of its text (about 155
+  // letters, cut at a word), so no page shows in Google without one; the one in the SEO panel always wins
+  if (typeof meta !== 'undefined' && meta && !String(meta.description || '').trim()) {
+    // text in any shape: a string, a list of paragraphs, or paragraphs of { text } parts
+    const flat = x => typeof x === 'string' ? x : Array.isArray(x) ? x.map(flat).join(' ') : x && typeof x === 'object' ? flat(x.text || '') : '';
+    const tourNames = Array.isArray(pdx.groups) ? pdx.groups.flatMap(g => (g.tours || []).map(t => t.name)).filter(Boolean) : [];
+    const txt = [pdx.summary, pdx.intro, pdx.html, pdx.text, pdx.paras, pdx.overview, pdx.outro,
+      tourNames.length && (String(pdx.heading || title).replace(/<[^>]+>/g, '') + ' by Meruka India Tourism: ' + tourNames.slice(0, 6).join(', ') + '. Private tours, made to your plan.')]
+      .map(flat).map(x => x.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()).find(x => x.length > 40) || (pdx.heading ? flat(pdx.heading).replace(/<[^>]+>/g, '').trim() + ' — private tours and travel help from Meruka India Tourism, made to your plan.' : '');
+    if (txt) meta = Object.assign({}, meta, { description: txt.length > 158 ? txt.slice(0, 155).replace(/\s+\S*$/, '') + '…' : txt });
+  }
 %>
 <title><%= title %></title>
 <% if (typeof meta !== 'undefined' && meta) { %>

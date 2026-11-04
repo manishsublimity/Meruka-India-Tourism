@@ -33,7 +33,7 @@
 <%# (21 Oct 2026, client) a category page's heading without "India" in front and with "Packages":
     "India Golden Triangle Tours" → "Golden Triangle Tour Packages" %>
 <% const pageHead = /tours?$/i.test(d.heading.trim()) ? d.heading.trim().replace(/&amp;/g, '&').replace(/^indian?\s+/i, '').replace(/\s+india(?=\s+tours?$)/i, '').replace(/\s*tours?$/i, ' Tour Packages') : d.heading; %>
-<%- include('partials/photo-hero', { title: pageHead, img: d.heroSrc, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
+<%- include('partials/photo-hero', { title: pageHead, img: d.heroSrc || heroImg, alt: d.heroAlt || '', crumbs: d.breadcrumb }) %>
 
 <% // Filters: only the options this page's tours actually have
    const ROWS = G.flatMap(g => g.rows);
@@ -66,16 +66,20 @@
 <section id="tour-options" class="tp2<%= single ? ' tp2-one' : '' %>">
   <div class="tp2-wrap">
     <%# (21 Oct 2026, client) right under the page heading, as on the home page %>
-    <%- pvtLine %>
-    <% if (single && (d.intro || []).some(p => paraHtml(p).trim().length > 40)) { %>
+    <%# (2 Nov 2026, client) the category's own tour type (set in the panel) in place of the usual line %>
+    <% if (String(d.tourType || '').trim()) { %><p class="pvt-line pvt-short"><span><%= String(d.tourType).trim() %></span><i aria-hidden="true"></i></p><% } else { %><%- pvtLine %><% } %>
+    <%# (3 Nov 2026) a description written in the panel's full editor is html; the imported ones are paragraphs %>
+    <% const introH = typeof d.intro === 'string' ? d.intro : (d.intro || []).map(p => paraHtml(p).trim()).filter(Boolean).map(h => '<p>' + h + '</p>').join(''); %>
+    <% if (single && introH.replace(/<[^>]+>|&nbsp;/g, '').trim().length > (d.__cmsNew || typeof d.intro === 'string' ? 0 : 40)) { %>
     <div class="tp2-intro prose is-clamped" id="tp2-intro">
-      <% d.intro.forEach(p => { const h = paraHtml(p).trim(); if (h) { %><p><%- h %></p><% } }) %>
+      <%- introH %>
     </div>
     <button type="button" class="tp2-intro-more" aria-controls="tp2-intro" aria-expanded="false" hidden>Read more <span aria-hidden="true">↓</span></button>
     <% } %>
     <div class="tp2-grid">
       <div class="tp2-list">
         <p class="tp2-status is-hidden" data-tp2-count data-total="<%= ROWS.length %>"></p>
+        <% if (!ROWS.length) { %><%# (2 Nov 2026) a new category before any tour is put in it %><div class="tp2-none">The tours of this category are coming soon. <a href="/itineraries">See all our tours</a> or <a href="/plan-my-trip">plan your own trip</a>.</div><% } %>
         <div class="tp2-none is-hidden" data-tp2-none>No tours match these filters. <button type="button" data-tp2-clear>Clear filters</button></div>
         <% G.forEach((g, gi) => { const open = single; /* (16 Oct 2026) on /itineraries every category starts closed */ %>
         <article class="tp2-card<%= open ? ' open' : '' %><%= single ? ' tp2-flat' : '' %>" data-tp2-group id="<%= slug(g.title) %>">

@@ -2,6 +2,7 @@
   // (23 Oct 2026) the admin panel's frame: a menu that shows only what the signed-in person's role allows (the server
   // checks every page and action as well), the person and their role at the foot, and a top bar.
   const IC = {
+    photo: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 8"/>',
     home: '<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',
     tours: '<path d="M4 18 9 6l4 8 3-5 4 9z"/>',
     pages: '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/>',
@@ -52,13 +53,15 @@
   const MENU = [
     ['', [['Dashboard', 'home', '/admin', page === 'dashboard' || page === 'insights', '']]],
     ['Content', [
-      ['Tours', 'tours', '/admin/tours', K === 'tours' || K === 'lists' || (K === 'pages' && PG === 'tours'), 'content', 0, 0, [
-        ['Add tour', '/admin/tours#new', false], ['Categories', '/admin/lists', K === 'lists']]],
+      ['Tours', 'tours', '/admin/tours', K === 'tours' || K === 'lists' || (K === 'pages' && PG === 'tours') || page === 'pricing', 'content', 0, 0, [
+        ['Add tour', '/admin/tours#new', false], ['Categories', '/admin/lists', K === 'lists'], ['Prices & notes', '/admin/pricing', page === 'pricing']]],
       ['Pages', 'pages', '/admin/pages', page === 'pages' || (K === 'single' && SG[S] && SG[S].page && S !== 'reviews'), 'content'],
       ['Four Regions', 'map', '/admin/destinations', onDest, 'content', 0, 0, REG.map(([l, k]) => [l, '/admin/destinations?region=' + k, onDest && (QS.region || PS) === k])],
       // (26 Oct 2026, client) the travel guide's three sections, each on its own, like a post type
       ...GSEC.map(([l, k], n) => [l, ['guide', 'attr', 'tools'][n], '/admin/travel-guide?section=' + k, onGuide && (QS.section || PS || 'travelers') === k, 'content']),
-      ['Guest reviews', 'reviews', '/admin/reviews', page === 'reviews' || onSingle('reviews'), 'reviews']]],
+      ['Guest reviews', 'reviews', '/admin/reviews', page === 'reviews' || onSingle('reviews'), 'reviews'],
+      // (2 Nov 2026, client) every photo of the website in one place: upload, search, copy, delete
+      ['Photos', 'photo', '/admin/media', page === 'media', 'content']]],
     ['Menus', [
       ['Header menu', 'menus', '/admin/settings/header', onSingle('header'), 'menus'],
       ['Footer menu', 'foot', '/admin/settings/footer', onFoot, 'menus', 0, 0, FCOL.map(([l, n], i) => [l, '/admin/settings/footer?tab=' + n, onFoot && ((QS.tab || (QS.col ? 'link-columns' : '')) === n || (!QS.tab && !QS.col && i === 0))])]]],
@@ -78,7 +81,7 @@
 <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' — ' : '' %>Meruka admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/admin-assets/admin.css?v=37">
+<link rel="stylesheet" href="/admin-assets/admin.css?v=66">
 <%# (26 Oct 2026, client) the panel's look (light or dark, and its colour), chosen per browser in "Look of the panel" %>
 <script>(function () { try { var rl = <%- JSON.stringify(typeof roleLook !== 'undefined' && roleLook ? roleLook : {}) %>, own = localStorage.getItem('mk-look'), l = own ? JSON.parse(own) : rl, d = document.documentElement, m = l.mode || 'light';
   if (m === 'auto') m = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';

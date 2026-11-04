@@ -15,9 +15,29 @@
 <div class="subtabs sec-tabs" data-sectabs><% sections.forEach((sct, i) => { %><button type="button" data-sec-i="<%= i %>"<%- i === 0 ? ' class="on"' : '' %>><%= sct.title %> <b><%= sct.rows.length + sct.rows.reduce((m, r) => m + r.kids.length + r.kids.reduce((k, c) => k + c.kids.length, 0), 0) + (sct.head ? 1 : 0) %></b></button><% }) %></div>
 <% } %>
 
+<% const ov = typeof overview !== 'undefined' && overview; %>
+<% if (ov) { %>
+<%# (2 Nov 2026, client) Four Regions opens on the regions as cards: open a region for its pages, or edit the region page itself %>
+<div class="rg-cards" data-overview>
+  <% sections.forEach(sct => { const kids = sct.rows.reduce((m, r) => m + r.kids.length + r.kids.reduce((k, c) => k + c.kids.length, 0), 0), key = sct.key || 'other'; %>
+  <article class="rg-card">
+    <%# the region's own banner when one is chosen in its page, else the region's photo %>
+    <% const rImg = sct.head && sct.head.banner && !/india-tours-main/.test(sct.head.banner) ? sct.head.banner : (sct.img || (sct.head && sct.head.img)); %>
+    <a class="rg-ph" href="?region=<%= key %>"><% if (rImg) { %><img src="<%= rImg %>" alt="" loading="lazy"><% } %><span><%= sct.title %></span></a>
+    <div class="rg-b">
+      <p class="rg-n"><b><%= sct.rows.length %></b> <%= sct.head ? (sct.rows.length === 1 ? 'state' : 'states') : (sct.rows.length === 1 ? 'page' : 'pages') %><% if (kids) { %> · <b><%= kids %></b> <%= kids === 1 ? 'city page' : 'city pages' %><% } %></p>
+      <p class="rg-s muted"><%= sct.rows.slice(0, 5).map(r => r.name.replace(/\s*Tourism$/i, '')).join(', ') %><%= sct.rows.length > 5 ? ' …' : '' %></p>
+      <%# (3 Nov 2026, client) plain words: the region's own page, and the pages under it %>
+      <div class="rg-acts"><% if (sct.head) { %><a class="btn btn-s btn-p" href="/admin/pages/<%= sct.head.id %>">Edit the <%= sct.title %> page</a><% } %><a class="btn btn-s" href="?region=<%= key %>"><%= sct.head ? 'States & cities' : 'Its pages' %> (<%= sct.rows.length + kids %>) →</a></div>
+    </div>
+  </article>
+  <% }) %>
+</div>
+<% } %>
 <% sections.forEach(sct => { n = 0; %>
-<section class="tr-sec" data-sec data-title="<%= sct.title %>">
+<section class="tr-sec" data-sec data-title="<%= sct.title %>"<% if (sct.head) { %> data-head="<%= sct.head.id %>"<% } %><%- ov ? ' hidden' : '' %>>
   <% if (sections.length > 1) { %><h2 class="tr-sec-h" data-sec-h><%= sct.title %></h2><% } %>
+  <% if (sct.head) { %><p class="rg-listcap">States and their city pages</p><% } %>
   <div class="lst-wrap">
   <table class="tbl lst lst-clean lst-cards tr-cards">
     <thead><tr><th class="n">#</th><th>Page</th><th>Status</th><th>Last change</th><th class="acts-h">Actions</th></tr></thead>
@@ -30,17 +50,9 @@
           <% if (r.published) { %><a href="<%= r.url %>" target="_blank" rel="noopener" class="url"><%= r.url %> ↗</a><% } else { %><span class="url"><%= r.url %></span><% } %></div></div></td>
         <td><% if (!r.published) { %><span class="pill pill-off">Draft</span><% } else if (r.hasDraft) { %><span class="pill pill-draft">Live + changes</span><% } else { %><span class="pill pill-live">Live</span><% } %></td>
         <td class="muted"><%= when(r.savedAt) %></td>
-        <td class="acts"><a class="btn btn-s btn-p" href="/admin/pages/<%= r.id %>">Edit</a><% if (mode !== 'tours' && depth < 2) { %><button class="btn btn-s" type="button" data-add data-section="<%= sct.guideSection || '' %>" data-parents='<%- JSON.stringify((parents || []).concat([{ label: r.name, href: r.url }])).replace(/'/g, "&#39;") %>' title="Add a page under <%= r.name %>">+ Sub-page</button><% } %><% if (mayDelete) { %><button class="btn btn-s btn-d" type="button" data-del="<%= r.id %>" data-name="<%= r.name %>">Delete</button><% } %></td>
+        <td class="acts"><a class="btn btn-s btn-p" href="/admin/pages/<%= r.id %>">Edit</a><% if (false) { %><button class="btn btn-s" type="button" data-add data-section="<%= sct.guideSection || '' %>" data-parents='<%- JSON.stringify((parents || []).concat([{ label: r.name, href: r.url }])).replace(/'/g, "&#39;") %>' title="Add a page under <%= r.name %>">+ Sub-page</button><% } %><% if (mode !== 'tours') { %><button class="btn btn-s" type="button" data-move="<%= r.id %>" data-url="<%= r.url %>" data-name="<%= r.name %>" data-now='<%- JSON.stringify((parents || []).map(p => p.href)).replace(/'/g, "&#39;") %>'>Move</button><% } %><% if (mayDelete) { %><button class="btn btn-s btn-d" type="button" data-del="<%= r.id %>" data-name="<%= r.name %>">Delete</button><% } %></td>
       </tr>
       <% r.kids.forEach(k => row(k, depth + 1, (parents || []).concat([{ label: r.name, href: r.url }]))); } %>
-      <% if (sct.head) { n++; %>
-      <tr data-row data-s="<%= (sct.head.name + ' ' + sct.head.url).toLowerCase() %>" class="tr-head">
-        <td class="n"><%= n %></td>
-        <td><div class="lst-name"><% if (sct.head.img) { %><img class="thumb" src="<%= sct.head.img %>" alt="" loading="lazy"><% } %><div><a href="/admin/pages/<%= sct.head.id %>" class="row-name"><b><%= sct.head.name %></b></a> <span class="tag">Region page</span><a href="<%= sct.head.url %>" target="_blank" rel="noopener" class="url"><%= sct.head.url %> ↗</a></div></div></td>
-        <td><span class="pill pill-live">Live</span></td><td class="muted"><%= when(sct.head.savedAt) %></td>
-        <td class="acts"><a class="btn btn-s btn-p" href="/admin/pages/<%= sct.head.id %>">Edit</a></td>
-      </tr>
-      <% } %>
       <% sct.rows.forEach(r => row(r, 0, sct.parents || [])); %>
       <% if (!sct.rows.length) { %><tr><td colspan="5" class="muted" style="text-align:center;padding:18px">No pages here yet.</td></tr><% } %>
     </tbody>
@@ -48,5 +60,5 @@
   </div>
 </section>
 <% }) %>
-<script>window.TREE = { mode: <%- JSON.stringify(mode) %>, one: <%- JSON.stringify(one) %>, sections: <%- JSON.stringify(sections.map(sct => ({ title: sct.title, guideSection: sct.guideSection || '', parents: sct.parents || [] }))) %> };</script>
-<%- include('_bottom', { scripts: ['/admin-assets/tree.js?v=6'] }) %>
+<script>window.TREE = { mode: <%- JSON.stringify(mode) %>, one: <%- JSON.stringify(one) %>, sections: <%- JSON.stringify(sections.map(sct => ({ title: sct.title, guideSection: sct.guideSection || '', parents: sct.parents || [], rows: (sct.rows || []).map(r => ({ label: r.name, href: r.url })) }))) %> };</script>
+<%- include('_bottom', { scripts: ['/admin-assets/tree.js?v=14'] }) %>

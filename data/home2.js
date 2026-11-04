@@ -205,16 +205,30 @@ const GROUP_IMG = {
   'Tamil Nadu Tours': '/photos/brihadeshwara-temple.webp',
   'Incredible India Tours': '/photos/india-main.webp'
 };
+// (2 Nov 2026, client) /itineraries: a category added in the admin panel (published, with a group in the tour menu) shows
+// after the other categories of its group, with its tours
+const withNewCats = groups => {
+  const lc = s => String(s || '').toLowerCase(), have = new Set(groups.map(g => lc(g.href))), out = groups.slice();
+  const nav = require('./tour-nav').groups;
+  const plain = segs => typeof segs === 'string' ? segs.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim() : (segs || []).map(p => (Array.isArray(p) ? p : []).map(x => x.text || '').join('')).join(' ').replace(/\s+/g, ' ').trim();
+  Object.values(lists).filter(l => (l.navGroup || l.__cmsNew) && !l.unpublished && l.url !== '/itineraries' && !have.has(lc(l.url))).forEach(l => {
+    const g = { title: String(l.heading || '').replace(/<[^>]+>/g, '').trim(), href: l.url, tours: listTours(l), line: l.tourType || '', desc: plain(l.intro), img: l.heroSrc || '' };
+    const ng = nav.find(x => x.title === l.navGroup), at = ng ? out.reduce((m, x, i) => ng.cats.some(c => lc(c.href) === lc(x.href)) ? i : m, -1) : -1;
+    if (at >= 0) out.splice(at + 1, 0, g); else out.push(g);
+  });
+  return out;
+};
 module.exports.listingFor = list => {
   const cat = url => CATS.find(c => c[0] === url);
   const used = new Set();
   // one picture per card on the page: the category's own photo first, then any photo its words point to
   const pick = (first, text) => { const c = [first].concat(photoCandidates(text)).filter(Boolean).find(x => !used.has(x)); if (c) used.add(c); return c || first; };
   // a list page with no tours of its own (Gujarat) shows its category from the full India Tours list
-  const own = list.groups.length ? list.groups : lists['/itineraries'].groups.filter(g => g.href === list.url);
+  const own = list.url === '/itineraries' ? withNewCats(list.groups) : list.groups.length ? list.groups : lists['/itineraries'].groups.filter(g => g.href === list.url);
   return own.map(g => {
     const href = g.href || list.url;
-    const rows = g.tours.map(t => {
+    // (3 Nov 2026) a tour that is still a draft is not listed
+    const rows = g.tours.filter(t => !(tours[(t.href || '').toLowerCase()] || {}).unpublished).map(t => {
       const n = nights(t.duration), perDay = fromPrice(tours[(t.href || '').toLowerCase()]);
       const text = [g.title, list.heading, t.name, t.route].join(' ');
       return {
@@ -229,9 +243,9 @@ module.exports.listingFor = list => {
     const target = lists[href] && lists[href] !== list ? lists[href] : null;
     return {
       title: g.title || list.heading, href: target ? href : '',
-      line: c ? c[2] : (GROUP_LINE[g.title] || ''),
-      desc: GROUP_DESC[g.title || list.heading] || GROUP_DESC[(lists['/itineraries'].groups.find(x => x.href === href) || {}).title] || '',
-      img: pick(GROUP_IMG[g.title] || CAT_IMG[href] || (c && categories.find(x => x.url === href) || {}).img, [g.title || list.heading].concat(g.tours.map(t => t.name + ' ' + t.route)).join(' | ')),
+      line: c ? c[2] : (g.line || GROUP_LINE[g.title] || ''),
+      desc: g.desc || GROUP_DESC[g.title || list.heading] || GROUP_DESC[(lists['/itineraries'].groups.find(x => x.href === href) || {}).title] || '',
+      img: g.img || pick(GROUP_IMG[g.title] || CAT_IMG[href] || (c && categories.find(x => x.url === href) || {}).img, [g.title || list.heading].concat(g.tours.map(t => t.name + ' ' + t.route)).join(' | ')),
       from: prices.length ? Math.min(...prices) : null,
       nights: ns.length ? [Math.min(...ns), Math.max(...ns)] : null,
       rows
