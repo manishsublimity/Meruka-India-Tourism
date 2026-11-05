@@ -19,4 +19,4 @@ The site runs at http://localhost:3000 (`npm run dev` restarts on changes to `se
 - `public/` — `css/` (`site.css` base, `home-4.css` home design, `inner-4.css` inner pages), `js/`, `photos/`, `images/`, `assets/`.
 - `scripts/` — importers for new pages from india-tourism.net (`node scripts/import-article.js …`, `import-list.js`, `import-tour.js`).
 
-Enquiries sent from the contact form are saved to `data/enquiries.json` (not committed).
+Enquiries sent from the contact form are saved in MySQL (table `enquiries`); see ADMIN.md for the database setup.

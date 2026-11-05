@@ -4,7 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const { photoFor, photoForCard: cardPhoto } = require('./photos');
 
-const read = dir => fs.readdirSync(path.join(__dirname, dir)).filter(f => f.endsWith('.js')).map(f => require('./' + dir + '/' + f));
+// (5 Nov 2026) the data files less the items deleted in the admin panel (lib/db)
+const read = dir => require('../lib/db').files(dir).map(f => require('./' + dir + '/' + f));
 const tours = {};
 read('tours').forEach(t => { tours[t.url.toLowerCase()] = t; });
 const lists = {};

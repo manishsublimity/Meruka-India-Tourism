@@ -6,11 +6,12 @@ const express = require('express');
 // lib/cms/hook.js. The data is read inside buildSite(), which runs again after every save in the admin panel.
 const cmsHook = require('./lib/cms/hook');
 cmsHook.install();
+// (5 Nov 2026) what the admin panel saves (edits, added pages, users, enquiries, uploaded photos) is in MySQL: lib/db
+const db = require('./lib/db');
 let site, contact, home, about, seo;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const ENQUIRY_FILE = path.join(__dirname, 'data', 'enquiries.json');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -23,6 +24,15 @@ app.use((req, res, next) => {
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
   if (req.secure || req.headers['x-forwarded-proto'] === 'https') res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   next();
+});
+// photos uploaded in the admin panel are kept in MySQL (table uploads)
+app.get('/uploads/:name', async (req, res, next) => {
+  try {
+    const f = db.isReady() && await db.uploads.read(path.basename(req.params.name));
+    if (!f) return next();
+    res.set({ 'Content-Type': f.mime, 'Cache-Control': 'public, max-age=86400', 'Last-Modified': new Date(f.at).toUTCString() });
+    res.send(f.data);
+  } catch (e) { next(e); }
 });
 app.use(express.static(path.join(__dirname, 'public')));
 // SEO / AIO / GEO: every page knows its own absolute origin, for canonical, Open Graph and JSON-LD
@@ -52,7 +62,7 @@ function buildSite() {
   // first, then tours that stop there on the way (not only start or end there), shortest first.
   const ALL_TOURS = (() => {
     const seen = new Map();
-    for (const f of fs.readdirSync(path.join(__dirname, 'data', 'tour-lists')).filter(f => f.endsWith('.js'))) {
+    for (const f of db.files('tour-lists')) {
       require('./data/tour-lists/' + f).groups.forEach(g => g.tours.forEach(t => { if (t.href && !seen.has(t.href)) seen.set(t.href, t); }));
     }
     return [...seen.values()];
@@ -75,7 +85,7 @@ function buildSite() {
   // them by itself, so a page added in the panel shows there without touching the text
   app.locals.childPages = url => {
     const k = String(url || '').toLowerCase();
-    return fs.readdirSync(path.join(__dirname, 'data', 'articles')).filter(f => f.endsWith('.js')).map(f => require('./data/articles/' + f))
+    return db.files('articles').map(f => require('./data/articles/' + f))
       .filter(a => a.url && !a.unpublished && (a.breadcrumb || []).length >= 3 && String((a.breadcrumb[a.breadcrumb.length - 2] || {}).href || '').toLowerCase() === k)
       .map(a => {
         const name = String(a.heading || '').replace(/<[^>]+>/g, '').replace(/\s*Tourism$/i, '').trim();
@@ -114,7 +124,7 @@ function buildSite() {
   app.locals.pvt = (cls = '') => '<span class="pvt' + (cls ? ' ' + cls : '') + '">' + PVT_ICON + '<span>Private Tour <i aria-hidden="true">–</i> No Sharing</span></span>';
   // A tour's own main photo (the first picture on its page), for the rows of the category pages (16 Oct 2026)
   const TOUR_PAGES = {};
-  fs.readdirSync(path.join(__dirname, 'data', 'tours')).filter(f => f.endsWith('.js')).forEach(f => { const t = require('./data/tours/' + f); TOUR_PAGES[t.url.toLowerCase()] = t; });
+  db.files('tours').forEach(f => { const t = require('./data/tours/' + f); TOUR_PAGES[t.url.toLowerCase()] = t; });
   // (23 Oct 2026) every tour with its code, in the client's code order (GT-1, GT-2 … ER-1 …), for the Plan My Trip form
   app.locals.tourCodeOptions = (() => {
     const order = [...new Set(Object.values(require('./data/tour-codes').CODES).map(c => c.split(/[-\s]/)[0]))];
@@ -127,7 +137,7 @@ function buildSite() {
   // on the home page's travel guide cards and on /guide
   const guideExtras = () => {
     const out = {};
-    for (const f of fs.readdirSync(path.join(__dirname, 'data', 'articles')).filter(f => f.endsWith('.js'))) {
+    for (const f of db.files('articles')) {
       const a = require('./data/articles/' + f);
       if (a.guideSection && a.url && !a.unpublished) (out[a.guideSection] = out[a.guideSection] || []).push({ name: String(a.heading || '').replace(/^India:\s*/i, ''), href: a.url, line: a.description || '' });
     }
@@ -145,7 +155,7 @@ function buildSite() {
       // (18 Oct 2026) the number of tours in each category and in each sector, for "India Tour Packages"
       tourCounts: (() => {
         const lists = {};
-        fs.readdirSync(path.join(__dirname, 'data', 'tour-lists')).filter(f => f.endsWith('.js')).forEach(f => { const l = require('./data/tour-lists/' + f); lists[String(l.url).toLowerCase()] = l; });
+        db.files('tour-lists').forEach(f => { const l = require('./data/tour-lists/' + f); lists[String(l.url).toLowerCase()] = l; });
         // the tours each category page actually lists (some lists keep their tours outside `groups`)
         const toursOf = href => { const l = lists[String(href).toLowerCase()]; const s = new Set(); if (l) H2.listingFor(l).forEach(g => g.rows.forEach(t => t.href && s.add(t.href.toLowerCase()))); return s; };
         const cat = {}, sector = {};
@@ -218,7 +228,7 @@ function buildSite() {
   const blogPosts = () => {
     const dir = path.join(__dirname, 'data', 'posts');
     if (!fs.existsSync(dir)) return [];
-    return fs.readdirSync(dir).filter(f => f.endsWith('.js')).map(f => require('./data/posts/' + f)).filter(p => p.url && !p.unpublished)
+    return db.files('posts').map(f => require('./data/posts/' + f)).filter(p => p.url && !p.unpublished)
       .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
   };
 
@@ -235,7 +245,7 @@ function buildSite() {
   app.locals.popularTours = popularTours;
   // Similar tours for a tour page: the other tours of its category list (cards with photo, route, price)
   const TOUR_LISTS = {};
-  fs.readdirSync(path.join(__dirname, 'data', 'tour-lists')).filter(f => f.endsWith('.js')).forEach(f => { const l = require('./data/tour-lists/' + f); TOUR_LISTS[l.url] = l; });
+  db.files('tour-lists').forEach(f => { const l = require('./data/tour-lists/' + f); TOUR_LISTS[l.url] = l; });
   app.locals.similarTours = (tourUrl, listUrl, n = 3) => {
     const l = TOUR_LISTS[listUrl]; if (!l) return [];
     return require('./data/home2').listingFor(l).flatMap(g => g.rows).filter(r => r.href && r.href.toLowerCase() !== String(tourUrl).toLowerCase()).slice(0, n);
@@ -284,7 +294,7 @@ function buildSite() {
       meta: { description: 'India travel guide: travellers\' guide, attractions and travel tools, essentials at a glance, the best season for each region, festivals, sights and tour packages for North, South, East and West India.', canonical: '/guide' } });
   });
   router.get('/sitemap', (req, res) => {
-    const read = dir => fs.readdirSync(path.join(__dirname, 'data', dir)).filter(f => f.endsWith('.js')).map(f => require('./data/' + dir + '/' + f)).filter(m => m.url && !m.noindex && !m.unpublished);
+    const read = dir => db.files(dir).map(f => require('./data/' + dir + '/' + f)).filter(m => m.url && !m.noindex && !m.unpublished);
     const plain = s => String(s || '').replace(/<[^>]+>/g, '').trim();
     const byName = (a, b) => a.name.localeCompare(b.name);
     const tours = read('tours').map(m => ({ name: plain(m.heading || m.title), href: m.url })).sort(byName);
@@ -298,7 +308,7 @@ function buildSite() {
     const q = String(req.query.q || '').trim().slice(0, 80);
     const words = q.toLowerCase().split(/\s+/).filter(Boolean);
     const plain = s => String(s || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-    const read = dir => fs.readdirSync(path.join(__dirname, 'data', dir)).filter(f => f.endsWith('.js')).map(f => require('./data/' + dir + '/' + f)).filter(m => m.url && !m.noindex && !m.unpublished);
+    const read = dir => db.files(dir).map(f => require('./data/' + dir + '/' + f)).filter(m => m.url && !m.noindex && !m.unpublished);
     const find = (dir, kind) => read(dir).map(m => {
       const name = plain(m.heading || m.title), hay = (name + ' ' + plain(m.route) + ' ' + plain(m.title) + ' ' + plain(m.keywords) + ' ' + app.locals.tourCode(m.url)).toLowerCase();
       if (!words.length || !words.every(w => hay.includes(w))) return null;
@@ -335,7 +345,7 @@ function buildSite() {
   const KIND_DIRS = [['tours', 'tours'], ['lists', 'tour-lists'], ['pages', 'articles'], ['posts', 'posts']];
   for (const [kind, dir] of KIND_DIRS) {
     if (!fs.existsSync(path.join(__dirname, 'data', dir))) continue;
-    for (const f of fs.readdirSync(path.join(__dirname, 'data', dir)).filter(f => f.endsWith('.js'))) {
+    for (const f of db.files(dir)) {
       const page = require('./data/' + dir + '/' + f);
       if (page.unpublished || !page.url) continue;
       router.get(page.url, (req, res) => renderers[kind](res, page));
@@ -389,11 +399,10 @@ function buildSite() {
       return res.status(400).json({ ok: false, error: 'The security code does not match. Please type the new code shown.', captcha: true });
     }
     delete b.captcha; delete b.captchaToken;
-    let list = [];
-    try { list = JSON.parse(fs.readFileSync(ENQUIRY_FILE, 'utf8')); } catch (e) {}
-    list.push(Object.assign({}, b, { name, email, receivedAt: new Date().toISOString() }));
-    fs.writeFileSync(ENQUIRY_FILE, JSON.stringify(list, null, 2));
-    res.json({ ok: true, firstName: name.split(' ')[0] });
+    // (5 Nov 2026) kept in MySQL (table enquiries)
+    db.enquiries.append(Object.assign({}, b, { name, email, receivedAt: new Date().toISOString() }));
+    db.flush().then(() => res.json({ ok: true, firstName: name.split(' ')[0] }))
+      .catch(e => { console.error('[enquiry] not saved:', e.message); res.status(500).json({ ok: false, error: 'Sorry, your enquiry could not be saved just now. Please write to us by email.' }); });
   });
 
   // Crawlers and AI assistants
@@ -406,7 +415,7 @@ function buildSite() {
 
 const captcha = require('./lib/captcha');
 const enquiryHits = new Map();   // ip → recent enquiry times (spam guard)
-let siteRouter = buildSite();
+let siteRouter = (req, res) => res.status(503).send('Starting…');
 require('./lib/cms/store').events.on('change', () => {
   try { siteRouter = buildSite(); } catch (e) { console.error('[cms] could not rebuild the site after a change:', e); }
 });
@@ -436,4 +445,10 @@ app.set('cmsPreview', (kind, page, res) => siteRouter.preview(kind, page, res));
 
 app.use((req, res) => res.status(404).redirect('/'));
 
-app.listen(PORT, () => console.log(`Meruka India Tourism running at http://localhost:${PORT}`));
+// connect to MySQL and load what the panel saved, then build the site and open the port
+db.init().then(() => {
+  siteRouter = buildSite();
+  app.listen(PORT, () => console.log(`Meruka India Tourism running at http://localhost:${PORT}`));
+}).catch(e => { console.error('[db] could not start:', e.message); process.exit(1); });
+// finish the last writes before the process stops (pm2 restart, Ctrl+C)
+for (const sig of ['SIGINT', 'SIGTERM']) process.on(sig, () => db.close().finally(() => process.exit(0)));

@@ -81,7 +81,7 @@ function urls() {
   const list = ['/', '/aboutus', '/contactus', '/testimonials', '/plan-my-trip', '/guide', '/faqs', '/blog', '/sitemap'];
   for (const dir of ['tour-lists', 'tours', 'articles', 'posts']) {
     if (!fs.existsSync(path.join(__dirname, dir))) continue;
-    fs.readdirSync(path.join(__dirname, dir)).filter(f => f.endsWith('.js')).forEach(f => {
+    require('../lib/db').files(dir).forEach(f => {
       const m = require('./' + dir + '/' + f), u = m.url;
       // pages hidden from Google, and drafts not yet published (admin panel), stay out
       if (u && !m.noindex && !m.unpublished && !list.includes(u)) list.push(u);
@@ -98,7 +98,7 @@ const robots = base => `User-agent: *\nAllow: /\nDisallow: /home-2\nDisallow: /h
 
 // llms.txt: a short, plain summary that AI assistants can quote accurately
 function llms(base) {
-  const lists = fs.readdirSync(path.join(__dirname, 'tour-lists')).filter(f => f.endsWith('.js')).map(f => require('./tour-lists/' + f));
+  const lists = require('../lib/db').files('tour-lists').map(f => require('./tour-lists/' + f));
   return `# ${NAME}\n\n> Inbound travel agency for overseas visitors to India since 2001. Private tours only (no group sharing), 3–5 star hotels, a dedicated private A/C car and driver from arrival to departure. Tours start from USD 65 per person per day (minimum 2 persons, 3-star hotels); a custom private tour starts at USD 170 per couple per day.\n\n` +
     `- Head office: ${hq.lines.join(' ')}\n- Phone / WhatsApp: ${hq.phones.join(', ')}\n- Email: ${hq.email}\n\n## Key pages\n\n` +
     `- [Home](${base}/): tour categories, popular tours, regions, travel guide, FAQs\n- [All tour packages](${base}/itineraries)\n- [About us](${base}/aboutus)\n- [Guest testimonials](${base}/testimonials)\n- [Contact and enquiry](${base}/contactus)\n- [Traveller's guide](${base}/travelers_guide)\n\n## Tour categories\n\n` +
