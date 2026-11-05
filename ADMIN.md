@@ -47,20 +47,52 @@ and is changed in code, not in the panel.
 - Already on every page: sitemap.xml, robots.txt, canonical address, Open Graph / Twitter cards, and schema.org data
   (travel agency, tours with price, FAQs, breadcrumbs).
 
-## Where the edits are kept — back these up
+## Where the edits are kept: MySQL (since 5 Nov 2026)
 
-- `data/cms/` — every edit (one JSON file per page or setting), new items' content and the deleted-items bin
-- `data/tours/`, `data/tour-lists/`, `data/articles/` — a new item also adds a small file here
-- `public/uploads/` — uploaded photos
-- `data/enquiries.json` — the enquiries
+Everything the panel saves is in a MySQL (or MariaDB) database. Set it in `.env`:
 
-The imported content in `data/` is never changed by the panel; "Undo all my edits" on a page simply removes its file in
-`data/cms/`. When new code is deployed with `git pull`, keep these folders (or commit them from the server first) so
-edits made on the live site are not lost.
+```
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=meruka
+DB_PASSWORD=…
+DB_NAME=meruka_cms
+```
+
+(or one `DATABASE_URL=mysql://user:password@host:3306/meruka_cms`). Create the empty database first (phpMyAdmin or
+`CREATE DATABASE meruka_cms CHARACTER SET utf8mb4;`). The site creates its tables at start-up. The first time it starts
+with an empty database it also brings in the old files (`data/cms/`, `data/users.json`, `data/enquiries.json`,
+`data/activity.json`, `public/uploads/`). To do that by hand: `npm run db:import`, or `npm run db:import -- --force` to
+empty the tables and import the files again. The files are only read, never changed.
+
+| Table | What it holds |
+|---|---|
+| `cms_edits` | the saved edits of each page, tour, category, post and setting |
+| `cms_drafts` | drafts not yet published |
+| `cms_revisions` | the History tab (latest 25 versions per item) |
+| `cms_items` | tours, categories, pages and posts added in the panel |
+| `cms_hidden`, `cms_trash` | deleted items, and the Deleted items bin |
+| `price_log`, `tour_codes` | Prices & notes → Price log; codes given in a tour's editor |
+| `users`, `enquiries`, `activity_log` | panel users, website enquiries, who changed what |
+| `uploads` | photos uploaded in the panel (served at `/uploads/<name>`) |
+| `settings` | owner's name, panel look per role, import note |
+
+- **Back up the database** (`mysqldump meruka_cms > backup.sql`, or your host's backup tool). That one backup holds
+  every edit, enquiry and uploaded photo.
+- `git pull` is now safe: deploying code does not touch the edits. An added item's small file
+  (`data/tours/<id>.js`, …) is written again from `cms_items` at every start.
+- MySQL's `max_allowed_packet` must be at least 16M for 10 MB photos (the site warns at start-up if it is lower).
+- Run **one** copy of the site per database (`pm2 start server.js`, not cluster mode). The site keeps the data in
+  memory and writes changes through to MySQL, so a second copy would not see the first one's changes until it restarts.
+- The site does not start without the database. If MySQL is down, start it first.
+
+The imported content in `data/` is never changed by the panel; "Undo all my edits" on a page simply removes its row in
+`cms_edits`.
 
 ## How it works (for developers)
 
-- `lib/cms/hook.js` — when a data module loads, `data/cms/<same path>.json` is laid over it.
+- `lib/db/index.js` — MySQL: the tables, the in-memory copy, the write queue; `lib/db/import.js` — the old files into MySQL.
+- `lib/cms/hook.js` — when a data module loads, its saved edits (`cms_edits`, named `data/cms/<same path>.json`) are laid over it.
 - `lib/cms/store.js` — the editable fields of each section; list / get / save / create / delete / restore.
 - `lib/cms/admin.js` — the `/admin` pages and JSON API; `lib/cms/auth.js` — login, signed session cookie.
 - `server.js` — `buildSite()` builds the public pages from the data; it runs again after every save.

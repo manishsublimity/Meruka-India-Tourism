@@ -18,7 +18,7 @@ const IMPORTED = ['tours', 'tour-lists', 'articles'];
 for (const dir of IMPORTED) {
   const full = path.join(__dirname, dir);
   if (!fs.existsSync(full)) continue;
-  for (const f of fs.readdirSync(full)) {
+  for (const f of require('../lib/db').files(dir)) {
     if (f.endsWith('.js')) PAGES[f.slice(0, -3) + '.html'] = '/' + f.slice(0, -3);
   }
 }

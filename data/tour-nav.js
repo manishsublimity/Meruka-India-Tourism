@@ -17,12 +17,12 @@ const GROUPS = [
 
 // the tours of each category page (from data/tour-lists), in the order the category page lists them
 const LISTS = {};
-for (const f of fs.readdirSync(path.join(__dirname, 'tour-lists')).filter(f => f.endsWith('.js'))) {
+for (const f of require('../lib/db').files('tour-lists')) {
   const l = require('./tour-lists/' + f);
   const seen = new Set();
   LISTS[l.url.toLowerCase()] = { title: l.heading, url: l.url, navGroup: l.navGroup || '', added: !!l.__cmsNew, live: !l.unpublished, hero: l.heroSrc || '', tours: (l.groups || []).flatMap(g => g.tours || []).filter(t => t.href && !seen.has(t.href.toLowerCase()) && seen.add(t.href.toLowerCase())) };
 }
-const tourPages = new Set(fs.readdirSync(path.join(__dirname, 'tours')).filter(f => f.endsWith('.js')).map(f => require('./tours/' + f).url.toLowerCase()));
+const tourPages = new Set(require('../lib/db').files('tours').map(f => require('./tours/' + f).url.toLowerCase()));
 
 // The category a tour page belongs to (its breadcrumb's list page), with the tours before and after it.
 // Only tours that have a page here are offered.
