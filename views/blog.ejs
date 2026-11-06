@@ -24,17 +24,7 @@
     <nav class="bl-cats" aria-label="Blog categories"><a href="/blog"<%- !cat ? ' class="on" aria-current="page"' : '' %>>All posts</a><% cats.forEach(c => { %><a href="/blog?cat=<%= encodeURIComponent(c) %>"<%- c === cat ? ' class="on" aria-current="page"' : '' %>><%= c %></a><% }) %></nav>
     <% } %>
     <div class="bl-grid">
-      <% posts.forEach(p => { %>
-      <article class="bl-card">
-        <a href="<%= p.url %>" class="bl-img" tabindex="-1" aria-hidden="true"><img src="<%= p.photo || '/photos/taj-mahal-feature.webp' %>" alt="" loading="lazy"></a>
-        <div class="bl-body">
-          <p class="bl-meta"><% if (p.category) { %><a href="/blog?cat=<%= encodeURIComponent(p.category) %>" class="bl-cat"><%= p.category %></a> · <% } %><%= day(p.date) %><% if (p.author) { %> · <%= p.author %><% } %></p>
-          <h2 class="bl-h"><a href="<%= p.url %>"><%= p.heading %></a></h2>
-          <% if (p.excerpt) { %><p class="bl-ex"><%= p.excerpt %></p><% } %>
-          <a href="<%= p.url %>" class="bl-more">Read the story</a>
-        </div>
-      </article>
-      <% }) %>
+      <% posts.forEach(p => { %><%- include('partials/blog-card', { p, h: 'h2' }) %><% }) %>
     </div>
     <% if (pages > 1) { %>
     <nav class="bl-pages" aria-label="Blog pages">

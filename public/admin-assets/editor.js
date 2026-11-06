@@ -10,7 +10,7 @@
 
   // ---------- plain-language names and help ----------
   const LABELS = {
-    heading: 'Page title', photo: 'Tour photo', route: 'Route', duration: 'Length of the tour',
+    heading: 'Page title', photo: 'Tour photo', photo_posts: 'Post photo', heading_posts: 'Title of the post', route: 'Route', duration: 'Length of the tour',
     days: 'Days', day: 'Day number', title: 'Title', eta: 'Distance / drive time', paras: 'What happens this day', note: 'Note for this day',
     details: 'Price box (right side of the tour page)', text: 'Text', items: 'Points', breadcrumb: 'Breadcrumb', label: 'Text', href: 'Link to',
     listPhoto: 'Photo in the list (its card on the region or state page)', heroSrc: 'Banner photo (top of the page)', heroSrc_tours: 'Banner photo (optional)', heroAlt: 'Describe the banner photo in a few words', description: 'Description', keywords: 'Keywords',
@@ -26,8 +26,8 @@
     from: 'Old address', to: 'New address',
     heroTitle: 'Banner title', line1: 'Title — first line', line2: 'Title — second line (accent colour)', heroSlides: 'Banner photos', src: 'Photo', alt: 'Describe the photo in a few words',
     place: 'Place (shown with the photo)', region: 'Region / theme', pos: 'Focus point of the photo', flip: 'Show the photo mirrored', stats: 'Figures', figure: 'Figure (e.g. 22 or 97.80%)',
-    offer: 'Seasonal offer', show: 'Show the offer on the home page', eyebrow: 'Small line above', percent: 'Big figure (e.g. 10%)', headerMenu: 'Header menu links', popularSearches: 'Popular searches', footerSocial: 'Social media', footerAbout: 'Text under the footer logo', siteLogo: 'Logo picture (optional)',
-    date: 'Date', author: 'Written by', category: 'Category', guideSection: 'Show in the India Travel Guide', excerpt: 'Short summary (shown in the list of posts)', topics: 'Topic groups', glance: 'Useful information at a glance', seasons: 'Seasons',
+    offer: 'Seasonal offer', show: 'Show the offer on the home page', eyebrow: 'Small line above', percent: 'Big figure (e.g. 10%)', headerMenu: 'Header menu links', popularSearches: 'Popular searches', footerSocial: 'Social media', footerAbout: 'Text under the footer logo',
+    date: 'Date', author: 'Written by', siteNoindex: 'Keep every page out of Google for now (noindex)', siteNofollow: 'Google does not follow the links (nofollow)', siteNosnippet: 'Show no text under the pages in Google (nosnippet)', siteNoimageindex: 'Show no photos in Google Images (noimageindex)', siteNoarchive: 'No saved copies in search engines (noarchive)', siteNoAi: 'Keep AI tools out (ChatGPT, Claude, Perplexity, Gemini …)', siteNoShare: 'No preview when a page is shared (WhatsApp, Facebook, email)', siteLogo: 'Logo', logoHeader: 'Top of every page (header)', logoFooter: 'Footer', siteName: 'Name at the top', footerName: 'Name in the footer', photoAlt: 'Name of the photo (what it shows, for Google and screen readers)', category: 'Category', guideSection: 'Show in the India Travel Guide', excerpt: 'Short summary (shown in the list of posts)', topics: 'Topic groups', glance: 'Useful information at a glance', seasons: 'Seasons',
     goodToKnow: 'Good to know', tips: 'Travel tips', titles: 'Titles (Mr., Mrs. …)', countries: 'Countries', months: 'Months', years: 'Years', adults: 'Adults', children: 'Children',
     photo_single: 'Photo', note_single: 'Small text under the cards',
     photo_pages: 'Photo', href_pages: 'Opens the page', text_pages: 'Short text', navGroup: 'Group in the tour menu', heading_lists: 'Category title', tourType: 'Tour type', heroSrc_lists: 'Banner image', heroAlt_lists: 'Describe the banner image in a few words', summary: 'Package description (under the tour name)', html_tours: 'What happens this day', priceLine: 'Line beside “Starts from” (under the days)', priceIncludes: '“Price includes” points (in the price box)', intro_lists: 'Short description (shown above the tours)', outro_lists: 'Closing text (under the list of tours, optional)',
@@ -76,16 +76,17 @@
     headerMenu: 'The links in the header, left to right. A page on this website starts with / (example: /itineraries).',
     footerCols: 'Each column: its title and its links (name and address).',
     excerpt: 'Two or three lines. Shown on /blog under the title.',
-    photo: 'Used in the tour lists and cards.',
+    photo: 'Used in the tour lists and cards.', photo_posts: 'The big photo at the top of the post, also on its card in the blog.',
     outro: 'Shown under the list of tours on the category page. Leave it empty if the page needs no closing text.',
     cards: 'Drag a card by its dots to change the order; the bin removes it.',
     cities: 'Each city: its name and the page it opens.',
-    siteLogo: 'Leave it empty to keep the Meruka logo as it is now. A picture chosen here replaces it in the header and the footer.'
+    siteLogo: 'The logo of the website. Now: the Meruka logo. Choose a picture to use another logo in the header and the footer; remove it to go back to the Meruka logo.',
+    logoHeader: 'What the top of every page shows.', logoFooter: 'What the footer shows.', siteName: 'The name beside the logo at the top.', footerName: 'The name beside the logo in the footer.'
   };
     const label = k => LABELS[k + '_' + E.kind] || LABELS[k] || String(k).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/[_-]/g, ' ').replace(/^./, c => c.toUpperCase());
 
   // ---------- tabs for each kind of page ----------
-  const GOOGLE = ['title', 'description', 'keywords', 'focusKeyword', 'noindex', 'ogImage', 'nofollow', 'canonical', 'ogTitle', 'ogDescription', 'twTitle', 'twDescription', 'twImage'];
+  const GOOGLE = ['title', 'description', 'keywords', 'focusKeyword', 'noindex', 'ogImage', 'nofollow', 'canonical', 'ogTitle', 'ogDescription', 'twTitle', 'twDescription', 'twImage', 'nosnippet', 'noimageindex', 'noarchive', 'noshare'];
   // (28 Oct 2026, client) every page has its SEO tab again: tours, categories, pages, posts and the fixed pages
   const SEO_TAB = 'SEO';
   const TABS = {
@@ -102,7 +103,8 @@
     // in the list on its region / state page
     pages: [['Text', ['heading', 'html', 'guideSection', 'heroSrc', 'listPhoto', 'heroAlt'], ''],
       ['Tours', ['tours'], 'The four tour cards under the page text (“Tours that include …”). Leave it empty and the website picks four tours that pass through this place by itself. Choose up to four tours here to show those instead, in this order.'], [SEO_TAB, GOOGLE, '']],
-    posts: [['Post', ['heading', 'category', 'date', 'author', 'photo', 'excerpt'], 'The title, date and summary shown in the list of posts.'], ['Text', ['html'], 'Write the post like in Word: the buttons make headings, bold text, lists, links and photos.'], [SEO_TAB, GOOGLE, '']],
+    // (5 Nov 2026, client) a post: its first lines in "Introduction", then its sections (text, highlight box or tip) in "Sections"
+    posts: [['Post', ['heading', 'category', 'date', 'author', 'photo', 'photoAlt', 'excerpt'], 'The title, date and summary shown in the list of posts.'], ['Introduction', ['html'], 'The first lines of the post, before its sections. The parts with a heading are in the “Sections” tab.'], [SEO_TAB, GOOGLE, '']],
     // (26 Oct 2026, client) the home page section by section, in the order the website shows them
     home: [['Banner', ['heroTitle', 'heroSlides'], 'The big title and the photos at the top of the home page.'], ['Figures', ['stats'], 'The band under the banner.'],
       ['Best Tour Packages', ['secPackages'], 'The first row of cards. Each card is a tour category: choose the category and its name, photo and lowest price come by themselves.'],
@@ -125,11 +127,13 @@
     plan: [['Form fields', ['form'], 'The words above each field of the Plan My Trip form, and which optional fields show. Name, email, country and the message are always asked.'],
       ['Choices', ['titles', 'countries', 'months', 'years', 'days', 'adults', 'children', 'hotelBudget', 'hotelCategory'], 'The choices in the drop-down lists, one per line.']],
     header: [['Header menu', ['headerMenu'], 'The links at the top of every page, left to right. “+ Add pages from the website” lets you tick pages; “+ Add a custom link” is for anything else.']],
-    footer: [['Logo & about', ['siteLogo', 'footerAbout'], 'The logo at the top of every page and in the footer, and the short text under the footer logo.'],
+    footer: [['Logo & about', ['siteLogo', 'logoHeader', 'siteName', 'logoFooter', 'footerName', 'footerAbout'], 'The logo at the top of every page and in the footer, and the short text under the footer logo.'],
       ['Link columns', ['footerCols'], 'Each column has a title and its links. Open a column to change its links: “+ Add pages from the website” to tick pages, “+ Add a custom link” for anything else.'],
       ['Popular searches', ['popularSearches'], 'The line of search words at the very bottom of every page: each word and the page it opens.'],
       ['Social media', ['footerSocial'], 'Paste the address of each profile. Its icon shows in the footer once the address is filled in.']],
-    seo: [['Search Console & Analytics', ['googleVerification', 'googleAnalytics', 'bingVerification'], 'Connect the website to Google’s free tools to see how people find you.'],
+    // (6 Nov 2026, client) first: rules for the whole website (keep it out of Google for now, and the rest)
+    seo: [['Search engines', ['siteNoindex', 'siteNofollow', 'siteNosnippet', 'siteNoimageindex', 'siteNoarchive', 'siteNoAi', 'siteNoShare'], 'Rules for the whole website, on top of each page’s own (a page’s SEO panel → Rules for search engines). While the website is being made, tick “Keep every page out of Google for now”; untick it when the website goes live.'],
+      ['Search Console & Analytics', ['googleVerification', 'googleAnalytics', 'bingVerification'], 'Connect the website to Google’s free tools to see how people find you.'],
       ['Main pages in Google', ['pages'], 'The Google title and description of the Home, About, Contact, Guest Reviews and Plan My Trip pages.'],
       ['Share picture', ['defaultShareImage'], ''], ['Redirects', ['redirects'], '']]
   };
@@ -214,6 +218,17 @@
     // (4 Nov 2026, client) the line beside "Starts from": the full text editor, like the page text; {hotel} still becomes
     // the hotel class the visitor picks
     if (key === 'priceLine' && E.kind === 'tours') { const v = String(value || '').trim() || PRICE_LINE; return rte(/</.test(v) ? v : '<p>' + A.esc(v) + '</p>', { min: 70 }); }
+    // (6 Nov 2026, client) the logo box shows the Meruka logo the website uses while no picture is chosen
+    if (key === 'siteLogo') { const c = image(value, () => '/assets/logo_meruka.webp', ['Logo now on the website', 'The Meruka logo — click it to choose another picture']); c.el.classList.add('img-logo'); return c; }
+    // (6 Nov 2026, client) the header / the footer: logo and name, only the logo, or only the name
+    if (key === 'logoHeader' || key === 'logoFooter') {
+      const el = document.createElement('div'); el.className = 'seg'; el.setAttribute('role', 'radiogroup');
+      let v = ['both', 'logo', 'name'].includes(value) ? value : 'both';
+      const OPTS = [['both', 'Logo and name'], ['logo', 'Only the logo'], ['name', 'Only the name']];
+      const draw = () => { el.innerHTML = OPTS.map(([k, n]) => '<button type="button" role="radio" aria-checked="' + (k === v) + '" class="' + (k === v ? 'on' : '') + '" data-v="' + k + '">' + n + '</button>').join(''); };
+      el.onclick = e => { const b = e.target.closest('[data-v]'); if (!b || b.dataset.v === v) return; v = b.dataset.v; draw(); touch(); };
+      draw(); return { el, get: () => v };
+    }
     if (isImg(key, value)) return image(value);
     if (key === 'details' && Array.isArray(value) && value.length && value.every(b => b && typeof b === 'object' && Array.isArray(b.items))) return detailsEditor(value);
     if (isParas(value)) return richText(value, false);
@@ -235,11 +250,30 @@
       el.innerHTML = opts.map(o => '<option value="' + A.esc(o) + '"' + (o === s ? ' selected' : '') + '>' + (o ? A.esc(o) : 'Not in the India Travel Guide') + '</option>').join('');
       return { el, get: () => el.value };
     }
+    // (6 Nov 2026, client) a post's category: choose one of the blog's categories, or "+ New category…" makes one here
     if (key === 'category' && E.kind === 'posts') {
-      const c = input(s, 'text', x => x.trim()); c.el.setAttribute('list', 'mk-blogcats'); c.el.placeholder = 'e.g. Travel tips, Destinations, Festivals';
-      if (!document.getElementById('mk-blogcats')) { const dl = document.createElement('datalist'); dl.id = 'mk-blogcats'; document.body.appendChild(dl);
-        A.api('GET', '/admin/api/blog-categories').then(r => { dl.innerHTML = (r.items || []).map(x => '<option value="' + A.esc(x) + '">').join(''); }).catch(() => {}); }
-      return c;
+      const el = document.createElement('select'); el.className = 'in';
+      let cats = s ? [s] : [];
+      const NEW = '__new_category__';
+      const draw = v => {
+        el.innerHTML = '<option value="">Choose a category…</option>' + cats.map(c => '<option value="' + A.esc(c) + '"' + (c === v ? ' selected' : '') + '>' + A.esc(c) + '</option>').join('') + '<option value="' + NEW + '">+ New category…</option>';
+        el.dataset.was = v || '';
+      };
+      draw(s);
+      A.api('GET', '/admin/api/blog-categories').then(r => { cats = [...new Set((r.items || []).concat(s ? [s] : []))].sort((a, b) => a.localeCompare(b)); draw(el.dataset.was); }).catch(() => {});
+      el.onchange = async () => {
+        if (el.value !== NEW) { el.dataset.was = el.value; touch(); return; }
+        const box = await A.dialog({ title: 'New blog category', ok: 'Add category', html: '<label class="lb">Name of the category</label><input class="in" data-c placeholder="e.g. Wildlife, Food, Travel tips">',
+          onOpen: b => setTimeout(() => b.querySelector('[data-c]').focus(), 50),
+          validate: b => b.querySelector('[data-c]').value.trim() ? '' : 'Please type a name.' });
+        if (!box) { draw(el.dataset.was); return; }
+        const name = box.querySelector('[data-c]').value.trim().replace(/\s+/g, ' ').slice(0, 60);
+        const same = cats.find(c => c.toLowerCase() === name.toLowerCase());
+        if (!same) cats = cats.concat(name).sort((a, b) => a.localeCompare(b));
+        draw(same || name); touch();
+        A.toast(same ? '“' + same + '” is already a category: chosen' : 'Category “' + name + '” added. It shows on the blog once this post is published.');
+      };
+      return { el, get: () => el.value === NEW ? el.dataset.was : el.value };
     }
     return LONG.test(key) || s.length > 90 || s.includes('\n') ? textBox(s, x => x, s.length > 400 ? 8 : key === 'sub' || s.length < 60 ? 2 : 3) : input(s, 'text', x => x);
   }
@@ -565,6 +599,105 @@
     comps.html.get = getters.html = () => get() + '\n' + secs.map(x => x.get()).filter(Boolean).join('\n');
     panesAdd('Sections', card);
   }
+  // (5 Nov 2026, client) a blog post's sections: each a heading and its text, shown in one of three ways — a normal text
+  // (lists as simple bullet points), a blue highlight box (lists with ticks) or a gold tip box. In the post's text a
+  // normal section is <h2>…</h2> and what follows it; a box is <div class="bp-sec bp-sec-box|tip"><h2>…</h2>…</div>.
+  const POST_STYLES = [['text', 'Text', 'Heading and text. Lists show as simple bullet points.'], ['box', 'Highlight box', 'A light blue box. Lists show with blue ticks.'], ['tip', 'Tip box', 'A gold box for a tip or a note.']];
+  const postStylePic = s => '<svg viewBox="0 0 48 34" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">' +
+    (s === 'text' ? '<path d="M6 8h22" stroke-width="2.5"/><path d="M6 15h36M6 21h36M6 27h26"/>'
+      : '<rect x="3" y="3" width="42" height="28" rx="3" fill="' + (s === 'box' ? '#E6EEF8' : '#FFF3D6') + '" stroke="' + (s === 'box' ? '#336699' : '#E0A800') + '"/><path d="M9 10h20" stroke-width="2.5"/><path d="M9 17h30M9 23h24"/>') + '</svg>';
+  function postSectionsTab(root, tabsEl, panes) {
+    const ed = comps.html && comps.html.el.querySelector('.rte'); if (!ed) return;
+    const isSec = n => n.nodeName === 'H2' || (n.nodeName === 'DIV' && n.classList.contains('bp-sec'));
+    const kids = [...ed.children], first = kids.findIndex(isSec);
+    const parts = [];
+    if (first >= 0) {
+      let cur = null;
+      kids.slice(first).forEach(n => {
+        if (n.nodeName === 'DIV' && n.classList.contains('bp-sec')) {
+          const h = n.querySelector(':scope > h2'), style = n.classList.contains('bp-sec-tip') ? 'tip' : 'box';
+          if (h) h.remove();
+          parts.push({ style, heading: h ? h.textContent.trim() : '', html: n.innerHTML.trim() }); cur = null; return;
+        }
+        if (n.nodeName === 'H2') { cur = { style: 'text', heading: n.textContent.trim(), html: '' }; parts.push(cur); return; }
+        if (cur) cur.html += n.outerHTML + '\n';
+      });
+      kids.slice(first).forEach(n => n.remove());
+    }
+    const card = document.createElement('section'); card.className = 'card'; card.hidden = true;
+    card.innerHTML = '<p class="tab-intro">The parts of the post, in order. Each has a heading, its text and how it looks: <b>Text</b>, <b>Highlight box</b> or <b>Tip box</b>. Drag a part by its dots to move it.</p><div class="sx-list bs-list"></div>';
+    const listEl = card.querySelector('.bs-list');
+    const GRIP = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg>';
+    const secs = [];
+    const makeSec = (pt, after) => {
+      const box = document.createElement('div'); box.className = 'sx-sec bs-sec'; box.draggable = true;
+      const sec = { box, style: pt.style || 'text' };
+      box.innerHTML = '<div class="sx-h"><span class="sx-grip" title="Drag to move">' + GRIP + '</span><span class="bs-n"></span><input class="in sx-title" placeholder="Heading of this part, e.g. Winter: October to March">' +
+        '<span class="sx-more"><button type="button" class="sx-more-b" title="More" aria-label="More">⋯</button><span class="sx-menu" hidden><button type="button" data-m="up">Move up</button><button type="button" data-m="down">Move down</button><button type="button" data-m="below">Add a part below</button><button type="button" data-m="rm" class="x">Remove this part</button></span></span></div>' +
+        '<div class="bs-styles" role="radiogroup" aria-label="How this part looks">' + POST_STYLES.map(([k, n, d]) => '<button type="button" role="radio" data-s="' + k + '" title="' + A.esc(d) + '">' + postStylePic(k) + '<span><b>' + n + '</b><small>' + A.esc(d) + '</small></span></button>').join('') + '</div>' +
+        '<div class="sx-b"></div><button type="button" class="sx-add-below">+ Add a part below</button>';
+      const title = box.querySelector('.sx-title'); title.value = pt.heading || ''; title.oninput = touch;
+      const t = rte(pt.html || '', { min: 110 }); box.querySelector('.sx-b').appendChild(t.el);
+      // typing or selecting in a box must not start a drag of the part
+      box.querySelectorAll('.sx-title, .sx-b').forEach(x => { x.addEventListener('mousedown', () => { box.draggable = false; }); x.addEventListener('mouseup', () => { box.draggable = true; }); x.addEventListener('focusout', () => { box.draggable = true; }); });
+      const markStyle = () => { box.dataset.style = sec.style; box.querySelectorAll('.bs-styles button').forEach(b => { const on = b.dataset.s === sec.style; b.classList.toggle('on', on); b.setAttribute('aria-checked', on); }); };
+      box.querySelectorAll('.bs-styles button').forEach(b => { b.onclick = () => { if (sec.style !== b.dataset.s) { sec.style = b.dataset.s; markStyle(); touch(); } }; });
+      markStyle();
+      sec.get = () => {
+        const h = title.value.trim(), x = t.html(), has = x.replace(/<[^>]+>|&nbsp;/g, '').trim() || /<img/i.test(x);
+        if (!h && !has) return '';
+        const head = h ? '<h2>' + A.esc(h) + '</h2>\n' : '';
+        return sec.style === 'text' ? head + x : '<div class="bp-sec bp-sec-' + sec.style + '">' + head + x + '</div>';
+      };
+      const menu = box.querySelector('.sx-menu');
+      box.querySelector('.sx-more-b').onclick = e => { e.stopPropagation(); document.querySelectorAll('.sx-menu').forEach(m => { if (m !== menu) m.hidden = true; }); menu.hidden = !menu.hidden; };
+      menu.onclick = async e => {
+        const m = (e.target.closest('[data-m]') || {}).dataset; if (!m || !m.m) return; menu.hidden = true;
+        const i = secs.indexOf(sec);
+        if (m.m === 'up' && i > 0) { secs[i - 1].box.before(box); secs.splice(i, 1); secs.splice(i - 1, 0, sec); }
+        else if (m.m === 'down' && i < secs.length - 1) { secs[i + 1].box.after(box); secs.splice(i, 1); secs.splice(i + 1, 0, sec); }
+        else if (m.m === 'below') return addNew(sec);
+        else if (m.m === 'rm') { if (!(await A.confirm('Remove “' + (title.value.trim() || 'this part') + '”?', 'This part goes away from the post when you save.', 'Remove', true))) return; box.remove(); secs.splice(i, 1); }
+        number(); touch();
+      };
+      box.querySelector('.sx-add-below').onclick = () => addNew(sec);
+      if (after) { after.box.after(box); secs.splice(secs.indexOf(after) + 1, 0, sec); } else { listEl.appendChild(box); secs.push(sec); }
+      number();
+      return sec;
+    };
+    const number = () => secs.forEach((s, i) => { s.box.querySelector('.bs-n').textContent = i + 1; });
+    const addNew = async after => {
+      let pick = 'text';
+      const dlg = await A.dialog({ title: 'Add a part', ok: 'Add the part',
+        html: '<label class="lb">Heading of the part</label><input class="in" data-h placeholder="e.g. Where to stay, Our tip, How many days?"><label class="lb" style="margin-top:14px">How it looks on the website</label>' +
+          '<div class="lay-grid">' + POST_STYLES.map(([k, n, d]) => '<button type="button" class="lay-tile" data-s="' + k + '">' + postStylePic(k) + '<b>' + n + '</b><small>' + A.esc(d) + '</small></button>').join('') + '</div>',
+        onOpen: b => { const mark = () => b.querySelectorAll('.lay-tile').forEach(x => x.classList.toggle('on', x.dataset.s === pick)); b.querySelectorAll('.lay-tile').forEach(x => { x.onclick = () => { pick = x.dataset.s; mark(); }; }); mark(); b.closest('.modal-box').classList.add('lay-modal'); setTimeout(() => b.querySelector('[data-h]').focus(), 50); },
+        validate: b => b.querySelector('[data-h]').value.trim() ? '' : 'Write a heading for the part.' });
+      if (!dlg) return;
+      const sec = makeSec({ style: pick, heading: dlg.querySelector('[data-h]').value.trim(), html: '' }, after || secs[secs.length - 1]);
+      touch(); sec.box.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      setTimeout(() => { const r = sec.box.querySelector('.rte'); if (r) r.focus(); }, 300);
+    };
+    parts.forEach(pt => makeSec(pt));
+    const tail = document.createElement('button'); tail.type = 'button'; tail.className = 'sx-add'; tail.innerHTML = '<b>+ Add a part</b><small>A heading with its text, a highlight box or a tip</small>';
+    tail.onclick = () => addNew(null); card.appendChild(tail);
+    document.addEventListener('click', e => { if (!e.target.closest('.sx-more')) card.querySelectorAll('.sx-menu').forEach(m => { m.hidden = true; }); });
+    let drag = null;
+    listEl.ondragstart = e => { drag = e.target.closest('.bs-sec'); if (drag) drag.classList.add('dragging'); };
+    listEl.ondragend = () => { if (!drag) return; drag.classList.remove('dragging'); const order = [...listEl.children]; secs.sort((x, y) => order.indexOf(x.box) - order.indexOf(y.box)); drag = null; number(); touch(); };
+    listEl.ondragover = e => { if (!drag) return; e.preventDefault(); const after = [...listEl.children].find(c => c !== drag && e.clientY < c.getBoundingClientRect().top + c.offsetHeight / 2); listEl.insertBefore(drag, after || null); };
+    const get = comps.html.get;
+    comps.html.get = getters.html = () => { const a = get(), b = secs.map(x => x.get()).filter(Boolean).join('\n'); return a + (a && b ? '\n' : '') + b; };
+    // the tab sits right after "Introduction" (Google & SEO stays last)
+    const intro = panes.find(p => p.keys.includes('html'));
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = 'Sections (' + secs.length + ')';
+    const recount = () => { b.textContent = 'Sections (' + secs.length + ')'; };
+    new MutationObserver(recount).observe(listEl, { childList: true });
+    b.onclick = () => { panes.forEach(p => { p.card.hidden = p.b !== b; p.b.classList.toggle('on', p.b === b); }); history.replaceState(null, '', '#sections'); };
+    tabsEl.insertBefore(b, intro ? intro.b.nextSibling : null); root.insertBefore(card, intro ? intro.card.nextSibling : null);
+    panes.splice(intro ? panes.indexOf(intro) + 1 : panes.length, 0, { b, card, slug: 'sections', keys: [] });
+    if (location.hash === '#sections') b.click();
+  }
   // (3 Nov 2026, client) "At a glance": the short "Label: value" lines of a page (a region's Location, Major Cities,
   // Holy Destinations …; a state's Area, Altitude, Climate …) in a tab of their own, one row each; the text keeps a
   // marker where they sit and gets them back, in the website's own shape, when it is saved
@@ -708,7 +841,7 @@
   }
   // (27 Oct 2026, client) the photo box: the photo itself (click it to choose one), its file name, Change and Remove.
   // auto() gives the photo the website uses when none is chosen; it shows with the label "Chosen by itself".
-  function image(v, auto) {
+  function image(v, auto, words) {
     const el = document.createElement('div'); el.className = 'img-f';
     el.innerHTML = '<button type="button" class="pv" title="Choose a photo"><span class="pv-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 8"/></svg>Choose a photo</span></button>' +
       '<span class="img-acts"><button type="button" class="img-ic" data-ch title="Choose another photo" aria-label="Choose another photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v3h3l10-10-3-3L4 16z"/><path d="m13 7 3 3"/></svg></button><button type="button" class="img-ic img-ic-d" data-rm title="Remove the photo" aria-label="Remove the photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></span>' +
@@ -717,8 +850,8 @@
     const show = () => {
       const own = inp.value.trim(), a = !own && auto ? auto() || '' : '', src = own || a;
       pv.style.backgroundImage = src ? 'url("' + src.replace(/"/g, '') + '")' : 'none'; pv.classList.toggle('has', !!src);
-      if (a) pv.dataset.auto = 'Chosen by itself'; else delete pv.dataset.auto;
-      name.textContent = own ? own.split('/').pop() : a ? 'Chosen by the website — click the photo to use your own' : '';
+      if (a) pv.dataset.auto = (words && words[0]) || 'Chosen by itself'; else delete pv.dataset.auto;
+      name.textContent = own ? own.split('/').pop() : a ? (words && words[1]) || 'Chosen by the website — click the photo to use your own' : '';
       ch.hidden = !src; rm.hidden = !own;
     };
     const pick = async () => { const src = await A.pickImage(); if (src) { inp.value = src; show(); touch(); } };
@@ -1077,7 +1210,8 @@
   const sideEl = document.querySelector('[data-side]');
   const SEO_LABEL = { title: 'SEO title', description: 'Meta description', focusKeyword: 'Focus keyword', keywords: 'Keywords', noindex: 'Hide this page from Google (noindex)',
     nofollow: 'Do not follow the links on this page (nofollow)', canonical: 'Canonical address', ogTitle: 'Title', ogDescription: 'Description', ogImage: 'Picture',
-    twTitle: 'Title', twDescription: 'Description', twImage: 'Picture' };
+    twTitle: 'Title', twDescription: 'Description', twImage: 'Picture', nosnippet: 'Show no text of this page in the results (nosnippet)', noimageindex: 'Show no photos of this page in Google Images (noimageindex)',
+    noarchive: 'No saved copy in search engines (noarchive)', noshare: 'No preview when this page is shared (WhatsApp, Facebook, email)' };
   function seoSide(keys, data) {
     const side = sideEl; side.hidden = false; side.innerHTML = '<div class="sd-head"><b>SEO</b><span class="sd-score" data-score></span></div>';
     const sec = (title, sub, open) => { const d = document.createElement('details'); d.className = 'sd-sec'; d.open = !!open; d.innerHTML = '<summary><span>' + title + '</span><small>' + sub + '</small></summary><div class="sd-body"></div>'; side.appendChild(d); return d.querySelector('.sd-body'); };
@@ -1100,8 +1234,13 @@
     const fbBox = so.querySelector('[data-pane="fb"]'), xBox = so.querySelector('[data-pane="x"]');
     ['ogTitle', 'ogDescription', 'ogImage'].forEach(k => put(fbBox, k)); ['twTitle', 'twDescription', 'twImage'].forEach(k => put(xBox, k));
     so.querySelectorAll('[data-net]').forEach(b => b.onclick = () => { so.querySelectorAll('[data-net]').forEach(x => x.classList.toggle('on', x === b)); fbBox.hidden = b.dataset.net !== 'fb'; xBox.hidden = b.dataset.net !== 'x'; });
-    const ad = sec('Advanced', 'keywords, canonical, noindex, nofollow', false);
-    ['keywords', 'canonical', 'noindex', 'nofollow'].forEach(k => put(ad, k));
+    // (6 Nov 2026, client) what search engines may do with this page, one tick each: e.g. keep it out of Google but still
+    // show a preview when it is shared by email or on social media
+    const rl = sec('Rules for search engines', 'hide, no text, no photos, sharing', !!['noindex', 'nofollow', 'nosnippet', 'noimageindex', 'noarchive', 'noshare'].some(k => data[k]));
+    rl.insertAdjacentHTML('beforeend', '<p class="fhelp">Each rule is for this page only. Rules for the whole website are in Google settings → Search engines.</p>');
+    ['noindex', 'nofollow', 'nosnippet', 'noimageindex', 'noarchive', 'noshare'].forEach(k => put(rl, k));
+    const ad = sec('Advanced', 'keywords, canonical address', false);
+    ['keywords', 'canonical'].forEach(k => put(ad, k));
     const can = ad.querySelector('.f[data-k="canonical"] input'); if (can) can.placeholder = 'Empty: this page’s own address (' + (E.url || '/') + ')';
     const val = k => { const gt = getters[k]; return gt ? String(gt() || '').trim() : ''; };
     const ph = k => { const i = side.querySelector('.f[data-k="' + k + '"] input, .f[data-k="' + k + '"] textarea'); return i ? (i.placeholder || '').trim() : ''; };
@@ -1156,7 +1295,9 @@
     ogTitle: 'Empty: the SEO title is used.', ogDescription: 'Empty: the meta description is used.',
     twTitle: 'Empty: the Facebook title is used.', twDescription: 'Empty: the Facebook description is used.', twImage: 'Empty: the Facebook picture is used.',
     canonical: 'Only when the same content is on another address: give the main address here. Usually leave empty.',
-    nofollow: 'Rarely needed. Google then does not follow the links on this page.'
+    nofollow: 'Rarely needed. Google then does not follow the links on this page.',
+    nosnippet: 'The page can still be found, but Google shows only its title, no text under it.', noimageindex: 'The photos of this page do not show in Google Images.',
+    noarchive: 'Search engines keep no saved copy of the page.', noshare: 'Untick to show the title, text and picture again when someone shares the link.'
   };
 
   // ---------- the form, in tabs ----------
@@ -1244,6 +1385,7 @@
     const col = +new URLSearchParams(location.search).get('col');
     if (E.id === 'footer' && col && comps.footerCols) { const its = [...comps.footerCols.el.querySelectorAll(':scope > .arr > .it')]; its.forEach((it, i) => it.classList.toggle('closed', i !== col - 1)); if (its[col - 1]) setTimeout(() => its[col - 1].scrollIntoView({ block: 'start', behavior: 'smooth' }), 50); }
     // a region page: its place cards in a tab of their own
+    if (E.kind === 'posts' && comps.html) { postSectionsTab(root, tabsEl, panes); tabsEl.hidden = false; }
     if (E.kind === 'pages' && comps.html) { if (current && /^(places|guide)$/.test(current.group || '')) sectionsTab(addPane); cardsTab(addPane); glanceTab(addPane); if (panes.length > 1) tabsEl.hidden = false; const pc = h && panes.find(p => p.slug === h); if (pc) pc.b.click(); }
     dirty = false; state.textContent = ''; state.classList.remove('dirty');
   }

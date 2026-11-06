@@ -54,7 +54,13 @@ window.addEventListener('load', function () { requestAnimationFrame(function () 
   // and a page's own "hide from Google" switch and share picture (16 Oct 2026)
   const G = seoSettings || {};
   const pdx = typeof d !== 'undefined' && d ? d : {};
-  const robotsTag = pdx.noindex || pdx.nofollow ? (pdx.noindex ? 'noindex' : 'index') + ', ' + (pdx.nofollow ? 'nofollow' : 'follow') : (typeof meta !== 'undefined' && meta && meta.robots);
+  // (6 Nov 2026, client) the rules for search engines: the page's own, the fixed pages' (meta.robots) and the whole
+  // website's (Google settings → Search engines) together
+  const mRob = String((typeof meta !== 'undefined' && meta && meta.robots) || '');
+  const rule = (k, site) => !!(pdx[k] || G[site] || new RegExp('\\b' + k + '\\b').test(mRob));
+  const R = { noindex: rule('noindex', 'siteNoindex'), nofollow: rule('nofollow', 'siteNofollow'), nosnippet: rule('nosnippet', 'siteNosnippet'), noimageindex: rule('noimageindex', 'siteNoimageindex'), noarchive: rule('noarchive', 'siteNoarchive') };
+  const robotsTag = Object.values(R).some(Boolean) ? [R.noindex ? 'noindex' : 'index', R.nofollow ? 'nofollow' : 'follow'].concat(['nosnippet', 'noimageindex', 'noarchive'].filter(k => R[k])).join(', ') : '';
+  const noShare = !!(pdx.noshare || G.siteNoShare || (typeof meta !== 'undefined' && meta && meta.noshare));
   // (28 Oct 2026) a page's own canonical address, set in its SEO panel, wins over the built-in one
   if (pdx.canonical && typeof meta !== 'undefined' && meta) meta = Object.assign({}, meta, { canonical: pdx.canonical });
   // (4 Nov 2026, site check) a page without its own Google description gets one from the start of its text (about 155
@@ -102,6 +108,7 @@ window.addEventListener('load', function () { requestAnimationFrame(function () 
   const twT = pd.twTitle || mt.twTitle || ogT, twD = pd.twDescription || mt.twDescription || ogD;
   const twSrc = [pd.twImage, mt.twImage].find(x => x && /^\//.test(x)), twImg = twSrc ? base + twSrc : ogImg;
 %>
+<% if (!noShare) { %>
 <meta property="og:title" content="<%= ogT %>">
 <% if (ogD) { %><meta property="og:description" content="<%= ogD %>"><% } %>
 <% if (mt.canonical) { %><meta property="og:url" content="<%= /^https?:/.test(mt.canonical) ? mt.canonical : base + mt.canonical %>"><% } %>
@@ -111,6 +118,7 @@ window.addEventListener('load', function () { requestAnimationFrame(function () 
 <meta name="twitter:title" content="<%= twT %>">
 <% if (twD) { %><meta name="twitter:description" content="<%= twD %>"><% } %>
 <meta name="twitter:image" content="<%= twImg %>">
+<% } %>
 <script type="application/ld+json"><%- JSON.stringify(seo.graph(base, pg)).replace(/</g, '\\u003c') %></script>
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">

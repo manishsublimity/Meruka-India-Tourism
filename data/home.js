@@ -183,7 +183,7 @@ module.exports = {
     { title: 'Tour Packages', items: [['Golden Triangle Tours', '/india-golden-triangle-tour'], ['Rajasthan Tours', '/rajasthan-tours'], ['Kerala Tours', '/southindia_kerala_tours'], ['South India Tours', '/south_india_tour'], ['Incredible India Tours', '/incredible_india_tours'], ['All Tour Packages', '/itineraries']] },
     { title: 'Destinations', items: [['North India', '/north_india_tour'], ['South India', '/south_india_tours_tourism'], ['East India', '/east_india_tour_tourism'], ['West India', '/west_india_tour_tourism']] },
     // "Travel Tips" is the Traveller's Guide page (its tips); "Important Links" as in the old site's footer
-    { title: 'Travel Guide', items: [['India Travel Guide', '/guide'], ['Travel Tips', '/travelers_guide'], ['Best Time to Visit', '/weather'], ['Fairs & Festivals', '/Fairs-Festivals'], ['Visa Information', '/visa_information'], ['Important Links', '/important_links']] },
+    { title: 'Travel Guide', items: [['India Travel Guide', '/guide'], ['Travel Tips', '/travelers_guide'], ['Best Time to Visit', '/weather'], ['Fairs & Festivals', '/Fairs-Festivals'], ['Visa Information', '/visa_information'], ['Important Links', '/important_links'], ['Travel Blog', '/blog']] },
     { title: 'Company', items: [['About Us', '/aboutus'], ['Guest Reviews', '/testimonials'], ['FAQs', '/faqs'], ['Contact Us', '/contactus'], ['Plan My Trip', '/plan-my-trip'], ['Sitemap', '/sitemap']] }
   ],
   seoLinks: ['India tour packages', 'India travel agency', 'Indian tour operators', 'India holiday packages', 'Golden Triangle tour', 'Rajasthan tour packages', 'Kerala backwaters tours', 'Kerala tour operators', 'Private tours India', 'India tour plan', 'India Tour Itineraries', 'India Tourism', 'South India Tours', 'North India Tours'],
@@ -313,3 +313,9 @@ module.exports.popularSearches = [
 ];
 // (27 Oct 2026, client) a logo picture chosen in the admin panel (Footer menu → Logo & about); empty: the drawn Meruka logo
 module.exports.siteLogo = '';
+// (6 Nov 2026, client) what the header and the footer show: the logo and the name ('both'), only the logo ('logo') or
+// only the name ('name'); and the name's words
+module.exports.logoHeader = 'both';
+module.exports.logoFooter = 'both';
+module.exports.siteName = 'MERUKA INDIA TOURISM';
+module.exports.footerName = 'MERUKA INDIA TOURISM SERVICE';

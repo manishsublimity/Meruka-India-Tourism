@@ -18,5 +18,9 @@ module.exports = {
     '/plan-my-trip': { title: '', description: '' }
   },
   // old address → new address (permanent 301 redirect), e.g. after a page is renamed or deleted
-  redirects: []
+  redirects: [],
+  // (6 Nov 2026, client) rules for search engines for the whole website, on top of each page's own: keep every page out
+  // of Google for now (while the site is being made), do not follow links, show no text / no photos in the results,
+  // no saved copy, keep AI tools out, and no preview when a page is shared (WhatsApp, Facebook, email)
+  siteNoindex: false, siteNofollow: false, siteNosnippet: false, siteNoimageindex: false, siteNoarchive: false, siteNoAi: false, siteNoShare: false
 };

@@ -1,12 +1,17 @@
 <%- include('_top', { pageTitle: 'Photos' }) %>
 <%# (3 Nov 2026, client) every photo of the website in one grid: search by name, upload (or drop files on the page),
-    click a photo to copy its address; uploaded photos can be deleted %>
+    click a photo to copy its address; uploaded photos can be deleted. (6 Nov 2026, client) tick one or many uploaded
+    photos (or all of them) and delete them together; show all / only uploaded / only the website's own photos %>
 <div class="ad-top ad-head">
-  <div><h1>Photos</h1><p class="lead">Every photo of the website. Upload photos here, then pick them in any page. Click a photo to copy its address.</p></div>
+  <div><h1>Photos</h1><p class="lead">Every photo of the website. Upload photos here, then pick them in any page. Click a photo to copy its address. Tick uploaded photos to delete them.</p></div>
 </div>
 <div class="mm-page" data-page-drop>
-  <div class="mm-tools"><label class="mm-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" data-mq placeholder="Search photos by name, e.g. delhi, taj, kerala" aria-label="Search photos"></label><span class="muted" data-mcount></span><label class="btn btn-p mm-up">Upload photos<input type="file" accept="image/*" hidden multiple data-page-file></label></div>
+  <div class="mm-tools"><label class="mm-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" data-mq placeholder="Search photos by name, e.g. delhi, taj, kerala" aria-label="Search photos"></label>
+    <select class="in mm-show" data-mshow aria-label="Which photos"><option value="">All photos</option><option value="up">Uploaded photos</option><option value="site">Website's own photos</option></select>
+    <span class="muted" data-mcount></span><label class="btn btn-p mm-up">Upload photos<input type="file" accept="image/*" hidden multiple data-page-file></label></div>
+  <div class="mm-sel"><label class="ck-l"><input type="checkbox" data-mall> <span data-mall-t>Select all uploaded photos</span></label></div>
+  <div class="bulk-bar" data-bulk hidden><b data-bulk-n>0 selected</b><span class="bulk-acts"><button class="btn btn-s btn-d" type="button" data-bulk-del>Delete selected</button> <button class="btn btn-s btn-q" type="button" data-bulk-clear>Clear</button></span></div>
   <div class="mm-grid" data-page-grid></div>
-  <p class="mm-drop-hint">Drop photos here to upload them — WebP, JPG or PNG, up to 10 MB each</p>
+  <p class="mm-drop-hint">Drop photos here to upload them — WebP, JPG or PNG, up to 10 MB each. Only uploaded photos can be deleted; the website's own photos are part of its design.</p>
 </div>
-<%- include('_bottom', { scripts: ['/admin-assets/media-page.js?v=3'] }) %>
+<%- include('_bottom', { scripts: ['/admin-assets/media-page.js?v=4'] }) %>

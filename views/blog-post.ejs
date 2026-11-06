@@ -1,20 +1,77 @@
 <%- include('partials/head') %>
-<%# A blog post (23 Oct 2026): written in the admin panel (Blog); the text in the site's article style %>
+<%# A blog post (23 Oct 2026; 5 Nov 2026, client: a richer layout): written in the admin panel (Blog).
+    The story on the left, a side column (plan a trip, categories, latest posts), then newer / older and more posts. %>
 <%
   const day = s => { const t = new Date(s); return isNaN(t) ? '' : t.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); };
+  const short = s => { const t = new Date(s); return isNaN(t) ? '' : t.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
+  const words = String(d.html || '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length, mins = Math.max(1, Math.round(words / 200));
   const crumbs = [{ label: 'Home', href: '/' }, { label: 'Blog', href: '/blog' }, { label: d.heading }];
+  const wa = typeof footer !== 'undefined' && footer && footer.wa ? footer.wa : '';
+  const IC = {
+    cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'
+  };
+  const ic = n => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[n] + '</svg>';
 %>
 <div style="width:100%;overflow-x:clip;background:#fff">
 <div id="mk-frame" class="<%= typeof frameClass !== 'undefined' ? frameClass : '' %>" style="container-type:inline-size;width:100%;background:#fff">
 
 <%- include('partials/page-header', { nav: d.nav, enquireHref: '/plan-my-trip' }) %>
-<%- include('partials/photo-hero', { title: d.heading, img: d.photo || '/images/travel-guideline.webp', alt: d.heading, crumbs }) %>
+<%- include('partials/photo-hero', { title: d.heading, img: d.photo || '/images/travel-guideline.webp', alt: d.photoAlt || d.heading, crumbs }) %>
 
 <section class="bl-sec bl-post">
-  <div class="ex-wrap bl-post-in">
-    <p class="bl-meta"><% if (d.category) { %><a href="/blog?cat=<%= encodeURIComponent(d.category) %>" class="bl-cat"><%= d.category %></a> · <% } %><%= day(d.date) %><% if (d.author) { %> · <%= d.author %><% } %></p>
-    <article class="prose bl-prose"><%- d.html %></article>
-    <p class="bl-back"><a href="/blog">All blog posts</a> · <a href="/plan-my-trip">Plan My Trip</a></p>
+  <div class="ex-wrap bp-grid">
+    <article class="bp-main">
+      <div class="bp-meta">
+        <% if (d.category) { %><a href="/blog?cat=<%= encodeURIComponent(d.category) %>" class="bp-chip"><%= d.category %></a><% } %>
+        <span><%- ic('cal') %><%= day(d.date) %></span>
+        <% if (d.author) { %><span><%- ic('user') %><%= d.author %></span><% } %>
+        <span><%- ic('clock') %><%= mins %> min read</span>
+      </div>
+      <% if (d.excerpt) { %><p class="bp-lead"><%= d.excerpt %></p><% } %>
+      <div class="prose bl-prose bp-prose"><%- d.html %></div>
+
+      <div class="bp-cta">
+        <div>
+          <p class="bp-cta-t">Like this? Plan your own <em>private tour</em></p>
+          <p class="bp-cta-s">Your own car, driver and guides, the hotels you choose. A planner replies within one working day.</p>
+        </div>
+        <div class="bp-cta-btns">
+          <a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip</a>
+          <% if (wa) { %><a href="<%= wa %>?text=<%= encodeURIComponent('Hello Meruka, I read “' + d.heading + '” and would like to plan a trip.') %>" target="_blank" rel="noopener" class="ph-btn ph-btn-line bp-wa">Ask on WhatsApp</a><% } %>
+        </div>
+      </div>
+
+      <% if (newer || older) { %>
+      <nav class="bp-nav" aria-label="More posts">
+        <% if (older) { %><a href="<%= older.url %>" class="bp-nav-a"><small>← Older post</small><b><%= older.heading %></b></a><% } else { %><span></span><% } %>
+        <% if (newer) { %><a href="<%= newer.url %>" class="bp-nav-a bp-nav-r"><small>Newer post →</small><b><%= newer.heading %></b></a><% } %>
+      </nav>
+      <% } %>
+    </article>
+
+    <aside class="bp-side">
+      <div class="bp-box bp-box-plan">
+        <p class="bp-box-h">Travel with <em>Meruka</em></p>
+        <p>Private tours of India since 2001: 3–5 star hotels, your own car and driver, a plan made only for you.</p>
+        <a href="/plan-my-trip" class="ph-btn ph-btn-gold">Plan My Trip</a>
+      </div>
+      <% if (cats.length) { %>
+      <div class="bp-box">
+        <p class="bp-box-h">Categories</p>
+        <ul class="bp-cats"><% cats.forEach(c => { %><li><a href="/blog?cat=<%= encodeURIComponent(c.name) %>"<%- c.name === d.category ? ' class="on"' : '' %>><span><%= c.name %></span><b><%= c.n %></b></a></li><% }) %></ul>
+      </div>
+      <% } %>
+      <% if (latest.length) { %>
+      <div class="bp-box">
+        <p class="bp-box-h">Latest posts</p>
+        <ul class="bp-latest"><% latest.forEach(p => { %>
+          <li><a href="<%= p.url %>"><img src="<%= p.photo || '/photos/taj-mahal-feature.webp' %>" alt="" loading="lazy"><span><b><%= p.heading %></b><small><%= short(p.date) %></small></span></a></li>
+        <% }) %></ul>
+      </div>
+      <% } %>
+    </aside>
   </div>
 </section>
 
@@ -23,16 +80,7 @@
   <div class="ex-wrap">
     <div class="h4-head"><div><h2 class="h4-h2">More from the <em>blog</em></h2></div><a href="/blog" class="h4-all">All posts</a></div>
     <div class="bl-grid">
-      <% more.forEach(p => { %>
-      <article class="bl-card">
-        <a href="<%= p.url %>" class="bl-img" tabindex="-1" aria-hidden="true"><img src="<%= p.photo || '/photos/taj-mahal-feature.webp' %>" alt="" loading="lazy"></a>
-        <div class="bl-body">
-          <p class="bl-meta"><%= day(p.date) %></p>
-          <h3 class="bl-h"><a href="<%= p.url %>"><%= p.heading %></a></h3>
-          <a href="<%= p.url %>" class="bl-more">Read the story</a>
-        </div>
-      </article>
-      <% }) %>
+      <% more.forEach(p => { %><%- include('partials/blog-card', { p, h: 'h3' }) %><% }) %>
     </div>
   </div>
 </section>

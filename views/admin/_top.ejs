@@ -12,6 +12,7 @@
     foot: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15h18"/>',
     settings: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/>',
     seo: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+    redirect: '<path d="M4 7h11a5 5 0 0 1 0 10H9"/><path d="m12 14-3 3 3 3"/><path d="M4 7l3-3M4 7l3 3"/>',
     enquiries: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
     users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.3-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.6c2 .7 3.2 2.5 3.6 5.4"/>',
     activity: '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
@@ -59,6 +60,8 @@
       ['Four Regions', 'map', '/admin/destinations', onDest, 'content', 0, 0, REG.map(([l, k]) => [l, '/admin/destinations?region=' + k, onDest && (QS.region || PS) === k])],
       // (26 Oct 2026, client) the travel guide's three sections, each on its own, like a post type
       ...GSEC.map(([l, k], n) => [l, ['guide', 'attr', 'tools'][n], '/admin/travel-guide?section=' + k, onGuide && (QS.section || PS || 'travelers') === k, 'content']),
+      // (5 Nov 2026, client) the blog: its posts, newest first; Add post opens the new-post form
+      ['Blog', 'blog', '/admin/posts', K === 'posts', 'content', 0, 0, [['All posts', '/admin/posts', K === 'posts'], ['Add post', '/admin/posts#new', false]]],
       ['Guest reviews', 'reviews', '/admin/reviews', page === 'reviews' || onSingle('reviews'), 'reviews'],
       // (2 Nov 2026, client) every photo of the website in one place: upload, search, copy, delete
       ['Photos', 'photo', '/admin/media', page === 'media', 'content']]],
@@ -69,6 +72,8 @@
     ['Settings', [
       ['Site settings', 'settings', '/admin/settings', page === 'settings-hub' || page === 'look' || onSingle('seo'), 'settings'],
       ['Google & SEO', 'seo', '/admin/seo', page === 'seo', 'content'],
+      // (5 Nov 2026, client) old address → new address
+      ['Link redirection', 'redirect', '/admin/redirects', page === 'redirects', 'content'],
       ['Users', 'users', '/admin/users', page === 'users', 'users'], ['Activity log', 'activity', '/admin/activity', page === 'activity', 'users'],
       ['Deleted items', 'trash', '/admin/trash', page === 'trash', 'delete']]]
   ];
@@ -81,7 +86,7 @@
 <title><%= typeof pageTitle !== 'undefined' ? pageTitle + ' — ' : '' %>Meruka admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/admin-assets/admin.css?v=74">
+<link rel="stylesheet" href="/admin-assets/admin.css?v=79">
 <%# (26 Oct 2026, client) the panel's look (light or dark, and its colour), chosen per browser in "Look of the panel" %>
 <script>(function () { try { var rl = <%- JSON.stringify(typeof roleLook !== 'undefined' && roleLook ? roleLook : {}) %>, own = localStorage.getItem('mk-look'), l = own ? JSON.parse(own) : rl, d = document.documentElement, m = l.mode || 'light';
   if (m === 'auto') m = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -109,7 +114,7 @@
   </aside>
   <main class="ad-main">
     <%# (26 Oct 2026, client) the top bar: "+ New" (as in WordPress), the notifications and the signed-in person %>
-    <% const NEW = [['content', '/admin/tours#new', 'Tour', 'A new tour with its days and prices'], ['content', '/admin/lists#new', 'Tour category', 'A page that lists tours'], ['content', '/admin/destinations#new', 'Destination page', 'A region, state or city'], ['content', '/admin/travel-guide#new', 'Travel guide page', 'A topic of the India Travel Guide'], ['reviews', '/admin/reviews#new', 'Guest review', 'What a guest wrote'], ['users', '/admin/users#new', 'User', 'A login for your team']].filter(n => c(n[0]));
+    <% const NEW = [['content', '/admin/tours#new', 'Tour', 'A new tour with its days and prices'], ['content', '/admin/lists#new', 'Tour category', 'A page that lists tours'], ['content', '/admin/destinations#new', 'Destination page', 'A region, state or city'], ['content', '/admin/travel-guide#new', 'Travel guide page', 'A topic of the India Travel Guide'], ['content', '/admin/posts#new', 'Blog post', 'A story, tip or news for the blog'], ['reviews', '/admin/reviews#new', 'Guest review', 'What a guest wrote'], ['users', '/admin/users#new', 'User', 'A login for your team']].filter(n => c(n[0]));
        const NOTES = typeof notes !== 'undefined' ? notes : []; %>
     <div class="ad-bar"><button type="button" class="ad-burger" data-burger aria-label="Show or hide the menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9 4v16"/></svg></button>
       <% if (typeof crumb !== 'undefined' && crumb) { %><a class="ad-crumb" href="<%= crumb[0] %>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span>Back to <b><%= crumb[1] %></b></span></a><% } %>

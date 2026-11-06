@@ -94,7 +94,9 @@ const sitemap = base => '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="
   urls().map(u => `  <url><loc>${base}${encodeURI(u)}</loc><changefreq>${u === '/' ? 'weekly' : 'monthly'}</changefreq><priority>${u === '/' ? '1.0' : '0.7'}</priority></url>`).join('\n') +
   '\n</urlset>\n';
 
-const robots = base => `User-agent: *\nAllow: /\nDisallow: /home-2\nDisallow: /home-3\nDisallow: /home-4\nDisallow: /api/\n\n# AI answer engines are welcome to read and cite this site\nUser-agent: GPTBot\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${base}/sitemap.xml\n`;
+// (6 Nov 2026, client) Google settings → Search engines → "Keep AI tools out" closes the site to the AI crawlers
+const AI_BOTS = ['GPTBot', 'ChatGPT-User', 'ClaudeBot', 'anthropic-ai', 'PerplexityBot', 'Google-Extended', 'CCBot', 'Bytespider', 'Applebot-Extended'];
+const robots = (base, s) => s && s.siteNoAi ? `User-agent: *\nAllow: /\nDisallow: /home-2\nDisallow: /home-3\nDisallow: /home-4\nDisallow: /api/\n\n# AI tools are kept out (admin panel → Google settings → Search engines)\n${AI_BOTS.map(b => `User-agent: ${b}\nDisallow: /\n`).join('')}\nSitemap: ${base}/sitemap.xml\n` : `User-agent: *\nAllow: /\nDisallow: /home-2\nDisallow: /home-3\nDisallow: /home-4\nDisallow: /api/\n\n# AI answer engines are welcome to read and cite this site\nUser-agent: GPTBot\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${base}/sitemap.xml\n`;
 
 // llms.txt: a short, plain summary that AI assistants can quote accurately
 function llms(base) {
