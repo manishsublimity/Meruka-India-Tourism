@@ -59,11 +59,19 @@ DB_PASSWORD=…
 DB_NAME=meruka_cms
 ```
 
-(or one `DATABASE_URL=mysql://user:password@host:3306/meruka_cms`). Create the empty database first (phpMyAdmin or
-`CREATE DATABASE meruka_cms CHARACTER SET utf8mb4;`). The site creates its tables at start-up. The first time it starts
-with an empty database it also brings in the old files (`data/cms/`, `data/users.json`, `data/enquiries.json`,
-`data/activity.json`, `public/uploads/`). To do that by hand: `npm run db:import`, or `npm run db:import -- --force` to
-empty the tables and import the files again. The files are only read, never changed.
+(or one `DATABASE_URL=mysql://user:password@host:3306/meruka_cms`). **Everything else happens by itself** (since 13 Nov
+2026): at start-up the site makes the database (if the MySQL user may), its tables, and fills a new, empty database
+with the panel's content kept in git, `database/meruka-content.json` — the pages, tours, categories, drafts, history,
+deleted items, price log and photos. Server set-up step by step: **[DEPLOY.md](DEPLOY.md)**.
+
+- On the computer where the content is written, `DB_SNAPSHOT=on` in `.env` keeps `database/meruka-content.json` up to
+  date after every save; commit and push it with the code. By hand: `npm run db:export`.
+- A live server never writes that file, so `git pull` never stops on it. A database that already has content is never
+  overwritten by a pull; to replace its content with the one in git: `npm run db:seed -- --yes` (users, enquiries and
+  the activity log stay).
+- Not in git, on purpose: enquiries (guests' personal data), the panel's users (passwords) and the activity log.
+- The old files (`data/cms/`, `data/users.json`, …) are still read once by a database that has no content file to start
+  from (`npm run db:import`).
 
 | Table | What it holds |
 |---|---|
@@ -81,7 +89,8 @@ empty the tables and import the files again. The files are only read, never chan
   every edit, enquiry and uploaded photo.
 - `git pull` is now safe: deploying code does not touch the edits. An added item's small file
   (`data/tours/<id>.js`, …) is written again from `cms_items` at every start.
-- MySQL's `max_allowed_packet` must be at least 16M for 10 MB photos (the site warns at start-up if it is lower).
+- MySQL's `max_allowed_packet` must be at least 16M for 10 MB photos. The site asks MySQL for 64M when it starts; when
+  the MySQL user may not change it, set `max_allowed_packet=64M` in `my.cnf` / `my.ini` (the site warns at start-up).
 - Run **one** copy of the site per database (`pm2 start server.js`, not cluster mode). The site keeps the data in
   memory and writes changes through to MySQL, so a second copy would not see the first one's changes until it restarts.
 - The site does not start without the database. If MySQL is down, start it first.

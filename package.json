@@ -7,7 +7,9 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "db:import": "node scripts/db-import.js",
-    "db:blog": "node scripts/blog-to-db.js"
+    "db:blog": "node scripts/blog-to-db.js",
+    "db:export": "node scripts/db-export.js",
+    "db:seed": "node scripts/db-seed.js"
   },
   "dependencies": {
     "ejs": "^3.1.10",
