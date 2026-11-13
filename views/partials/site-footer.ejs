@@ -26,9 +26,11 @@
   <div class="sf-wrap sf-main">
     <div class="sf-brand">
       <a href="/" class="sf-logo" aria-label="Meruka India Tourism — home">
-        <% if (F.logo) { %><img src="<%= F.logo %>" alt="Meruka India Tourism Service" style="height:48px;width:auto;display:block"><% } else { %>
-        <span class="mlogo sf-logo-mark" aria-hidden="true"></span>
-        <span class="sf-logo-name notranslate" translate="no">MERUKA INDIA TOURISM SERVICE</span><% } %>
+        <%# (6 Nov 2026, client) the logo, the name or both (Footer menu → Logo & about) %>
+        <% const FS = F.logoShow || 'both'; %>
+        <% if (FS !== 'name') { if (F.logo) { %><img src="<%= F.logo %>" alt="Meruka India Tourism Service" style="height:48px;width:auto;display:block"><% } else { %>
+        <span class="mlogo sf-logo-mark" aria-hidden="true"></span><% } } %>
+        <% if (FS !== 'logo') { %><span class="sf-logo-name notranslate" translate="no"><%= F.siteName || 'MERUKA INDIA TOURISM SERVICE' %></span><% } %>
       </a>
       <p class="sf-about"><%= F.about || 'Inbound travel agency for overseas visitors. Private tours, 3–5 star hotels, a dedicated car and driver from arrival to departure.' %></p>
       <% const S = F.social || []; if (S.length) { %>

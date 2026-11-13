@@ -2232,3 +2232,10 @@ font[style*="vertical-align: inherit"]{background:none !important;box-shadow:non
 #mk-frame#mk-frame#mk-frame.h4 .dx-pq .pq-btns{display:flex;flex:none;gap:6px}
 #mk-frame#mk-frame#mk-frame.h4 .dx-pq .pq-view{flex:none;padding:0 10px;white-space:nowrap}
 #mk-frame#mk-frame#mk-frame.h4 .dx-pq .pq-name{font-family:'Bricolage Grotesque',system-ui,sans-serif}
+/* (5 Nov 2026, client) phones: the four region pictures stay inside the page (no cut on the right) and the East India
+   girl's face sits above the words; the tour slider has an 8px gap between the cards */
+@media (max-width:767.98px){
+  #mk-frame#mk-frame#mk-frame.h4 #destinations .rg{width:100% !important;max-width:100%;min-height:300px}
+  #mk-frame#mk-frame#mk-frame.h4 #destinations img[src*="arunachal-losar"]{inset:auto 0 0 0;height:140%;object-position:26% 100% !important}
+}
+@media (max-width:480px){ #mk-frame#mk-frame#mk-frame.h4 .bn-grid.bn-four{gap:8px !important} }

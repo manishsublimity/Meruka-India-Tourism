@@ -36,22 +36,23 @@
   const create = async (from, fromName) => {
     const options = rows.filter(r => !r.dataset.text).map(r => { const a = r.querySelector('a[href^="/admin/"]'); return [a.getAttribute('href').split('/').pop(), a.textContent]; });
     // (27 Oct 2026, client) a new tour starts empty and its categories are ticked here; "Copy" copies a tour as it is
-    const blank = (L.kind === 'tours' || L.kind === 'lists') && !from;
+    // (6 Nov 2026, client) a new blog post too: only its name, and it starts empty (no "Start from")
+    const blank = (L.kind === 'tours' || L.kind === 'lists' || L.kind === 'posts') && !from;
     let cats = [];
     if (blank && L.kind === 'tours') { try { cats = (await A.api('GET', '/admin/api/tour-categories/_new')).items || []; } catch (e) { cats = []; } }
     const groups = [...new Set(cats.map(c => c.group))];
     let parsed = null;
     const box = await A.dialog({
       title: fromName ? 'Copy “' + fromName + '”' : 'Add a new ' + L.one, ok: L.kind === 'lists' && !from ? 'Create category' : 'Create ' + L.one + ' as a draft',
-      html: '<div class="f"><label class="lb">Name of the ' + L.one + '</label><input class="in" data-n placeholder="' + (L.kind === 'lists' ? 'e.g. Golden Triangle' : 'e.g. Rajasthan Desert & Forts Tour') + '"></div>' +
+      html: '<div class="f"><label class="lb">Name of the ' + L.one + '</label><input class="in" data-n placeholder="' + (L.kind === 'lists' ? 'e.g. Golden Triangle' : L.kind === 'posts' ? 'e.g. Best time to visit Rajasthan' : 'e.g. Rajasthan Desert & Forts Tour') + '"></div>' +
         (blank && L.kind === 'tours' ? (cats.length ? '<div class="f"><label class="lb">Show it in these categories</label><div class="nc-cats">' + groups.map(g => '<div class="nc-g"><h5>' + A.esc(g) + '</h5>' +
             cats.filter(c => c.group === g).map(c => '<label><input type="checkbox" value="' + A.esc(c.id) + '"><span>' + A.esc(c.name) + '</span>' + (c.code ? '<i class="code-b">' + A.esc(c.code) + '</i>' : '') + '</label>').join('') + '</div>').join('') + '</div></div>' : '') :
-          L.kind === 'lists' && !from ? '' :
+          (L.kind === 'lists' || L.kind === 'posts') && !from ? '' :
           '<div class="f"><label class="lb">Start from (its text and layout are copied, then you change them)</label><select class="in" data-f>' +
           options.map(([id, n]) => '<option value="' + A.esc(id) + '"' + (id === from ? ' selected' : '') + '>' + A.esc(n) + '</option>').join('') + '</select></div>') +
         // (3 Nov 2026, client) a new tour can start from its itinerary file: the days, prices and lists are filled in
         (blank && L.kind === 'tours' && window.ITIN ? '<div class="f nc-imp"><label class="lb">Import the itinerary (optional)</label><input type="file" class="in" data-imp accept=".docx,.pdf,.txt,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"><p class="hint" data-impres>A Word file (.docx), a PDF or a text file. Its days, description, prices, includes, excludes and notes fill the new tour. Each day starts with “Day 1: …”.</p></div>' : '') +
-        '<p class="hint">' + (blank && L.kind === 'lists' ? 'It is made as a draft with an empty page: then add its title, tour type, short description and banner, and publish it. It is not put in any tour: tick it in a tour’s Categories tab to add that tour.' : blank ? 'The tour starts empty, as a draft: fill in its days and prices, then publish it.' : 'It starts as a draft: visitors see it once it is published.') + '</p>',
+        '<p class="hint">' + (blank && L.kind === 'posts' ? 'The post starts empty, as a draft: then add its category, photo, short summary, introduction and sections, and publish it.' : blank && L.kind === 'lists' ? 'It is made as a draft with an empty page: then add its title, tour type, short description and banner, and publish it. It is not put in any tour: tick it in a tour’s Categories tab to add that tour.' : blank ? 'The tour starts empty, as a draft: fill in its days and prices, then publish it.' : 'It starts as a draft: visitors see it once it is published.') + '</p>',
       // (26 Oct 2026, client) no address box: the address is made from the name
       onOpen: box => {
         const n = box.querySelector('[data-n]'); if (fromName) n.value = fromName + ' (copy)';

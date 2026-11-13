@@ -165,9 +165,11 @@ function buildSite() {
     };
   })();
   // The header's Destinations / Tour Packages dropdowns appear on every page
-  app.locals.menu = { logo: home.siteLogo || '', pkgCols: home.pkgMenuCols, destCols: home.destMenuCols, to: home.to, mostBookedHref: home.mostBookedHref, langs: require('./data/languages'), header: home.headerMenu };
+  // (6 Nov 2026, client) logo, name or both, in the header and in the footer
+  const logoShow = v => (['both', 'logo', 'name'].includes(v) ? v : 'both');
+  app.locals.menu = { logo: home.siteLogo || '', logoShow: logoShow(home.logoHeader), siteName: home.siteName || 'MERUKA INDIA TOURISM', pkgCols: home.pkgMenuCols, destCols: home.destMenuCols, to: home.to, mostBookedHref: home.mostBookedHref, langs: require('./data/languages'), header: home.headerMenu };
   // ...and so does the one footer (partials/site-footer), with the head office details from the contact page
-  app.locals.footer = { logo: home.siteLogo || '', cols: home.footerCols, seo: home.popularSearches || home.seoLinks, about: home.footerAbout, hq: contact.offices[0], testimonialsHref: home.testimonials.href,
+  app.locals.footer = { logo: home.siteLogo || '', logoShow: logoShow(home.logoFooter), siteName: home.footerName || 'MERUKA INDIA TOURISM SERVICE', cols: home.footerCols, seo: home.popularSearches || home.seoLinks, about: home.footerAbout, hq: contact.offices[0], testimonialsHref: home.testimonials.href,
     // WhatsApp chat link: the head office's first number
     social: home.footerSocial || require('./data/home2').social,
     wa: 'https://wa.me/' + contact.offices[0].phones[0].replace(/[^0-9]/g, ''),
@@ -176,11 +178,19 @@ function buildSite() {
 
   // Redirects added in the admin panel (Google settings): old address → new address, permanent (301)
   const norm = p => String(p || '').trim().replace(/^https?:\/\/[^/]+/i, '').replace(/\/+$/, '').toLowerCase() || '/';
-  const REDIRECTS = new Map((seoSettings.redirects || []).filter(r => r && r.from && r.to && norm(r.from) !== norm(r.to)).map(r => [norm(r.from), String(r.to).trim()]));
+  // (5 Nov 2026) each may be 301 (moved for good) or 302 (for a while); set on the panel's Link redirection page
+  const REDIRECTS = new Map((seoSettings.redirects || []).filter(r => r && r.from && r.to && norm(r.from) !== norm(r.to)).map(r => [norm(r.from), { to: String(r.to).trim(), code: +r.code === 302 ? 302 : 301 }]));
   router.use((req, res, next) => {
-    const to = req.method === 'GET' && REDIRECTS.get(norm(req.path));
-    if (!to) return next();
-    res.redirect(301, to + (to.includes('?') ? '' : req.url.slice(req.path.length)));
+    const r = (req.method === 'GET' || req.method === 'HEAD') && REDIRECTS.get(norm(req.path));
+    if (!r) return next();
+    res.redirect(r.code, r.to + (r.to.includes('?') ? '' : req.url.slice(req.path.length)));
+  });
+  // (6 Nov 2026, client) Google settings → Search engines: the whole website kept out of Google for now. The header also
+  // covers photos and files; robots.txt still lets Google in, or it could never see the noindex
+  router.use((req, res, next) => {
+    const t = [seoSettings.siteNoindex && 'noindex', seoSettings.siteNofollow && 'nofollow', seoSettings.siteNosnippet && 'nosnippet', seoSettings.siteNoimageindex && 'noimageindex', seoSettings.siteNoarchive && 'noarchive'].filter(Boolean);
+    if (t.length) res.set('X-Robots-Tag', t.join(', '));
+    next();
   });
   // the fixed pages' SEO (title, description, keywords, hide from Google, share picture), when set in the admin panel
   router.use((req, res, next) => {
@@ -194,6 +204,10 @@ function buildSite() {
           if (p.description) m.description = p.description;
           if (p.keywords) m.keywords = p.keywords;
           if (p.noindex || p.nofollow) m.robots = (p.noindex ? 'noindex' : 'index') + ', ' + (p.nofollow ? 'nofollow' : 'follow');
+          // (6 Nov 2026, client) the page's other rules for search engines, read with the website's own in head.ejs
+          const extra = ['nosnippet', 'noimageindex', 'noarchive'].filter(k => p[k]);
+          if (extra.length) m.robots = [m.robots || 'index, follow'].concat(extra).join(', ');
+          if (p.noshare) m.noshare = true;
           ['ogImage', 'ogTitle', 'ogDescription', 'twTitle', 'twDescription', 'twImage'].forEach(k => { if (p[k]) m[k] = p[k]; });
           if (p.canonical) m.canonical = p.canonical;
           locals.meta = m;
@@ -339,8 +353,14 @@ function buildSite() {
     lists: (res, page) => res.render('tour-listing', Object.assign({ title: page.title, d: page, G: require('./data/home2').listingFor(page),
       meta: { description: page.description, keywords: page.keywords, canonical: page.url } }, inner4())),
     pages: (res, page) => importedPage('article', page)(null, res),
-    posts: (res, page) => res.render('blog-post', Object.assign({ title: page.title, d: page, more: blogPosts().filter(p => p.url !== page.url).slice(0, 3),
-      meta: { description: page.description || page.excerpt, keywords: page.keywords, canonical: page.url } }, inner4()))
+    // (5 Nov 2026, client) the post page: its neighbours (newer / older), the categories and the latest posts for the side
+    posts: (res, page) => {
+      const all = blogPosts(), i = all.findIndex(p => p.url === page.url), others = all.filter(p => p.url !== page.url);
+      const cats = [...new Set(all.map(p => p.category).filter(Boolean))].sort().map(c => ({ name: c, n: all.filter(p => p.category === c).length }));
+      res.render('blog-post', Object.assign({ title: page.title, d: page, more: others.slice(0, 4), latest: others.slice(0, 4), cats,
+        newer: i > 0 ? all[i - 1] : null, older: i >= 0 && i < all.length - 1 ? all[i + 1] : null,
+        meta: { description: page.description || page.excerpt, keywords: page.keywords, canonical: page.url } }, inner4()));
+    }
   };
   const KIND_DIRS = [['tours', 'tours'], ['lists', 'tour-lists'], ['pages', 'articles'], ['posts', 'posts']];
   for (const [kind, dir] of KIND_DIRS) {
@@ -364,11 +384,17 @@ function buildSite() {
     // (26 Oct 2026, client) posts have a category; ?cat= shows one category
     const cats = [...new Set(blogPosts().map(p => p.category).filter(Boolean))].sort();
     const cat = cats.find(c => c.toLowerCase() === String(req.query.cat || '').toLowerCase()) || '';
-    const all = blogPosts().filter(p => !cat || p.category === cat), per = 9, pages = Math.max(1, Math.ceil(all.length / per));
+    const all = blogPosts().filter(p => !cat || p.category === cat), per = 12, pages = Math.max(1, Math.ceil(all.length / per));
     const n = Math.min(pages, Math.max(1, parseInt(req.query.page, 10) || 1));
     res.render('blog', { ...inner4(), title: (cat ? cat + ' — ' : '') + 'Blog — Meruka India Tourism', posts: all.slice((n - 1) * per, n * per), pageNo: n, pages, total: all.length, cats, cat,
       d: { nav: site.nav('', false), footCols: site.footCols() },
       meta: { description: 'Travel stories, tips and news from Meruka India Tourism: where to go in India, when to travel and how to plan a private tour.', canonical: '/blog' + (n > 1 ? '?page=' + n : '') } });
+  });
+
+  // (5 Nov 2026, client) a post whose file was added after the site started (no route of its own yet) still opens
+  router.get('/blog/:slug', (req, res, next) => {
+    const page = blogPosts().find(p => String(p.url).toLowerCase() === ('/blog/' + req.params.slug).toLowerCase());
+    return page ? renderers.posts(res, page) : next();
   });
 
   // JSON data endpoints (the same data the pages are rendered from)
@@ -406,7 +432,7 @@ function buildSite() {
   });
 
   // Crawlers and AI assistants
-  router.get('/robots.txt', (req, res) => res.type('text/plain').send(seo.robots(res.locals.base)));
+  router.get('/robots.txt', (req, res) => res.type('text/plain').send(seo.robots(res.locals.base, seoSettings)));
   router.get('/sitemap.xml', (req, res) => res.type('application/xml').send(seo.sitemap(res.locals.base)));
   router.get('/llms.txt', (req, res) => res.type('text/plain').send(seo.llms(res.locals.base)));
 

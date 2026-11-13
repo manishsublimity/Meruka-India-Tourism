@@ -1,0 +1,18 @@
+<%# (5 Nov 2026, client) one blog card: the /blog list and "More from the blog" on a post. Needs p (the post), h (heading tag). %>
+<%
+  const bcDay = s => { const t = new Date(s); return isNaN(t) ? '' : t.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
+  const bcMin = Math.max(1, Math.round(String(p.html || '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length / 200));
+  const bcH = typeof h !== 'undefined' ? h : 'h2';
+%>
+<article class="bl-card">
+  <a href="<%= p.url %>" class="bl-img" tabindex="-1" aria-hidden="true">
+    <img src="<%= p.photo || '/photos/taj-mahal-feature.webp' %>" alt="<%= p.photoAlt || '' %>" loading="lazy">
+    <% if (p.category) { %><span class="bl-chip"><%= p.category %></span><% } %>
+  </a>
+  <div class="bl-body">
+    <p class="bl-meta"><span><%= bcDay(p.date) %></span><span><%= bcMin %> min read</span></p>
+    <<%= bcH %> class="bl-h"><a href="<%= p.url %>"><%= p.heading %></a></<%= bcH %>>
+    <% if (p.excerpt) { %><p class="bl-ex"><%= p.excerpt %></p><% } %>
+    <a href="<%= p.url %>" class="bl-more">Read the story <span aria-hidden="true">→</span></a>
+  </div>
+</article>

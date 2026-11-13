@@ -1,0 +1,32 @@
+<%- include('_top', { pageTitle: 'Link redirection' }) %>
+<%# (5 Nov 2026, client) Link redirection: send visitors and Google from an old address to a new one. Saved in MySQL. %>
+<div class="ad-top">
+  <div><h1>Link redirection</h1><p>When a page moves or is deleted, send its old address to a new page, so visitors and Google never land on a missing page.</p></div>
+  <button type="button" class="btn btn-p" data-rd-new>+ Add redirect</button>
+</div>
+
+<section class="card rd-add" data-rd-form>
+  <div class="rd-grid">
+    <div class="f"><label class="lb" for="rd-from">Old address</label><input class="in" id="rd-from" data-f="from" placeholder="/old-page" autocomplete="off"><p class="fhelp">The address that should not open any more, e.g. <code>/blog/old-post</code></p></div>
+    <span class="rd-arrow" aria-hidden="true">→</span>
+    <div class="f"><label class="lb" for="rd-to">New address</label><input class="in" id="rd-to" data-f="to" list="rd-pages" placeholder="Type to find a page, or paste https://…" autocomplete="off"><p class="fhelp">A page of this website or a full address of another website.</p></div>
+    <div class="f"><label class="lb" for="rd-code">Type</label><select class="in" id="rd-code" data-f="code"><option value="301">301 · Moved for good</option><option value="302">302 · For a while</option></select><p class="fhelp">Use 301 unless the old page comes back.</p></div>
+  </div>
+  <div class="f"><label class="lb" for="rd-note">Note <span class="muted">(optional)</span></label><input class="in" id="rd-note" data-f="note" placeholder="e.g. Old tour removed in November 2026" autocomplete="off"></div>
+  <div class="rd-act"><button type="button" class="btn btn-p" data-rd-save>Add redirect</button><button type="button" class="btn" data-rd-cancel hidden>Cancel</button><span class="rd-msg" data-rd-msg></span></div>
+  <datalist id="rd-pages"></datalist>
+</section>
+
+<div class="lst-bar rd-bar">
+  <span class="muted" data-rd-count></span>
+  <input class="in rd-search" type="search" data-rd-q placeholder="Search old or new address" autocomplete="off">
+</div>
+<div class="lst-wrap">
+<table class="tbl rd-tbl">
+  <thead><tr><th class="n">#</th><th>Old address</th><th></th><th>New address</th><th>Type</th><th>Added</th><th class="acts">Actions</th></tr></thead>
+  <tbody data-rd-rows></tbody>
+</table>
+</div>
+<div class="card rd-empty" data-rd-empty hidden><p class="hint" style="margin:0">No redirects yet. Add one above: an old address and the page it should open.</p></div>
+<script>window.REDIRECTS = <%- JSON.stringify(items).replace(/</g, '\\u003c') %>;</script>
+<%- include('_bottom', { scripts: ['/admin-assets/redirects.js?v=1'] }) %>
