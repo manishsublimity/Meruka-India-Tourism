@@ -5,3 +5,6 @@ data/enquiries.json
 data/users.json
 data/activity.json
 data/owner-profile.json
+# (13 Nov 2026) panel content lives in MySQL now: its old files and uploaded photos stay out of git
+data/cms/
+public/uploads/
