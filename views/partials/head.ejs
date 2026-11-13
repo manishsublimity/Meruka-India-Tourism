@@ -127,7 +127,7 @@ window.addEventListener('load', function () { requestAnimationFrame(function () 
 <%# (4 Nov 2026) the site's stylesheet with its change time, so phones never keep an old copy %>
 <link rel="stylesheet" href="<%= typeof cssHref !== 'undefined' ? cssHref : siteCss() %>">
 <% if (typeof extraCss !== 'undefined') { [].concat(extraCss).forEach(h => { %><link rel="stylesheet" href="<%= h %>"><% }) } %>
-<script src="<%= typeof siteJs !== 'undefined' ? siteJs : '/js/site.js?v=3' %>" defer></script>
+<script src="<%= typeof siteJs !== 'undefined' ? siteJs : '/js/site.js?v=16' %>" defer></script>
 <% if (typeof frameClass !== 'undefined' && frameClass.split(' ').includes('in4')) { %><script src="/js/inner-4.js" defer></script><% } %>
 </head>
 <body>

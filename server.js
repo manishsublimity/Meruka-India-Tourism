@@ -169,6 +169,9 @@ function buildSite() {
   const logoShow = v => (['both', 'logo', 'name'].includes(v) ? v : 'both');
   app.locals.menu = { logo: home.siteLogo || '', logoShow: logoShow(home.logoHeader), siteName: home.siteName || 'MERUKA INDIA TOURISM', pkgCols: home.pkgMenuCols, destCols: home.destMenuCols, to: home.to, mostBookedHref: home.mostBookedHref, langs: require('./data/languages'), header: home.headerMenu };
   // ...and so does the one footer (partials/site-footer), with the head office details from the contact page
+  // the header's currency picker (13 Nov 2026): the currencies chosen in the panel (Site settings → Currency), read at
+  // every page, so a change there shows at once; an empty list hides the picker
+  Object.defineProperty(app.locals, 'currencies', { get: () => require('./lib/rates').offered(), enumerable: true, configurable: true });
   app.locals.footer = { logo: home.siteLogo || '', logoShow: logoShow(home.logoFooter), siteName: home.footerName || 'MERUKA INDIA TOURISM SERVICE', cols: home.footerCols, seo: home.popularSearches || home.seoLinks, about: home.footerAbout, hq: contact.offices[0], testimonialsHref: home.testimonials.href,
     // WhatsApp chat link: the head office's first number
     social: home.footerSocial || require('./data/home2').social,
@@ -434,6 +437,8 @@ function buildSite() {
   // Crawlers and AI assistants
   router.get('/robots.txt', (req, res) => res.type('text/plain').send(seo.robots(res.locals.base, seoSettings)));
   router.get('/sitemap.xml', (req, res) => res.type('application/xml').send(seo.sitemap(res.locals.base)));
+  // (13 Nov 2026, client) today's exchange rates for the currency picker in the header (lib/rates.js; USD = 1)
+  router.get('/api/rates', async (req, res) => { try { res.set('Cache-Control', 'public, max-age=3600').json(await require('./lib/rates').rates()); } catch (e) { res.status(503).json({ base: 'USD', rates: { USD: 1 } }); } });
   router.get('/llms.txt', (req, res) => res.type('text/plain').send(seo.llms(res.locals.base)));
 
   return router;

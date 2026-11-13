@@ -63,6 +63,19 @@
     </nav>
 
     <div class="mh-actions">
+      <%# (13 Nov 2026, client) the prices in another currency: a small button with the code, and the same list as the
+          languages (a drop-down on wide screens, a panel from the side on smaller ones). js/site.js does the rest. %>
+      <% if (typeof currencies !== 'undefined' && currencies && currencies.length > 1) { %>
+      <div class="mh-cur notranslate" translate="no">
+        <button type="button" class="mh-lang-btn mh-cur-btn" data-mh-cur-btn aria-haspopup="true" aria-expanded="false" title="Show the prices in another currency"><span data-mh-cur-code>USD</span></button>
+        <div class="mh-lang-menu mh-cur-menu is-hidden" data-mh-cur-menu>
+          <div class="mh-lang-top"><span>Show prices in</span><button type="button" class="mh-drawer-x" data-mh-cur-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+          <% currencies.forEach(([c, n]) => { %><button type="button" data-mh-cur-pick="<%= c %>"><b><%= c %></b><small><%= n %></small></button><% }) %>
+          <p class="mh-cur-hint">Our prices are in US dollars; others are at today’s rate.</p>
+        </div>
+        <select data-mh-cur hidden aria-hidden="true" tabindex="-1"><% currencies.forEach(([c]) => { %><option value="<%= c %>"><%= c %></option><% }) %></select>
+      </div>
+      <% } %>
       <div class="mh-lang">
           <button type="button" class="mh-lang-btn" data-mh-lang aria-haspopup="true" aria-expanded="false" aria-label="Language">
             <span class="mh-flag" role="img" aria-label="India"></span><span class="mh-lang-cur" data-mh-lang-cur translate="no"><%= menu.langs[0].name %></span>
