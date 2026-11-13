@@ -1,0 +1,66 @@
+<%- include('_top', { pageTitle: 'Currency' }) %>
+<%# (13 Nov 2026, client) The price picker in the website's header: on or off, the currencies it offers, and today's rates.
+    The website's prices stay in US dollars; a visitor sees them in another currency at today's rate, for guidance. %>
+<div class="ad-top ad-head">
+  <div><h1>Currency</h1><p class="lead">The “USD” button in the website’s header: visitors can see the prices in their own currency at today’s rate. Your prices stay in US dollars.</p></div>
+  <button type="button" class="btn btn-p" data-cy-save>Save</button>
+</div>
+
+<section class="card">
+  <label class="switch"><input type="checkbox" data-cy-on <%= cur.on ? 'checked' : '' %>> Show the currency picker on the website</label>
+  <p class="fhelp" style="margin-top:8px">Turned off, the website shows only the US dollar prices, as before.</p>
+</section>
+
+<section class="card">
+  <div class="cy-head"><h2 style="margin:0">Currencies offered</h2>
+    <span class="cy-quick"><button type="button" class="btn" data-cy-all>Select all</button> <button type="button" class="btn" data-cy-none>Only US dollars</button></span></div>
+  <p class="fhelp">US dollars are always offered (your prices). Tick the others visitors may pick.</p>
+  <div class="cy-grid">
+    <% list.forEach(([c, n]) => { %>
+    <label class="cy-item"><input type="checkbox" value="<%= c %>" data-cy-code <%= cur.codes.includes(c) ? 'checked' : '' %> <%= c === 'USD' ? 'disabled' : '' %>>
+      <b><%= c %></b><span><%= n %></span><em data-cy-rate="<%= c %>"></em></label>
+    <% }) %>
+  </div>
+</section>
+
+<section class="card">
+  <div class="cy-head"><h2 style="margin:0">Today’s rates</h2><button type="button" class="btn" data-cy-update>Update the rates now</button></div>
+  <p class="fhelp" data-cy-when>Loading…</p>
+  <p class="fhelp">The rates come by themselves from ExchangeRate-API (free, once a day; the website checks twice a day). One US dollar in each currency is shown beside its name above.</p>
+</section>
+
+<style>
+.cy-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.cy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-top:12px}
+.cy-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line, #E3E9F2);border-radius:8px;cursor:pointer}
+.cy-item b{width:38px}
+.cy-item span{flex:1;min-width:0}
+.cy-item em{font-style:normal;font-size:12px;opacity:.7;white-space:nowrap}
+.cy-item input:disabled{opacity:.6}
+</style>
+<%- include('_bottom') %>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); }, $$ = function (s) { return [].slice.call(document.querySelectorAll(s)); };
+  var nf = new Intl.NumberFormat('en', { maximumFractionDigits: 4 });
+  var showRates = function (r) {
+    if (!r || !r.rates) return;
+    $$('[data-cy-rate]').forEach(function (e) { var v = r.rates[e.dataset.cyRate]; e.textContent = v ? '1 USD = ' + nf.format(v) : ''; });
+    $('[data-cy-when]').textContent = r.updated ? 'Last updated: ' + new Date(r.updated).toLocaleString() : 'No rates yet: the website will fetch them shortly.';
+  };
+  A.api('GET', '/admin/api/currency').then(function (j) { showRates(j.rates); }).catch(function (e) { $('[data-cy-when]').textContent = e.message; });
+  $('[data-cy-all]').addEventListener('click', function () { $$('[data-cy-code]').forEach(function (c) { c.checked = true; }); });
+  $('[data-cy-none]').addEventListener('click', function () { $$('[data-cy-code]').forEach(function (c) { c.checked = c.value === 'USD'; }); });
+  $('[data-cy-save]').addEventListener('click', async function () {
+    var codes = $$('[data-cy-code]').filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
+    try { await A.api('POST', '/admin/api/currency', { on: $('[data-cy-on]').checked, codes: codes }); A.toast('Saved. The website shows it now.'); }
+    catch (e) { A.toast(e.message, true); }
+  });
+  $('[data-cy-update]').addEventListener('click', async function (ev) {
+    var b = ev.currentTarget; b.disabled = true;
+    try { var j = await A.api('POST', '/admin/api/currency/update'); showRates(j.rates); A.toast('Rates updated.'); }
+    catch (e) { A.toast(e.message, true); }
+    b.disabled = false;
+  });
+})();
+</script>
